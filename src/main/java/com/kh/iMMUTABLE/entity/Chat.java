@@ -8,5 +8,5 @@ import javax.persistence.Entity;
 
 @Entity
 @Getter @Setter @ToString
-public class Order {
+public class Chat {
 }

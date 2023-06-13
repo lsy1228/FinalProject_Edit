@@ -1,9 +1,9 @@
 package com.kh.iMMUTABLE.repository;
 
-import com.kh.iMMUTABLE.entity.Item;
+import com.kh.iMMUTABLE.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }

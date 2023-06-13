@@ -1,4 +1,4 @@
 package com.kh.iMMUTABLE.dto;
 
-public class ItemDTO {
+public class UserDTO {
 }

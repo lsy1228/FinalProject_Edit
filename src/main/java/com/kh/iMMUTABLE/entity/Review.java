@@ -5,8 +5,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "review")
 @Getter @Setter @ToString
-public class Order {
+public class Review {
+
 }

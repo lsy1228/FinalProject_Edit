@@ -1,5 +1,5 @@
 package com.kh.iMMUTABLE.constant;
 
-public enum ItemSellStatus {
+public enum ProductSellStatus {
     SELL, SOLD_OUT
 }
