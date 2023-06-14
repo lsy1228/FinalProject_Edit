@@ -3,6 +3,8 @@ package com.kh.iMMUTABLE.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,9 +14,10 @@ import java.time.LocalDateTime;
 @Getter @Setter @ToString
 public class User {
     @Id // 해당 필드가 primary key임을 지정
-    @Column(name = "user_num")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_num;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private int user_id;
     // 회원번호 생성 조건
     private String user_email; // 회원이메일
     private String user_pwd; // 비밀번호
