@@ -31,5 +31,6 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
     private List<OrderItem> orderItemList = new ArrayList<>();
 }
