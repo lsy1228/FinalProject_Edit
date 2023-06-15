@@ -17,6 +17,8 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int size_id; // 사이즈 아이디
+    @Column(nullable = false)
     private String size_name; // 사이즈명
+    @Column(nullable = false)
     private int size_measures; // 사이즈값
 }

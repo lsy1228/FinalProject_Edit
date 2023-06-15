@@ -15,6 +15,7 @@ public class Reply {
     @Column(name = "reply_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int replyId;
+    @Column(nullable = false)
     private String replyComment;
     private LocalDateTime replyDate;
 

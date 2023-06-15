@@ -19,10 +19,16 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int userId;
     // 회원번호 생성 조건
+    @Column(nullable = false, unique = true)
     private String userEmail; // 회원이메일
+
+    @Column(nullable = false)
     private String userPwd; // 비밀번호
+    @Column(nullable = false)
     private String userName; // 이름
+    @Column(nullable = false)
     private String userAddr; // 주소
+    @Column(nullable = false)
     private String userPhone; // 폰 번호
     private LocalDateTime userDate; // 가입일
     private String userImg; // 회원 이미지

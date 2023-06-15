@@ -22,7 +22,7 @@ public class Product {
     private int productId;
 
     @Column(nullable = false)
-    private String productName;     // 상품코드
+    private String productName;     // 상품명
 
     @Column(nullable = false)
     private int productPrice;       // 상품 가격
