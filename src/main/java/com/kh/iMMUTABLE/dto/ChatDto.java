@@ -17,7 +17,7 @@ public class ChatDto {
     private String chatMessage;
     //채팅 시간
     private Date date;
-
+    //채팅 읽음 표시
     private String chatStatus;
 
 
