@@ -55,8 +55,4 @@ public class Product {
     @JoinColumn(name = "size_id")
     private Size size;             // 사이즈
 
-
-
-
-
 }

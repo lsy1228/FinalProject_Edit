@@ -14,4 +14,5 @@ public class ProductDTO {
     private String productDesc;     // 상품설명
     private String productImg;      // 상품이미지
     private String productDetailImg; // 상품상세이미지
+
 }
