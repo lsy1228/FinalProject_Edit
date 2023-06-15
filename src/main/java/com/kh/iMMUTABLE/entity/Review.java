@@ -20,11 +20,11 @@ public class Review {
     private int review_rate;
     private LocalDateTime review_date;
 
-    @ManyToOne // 많은 리뷰가 하나의 상품에 달리기 때문
+    @ManyToOne(fetch = FetchType.LAZY) // 많은 리뷰가 하나의 상품에 달리기 때문
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

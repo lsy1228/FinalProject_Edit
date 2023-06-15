@@ -4,6 +4,7 @@ import com.kh.iMMUTABLE.constant.ProductSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -33,7 +34,7 @@ public class Product {
     @Column(nullable = false)
     private int projectStock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -42,7 +43,7 @@ public class Product {
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
     private Size size;
 }
