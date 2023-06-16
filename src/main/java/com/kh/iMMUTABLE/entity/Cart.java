@@ -19,6 +19,10 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int cartId;
+    private int product_id;
+    private int user_num;
+
+
 
     @OneToOne
     @JoinColumn(name = "user_id")
