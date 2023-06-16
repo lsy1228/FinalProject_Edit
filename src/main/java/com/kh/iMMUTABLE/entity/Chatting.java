@@ -22,6 +22,7 @@ public class Chatting {
     @Id
     @Column(name = "chatting_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private int chattingId;
 
     //채팅창id 외래키 가져오기
@@ -33,11 +34,6 @@ public class Chatting {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-    //관리자 아이디
-    @ManyToOne
-    @JoinColumn(name = "admin_id_num")
-    private Admin admin;
 
     //채팅 메시지
     @Lob //문자열보다 긴 문자열을 사용
