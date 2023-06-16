@@ -1,5 +1,7 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.kh.iMMUTABLE.constant.Authority;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,4 +34,18 @@ public class User {
     private String userPhone; // 폰 번호
     private LocalDateTime userDate; // 가입일
     private String userImg; // 회원 이미지
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
+    public User(int user, String email, String password, String name, Authority authority) {
+        this.userId = user;
+        this.userEmail = email;
+        this.userPwd = password;
+        this.userName = name;
+        this.authority = authority;
+
+    }
+
+
 }
