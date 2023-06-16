@@ -23,4 +23,5 @@ public class Qna {
     private String qnaContent;
     private String qnaPwd;
     private LocalDateTime qnaDate;
+
 }
