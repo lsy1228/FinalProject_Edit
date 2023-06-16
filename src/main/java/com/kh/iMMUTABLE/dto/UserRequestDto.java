@@ -14,14 +14,12 @@ public class UserRequestDto {
     private String userEmail;
     private String password;
 
-//    public User toUser(PasswordEncoder passwordEncoder) {
-//        return User.builder()
-//                .email(userEmail)
-//                .password(passwordEncoder.encode(password))
-//                .authority(Authority.ROLE_USER)
-//                .build();
-//    }
-//    public UsernamePasswordAuthenticationToken toAuthentication() {
-//        return new UsernamePasswordAuthenticationToken(userEmail, password);
-//    }
+    public User toUser(PasswordEncoder passwordEncoder) {
+        return User.builder()
+                .email(userEmail)
+                .password(passwordEncoder.encode(password))
+                .authority(Authority.ROLE_USER)
+                .build();
+    }
+
 }
