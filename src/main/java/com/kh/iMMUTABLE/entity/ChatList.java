@@ -7,6 +7,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "chatlist")
@@ -20,11 +22,11 @@ public class ChatList {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int chatId;
 
-    @Column(nullable = false)
-    private int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-
-
-
-
+    @OneToMany(mappedBy = "chatList", cascade = CascadeType.ALL, orphanRemoval = true)
+    // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
+    private List<Chatting> chattingList = new ArrayList<>();
 }

@@ -40,11 +40,11 @@ public class Product {
 
     @Lob
     @Column(nullable = false)
-    private String productMainImg;      // 상품 이미지
+    private String productMainimg;      // 상품 이미지
 
     @Lob
     @Column(nullable = false)
-    private String productDetailImg;    // 상품 상세 이미지
+    private String productDetailImg;    // 상품 상세
 
 
     @Enumerated(EnumType.STRING)
