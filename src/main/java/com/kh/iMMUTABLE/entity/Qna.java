@@ -33,7 +33,7 @@ public class Qna {
     private String qnaPwd;
     private LocalDateTime qnaDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_id")
     private Reply reply;
 
