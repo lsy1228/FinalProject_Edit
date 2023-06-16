@@ -34,17 +34,25 @@ public class Product {
     @Column(nullable = false)
     private int projectStock;       // 상품 재고
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;      // 상품 카테고리
+
     @Lob
     @Column(nullable = false)
     private String productImg;      // 상품 이미지
 
     @Lob
     @Column(nullable = false)
-    private String productDetailImg;    // 상품 상세 이미지
+    private String productDetailImg1;    // 상품 상세 이미지1
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;      // 상품 카테고리
+    @Lob
+    @Column(nullable = false)
+    private String productDetailImg2;    // 상품 상세 이미지2
+
+    @Lob
+    @Column(nullable = false)
+    private String productDetailImg3;    // 상품 상세 이미지3
 
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태

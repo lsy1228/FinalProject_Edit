@@ -12,6 +12,4 @@ public class ProductDTO {
     private String productName;     // 상품이름
     private int productPrice;       // 상품가격
     private String productDesc;     // 상품설명
-    private String productImg;      // 상품이미지
-    private String productDetailImg; // 상품상세이미지
 }
