@@ -22,19 +22,23 @@ public class Chatting {
     @Id
     @Column(name = "chatting_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int chattringId;
+    private int chattingId;
 
-    //채팅창id 외래키
-    @Column(nullable = false)
-    private int chatId;
+    //채팅창id 외래키 가져오기
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_id")
+    private ChatList chatList;
 
     //고객아이디
-    @Column(nullable = false)
-    private int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //관리자 아이디
-    @Column(nullable = false)
-    private int adminId;
+    @ManyToOne
+    @JoinColumn(name = "admin_id_num")
+    private Admin admin;
+
     //채팅 메시지
     @Lob //문자열보다 긴 문자열을 사용
     @Column(nullable = false)
@@ -47,7 +51,5 @@ public class Chatting {
     //읽음 여부
     @Enumerated(EnumType.STRING)
     private ChatStatus chatStatus;
-
-
 
 }

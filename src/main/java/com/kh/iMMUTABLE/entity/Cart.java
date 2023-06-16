@@ -3,8 +3,6 @@ package com.kh.iMMUTABLE.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,8 +15,9 @@ public class Cart {
     @Id
     @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private int cartId;
+    private int cart_id;
+    private int product_id;
+    private int user_num;
 
     @OneToOne
     @JoinColumn(name = "user_id")
