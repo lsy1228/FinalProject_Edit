@@ -10,6 +10,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -40,12 +42,11 @@ public class Product {
 
     @Lob
     @Column(nullable = false)
-    private String productMainimg;      // 상품 이미지
+    private String productMainImg;      // 상품 이미지
 
     @Lob
     @Column(nullable = false)
     private String productDetailImg;    // 상품 상세
-
 
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태
@@ -55,4 +56,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
     private Size size;             // 사이즈
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
+    private List<Qna> qnaList = new ArrayList<>();
 }

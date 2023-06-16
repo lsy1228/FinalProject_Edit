@@ -20,9 +20,9 @@ public class Qna {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int qnaId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private int userId;
+    private User user;
 
     @Column(nullable = false)
     private String qnaTitle;
@@ -36,4 +36,8 @@ public class Qna {
     @OneToOne
     @JoinColumn(name = "reply_id")
     private Reply reply;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

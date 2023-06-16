@@ -21,5 +21,4 @@ public class ProductDTO {
     private LocalDateTime UpdateTime;   // 상품수정시간
     private String categoryName;        // 상품카테고리
     private int size_id;                // 사이즈
-
 }
