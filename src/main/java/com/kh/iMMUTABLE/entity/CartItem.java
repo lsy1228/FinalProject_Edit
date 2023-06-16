@@ -15,7 +15,6 @@ public class CartItem {
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private int cartItemId;
 
     @ManyToOne

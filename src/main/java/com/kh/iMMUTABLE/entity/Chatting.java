@@ -22,6 +22,7 @@ public class Chatting {
     @Id
     @Column(name = "chatting_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private int chattingId;
 
     //채팅창id 외래키 가져오기
