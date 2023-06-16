@@ -14,10 +14,10 @@ public class UserResponseDto {
     private String email;
     private String name;
 
-    public static UserResponseDto of(User user) {
-        return UserResponseDto.builder()
-                .email(user.getUserEmail())
-                .name(user.getUserName())
-                .build();
-    }
+//    public static UserResponseDto of(User user) {
+//        return UserResponseDto.builder()
+//                .email(user.getUserEmail())
+//                .name(user.getUserName())
+//                .build();
+//    }
 }
