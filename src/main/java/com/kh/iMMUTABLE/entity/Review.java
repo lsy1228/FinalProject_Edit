@@ -15,8 +15,11 @@ public class Review {
     @Column(name = "review_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int review_id;
+    @Column(nullable = false)
     private String review_title;
+    @Column(nullable = false)
     private String review_content;
+    @Column(nullable = false)
     private int review_rate;
     private LocalDateTime review_date;
 
