@@ -15,14 +15,11 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
-    @Autowired
     private final UserRepository userRepository;
 
-    public List<User> getUserList(String userid, String pwd){
-        List<User> User = userRepository.findByUserEmailAndUserPwd(userid,pwd);
-        return User;
-
-
+    public boolean getUserList(String useremail, String userpwd){
+        List<User> User = userRepository.findByUserEmailAndUserPwd(useremail,userpwd);
+        if(User != null) return true;
+        else return false;
     }
-
 }

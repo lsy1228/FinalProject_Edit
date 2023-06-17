@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +25,13 @@ public class AuthController {
 
     UserService userService;
     @PostMapping("/login")
-    public ResponseEntity<List<User>>  userList(@RequestBody Map<String, String> loginData){
-        String userid = loginData.get("email");
+    public ResponseEntity<Boolean>  userList(@RequestBody Map<String, String> loginData) {
+        String userEmail = loginData.get("email");
         String userPwd = loginData.get("pwd");
-        System.out.println(userid);
-        System.out.println(userPwd);
-        List<User> list = userService.getUserList(userid,userPwd);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        System.out.println("user Email :  " + userEmail);
+        System.out.println("user Password :  " + userPwd);
+        boolean result = userService.getUserList(userEmail,userPwd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
