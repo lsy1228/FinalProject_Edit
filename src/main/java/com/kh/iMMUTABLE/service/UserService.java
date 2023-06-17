@@ -18,8 +18,13 @@ public class UserService {
     private final UserRepository userRepository;
 
     public boolean getUserList(String useremail, String userpwd){
-        List<User> User = userRepository.findByUserEmailAndUserPwd(useremail,userpwd);
-        if(User != null) return true;
-        else return false;
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(useremail,userpwd);
+        System.out.println("service : " + useremail);
+        System.out.println("service : " + userpwd);
+        for(User u : userList) {
+            System.out.println("service " + userList.toString());
+        }
+        if(userList != null) return false;
+        else return true;
     }
 }

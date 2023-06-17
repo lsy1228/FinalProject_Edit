@@ -1,10 +1,7 @@
 package com.kh.iMMUTABLE.entity;
 
 import com.kh.iMMUTABLE.constant.Authority;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity // JPA에 Entity 클래스임을 알려줌, DB테이블로 만들어져야 할 클래스
 @Table(name = "users")
 @Getter @Setter @ToString
+@NoArgsConstructor
 public class User {
     @Id // 해당 필드가 primary key임을 지정
     @Column(name = "user_id")
