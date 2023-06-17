@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity // JPA에 Entity 클래스임을 알려줌, DB테이블로 만들어져야 할 클래스
 @Table(name = "users")
 @Getter @Setter @ToString
+//기본 생성자 질문드리기
 @NoArgsConstructor
 public class User {
     @Id // 해당 필드가 primary key임을 지정
