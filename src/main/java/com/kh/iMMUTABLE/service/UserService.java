@@ -24,7 +24,7 @@ public class UserService {
         for(User u : userList) {
             System.out.println("service " + userList.toString());
         }
-        if(userList != null) return false;
-        else return true;
+        if(userList != null) return true;
+        else return false;
     }
 }
