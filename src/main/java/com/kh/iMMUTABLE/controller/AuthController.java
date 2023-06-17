@@ -23,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
-    UserService userService;
+    private final UserService userService;
     @PostMapping("/login")
     public ResponseEntity<Boolean>  userList(@RequestBody Map<String, String> loginData) {
         String userEmail = loginData.get("email");
