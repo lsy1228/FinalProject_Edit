@@ -3,6 +3,7 @@ package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.UserDTO;
 import com.kh.iMMUTABLE.dto.UserRequestDto;
+import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,18 +17,19 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
     UserService userService;
     @PostMapping("/login")
-    public ResponseEntity<List<UserDTO>>  userList(@RequestBody Map<String, String> loginData){
+    public ResponseEntity<List<User>>  userList(@RequestBody Map<String, String> loginData){
         String userid = loginData.get("email");
         String userPwd = loginData.get("pwd");
         System.out.println(userid);
         System.out.println(userPwd);
-        List<UserDTO> list = userService.getUserList();
+        List<User> list = userService.getUserList(userid,userPwd);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
