@@ -22,6 +22,12 @@ public class UserService {
         System.out.println("service : " + useremail);
         System.out.println("service : " + userpwd);
         System.out.println(userList);
+        //역할 여부 추출
+        for(User user : userList){
+            String userAuth = String.valueOf(user.getAuthority());
+            System.out.println(userAuth);
+        }
+
         if(!userList.isEmpty()) return true;
         else return false;
     }
