@@ -21,10 +21,8 @@ public class UserService {
         List<User> userList = userRepository.findByUserEmailAndUserPwd(useremail,userpwd);
         System.out.println("service : " + useremail);
         System.out.println("service : " + userpwd);
-        for(User u : userList) {
-            System.out.println("service " + userList.toString());
-        }
-        if(userList != null) return true;
+        System.out.println(userList);
+        if(!userList.isEmpty()) return true;
         else return false;
     }
 }
