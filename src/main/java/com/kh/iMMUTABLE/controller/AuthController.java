@@ -36,11 +36,14 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {
-        String userEmail = loginData.get("email");
-        String userPwd = loginData.get("pwd");
+        String userName = loginData.get("userName");
+        String userEmail = loginData.get("userEmail");
+        String userPwd = loginData.get("userPwd");
+        String userAddr = loginData.get("userAddr");
+        String userPhone = loginData.get("userPhone");
         System.out.println("user Email :  " + userEmail);
         System.out.println("user Password :  " + userPwd);
-        boolean result = userService.getUserList(userEmail,userPwd);
+        boolean result = userService.signUpUser(userName,userEmail,userPwd,userAddr,userPhone);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

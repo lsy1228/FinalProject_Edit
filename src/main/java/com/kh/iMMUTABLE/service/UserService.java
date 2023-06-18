@@ -4,10 +4,12 @@ import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,8 +29,19 @@ public class UserService {
             String userAuth = String.valueOf(user.getAuthority());
             System.out.println(userAuth);
         }
-
         if(!userList.isEmpty()) return true;
         else return false;
+    }
+
+    public boolean signUpUser(String userName, String userEmail, String userPwd, String userAddr,String userPhone){
+        User user = new User();
+        user.setUserName(userName);
+        user.setUserEmail(userEmail);
+        user.setUserPwd(userPwd);
+        user.setUserAddr(userAddr);
+        user.setUserPhone(userPhone);
+        user.setUserDate(LocalDateTime.now());
+        User signUpUser = userRepository.save(user);
+        return true;
     }
 }
