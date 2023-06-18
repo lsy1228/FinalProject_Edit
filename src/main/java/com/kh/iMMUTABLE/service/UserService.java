@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class UserService {
         user.setUserAddr(userAddr);
         user.setUserPhone(userPhone);
         user.setUserDate(LocalDateTime.now());
+        user.setAuthority(Authority.valueOf("ROLE_USER"));
         User signUpUser = userRepository.save(user);
         return true;
     }
