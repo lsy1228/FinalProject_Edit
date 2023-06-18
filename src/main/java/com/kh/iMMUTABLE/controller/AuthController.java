@@ -34,5 +34,14 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping("/signup")
+    public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {
+        String userEmail = loginData.get("email");
+        String userPwd = loginData.get("pwd");
+        System.out.println("user Email :  " + userEmail);
+        System.out.println("user Password :  " + userPwd);
+        boolean result = userService.getUserList(userEmail,userPwd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 }
