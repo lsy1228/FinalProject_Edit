@@ -32,9 +32,8 @@ public class ProductService {
             ProductDto productDTO = new ProductDto();
             productDTO.setProductName(product.getProductName());
             productDTO.setProductPrice(product.getProductPrice());
-            productDTO.setProductDesc(product.getProductDesc());
             productDTO.setProductMainImg(product.getProductMainImg());
-            productDTO.setProductDetailImg(product.getProductDetail());
+            productDTO.setProductDetail(product.getProductDetail());
             productDTOS.add(productDTO);
         }
         return  productDTOS;
