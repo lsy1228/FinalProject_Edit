@@ -1,9 +1,12 @@
 package com.kh.iMMUTABLE.dto;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,5 +21,8 @@ public class UserDto {
     private String userPhone;
     private LocalDateTime userDate;
     private String userImg;
+
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
 }
