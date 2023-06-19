@@ -1,6 +1,5 @@
 package com.kh.iMMUTABLE.controller;
 
-import com.kh.iMMUTABLE.service.ProductService;
 import com.kh.iMMUTABLE.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
