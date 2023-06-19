@@ -53,9 +53,7 @@ public class Product {
     private LocalDateTime regTime;          // 등록시간
     private LocalDateTime updateTime;       // 수정시간
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "size_id")
-    private Size size;             // 사이즈
+
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> qnaList = new ArrayList<>();

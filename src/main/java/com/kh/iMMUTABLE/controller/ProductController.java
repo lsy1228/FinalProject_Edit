@@ -19,12 +19,12 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     ProductService productService;
-    public ProductController (ProductService itemService){
-        this.productService = itemService;
+    public ProductController (ProductService productService){
+        this.productService = productService;
     }
     // 제품 조회
     @GetMapping("/item")
-    public ResponseEntity<List<ProductDto>> itemList(@RequestParam String name){
+    public ResponseEntity<List<ProductDto>> itemList(@RequestParam String productname){
         List<ProductDto> list = productService.getProductList();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
