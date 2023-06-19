@@ -20,10 +20,10 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public boolean getUserList(String useremail, String userpwd){
-        List<User> userList = userRepository.findByUserEmailAndUserPwd(useremail,userpwd);
-        System.out.println("service : " + useremail);
-        System.out.println("service : " + userpwd);
+    public boolean getUserList(String userEmail, String userPassword){
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        System.out.println("service : " + userEmail);
+        System.out.println("service : " + userPassword);
         System.out.println(userList);
         //역할 여부 추출
         for(User user : userList){
@@ -46,4 +46,15 @@ public class UserService {
         User signUpUser = userRepository.save(user);
         return true;
     }
+
+//    public boolean userEmailCheck(String userEmail, String userName) {
+//
+//        User user = userRepository.findByUserEmailAndUserPwd(userEmail);
+//        if(user!=null && user.getUserName().equals(userName)) {
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+//    }
 }
