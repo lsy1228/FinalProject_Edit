@@ -1,6 +1,9 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.dto.MailDto;
+import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
@@ -8,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 @Service // 스프링에서 비즈니스 로직을 처리하는 클래스임을 표시
 @RequiredArgsConstructor // 생성자를 자동으로 생성
-public class MailService {
+public class MailSendService {
     // 의존성 주입을 통해 필요한 객체를 가져옴
     private final JavaMailSender javaMailSender; // 이메일을 보내기 위해 사용되는 인터페이스, 의존성 주인을 통해 이 인터페이스를 사용
     private static final String senderEmail = "aelmusic1234@naver.com"; // 이메일을 발송할 때 사용될 발송자 이메일 주소
@@ -53,4 +56,37 @@ public class MailService {
         javaMailSender.send(message);
         return number;
     }
+
+//    // 임시 메일 발송
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    public MailDto createMailAndChangePassword(String userEmail, String userName) {
+//        String str = getTempPassword();
+//        MailDto mailDto = new MailDto();
+//        mailDto.setReceiver(userEmail);
+//        mailDto.setTitle(userName + "님의 iMMUTABLE 임시비밀번호 안내 이메일 입니다.");
+//        mailDto.setContent("\"안녕하세요. iMMUTABLE 임시비밀번호 안내 관련 이메일 입니다.\" + \"[\" + userName + \"]\" +\"님의 임시 비밀번호는 \"\n" +
+//                "        + str + \" 입니다.");
+//        updatePassword(str, userEmail);
+//        return mailDto;
+//    }
+//    public void updatePassword(String str, String userEmail) {
+//        int userId = userRepository.findByUserEmailAndUserPwd(userEmail).getId();
+//        userRepository.updateUserPassword(userId, userPassword);
+//    }
+//
+//    public String getTempPassword(){
+//        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+//                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+//
+//        String str = "";
+//
+//        int idx = 0;
+//        for (int i = 0; i < 10; i++) {
+//            idx = (int) (charSet.length * Math.random());
+//            str += charSet[idx];
+//        }
+//        return str;
+//    }
 }
