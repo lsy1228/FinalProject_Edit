@@ -21,7 +21,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int orderId;
+
+    @Column(nullable = false)
     private int totalPrice;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private LocalDateTime orderDate;

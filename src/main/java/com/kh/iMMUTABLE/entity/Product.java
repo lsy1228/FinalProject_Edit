@@ -58,6 +58,5 @@ public class Product {
     private Size size;             // 사이즈
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
     private List<Qna> qnaList = new ArrayList<>();
 }

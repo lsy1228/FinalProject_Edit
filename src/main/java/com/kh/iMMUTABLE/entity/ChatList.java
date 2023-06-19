@@ -27,6 +27,5 @@ public class ChatList {
     private User user;
 
     @OneToMany(mappedBy = "chatList", cascade = CascadeType.ALL, orphanRemoval = true)
-    // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
     private List<Chatting> chattingList = new ArrayList<>();
 }

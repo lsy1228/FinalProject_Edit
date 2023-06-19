@@ -20,6 +20,4 @@ public class ChatDto {
     //채팅 읽음 표시
     private String chatStatus;
 
-
-
 }
