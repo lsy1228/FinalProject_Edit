@@ -1,7 +1,9 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.entity.Product;
 import com.kh.iMMUTABLE.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.Map;
 
 @RestController // JSON 등 객체로 반환해준다
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
-    ProductService productService;
-    public ProductController (ProductService itemService){
-        this.productService = itemService;
-    }
+    private final ProductService productService;
+//    public ProductController (ProductService itemService){
+//        this.productService = itemService;
+//    }
     // 제품 조회
     @GetMapping("/item")
     public ResponseEntity<List<ProductDto>> itemList(@RequestParam String name){
@@ -26,6 +30,13 @@ public class ProductController {
         return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
+    // 제품 전체 조회
+    @GetMapping("/items")
+    public ResponseEntity<List<ProductDto>> itemsList() {
+        List<ProductDto> productDtos = productService.getProduct();
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<Boolean> uploadItem (@RequestBody Map<String, String> loginData){
         String productName = loginData.get("productName");

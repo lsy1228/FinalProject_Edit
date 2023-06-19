@@ -37,9 +37,20 @@ public class ProductService {
             productDTOS.add(productDTO);
         }
         return  productDTOS;
-
     }
-
+    // 전체 상품
+    public List<ProductDto> getProduct() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product : products) {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductId(product.getProductId());
+            productDto.setProductName(product.getProductName());
+            productDto.setProductPrice(product.getProductPrice());
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
 
     public boolean itemUpLoad(String productName, String productPrice, String productColor, String productSize,String productCategory,String productMainImg,String productDetail) {
         Product product = new Product();
