@@ -29,33 +29,34 @@ public class Product {
     @Column(nullable = false)
     private int productPrice;       // 상품 가격
 
-    @Lob
     @Column(nullable = false)
-    private String productDesc;     // 상품설명
+    private String productColor;      // 상품 컬러
 
     @Column(nullable = false)
-    private int projectStock;       // 상품 재고
+    private String productSize;             // 사이즈
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;      // 상품 카테고리
+    @Column(nullable = false)
+    private String productCategory;      // 상품 카테고리
 
     @Lob
     @Column(nullable = false)
     private String productMainImg;      // 상품 이미지
+    @Lob
+    @Column(nullable = false)
+    private String productDesc;     // 상품설명
 
     @Lob
     @Column(nullable = false)
-    private String productDetailImg;    // 상품 상세
+    private String productDetail;    // 상품 상세
+
+    private int projectStock;       // 상품 재고
 
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태
     private LocalDateTime regTime;          // 등록시간
     private LocalDateTime updateTime;       // 수정시간
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "size_id")
-    private Size size;             // 사이즈
+
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> qnaList = new ArrayList<>();
