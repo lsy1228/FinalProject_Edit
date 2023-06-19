@@ -39,11 +39,8 @@ public class Product {
     private String productCategory;      // 상품 카테고리
 
     @Lob
-    @Column(nullable = false)
     private String productMainImg;      // 상품 이미지
-    @Lob
-    @Column(nullable = false)
-    private String productDesc;     // 상품설명
+
 
     @Lob
     @Column(nullable = false)
