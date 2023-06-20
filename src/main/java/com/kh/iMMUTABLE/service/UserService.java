@@ -47,14 +47,4 @@ public class UserService {
         return true;
     }
 
-//    public boolean userEmailCheck(String userEmail, String userName) {
-//
-//        User user = userRepository.findByUserEmailAndUserPwd(userEmail);
-//        if(user!=null && user.getUserName().equals(userName)) {
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
 }

@@ -1,10 +1,7 @@
 package com.kh.iMMUTABLE.service;
 
-import com.kh.iMMUTABLE.dto.MailDto;
-import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+
 
 @Slf4j
 @Service // 스프링에서 비즈니스 로직을 처리하는 클래스임을 표시
@@ -63,8 +61,9 @@ public class MailSendService {
         return number;
     }
 
+
     // 임시 비밀번호
-    public MimeMessage resetPwdMessage(String to, String pwd) throws MessagingException, UnsupportedEncodingException {
+    public MimeMessage resetPwdMessage(String to, String email) throws MessagingException, UnsupportedEncodingException {
         createKey();
         MimeMessage message = javaMailSender.createMimeMessage();
         message.addRecipients(Message.RecipientType.TO, to); // 보내는 대상
@@ -72,7 +71,6 @@ public class MailSendService {
         String msgs = "";
         msgs += "<div style='margin:100px;'>";
         msgs += "<h1> 안녕하세요?</h1>";
-        msgs += "<h1> 평범한 식사도 허투루 할 수 없는 당신을 위해, 허당입니다</h1>";
         msgs += "<br>";
         msgs += "<p>임시 비밀번호를 발급해드렸습니다. 마이페이지에서 비밀번호를 새롭게 변경해주세요.<p>";
         msgs += "<br>";
@@ -80,7 +78,7 @@ public class MailSendService {
         msgs += "<h3 style='color:blue;'>임시 비밀번호 발급 </h3>";
         msgs += "<div style='font-size:130%'>";
         msgs += "임시 비밀번호 : <strong>";
-        msgs += pwd + "</strong><div><br/> "; // 메일에 인증번호 넣기
+        msgs += email + "</strong><div><br/> "; // 메일에 인증번호 넣기
         msgs += "</div>";
         message.setText(msgs, "utf-8", "html");// 내용, charset 타입, subtype
         // 보내는 사람의 이메일 주소, 보내는 사람 이름
@@ -107,5 +105,11 @@ public class MailSendService {
 
         return pwd;
     }
+    public boolean validatePwdCode(String verifyPwd) {
+        return verifyPwd == createKey();
+    }
 
+    public boolean verifyPwdCode(String email, String verifyPwdCode) {
+        return validatePwdCode(verifyPwdCode);
+    }
 }
