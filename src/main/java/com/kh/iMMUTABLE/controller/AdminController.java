@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -20,10 +21,19 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final UserService userService;
 
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(@RequestParam String id){
         List<UserDto> list = adminService.getUserListAll();
+        System.out.println(list);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @PostMapping("/deleteUser")
+    public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {
+        String userId = loginData.get("userId");
+        boolean result = userService.userDelete(userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

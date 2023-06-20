@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    //고객 로그인 체크
     public boolean getUserList(String userEmail, String userPassword){
         List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
         System.out.println("service : " + userEmail);
@@ -33,7 +33,7 @@ public class UserService {
         if(!userList.isEmpty()) return true;
         else return false;
     }
-
+    //고객 회원가입
     public boolean signUpUser(String userName, String userEmail, String userPwd, String userAddr,String userPhone){
         User user = new User();
         user.setUserName(userName);
@@ -44,6 +44,10 @@ public class UserService {
         user.setUserDate(LocalDateTime.now());
         user.setAuthority(Authority.valueOf("ROLE_USER"));
         User signUpUser = userRepository.save(user);
+        return true;
+    }
+    //고객 삭제
+    public boolean userDelete(String userId){
         return true;
     }
 
