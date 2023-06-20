@@ -25,7 +25,19 @@ public class ProductService {
     // 의존성을 통해 빈에 등록된 필드는 불변성이 있어야 하므로 final 선언을 해야 함
     private final ProductRepository productRepository;  // 상품 정보를 조회하는 데이터 액세스 객체
 
-
+    // 전체 상품
+    public List<ProductDto> getProduct() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product : products) {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductId(product.getProductId());
+            productDto.setProductName(product.getProductName());
+            productDto.setProductPrice(product.getProductPrice());
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
 
     public boolean itemUpLoad(String productName, String productPrice, String productColor, String productSize,String productCategory,String productMainImg,String productDetail) {
         Product product = new Product();

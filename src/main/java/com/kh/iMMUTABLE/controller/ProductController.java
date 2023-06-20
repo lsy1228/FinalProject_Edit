@@ -19,6 +19,12 @@ import java.util.Map;
 public class ProductController {
     private final ProductService productService;
 
+    // 제품 전체 조회
+    @GetMapping("/items")
+    public ResponseEntity<List<ProductDto>> itemsList() {
+        List<ProductDto> productDtos = productService.getProduct();
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<Boolean> uploadItem (@RequestBody Map<String, String> loginData){
