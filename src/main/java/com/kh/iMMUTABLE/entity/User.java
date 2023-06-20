@@ -18,7 +18,7 @@ public class User {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int userId;
+    private long userId;
     // 회원번호 생성 조건
     @Column(nullable = false, unique = true)
     private String userEmail; // 회원이메일

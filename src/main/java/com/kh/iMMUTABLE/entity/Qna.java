@@ -1,11 +1,11 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.kh.iMMUTABLE.constant.QnaStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +20,10 @@ public class Qna {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int qnaId;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,15 +32,13 @@ public class Qna {
     private String qnaTitle;
 
     @Column(nullable = false)
-
     private String qnaContent;
     private String qnaPwd;
     private LocalDateTime qnaDate;
+    @Enumerated(EnumType.STRING)
+    private QnaStatus qnaStatus;
 
     @OneToOne(mappedBy = "qna", fetch = FetchType.LAZY)
     private Reply reply;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
 }
