@@ -8,7 +8,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface QnaRepository extends JpaRepository<Qna, Long> {
 
-    @Modifying
-    @Query("UPDATE Question q set q.showCount = q.showCount + 1 where q.questionId = :questionId")
-    void updateQnaReply(@Param("questionId") Long questionId);
+
 }
