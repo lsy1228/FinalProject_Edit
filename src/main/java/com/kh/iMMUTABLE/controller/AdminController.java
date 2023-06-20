@@ -25,14 +25,15 @@ public class AdminController {
     private final AdminService adminService;
     private final UserService userService;
     private final QnaService qnaService;
-
+    
+    //admin page 유저리스트 가져오기
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){
         List<UserDto> list = adminService.getUserListAll();
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
+    //admin page에서 유저 삭제
     @PostMapping("/deleteUser")
     public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {
         String userId = loginData.get("userId");
@@ -40,14 +41,14 @@ public class AdminController {
         boolean result = userService.userDelete(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    //qna가져오기
     @GetMapping("/qnaLoad")
     public ResponseEntity<List<Qna>> qnaLoad(){
         List<Qna> list = qnaService.getQnaListAll();
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
+    //qna 업로드
     @PostMapping("/qnaUpload")
     public ResponseEntity<Boolean>  qnaupload(@RequestBody Map<String, String> qnaData) {
         int qnaId = Integer.parseInt(qnaData.get("qnaId"));
