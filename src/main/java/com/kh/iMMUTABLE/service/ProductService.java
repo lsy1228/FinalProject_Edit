@@ -33,6 +33,7 @@ public class ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setProductId(product.getProductId());
             productDto.setProductName(product.getProductName());
+            productDto.setProductMainImg(product.getProductMainImg());
             productDto.setProductPrice(product.getProductPrice());
             productDtos.add(productDto);
         }
@@ -51,5 +52,4 @@ public class ProductService {
         Product upLoadItem = productRepository.save(product);
         return true;
     }
-
 }
