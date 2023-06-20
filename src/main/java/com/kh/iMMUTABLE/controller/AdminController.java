@@ -24,7 +24,7 @@ public class AdminController {
     private final UserService userService;
 
     @GetMapping("/check")
-    public ResponseEntity<List<UserDto>> idCheck(@RequestParam String id){
+    public ResponseEntity<List<UserDto>> idCheck(){
         List<UserDto> list = adminService.getUserListAll();
         System.out.println(list);
         return new ResponseEntity<>(list, HttpStatus.OK);
