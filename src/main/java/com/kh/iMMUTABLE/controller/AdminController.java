@@ -48,4 +48,14 @@ public class AdminController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PostMapping("/qnaUpload")
+    public ResponseEntity<Boolean>  qnaupload(@RequestBody Map<String, String> qnaData) {
+        int qnaId = Integer.parseInt(qnaData.get("qnaId"));
+        String answerStatue= qnaData.get("answerStatue");
+        String qnareplay = qnaData.get("qnareplay");
+        System.out.println(qnaId);
+        boolean result = qnaService.upLoadReply(qnaId,answerStatue,qnareplay);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
