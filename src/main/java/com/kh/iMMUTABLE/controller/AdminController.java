@@ -1,8 +1,10 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.service.AdminService;
+import com.kh.iMMUTABLE.service.QnaService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ public class AdminController {
 
     private final AdminService adminService;
     private final UserService userService;
+    private final QnaService qnaService;
 
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){
@@ -37,4 +40,12 @@ public class AdminController {
         boolean result = userService.userDelete(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/qnaLoad")
+    public ResponseEntity<List<Qna>> qnaLoad(){
+        List<Qna> list = qnaService.getQnaListAll();
+        System.out.println("adminController :" + list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }
