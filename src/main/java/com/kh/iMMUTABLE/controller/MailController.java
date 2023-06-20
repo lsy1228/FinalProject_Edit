@@ -28,10 +28,10 @@ public class MailController {
     // 메일인증코드 확인
     @PostMapping("/verify") // 주소창에 인증코드가 뜨지 않기 위해 post 방식 사용
     public ResponseEntity<Boolean> verifyCode(@RequestBody Map<String, String> mailData) {
-        String mail = mailData.get("email"); //키 값이 입력되어 value 값을 출력 할 수 있다.
-        int code = Integer.parseInt(mailData.get("code"));
-        System.out.println("메일 : " + mail + ", 코드" + code);
-        boolean isTrue = mailService.verifyCode(mail, code);
+        String email = mailData.get("email"); //키 값이 입력되어 value 값을 출력 할 수 있다.
+        int code = Integer.parseInt(mailData.get("code")) ;
+        System.out.println("메일 : " + email + ", 코드" + code);
+        boolean isTrue = mailService.verifyCode(email, code);
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
 
