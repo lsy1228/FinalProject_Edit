@@ -22,6 +22,8 @@ public class UserDto {
     private LocalDateTime userDate;
     private String userImg;
 
+
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
