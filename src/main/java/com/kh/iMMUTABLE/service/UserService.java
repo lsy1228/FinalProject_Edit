@@ -48,7 +48,9 @@ public class UserService {
     }
     //고객 삭제
     public boolean userDelete(String userId){
-        return true;
+        List<User> userList = userRepository.deteleById(Integer.parseInt(userId));
+        if(!userList.isEmpty()) return true;
+        else return false;
     }
 
 }
