@@ -26,13 +26,14 @@ public class AdminController {
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){
         List<UserDto> list = adminService.getUserListAll();
-        System.out.println(list);
+        System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping("/deleteUser")
     public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {
         String userId = loginData.get("userId");
+        System.out.println(userId);
         boolean result = userService.userDelete(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
