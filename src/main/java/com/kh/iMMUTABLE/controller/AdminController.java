@@ -1,9 +1,11 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.service.AdminService;
+import com.kh.iMMUTABLE.service.OrderService;
 import com.kh.iMMUTABLE.service.QnaService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class AdminController {
     private final AdminService adminService;
     private final UserService userService;
     private final QnaService qnaService;
+    private final OrderService orderService;
     
     //admin page 유저리스트 가져오기
     @GetMapping("/check")
@@ -50,13 +53,20 @@ public class AdminController {
     }
     //qna 업로드
     @PostMapping("/qnaUpload")
-    public ResponseEntity<Boolean>  qnaupload(@RequestBody Map<String, String> qnaData) {
+    public ResponseEntity<Boolean> qnaupload(@RequestBody Map<String, String> qnaData) {
         int qnaId = Integer.parseInt(qnaData.get("qnaId"));
-        String answerStatue= qnaData.get("answerStatue");
-        String qnareplay = qnaData.get("qnareplay");
+        String qnaStatue= qnaData.get("qnaStatue");
+        String qnaReplay = qnaData.get("qnaReplay");
         System.out.println(qnaId);
-        boolean result = qnaService.upLoadReply(qnaId,answerStatue,qnareplay);
+        System.out.println("컨트롤러 : " + qnaReplay);
+        boolean result = qnaService.upLoadReply(qnaId,qnaStatue,qnaReplay);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    //order 전체 가져오기
+    @GetMapping("/orderLoad")
+    public ResponseEntity<List<Order>> orderLoad(){
+        List<Order> list = orderService.getOrderListAll();
+        System.out.println("adminController :" + list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

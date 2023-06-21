@@ -1,5 +1,5 @@
 package com.kh.iMMUTABLE.constant;
 
 public enum OrderStatus {
-    ORDER, CANCEL
+    ORDER,READY,SHIP,DONE,HOLD, CANCEL,REFUND
 }
