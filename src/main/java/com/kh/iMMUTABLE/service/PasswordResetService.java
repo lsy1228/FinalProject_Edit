@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PasswordResetService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 
 
 }

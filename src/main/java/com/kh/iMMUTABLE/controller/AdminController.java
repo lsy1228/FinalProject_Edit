@@ -50,12 +50,13 @@ public class AdminController {
     }
     //qna 업로드
     @PostMapping("/qnaUpload")
-    public ResponseEntity<Boolean>  qnaupload(@RequestBody Map<String, String> qnaData) {
+    public ResponseEntity<Boolean> qnaupload(@RequestBody Map<String, String> qnaData) {
         int qnaId = Integer.parseInt(qnaData.get("qnaId"));
-        String answerStatue= qnaData.get("answerStatue");
-        String qnareplay = qnaData.get("qnareplay");
+        String qnaStatue= qnaData.get("qnaStatue");
+        String qnaReplay = qnaData.get("qnaReplay");
         System.out.println(qnaId);
-        boolean result = qnaService.upLoadReply(qnaId,answerStatue,qnareplay);
+        System.out.println("컨트롤러 : " + qnaReplay);
+        boolean result = qnaService.upLoadReply(qnaId,qnaStatue,qnaReplay);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

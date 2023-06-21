@@ -21,7 +21,7 @@ public class AdminService {
 
     public List<UserDto> getUserListAll(){
         List<User> userList = userRepository.findAll();
-        List<UserDto> userDtos =new ArrayList<>();
+        List<UserDto> userDtos = new ArrayList<>();
         for(User user : userList){
             UserDto userDto = new UserDto();
             userDto.setUserId((int) user.getUserId());

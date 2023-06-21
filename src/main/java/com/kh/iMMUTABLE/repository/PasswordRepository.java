@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PasswordRepository extends JpaRepository<User, Long>  {
-    @Query(value = "update users  set userPwd = :password")
-    List<User> findByUsers(@Param("password") String password);
+//    @Query(value = "update users  set userPwd = :password")
+//    List<User> findByUsers(@Param("password") String password);
 }

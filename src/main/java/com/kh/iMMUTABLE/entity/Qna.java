@@ -38,7 +38,10 @@ public class Qna {
     @Enumerated(EnumType.STRING)
     private QnaStatus qnaStatus;
 
-    @OneToOne(mappedBy = "qna", fetch = FetchType.LAZY)
-    private Reply reply;
+
+    private String reply;
+
+//    @OneToOne(mappedBy = "qna", fetch = FetchType.LAZY)
+//    private Reply reply;
 
 }
