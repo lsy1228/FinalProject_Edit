@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Order {
     private int orderId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     private LocalDateTime orderDate;
     @Column(nullable = false)
