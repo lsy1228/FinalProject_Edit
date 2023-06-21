@@ -21,17 +21,19 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int orderId;
-
-    @Column(nullable = false)
-    private int totalPrice;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
-    private LocalDateTime orderDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+    private LocalDateTime orderDate;
+    @Column(nullable = false)
+    private int totalPrice;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    private String shipCompany;
+    private int shipCode;
+
+
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     // mappedBy = "order"에서 order는 orderItem에 있는 변수order를 의미
