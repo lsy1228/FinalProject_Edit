@@ -1,9 +1,11 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.service.AdminService;
+import com.kh.iMMUTABLE.service.OrderService;
 import com.kh.iMMUTABLE.service.QnaService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class AdminController {
     private final AdminService adminService;
     private final UserService userService;
     private final QnaService qnaService;
+    private final OrderService orderService;
     
     //admin page 유저리스트 가져오기
     @GetMapping("/check")
@@ -59,5 +62,11 @@ public class AdminController {
         boolean result = qnaService.upLoadReply(qnaId,qnaStatue,qnaReplay);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    //order 전체 가져오기
+    @GetMapping("/orderLoad")
+    public ResponseEntity<List<Order>> orderLoad(){
+        List<Order> list = orderService.getOrderListAll();
+        System.out.println("adminController :" + list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
