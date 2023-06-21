@@ -67,6 +67,7 @@ public class AdminController {
     public ResponseEntity<List<Order>> orderLoad(){
         List<Order> list = orderService.getOrderListAll();
         System.out.println("adminController :" + list);
+        System.out.println("adminController :" + list.get(0).getUserId());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
