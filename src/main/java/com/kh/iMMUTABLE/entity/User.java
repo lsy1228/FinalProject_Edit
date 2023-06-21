@@ -20,7 +20,7 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private long userId;
     // 회원번호 생성 조건
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String userEmail; // 회원이메일
 
     @Column(nullable = false)

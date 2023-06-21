@@ -28,6 +28,12 @@ public class AuthController {
         boolean result = userService.getUserList(userEmail,userPwd);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/check")
+    public ResponseEntity<Boolean> regMemCheck (@RequestParam String email) {
+        System.out.println(email);
+        boolean result = userService.userCheck(email);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<Boolean>  signupList(@RequestBody Map<String, String> loginData) {

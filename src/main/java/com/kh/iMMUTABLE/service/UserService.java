@@ -33,6 +33,15 @@ public class UserService {
         if(!userList.isEmpty()) return true;
         else return false;
     }
+    public boolean userCheck(String userEmail) {
+        List<User> userList = userRepository.findByUserEmail(userEmail);
+        System.out.println("이메일 " + userEmail);
+        if(!userList.isEmpty()) {
+            return false;
+        }
+        else return true;
+    }
+
     //고객 회원가입
     public boolean signUpUser(String userName, String userEmail, String userPwd, String userAddr,String userPhone){
         User user = new User();
