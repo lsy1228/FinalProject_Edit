@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kh.iMMUTABLE.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,10 +23,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int orderId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User userId;
     private LocalDateTime orderDate;
     @Column(nullable = false)
     private int totalPrice;
