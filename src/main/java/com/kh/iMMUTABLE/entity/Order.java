@@ -27,7 +27,7 @@ public class Order {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User userId;
+    private User user;
     private LocalDateTime orderDate;
     @Column(nullable = false)
     private int totalPrice;
