@@ -48,4 +48,15 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // 비밀번호 재설정
+    @PostMapping("/updatePwd")
+    public ResponseEntity<Boolean> updatePwd(@RequestBody Map<String, String> loginData) {
+        String userEmail = loginData.get("userEmail"); //
+        String userPwd = loginData.get("userPwd");
+        System.out.println(userEmail);
+        System.out.println(userPwd);
+        boolean result = userService.updateUserPassword(userEmail, userPwd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
