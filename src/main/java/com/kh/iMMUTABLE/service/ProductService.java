@@ -40,6 +40,7 @@ public class ProductService {
             productDto.setProductSize(product.getProductSize());
             productDto.setProductColor(product.getProductColor());
             productDto.setProdoctStock(product.getProdoctStock());
+            productDto.setProductDetail(product.getProductDetail());
             productDto.setProductSellStatus(product.getProductSellStatus());
             productDtos.add(productDto);
         }
