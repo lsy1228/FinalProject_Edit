@@ -16,7 +16,7 @@ public class MailController {
     @GetMapping("/email") // getMapping어노테이션을 사용해 /mail요청을 받음
     public ResponseEntity<String> MailSend(@RequestParam String email){
         // 파라미터로 넘어온 이메일 주소를 받음
-        System.out.println("메일 인증 호출 : " + email);
+//        System.out.println("메일 인증 호출 : " + email);
         int number = mailService.sendMail(email); // 랜덤한 숫자를 생성
         String num = "" + number; // number를 문자열로 형 변환
 
