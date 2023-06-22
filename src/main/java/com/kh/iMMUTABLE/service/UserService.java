@@ -32,10 +32,9 @@ public class UserService {
         else return false;
     }
     public boolean userCheck(String userEmail) {
-//        boolean isEmail = userRepository.existByUserEmail(userEmail);
-//        System.out.println("이메일 : " + userEmail);
-//        return isEmail;
-        return true;
+        boolean isEmail = userRepository.existsByUserEmail(userEmail);
+        System.out.println("이메일 : " + userEmail);
+        return isEmail;
     }
 
     //고객 회원가입
