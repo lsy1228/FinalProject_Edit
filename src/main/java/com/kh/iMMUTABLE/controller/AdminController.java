@@ -70,4 +70,18 @@ public class AdminController {
         System.out.println("adminController :" + list.get(0).getUser().getUserId());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    //order 수정
+    @PostMapping("/orderUpLoad")
+    public ResponseEntity<Boolean> orderUpload(@RequestBody Map<String, String> qnaData) {
+        int orderId = Integer.parseInt(qnaData.get("orderId"));
+        String orderStatue= qnaData.get("orderStatue");
+        int shipCode = Integer.parseInt(qnaData.get("orderShipCode"));
+        String shipCompany = qnaData.get("orderShipCompany");
+        System.out.println(orderId);
+        System.out.println("컨트롤러 : " + shipCode);
+        System.out.println("컨트롤러 : " + shipCode);
+        boolean result = orderService.upLoadData(orderId,orderStatue,shipCode,shipCompany);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

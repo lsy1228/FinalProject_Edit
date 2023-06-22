@@ -5,7 +5,6 @@ import com.kh.iMMUTABLE.entity.Qna;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    Qna findByOrderId(int OrderId);
-
+    Order findByOrderId(int OrderId);
 
 }
