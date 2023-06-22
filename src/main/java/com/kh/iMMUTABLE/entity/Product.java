@@ -46,7 +46,7 @@ public class Product {
     @Column(nullable = false)
     private String productDetail;    // 상품 상세
 
-    private int projectStock;       // 상품 재고
+    private int prodoctStock;       // 상품 재고
 
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태
