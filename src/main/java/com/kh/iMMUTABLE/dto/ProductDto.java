@@ -19,7 +19,7 @@ public class ProductDto {
     private String productColor;
     private String productSize;
     private String productCategory;
-    private int prodoctStock;        // 상품재고
+    private int productStock;        // 상품재고
     private String productMainImg;      // 상품메인이미지
     private String productDetail;       // 상품상세
 //    private LocalDateTime regTime;      // 상품등록시간
