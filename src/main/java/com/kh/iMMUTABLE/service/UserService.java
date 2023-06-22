@@ -6,10 +6,8 @@ import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,12 +32,10 @@ public class UserService {
         else return false;
     }
     public boolean userCheck(String userEmail) {
-        List<User> userList = userRepository.findByUserEmail(userEmail);
-        System.out.println("이메일 " + userEmail);
-        if(!userList.isEmpty()) {
-            return false;
-        }
-        else return true;
+//        boolean isEmail = userRepository.existByUserEmail(userEmail);
+//        System.out.println("이메일 : " + userEmail);
+//        return isEmail;
+        return true;
     }
 
     //고객 회원가입
@@ -60,5 +56,19 @@ public class UserService {
         System.out.println("유저서비스 : " + userId);
         userRepository.deleteById(Long.valueOf(userId));
         return true;
+    }
+
+    // 비밀번호 재설정
+    public boolean updateUserPassword(String userEmail, String newPassword) { // newPassword로 새로운 비밀번호 입력 받기
+        log.debug("userEmail : " + userEmail);
+        log.debug("newPassword : " + newPassword);
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user != null) {
+            user.setUserPwd(newPassword);
+            userRepository.save(user);
+            return true; // 이메일로 조회한 사용자가 있으면 업데이트 진행
+        }else {
+            return false; // 없으면 진행 안됨
+        }
     }
 }
