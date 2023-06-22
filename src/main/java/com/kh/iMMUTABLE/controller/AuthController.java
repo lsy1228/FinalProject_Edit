@@ -30,8 +30,9 @@ public class AuthController {
     }
     @GetMapping("/check")
     public ResponseEntity<Boolean> regMemCheck (@RequestParam String email) {
-        System.out.println(email);
+        System.out.println("이메일 확인인인 : " + email);
         boolean result = userService.userCheck(email);
+        System.out.println(result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

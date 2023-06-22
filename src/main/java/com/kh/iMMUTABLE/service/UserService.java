@@ -31,9 +31,11 @@ public class UserService {
         if(!userList.isEmpty()) return true;
         else return false;
     }
+
     public boolean userCheck(String userEmail) {
         boolean isEmail = userRepository.existsByUserEmail(userEmail);
         System.out.println("이메일 : " + userEmail);
+        System.out.println(isEmail);
         return isEmail;
     }
 
