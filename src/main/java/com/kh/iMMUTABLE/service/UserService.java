@@ -59,6 +59,13 @@ public class UserService {
         return true;
     }
 
+    // 이메일 찾기
+    public boolean searchUserEmail(String userEmail) {
+        boolean isEmail = userRepository.existsByUserEmail(userEmail);
+        log.debug("이메일 : " + userEmail);
+        return isEmail;
+    }
+
     // 비밀번호 재설정
     public boolean updateUserPassword(String userEmail, String newPassword) { // newPassword로 새로운 비밀번호 입력 받기
         log.debug("userEmail : " + userEmail);

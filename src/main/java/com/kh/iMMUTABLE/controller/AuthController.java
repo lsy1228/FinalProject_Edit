@@ -48,6 +48,14 @@ public class AuthController {
         boolean result = userService.signUpUser(userName,userEmail,userPwd,userAddr,userPhone);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    // 이메일 찾기
+    @GetMapping("/searchEmail")
+    public ResponseEntity<Boolean> searchMemEmail (@RequestParam String userEmail) {
+        System.out.println(userEmail);
+        boolean result = userService.searchUserEmail(userEmail);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     // 비밀번호 재설정
     @PostMapping("/updatePwd")
