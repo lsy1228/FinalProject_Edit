@@ -36,8 +36,12 @@ public class ProductService {
             productDto.setProductName(product.getProductName());
             productDto.setProductMainImg(product.getProductMainImg());
             productDto.setProductPrice(product.getProductPrice());
-            productDto.setSize_name(product.getSizeStatus().toString()); //????
+            productDto.setProductSize(product.getSizeStatus().toString()); //????
             productDto.setProductDetail(product.getProductDetail());
+            productDto.setProductCategory(product.getProductCategory());
+            productDto.setProductColor(product.getProductColor());
+            productDto.setProductStock(product.getProductStock());
+            productDto.setProductSellStatus(product.getProductSellStatus());
             productDtos.add(productDto);
         }
         return productDtos;

@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
@@ -65,10 +66,9 @@ public class AdminController {
     }
     //order 전체 가져오기
     @GetMapping("/orderLoad")
-    public ResponseEntity<List<Order>> orderLoad(){
-        List<Order> list = orderService.getOrderListAll();
+    public ResponseEntity<List<OrderDto>> orderLoad(){
+        List<OrderDto> list = orderService.getOrderListAll();
         System.out.println("adminController :" + list);
-        System.out.println("adminController :" + list.get(0).getUser().getUserId());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     //order 수정
