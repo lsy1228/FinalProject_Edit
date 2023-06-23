@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.controller;
 
 
+import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,30 @@ public class AuthController {
         System.out.println(userEmail);
         System.out.println(userPwd);
         boolean result = userService.updateUserPassword(userEmail, userPwd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 회원정보 가져오기
+    @GetMapping("/users")
+    public ResponseEntity<UserDto> usersList(@RequestParam String userId) {
+        System.out.println(userId);
+        UserDto userDtos = userService.getUser(userId);
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    }
+
+
+
+    // 회원 정보 수정
+    @PostMapping("/saveInfo")
+    public ResponseEntity<Boolean> saveInfo(@RequestBody Map<String, String> userData){
+        String userName = userData.get("userName");
+        String userAddr = userData.get("userAddr");
+        String userPwd = userData.get("userPwd");
+        String userEmail = userData.get("userId");
+        String userPhone = userData.get("userPhone");
+        System.out.println(userName);
+        System.out.println(userPwd);
+        boolean result = userService.saveUserInfo(userEmail, userName, userPwd, userPhone, userAddr);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
