@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.service;
 
 
+import com.kh.iMMUTABLE.constant.SizeStatus;
 import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.entity.Product;
 
@@ -35,7 +36,8 @@ public class ProductService {
             productDto.setProductName(product.getProductName());
             productDto.setProductMainImg(product.getProductMainImg());
             productDto.setProductPrice(product.getProductPrice());
-            productDto.setSize_name(product.getProductSize());
+            productDto.setSize_name(product.getSizeStatus().toString()); //????
+            productDto.setProductDetail(product.getProductDetail());
             productDtos.add(productDto);
         }
         return productDtos;
@@ -46,7 +48,7 @@ public class ProductService {
         product.setProductName(productName);
         product.setProductPrice(Integer.parseInt(productPrice));
         product.setProductColor(productColor);
-        product.setProductSize(productSize);
+        product.setSizeStatus(SizeStatus.valueOf(productSize));
         product.setProductCategory(productCategory);
         product.setProductMainImg(productMainImg);
         product.setProductDetail(productDetail);

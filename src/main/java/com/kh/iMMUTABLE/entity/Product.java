@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.entity;
 
 import com.kh.iMMUTABLE.constant.ProductSellStatus;
+import com.kh.iMMUTABLE.constant.SizeStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,9 +34,6 @@ public class Product {
     private String productColor;      // 상품 컬러
 
     @Column(nullable = false)
-    private String productSize;             // 사이즈
-
-    @Column(nullable = false)
     private String productCategory;      // 상품 카테고리
 
     @Lob
@@ -53,7 +51,8 @@ public class Product {
     private LocalDateTime regTime;          // 등록시간
     private LocalDateTime updateTime;       // 수정시간
 
-
+    @Enumerated(EnumType.STRING)
+    private SizeStatus sizeStatus;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> qnaList = new ArrayList<>();
