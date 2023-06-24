@@ -29,6 +29,9 @@ public class OrderService {
             orderDto.setOrderAddress(order.getOrderAddress());
             orderDto.setOrderDate(order.getOrderDate());
             orderDto.setTotalPrice(order.getTotalPrice());
+            orderDto.setProductName(order.getProductName());
+            orderDto.setProductColor(order.getProductColor());
+            orderDto.setProductSize(order.getSizeStatus().toString());
             orderDto.setOrderStatus(order.getOrderStatus());
             orderDto.setShipCompany(order.getShipCompany());
             orderDto.setShipCode(order.getShipCode());

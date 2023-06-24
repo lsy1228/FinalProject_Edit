@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,6 +25,8 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+    private String productName;
+    private String productColor;
 
     private int cartPrice;
 

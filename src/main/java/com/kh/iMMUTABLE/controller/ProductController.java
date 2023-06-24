@@ -36,7 +36,7 @@ public class ProductController {
         String productCategory = loginData.get("productCategory");
         String productMainImg = loginData.get("productMainImg");
         String productDetail = loginData.get("productDetail");
-        System.out.println(productDetail);
+        System.out.println("컨트롤러 : " + productDetail);
         boolean result = productService.itemUpLoad(productName,productPrice,productColor,productSize,productCategory,productMainImg,productDetail);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
