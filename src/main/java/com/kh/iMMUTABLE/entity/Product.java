@@ -54,6 +54,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private SizeStatus sizeStatus;
 
+
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> qnaList = new ArrayList<>();
 

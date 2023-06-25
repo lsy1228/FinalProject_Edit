@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.service;
 
 
+import com.kh.iMMUTABLE.constant.ProductSellStatus;
 import com.kh.iMMUTABLE.constant.SizeStatus;
 import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.entity.Product;
@@ -58,5 +59,26 @@ public class ProductService {
         product.setProductDetail(productDetail);
         Product upLoadItem = productRepository.save(product);
         return true;
+    }
+
+
+    // SELL인 상품정보
+    public List<ProductDto> getSellProduct() {
+        List<Product> sellproducts = productRepository.findByProductSellStatus(ProductSellStatus.SELL);
+        List<ProductDto> sellProductDtos = new ArrayList<>();
+        for (Product product : sellproducts) {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductId(product.getProductId());
+            productDto.setProductName(product.getProductName());
+            productDto.setProductMainImg(product.getProductMainImg());
+            productDto.setProductPrice(product.getProductPrice());
+            productDto.setProductDetail(product.getProductDetail());
+            productDto.setProductCategory(product.getProductCategory());
+            productDto.setProductColor(product.getProductColor());
+            productDto.setProductStock(product.getProductStock());
+            productDto.setProductSellStatus(product.getProductSellStatus());
+            sellProductDtos.add(productDto);
+        }
+        return sellProductDtos;
     }
 }
