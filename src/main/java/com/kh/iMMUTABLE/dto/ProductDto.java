@@ -25,7 +25,6 @@ public class ProductDto {
 //    private LocalDateTime regTime;      // 상품등록시간
 //    private LocalDateTime UpdateTime;   // 상품수정시간
 //    private String categoryName;        // 상품카테고리
-    private String size_name;                // 사이즈
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;
 }

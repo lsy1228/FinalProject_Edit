@@ -35,11 +35,4 @@ public class MailController {
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
 
-    // 비밀번호 재설정
-//    @GetMapping("/modifyPwd")
-//    public ResponseEntity<String> modifyPwd(@RequestBody Map<String, String> modifyData) {
-//        String email = modifyData.get("email");
-//        int code = Integer.parseInt(modifyData.get("code"));
-//        String newPassword = modifyData.get("newPassword");
-//    }
 }

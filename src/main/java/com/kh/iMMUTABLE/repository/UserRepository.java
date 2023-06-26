@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserEmail(String userEmail);
 
-    Boolean existsByUserEmail(String userEmail);
 
+    boolean existsByUserEmail(String userEmail); // entity 이름과 같아야함, exists에 s 붙여주기
 }

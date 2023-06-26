@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.Authority;
+import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +60,13 @@ public class UserService {
         return true;
     }
 
+    // 이메일 찾기
+    public boolean searchUserEmail(String userEmail) {
+        boolean isEmail = userRepository.existsByUserEmail(userEmail);
+        log.debug("이메일 : " + userEmail);
+        return isEmail;
+    }
+
     // 비밀번호 재설정
     public boolean updateUserPassword(String userEmail, String newPassword) { // newPassword로 새로운 비밀번호 입력 받기
         log.debug("userEmail : " + userEmail);
@@ -71,5 +79,35 @@ public class UserService {
         }else {
             return false; // 없으면 진행 안됨
         }
+    }
+
+    // 회원 정보 수정
+    public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone, String userAddr) {
+        try {
+            User user = userRepository.findByUserEmail(userEmail);
+            if(user == null) {
+                return false;
+            }
+            user.setUserAddr(userAddr);
+            user.setUserPhone(userPhone);
+            user.setUserName(userName);
+            user.setUserPwd(userPwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    // 정보 가져오기
+    public UserDto getUser(String userId) {
+        User users = userRepository.findByUserEmail(userId);
+        UserDto userDto = new UserDto();
+        userDto.setUserPhone(users.getUserPhone());
+        userDto.setUserEmail(users.getUserEmail());
+        userDto.setUserName(users.getUserName());
+        userDto.setUserPwd(users.getUserPwd());
+
+        return userDto;
     }
 }
