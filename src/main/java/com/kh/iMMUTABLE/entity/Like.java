@@ -13,7 +13,7 @@ public class Like {
     @Id
     @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int like_id;
+    private long like_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

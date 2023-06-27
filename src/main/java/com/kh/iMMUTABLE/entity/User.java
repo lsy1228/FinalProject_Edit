@@ -1,6 +1,5 @@
 package com.kh.iMMUTABLE.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.Authority;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -8,6 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // JPA에 Entity 클래스임을 알려줌, DB테이블로 만들어져야 할 클래스
 @Table(name = "users")
@@ -36,6 +37,9 @@ public class User {
     private String userImg; // 회원 이미지
     @Enumerated(EnumType.STRING)
     private Authority authority;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Like> likes = new ArrayList<>();
 
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
     public User(int user, String email, String password, String name, Authority authority) {
