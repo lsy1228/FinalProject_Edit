@@ -53,12 +53,14 @@ public class UserService {
         User signUpUser = userRepository.save(user);
         return true;
     }
+
     //고객 삭제
     public boolean userDelete(String userId){
         System.out.println("유저서비스 : " + userId);
         userRepository.deleteById(Long.valueOf(userId));
         return true;
     }
+
 
     // 이메일 찾기
     public boolean searchUserEmail(String userEmail) {
@@ -110,4 +112,15 @@ public class UserService {
 
         return userDto;
     }
+
+    // 회원 탈퇴
+    public boolean memberSec(String userPwd) {
+        User user = userRepository.findByUserPwd(userPwd);
+        if (user == null) {
+            return false;
+        }
+        userRepository.delete(user);
+        return true;
+    }
+
 }
