@@ -30,9 +30,9 @@ public class Product {
     @Column(nullable = false)
     private String productCategory;      // 상품 카테고리
     @Lob
-    private String productImgFst;      // 상품 이미지
+    private String productImgFst;      // 상품 메인 이미지
     @Lob
-    private String productImgSnd;      // 상품 이미지
+    private String productImgSnd;      // 상품 서브 이미지
     @Lob
     private String productDetail;    // 상품 상세설명
     @Lob

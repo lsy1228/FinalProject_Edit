@@ -50,7 +50,7 @@ public class LikeService {
             Product product = productRepository.findByProductId(like.getProduct().getProductId());
             likeDto.setProductName(product.getProductName());
             likeDto.setProductPrice(product.getProductPrice());
-            likeDto.setProductMainImg(product.getProductMainImg());
+            likeDto.setProductMainImg(product.getProductImgFst());
             likeDtoList.add(likeDto);
         }
         return likeDtoList;
