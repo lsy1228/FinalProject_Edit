@@ -54,6 +54,7 @@ public class ProductController {
         long productId = Long.parseLong(imgData.get("productId"));
         String productImgFst = imgData.get("productImgFst");
         System.out.println("컨트롤러 : " + productId);
+        System.out.println("컨트롤러 : " + productImgFst);
         boolean result = productService.getProductImgFst(productId,productImgFst);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

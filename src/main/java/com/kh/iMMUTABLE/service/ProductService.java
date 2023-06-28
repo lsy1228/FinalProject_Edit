@@ -97,7 +97,7 @@ public class ProductService {
     //상품 두번째 이미지 수정
     public boolean getProductImgSnd(long ProductId , String productImgSnd) {
         Product product = productRepository.findByProductId(ProductId);
-        product.setProductImgFst(productImgSnd);
+        product.setProductImgSnd(productImgSnd);
         productRepository.save(product);
         return true;
     }
