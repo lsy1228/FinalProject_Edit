@@ -27,36 +27,37 @@ public class ProductService {
     // 의존성을 통해 빈에 등록된 필드는 불변성이 있어야 하므로 final 선언을 해야 함
     private final ProductRepository productRepository;  // 상품 정보를 조회하는 데이터 액세스 객체
 
-    // 전체 상품
-//    public List<ProductDto> getProduct() {
-//        List<Product> products = productRepository.findAll();
-//        List<ProductDto> productDtos = new ArrayList<>();
-//        for(Product product : products) {
-//            ProductDto productDto = new ProductDto();
-//            productDto.setProductId(product.getProductId());
-//            productDto.setProductName(product.getProductName());
-//            productDto.setProductMainImg(product.getProductMainImg());
-//            productDto.setProductPrice(product.getProductPrice());
-//            productDto.setProductSize(product.getSizeStatus().toString()); //????
-//            productDto.setProductDetail(product.getProductDetail());
-//            productDto.setProductCategory(product.getProductCategory());
-//            productDto.setProductColor(product.getProductColor());
-//            productDto.setProductStock(product.getProductStock());
-//            productDto.setProductSellStatus(product.getProductSellStatus());
-//            productDtos.add(productDto);
-//        }
-//        return productDtos;
-//    }
+    public List<ProductDto> getProduct() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product : products) {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductId(product.getProductId());
+            productDto.setProductName(product.getProductName());
+            productDto.setProductImgFst(product.getProductImgFst());
+            productDto.setProductImgSnd(product.getProductImgSnd());
+            productDto.setProductPrice(product.getProductPrice());
+            productDto.setProductSize(product.getSizeStatus().toString()); //????
+            productDto.setProductImgDetail(product.getProductImgDetail());
+            productDto.setProductCategory(product.getProductCategory());
+            productDto.setProductColor(product.getProductColor());
+            productDto.setProductStock(product.getProductStock());
+            productDto.setProductSellStatus(product.getProductSellStatus());
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
 
-    public boolean itemUpLoad(String productName, String productPrice, String productColor, String productSize,String productCategory,String productMainImg,String productDetail) {
+    public boolean itemUpLoad(String productName, String productPrice, String productColor, String productSize,String productCategory,String productImgFst,String productImgSnd,String productImgDetail) {
         Product product = new Product();
         product.setProductName(productName);
         product.setProductPrice(Integer.parseInt(productPrice));
         product.setProductColor(productColor);
         product.setSizeStatus(SizeStatus.valueOf(productSize));
         product.setProductCategory(productCategory);
-        product.setProductMainImg(productMainImg);
-        product.setProductDetail(productDetail);
+        product.setProductImgFst(productImgFst);
+        product.setProductImgSnd(productImgSnd);
+        product.setProductImgDetail(productImgDetail);
         Product upLoadItem = productRepository.save(product);
         return true;
     }
@@ -70,9 +71,10 @@ public class ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setProductId(product.getProductId());
             productDto.setProductName(product.getProductName());
-            productDto.setProductMainImg(product.getProductMainImg());
+            productDto.setProductImgFst(product.getProductImgFst());
+            productDto.setProductImgSnd(product.getProductImgSnd());
             productDto.setProductPrice(product.getProductPrice());
-            productDto.setProductDetail(product.getProductDetail());
+            productDto.setProductImgDetail(product.getProductImgDetail());
             productDto.setProductCategory(product.getProductCategory());
             productDto.setProductColor(product.getProductColor());
             productDto.setProductStock(product.getProductStock());
