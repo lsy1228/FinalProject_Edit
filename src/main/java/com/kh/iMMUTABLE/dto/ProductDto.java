@@ -20,11 +20,10 @@ public class ProductDto {
     private String productSize;
     private String productCategory;
     private int productStock;        // 상품재고
-    private String productMainImg;      // 상품메인이미지
-    private String productDetail;       // 상품상세
-//    private LocalDateTime regTime;      // 상품등록시간
-//    private LocalDateTime UpdateTime;   // 상품수정시간
-//    private String categoryName;        // 상품카테고리
+    private String productImgFst;      // 상품메인이미지1
+    private String productImgSnd;      //상품메인이미지2
+    private String productContent;       // 상품상세설명
+    private String productImgDetail; //상세 이미지
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;
 }
