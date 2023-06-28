@@ -19,8 +19,6 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private int cartId;
-    private int product_id;
-    private int user_num;
 
 
 
@@ -31,4 +29,12 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItemList = new ArrayList<>();
 
+
+    public static Cart createCart(User user) {
+        Cart cart = new Cart();
+        cart.user = user;
+
+
+        return cart;
+    }
 }

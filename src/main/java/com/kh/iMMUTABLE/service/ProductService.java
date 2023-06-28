@@ -27,8 +27,8 @@ import java.util.List;
 public class ProductService {
 
     // 의존성을 통해 빈에 등록된 필드는 불변성이 있어야 하므로 final 선언을 해야 함
-    private final ProductRepository productRepository;  // 상품 정보를 조회하는 데이터 액세스 객체
-
+    private final ProductRepository productRepository;
+    // 상품 정보를 조회하는 데이터 액세스 객체
     public List<ProductDto> getProduct() {
         List<Product> products = productRepository.findAll();
         List<ProductDto> productDtos = new ArrayList<>();
