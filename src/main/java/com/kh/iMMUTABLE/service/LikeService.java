@@ -44,12 +44,12 @@ public class LikeService {
         for(Like like : likeList) {
             LikeDto likeDto = new LikeDto();
             likeDto.setLikeId(like.getLike_id());
-            likeDto.setProductId(like.getProduct().getProductId());
+            likeDto.setProductId((int) like.getProduct().getProductId());
             likeDto.setUserId(like.getUser().getUserId());
 
             Product product = productRepository.findByProductId(like.getProduct().getProductId());
             likeDto.setProductName(product.getProductName());
-            likeDto.setProductPrice(product.getProductPrice());
+            likeDto.setProductPrice((int) product.getProductPrice());
             likeDto.setProductMainImg(product.getProductImgFst());
             likeDtoList.add(likeDto);
         }

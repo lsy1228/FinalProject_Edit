@@ -53,6 +53,7 @@ public class ProductController {
     public ResponseEntity<Boolean> imgFstList(@RequestBody Map<String, String> imgData){
         long productId = Long.parseLong(imgData.get("productId"));
         String productImgFst = imgData.get("productImgFst");
+        System.out.println("컨트롤러 : " + productId);
         boolean result = productService.getProductImgFst(productId,productImgFst);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
