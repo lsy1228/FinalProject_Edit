@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.dto.FaqDto;
 import com.kh.iMMUTABLE.entity.Faq;
 import com.kh.iMMUTABLE.repository.FaqRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,14 +30,24 @@ public class FaqService {
         return true;
     }
 
-//     faq 목록 가져오기
+    //faq 목록 가져오기
     public List<Faq> faqList() {
         List<Faq> faqList = faqRepository.findAll();
+        List<FaqDto> result = new ArrayList<>();
         for(Faq faq : faqList) {
-            faq.getFaqTitle();
-            faq.getFaqContent();
-
+            FaqDto faqDto = new FaqDto();
+            faqDto.setTitle(faq.getFaqTitle());
+            faqDto.setContent(faq.getFaqContent());
+            faqDto.setFaqDate(faq.getFaqDate());
+            result.add(faqDto);
         }
         return faqList;
+    }
+
+    //faq 삭제
+    public boolean faqDelete(Long faqId) {
+        System.out.println(faqId);
+        faqRepository.deleteById(faqId);
+        return true;
     }
 }
