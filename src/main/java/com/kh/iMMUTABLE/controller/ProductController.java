@@ -62,6 +62,8 @@ public class ProductController {
     public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
         long productId = Long.parseLong(imgData.get("productId"));
         String productImgSnd = imgData.get("productImgSnd");
+        System.out.println("컨트롤러 : " + productId);
+        System.out.println("컨트롤러 : " + productImgSnd);
         boolean result = productService.getProductImgSnd(productId,productImgSnd);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
