@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class ProductDto {
-    private int productId;              // 상품코드 (PK)
+    private long productId;              // 상품코드 (PK)
     private String productName;         // 상품명
-    private int productPrice;           // 상품가격
+    private long productPrice;           // 상품가격
     private String productColor;
     private String productSize;
     private String productCategory;
-    private int productStock;        // 상품재고
+    private long productStock;        // 상품재고
     private String productImgFst;      // 상품메인이미지1
     private String productImgSnd;      //상품메인이미지2
     private String productContent;       // 상품상세설명

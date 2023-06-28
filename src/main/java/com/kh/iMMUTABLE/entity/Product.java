@@ -20,11 +20,11 @@ public class Product {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int productId;
+    private long productId;
     @Column(nullable = false)
     private String productName;     // 상품명
     @Column(nullable = false)
-    private int productPrice;       // 상품 가격
+    private long productPrice;       // 상품 가격
     @Column(nullable = false)
     private String productColor;      // 상품 컬러
     @Column(nullable = false)
@@ -38,7 +38,7 @@ public class Product {
     @Lob
     @Column(nullable = false)
     private String productImgDetail;    // 상품 상세설명
-    private int productStock;       // 상품 재고
+    private long productStock;       // 상품 재고
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태
     @Enumerated(EnumType.STRING)
