@@ -101,4 +101,11 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
+    public boolean getProductImgDetail(long ProductId , String productDetail, String productImgDetail) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductDetail(productDetail);
+        product.setProductImgDetail(productImgDetail);
+        productRepository.save(product);
+        return true;
+    }
 }
