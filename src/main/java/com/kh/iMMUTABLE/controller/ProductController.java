@@ -50,21 +50,31 @@ public class ProductController {
     }
 
     @PostMapping("/changImgFst")
-    public ResponseEntity<Boolean> imgFstList(@RequestBody Map<String, String> imgData){
-        long productId = Long.parseLong(imgData.get("productId"));
-        String productImgFst = imgData.get("productImgFst");
+    public ResponseEntity<Boolean> imgFstList(@RequestBody Map<String, String> imgFstData){
+        long productId = Long.parseLong(imgFstData.get("productId"));
+        String productImgFst = imgFstData.get("productImgFst");
         System.out.println("컨트롤러 : " + productId);
         System.out.println("컨트롤러 : " + productImgFst);
         boolean result = productService.getProductImgFst(productId,productImgFst);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping("/changImgSnd")
-    public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
-        long productId = Long.parseLong(imgData.get("productId"));
-        String productImgSnd = imgData.get("productImgSnd");
+    public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgSndData){
+        long productId = Long.parseLong(imgSndData.get("productId"));
+        String productImgSnd = imgSndData.get("productImgSnd");
         System.out.println("컨트롤러 : " + productId);
         System.out.println("컨트롤러 : " + productImgSnd);
         boolean result = productService.getProductImgSnd(productId,productImgSnd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @PostMapping("/changImgDetail")
+    public ResponseEntity<Boolean> imgDetailList(@RequestBody Map<String, String> imgSndData){
+        long productId = Long.parseLong(imgSndData.get("productId"));
+        String productDetail = imgSndData.get("productDetail");
+        String productImgDetail = imgSndData.get("productImgDetail");
+        System.out.println("컨트롤러 : " + productId);
+        System.out.println("컨트롤러 : " + productImgDetail);
+        boolean result = productService.getProductImgDetail(productId,productDetail,productImgDetail);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
