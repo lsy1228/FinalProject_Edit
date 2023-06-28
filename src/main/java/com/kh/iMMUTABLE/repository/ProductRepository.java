@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Product findByProductId(int ProductId);
+    Product findByProductId(long ProductId);
 
     List<Product> findByProductSellStatus(ProductSellStatus sellStatus);
 

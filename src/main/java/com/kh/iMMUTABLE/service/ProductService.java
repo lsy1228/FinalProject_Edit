@@ -84,4 +84,13 @@ public class ProductService {
         }
         return sellProductDtos;
     }
+
+    //상품 이미지 수정
+    public List<ProductDto> getProductImg(long ProductId , String productImgURL) {
+        List<Product> products = productRepository.findByProductId(ProductId);
+        List<ProductDto> productDtos = new ArrayList<>();
+
+
+        return products;
+    }
 }

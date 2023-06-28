@@ -20,7 +20,7 @@ import java.util.Map;
 public class ProductController {
     private final ProductService productService;
 
-    // 제품 전체 조회
+    // 제품 전체 조회 어드민페이지에서도 쓰여요!
     @GetMapping("/items")
     public ResponseEntity<List<ProductDto>> itemsList() {
         List<ProductDto> productDtos = productService.getProduct();
@@ -46,6 +46,21 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> sellitems() {
         List<ProductDto> sellProductDtos = productService.getSellProduct();
         return new ResponseEntity<>(sellProductDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/changImgFst")
+    public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
+        long productId = Integer.parseInt(imgData.get("productId"));
+        String productImgFst = imgData.get("productImgFst");
+        List<ProductDto> productDtos = productService.getProductImg(productId,productImgFst);
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
+    @GetMapping("/changImgSnd")
+    public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
+        long productId = Integer.parseInt(imgData.get("productId"));
+        String productImgSnd = imgData.get("productImgSnd");
+        List<ProductDto> productDtos = productService.getProductImg(productId,productImgSnd);
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
 
 }
