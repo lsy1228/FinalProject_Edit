@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class FaqDto {
+    private Long faqId;
     private String title;
     private String content;
     private LocalDateTime faqDate;

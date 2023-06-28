@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.FaqDto;
 import com.kh.iMMUTABLE.entity.Faq;
 import com.kh.iMMUTABLE.service.FaqService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,16 @@ public class FaqController {
     @GetMapping("/faqList")
     public ResponseEntity<List<Faq>> listFaq () {
         List<Faq> result = faqService.faqList();
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // faq 삭제
+    @PostMapping("/deleteFaq")
+    public ResponseEntity<Boolean> faqDelete(@RequestBody Map<String, String> faqData){
+        String faqId = faqData.get("faqId");
+        System.out.println(faqId);
+        boolean result = faqService.faqDelete(Long.valueOf(faqId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
