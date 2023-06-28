@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-   Cart findByUserID(long userId);
+//   Cart findByUserID(long userId);
 
 
 }
