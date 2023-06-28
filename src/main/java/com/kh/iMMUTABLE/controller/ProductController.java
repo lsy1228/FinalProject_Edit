@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.entity.Product;
 import com.kh.iMMUTABLE.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,18 +50,18 @@ public class ProductController {
     }
 
     @GetMapping("/changImgFst")
-    public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
-        long productId = Integer.parseInt(imgData.get("productId"));
+    public ResponseEntity<Boolean> imgFstList(@RequestBody Map<String, String> imgData){
+        long productId = Long.parseLong(imgData.get("productId"));
         String productImgFst = imgData.get("productImgFst");
-        List<ProductDto> productDtos = productService.getProductImg(productId,productImgFst);
-        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+        boolean result = productService.getProductImgFst(productId,productImgFst);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/changImgSnd")
     public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
-        long productId = Integer.parseInt(imgData.get("productId"));
+        long productId = Long.parseLong(imgData.get("productId"));
         String productImgSnd = imgData.get("productImgSnd");
-        List<ProductDto> productDtos = productService.getProductImg(productId,productImgSnd);
-        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+        boolean result = productService.getProductImgSnd(productId,productImgSnd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

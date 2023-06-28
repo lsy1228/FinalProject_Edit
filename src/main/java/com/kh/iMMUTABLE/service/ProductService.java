@@ -1,9 +1,11 @@
 package com.kh.iMMUTABLE.service;
 
 
+import com.kh.iMMUTABLE.constant.OrderStatus;
 import com.kh.iMMUTABLE.constant.ProductSellStatus;
 import com.kh.iMMUTABLE.constant.SizeStatus;
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Product;
 
 
@@ -85,12 +87,18 @@ public class ProductService {
         return sellProductDtos;
     }
 
-    //상품 이미지 수정
-    public List<ProductDto> getProductImg(long ProductId , String productImgURL) {
-        List<Product> products = productRepository.findByProductId(ProductId);
-        List<ProductDto> productDtos = new ArrayList<>();
-
-
-        return products;
+    //상품 첫번째 이미지 수정
+    public boolean getProductImgFst(long ProductId , String productImgFst) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductImgFst(productImgFst);
+        productRepository.save(product);
+        return true;
+    }
+    //상품 두번째 이미지 수정
+    public boolean getProductImgSnd(long ProductId , String productImgSnd) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductImgFst(productImgSnd);
+        productRepository.save(product);
+        return true;
     }
 }
