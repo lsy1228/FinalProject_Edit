@@ -49,7 +49,7 @@ public class ProductController {
         return new ResponseEntity<>(sellProductDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/changImgFst")
+    @PostMapping("/changImgFst")
     public ResponseEntity<Boolean> imgFstList(@RequestBody Map<String, String> imgData){
         long productId = Long.parseLong(imgData.get("productId"));
         String productImgFst = imgData.get("productImgFst");
@@ -57,7 +57,7 @@ public class ProductController {
         boolean result = productService.getProductImgFst(productId,productImgFst);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @GetMapping("/changImgSnd")
+    @PostMapping("/changImgSnd")
     public ResponseEntity<Boolean> imgSndList(@RequestBody Map<String, String> imgData){
         long productId = Long.parseLong(imgData.get("productId"));
         String productImgSnd = imgData.get("productImgSnd");
