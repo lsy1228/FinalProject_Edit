@@ -34,10 +34,11 @@ public class ProductController {
         String productColor = loginData.get("productColor");
         String productSize = loginData.get("productSize");
         String productCategory = loginData.get("productCategory");
-        String productMainImg = loginData.get("productMainImg");
-        String productDetail = loginData.get("productDetail");
-        System.out.println("컨트롤러 : " + productDetail);
-        boolean result = productService.itemUpLoad(productName,productPrice,productColor,productSize,productCategory,productMainImg,productDetail);
+        String productImgFst = loginData.get("productImgFst");
+        String productImgSnd = loginData.get("productImgSnd");
+        String productImgDetail = loginData.get("productImgDetail");
+        System.out.println("컨트롤러 : " + productImgDetail);
+        boolean result = productService.itemUpLoad(productName,productPrice,productColor,productSize,productCategory,productImgFst,productImgSnd,productImgDetail);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
