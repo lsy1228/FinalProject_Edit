@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ProductDto {
     private long productId;              // 상품코드 (PK)
     private String productName;         // 상품명
-    private long productPrice;           // 상품가격
+    private int productPrice;           // 상품가격
     private String productColor;
     private String productSize;
     private String productCategory;

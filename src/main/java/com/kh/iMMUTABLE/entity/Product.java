@@ -24,7 +24,7 @@ public class Product {
     @Column(nullable = false)
     private String productName;     // 상품명
     @Column(nullable = false)
-    private long productPrice;       // 상품 가격
+    private int productPrice;       // 상품 가격
     @Column(nullable = false)
     private String productColor;      // 상품 컬러
     @Column(nullable = false)
