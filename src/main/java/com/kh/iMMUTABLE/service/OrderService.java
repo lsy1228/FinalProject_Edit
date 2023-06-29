@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-
+    //모든 주문건 가져오기
     public List<OrderDto> getOrderListAll() {
         List<Order> orderList = orderRepository.findAll();
         List<OrderDto> orderDtos = new ArrayList<>();
@@ -39,7 +40,7 @@ public class OrderService {
         }
         return orderDtos;
     }
-
+    //주문상태 업로드하기
     public boolean upLoadData(int orderId,String orderStatue,int shipCode, String orderShipCompany) {
         System.out.println("서비스 : " +  orderId);
         System.out.println("서비스 : " +  orderStatue);
@@ -50,4 +51,15 @@ public class OrderService {
         orderRepository.save(order);
         return true;
     }
+    //주문 상태를 찾는 리스트
+    public List<Order> getStatusOrderList(String orderStatus){
+        List<Order> orderList = orderRepository.findByOrderStatus(OrderStatus.valueOf(orderStatus));
+        return orderList;
+    }
+
+    public List<Order> getDateOrderList(String orderDate){
+        List<Order> orderList = orderRepository.findByOrderDate(LocalDate.parse(orderDate));
+        return orderList;
+    }
+
 }
