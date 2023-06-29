@@ -27,6 +27,7 @@ public class QnaService {
         return qnaList;
     }
 
+    // Q&A 댓글
     //save를 통한 update문 기능 findByQnaId를 통해서 select 한 후 set을 통해 update를 자동으로 변환 시켜준다.
     public boolean upLoadReply(long qnaId,String qnaStatue,String qnaReplay) {
         System.out.println("서비스 : " +  qnaReplay);
@@ -36,4 +37,7 @@ public class QnaService {
         qnaRepository.save(qna);
         return true;
     }
+
+    // QnA에 상품 정보 전달받기
+
 }

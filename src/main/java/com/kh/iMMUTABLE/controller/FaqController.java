@@ -41,9 +41,8 @@ public class FaqController {
 
     // faq 삭제
     @PostMapping("/deleteFaq")
-    public ResponseEntity<Boolean> faqDelete(@RequestBody Map<String, String> faqData){
+    public ResponseEntity<Boolean> faqDelete(@RequestBody Map <String, String> faqData){
         String faqId = faqData.get("faqId");
-        System.out.println(faqId);
         boolean result = faqService.faqDelete(Long.valueOf(faqId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
