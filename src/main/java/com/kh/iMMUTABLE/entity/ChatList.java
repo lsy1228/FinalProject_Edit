@@ -17,10 +17,10 @@ import java.util.List;
 @ToString
 public class ChatList {
     @Id
-    @Column(name = "chat_id")
+    @Column(name = "chatlist_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private long chatId;
+    private long chatListId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
