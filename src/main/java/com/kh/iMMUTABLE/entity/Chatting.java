@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.ChatStatus;
 import lombok.Data;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Chatting {
     //채팅창id 외래키 가져오기
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_id")
+    @JsonIgnore
     private ChatList chatList;
 
     //고객아이디

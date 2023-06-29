@@ -17,9 +17,10 @@ public class ChatListService {
 
     private final ChatListRepository chatListRepository;
 
-    public List<ChatList> getOrderListAll() {
-        List<ChatList> orderList = chatListRepository.findAll();
-    return orderList;
+    public List<ChatList> getChatListAll() {
+        System.out.println("채팅리스트 서비스");
+        List<ChatList> chatList = chatListRepository.findAll();
+    return chatList;
     }
 
 }
