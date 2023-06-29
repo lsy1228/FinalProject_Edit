@@ -47,4 +47,9 @@ public class QnaService {
         Qna uploadQna = qnaRepository.save(qna);
         return true;
     }
+
+    public List<Qna> getStatusQnaList(String qnaStatus){
+        List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
+        return qnaList;
+    }
 }
