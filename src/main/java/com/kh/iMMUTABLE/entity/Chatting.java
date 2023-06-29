@@ -27,7 +27,7 @@ public class Chatting {
 
     //채팅창id 외래키 가져오기
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id")
+    @JoinColumn(name = "chatlist_id")
     private ChatList chatList;
 
     //고객아이디
