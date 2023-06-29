@@ -2,17 +2,16 @@ package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
 import com.kh.iMMUTABLE.entity.Qna;
-import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.QnaRepository;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+import com.kh.iMMUTABLE.entity.User;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional
