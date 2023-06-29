@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.ChatListDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.ChatList;
@@ -92,8 +93,8 @@ public class AdminController {
     }
     //채팅 리스트 가져오기
     @GetMapping("/chatList")
-    public ResponseEntity<List<ChatList>> chatListLoad(){
-        List<ChatList> list = chatListService.getChatListAll();
+    public ResponseEntity<List<ChatListDto>> chatListLoad(){
+        List<ChatListDto> list = chatListService.getChatListAll();
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

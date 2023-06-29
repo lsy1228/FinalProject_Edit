@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.dto.ChatListDto;
 import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.repository.ChatListRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,10 +19,16 @@ public class ChatListService {
 
     private final ChatListRepository chatListRepository;
 
-    public List<ChatList> getChatListAll() {
-        System.out.println("채팅리스트 서비스");
+    public List<ChatListDto> getChatListAll() {
         List<ChatList> chatList = chatListRepository.findAll();
-    return chatList;
+        List<ChatListDto> chatListDtos = new ArrayList<>();
+        for(ChatList chatListList : chatList){
+            ChatListDto chatListDto = new ChatListDto();
+            chatListDto.setChatListId(chatListList.getChatListId());
+            chatListDto.setUserId(chatListList.getUser().getUserId());
+            chatListDtos.add(chatListDto);
+        }
+    return chatListDtos;
     }
 
 }
