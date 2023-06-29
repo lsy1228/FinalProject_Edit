@@ -1,17 +1,16 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
-import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.QnaRepository;
+import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QnaService {
     private final QnaRepository qnaRepository;
+    private final UserRepository userRepository;
 
     public List<Qna> getQnaListAll() {
         List<Qna> qnaList = qnaRepository.findAll();
@@ -38,6 +38,14 @@ public class QnaService {
         return true;
     }
 
-    // QnA에 상품 정보 전달받기
-
+    // QnA 업로드
+    public boolean qnaUpload(String userEmail , String qnaTitle, String qnaContent, LocalDateTime qnaDate){
+        Qna qna = new Qna();
+        User user = userRepository.findByUserEmail(userEmail);
+        qna.setQnaTitle(qnaTitle);
+        qna.setQnaContent(qnaContent);
+        qna.setQnaDate(qnaDate);
+        Qna uploadQna = qnaRepository.save(qna);
+        return true;
+    }
 }
