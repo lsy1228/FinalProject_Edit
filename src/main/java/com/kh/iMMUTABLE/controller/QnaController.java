@@ -15,15 +15,17 @@ import java.util.Map;
 @RequestMapping("/qna")
 @RequiredArgsConstructor
 public class QnaController {
-    private QnaService qnaService;
+    private final QnaService qnaService;
+
+    // QnA 작성
     @PostMapping("/uploadQna")
     public ResponseEntity<Boolean> updateQna (@RequestBody Map<String, String> qnaData) {
         String userEmail = qnaData.get("userEmail");
+        String productId = qnaData.get("productId");
         String qnaTitle = qnaData.get("qnaTitle");
         String qnaContent = qnaData.get("qnaContent");
         LocalDateTime qnaDate = LocalDateTime.now();
-        System.out.println(qnaTitle);
-        boolean result = qnaService.qnaUpload(userEmail ,qnaTitle, qnaContent, qnaDate);
+        boolean result = qnaService.qnaUpload(userEmail ,productId, qnaTitle, qnaContent, qnaDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

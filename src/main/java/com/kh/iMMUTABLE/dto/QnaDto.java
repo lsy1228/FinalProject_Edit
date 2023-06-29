@@ -19,6 +19,8 @@ public class QnaDto {
     private String qnaPwd;
     private String reply;
     private LocalDateTime qnaDate;
+    private long userId;
+    private long productId;
 
     @Enumerated(EnumType.STRING)
     private QnaStatus qnaStatus;
