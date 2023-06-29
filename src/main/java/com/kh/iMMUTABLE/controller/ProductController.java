@@ -77,5 +77,17 @@ public class ProductController {
         boolean result = productService.getProductImgDetail(productId,productDetail,productImgDetail);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @PostMapping("/changDetail")
+    public ResponseEntity<Boolean> productDetailList(@RequestBody Map<String, String> productData){
+        long productId = Long.parseLong(productData.get("productId"));
+        long productStock = Long.parseLong(productData.get("productStock"));
+        String productSellStatus = productData.get("productSellStatus");
+        String productName = productData.get("productName");
+        System.out.println("컨트롤러 : " + productId);
+        System.out.println("컨트롤러 : " + productName);
+        boolean result = productService.getProductDetail(productId,productStock,productSellStatus,productName);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }

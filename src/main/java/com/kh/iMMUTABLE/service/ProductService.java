@@ -108,4 +108,12 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
+    public boolean getProductDetail(long ProductId ,long productStock,String productSellStatus,String productName) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductStock(productStock);
+        product.setProductSellStatus(ProductSellStatus.valueOf(productSellStatus));
+        product.setProductName(productName);
+        productRepository.save(product);
+        return true;
+    }
 }
