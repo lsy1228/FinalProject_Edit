@@ -25,12 +25,10 @@ import java.util.Map;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
-
     private final AdminService adminService;
     private final UserService userService;
     private final QnaService qnaService;
     private final OrderService orderService;
-    
     //admin page 유저리스트 가져오기
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){

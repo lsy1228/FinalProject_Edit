@@ -1,19 +1,14 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
-import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Qna;
-import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.QnaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,5 +30,10 @@ public class QnaService {
         qna.setReply(qnaReplay);
         qnaRepository.save(qna);
         return true;
+    }
+
+    public List<Qna> getStatusQnaList(String qnaStatus){
+        List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
+        return qnaList;
     }
 }
