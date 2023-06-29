@@ -76,6 +76,7 @@ public class ProductService {
             productDto.setProductImgFst(product.getProductImgFst());
             productDto.setProductImgSnd(product.getProductImgSnd());
             productDto.setProductPrice(product.getProductPrice());
+            productDto.setProductContent(product.getProductDetail());
             productDto.setProductImgDetail(product.getProductImgDetail());
             productDto.setProductCategory(product.getProductCategory());
             productDto.setProductColor(product.getProductColor());
