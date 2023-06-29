@@ -74,6 +74,9 @@ public class LikeService {
 
     public boolean likeView (String id, long productId) {
         User user = userRepository.findByUserEmail(id);
+        if(user == null) {
+            return false;
+        }
         return likeRepository.existsByUserUserIdAndProductProductId(user.getUserId(), productId);
     }
 }
