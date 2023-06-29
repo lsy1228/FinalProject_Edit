@@ -17,7 +17,7 @@ import java.util.List;
 @ToString
 public class ChatList {
     @Id
-    @Column(name = "chatlist_id")
+    @Column(name = "chat_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private long chatListId;
