@@ -1,14 +1,13 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.ChatListDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.entity.User;
-import com.kh.iMMUTABLE.service.AdminService;
-import com.kh.iMMUTABLE.service.OrderService;
-import com.kh.iMMUTABLE.service.QnaService;
-import com.kh.iMMUTABLE.service.UserService;
+import com.kh.iMMUTABLE.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +28,7 @@ public class AdminController {
     private final UserService userService;
     private final QnaService qnaService;
     private final OrderService orderService;
+    private final ChatListService chatListService;
     //admin page 유저리스트 가져오기
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){
@@ -90,6 +90,13 @@ public class AdminController {
         List<Integer> result = orderService.getDateOrderList(orderDate);
         System.out.println("adminController :" + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    //채팅 리스트 가져오기
+    @GetMapping("/chatList")
+    public ResponseEntity<List<ChatListDto>> chatListLoad(){
+        List<ChatListDto> list = chatListService.getChatListAll();
+        System.out.println("adminController :" + list);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }
