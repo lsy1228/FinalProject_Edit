@@ -4,6 +4,7 @@ import com.kh.iMMUTABLE.constant.OrderStatus;
 import com.kh.iMMUTABLE.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -11,4 +12,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByOrderStatus(OrderStatus OrderStatus);
 
+    List<Order> findByOrderDate(LocalDate orderDate);
 }

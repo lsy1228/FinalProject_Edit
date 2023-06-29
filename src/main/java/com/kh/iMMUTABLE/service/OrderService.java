@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class OrderService {
     //주문 상태를 찾는 리스트
     public List<Order> getStatusOrderList(String orderStatus){
         List<Order> orderList = orderRepository.findByOrderStatus(OrderStatus.valueOf(orderStatus));
+        return orderList;
+    }
+
+    public List<Order> getDateOrderList(String orderDate){
+        List<Order> orderList = orderRepository.findByOrderDate(LocalDate.parse(orderDate));
         return orderList;
     }
 
