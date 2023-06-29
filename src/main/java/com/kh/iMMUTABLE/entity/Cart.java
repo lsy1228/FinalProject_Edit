@@ -20,6 +20,8 @@ public class Cart {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private long cartId;
 
+
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -1,9 +1,11 @@
 package com.kh.iMMUTABLE.service;
 
 
+import com.kh.iMMUTABLE.constant.OrderStatus;
 import com.kh.iMMUTABLE.constant.ProductSellStatus;
 import com.kh.iMMUTABLE.constant.SizeStatus;
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Product;
 
 
@@ -25,8 +27,8 @@ import java.util.List;
 public class ProductService {
 
     // 의존성을 통해 빈에 등록된 필드는 불변성이 있어야 하므로 final 선언을 해야 함
-    private final ProductRepository productRepository;  // 상품 정보를 조회하는 데이터 액세스 객체
-
+    private final ProductRepository productRepository;
+    // 상품 정보를 조회하는 데이터 액세스 객체
     public List<ProductDto> getProduct() {
         List<Product> products = productRepository.findAll();
         List<ProductDto> productDtos = new ArrayList<>();
@@ -83,5 +85,35 @@ public class ProductService {
             sellProductDtos.add(productDto);
         }
         return sellProductDtos;
+    }
+
+    //상품 첫번째 이미지 수정
+    public boolean getProductImgFst(long ProductId , String productImgFst) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductImgFst(productImgFst);
+        productRepository.save(product);
+        return true;
+    }
+    //상품 두번째 이미지 수정
+    public boolean getProductImgSnd(long ProductId , String productImgSnd) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductImgSnd(productImgSnd);
+        productRepository.save(product);
+        return true;
+    }
+    public boolean getProductImgDetail(long ProductId , String productDetail, String productImgDetail) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductDetail(productDetail);
+        product.setProductImgDetail(productImgDetail);
+        productRepository.save(product);
+        return true;
+    }
+    public boolean getProductDetail(long ProductId ,long productStock,String productSellStatus,String productName) {
+        Product product = productRepository.findByProductId(ProductId);
+        product.setProductStock(productStock);
+        product.setProductSellStatus(ProductSellStatus.valueOf(productSellStatus));
+        product.setProductName(productName);
+        productRepository.save(product);
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package com.kh.iMMUTABLE.controller;
 
 
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -108,4 +109,5 @@ public class AuthController {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
     }
+
 }

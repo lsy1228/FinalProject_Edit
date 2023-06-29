@@ -24,21 +24,21 @@ public class Product {
     @Column(nullable = false)
     private String productName;     // 상품명
     @Column(nullable = false)
-    private int productPrice;       // 상품 가격
+    private long productPrice;       // 상품 가격
     @Column(nullable = false)
     private String productColor;      // 상품 컬러
     @Column(nullable = false)
     private String productCategory;      // 상품 카테고리
     @Lob
-    private String productImgFst;      // 상품 이미지
+    private String productImgFst;      // 상품 메인 이미지
     @Lob
-    private String productImgSnd;      // 상품 이미지
+    private String productImgSnd;      // 상품 서브 이미지
     @Lob
     private String productDetail;    // 상품 상세설명
     @Lob
     @Column(nullable = false)
     private String productImgDetail;    // 상품 상세설명
-    private int productStock;       // 상품 재고
+    private long productStock;       // 상품 재고
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;    // 상품 판매 상태
     @Enumerated(EnumType.STRING)
@@ -46,6 +46,11 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Qna> qnaList = new ArrayList<>();
+
+
+
+
+
 
     public Product(){}
 }
