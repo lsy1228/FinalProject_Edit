@@ -84,12 +84,12 @@ public class AdminController {
     }
     //7일치 주문건 각각 일자별로 가져오기
     @PostMapping("/findOrderDay")
-    public ResponseEntity<List<Order>> orderCheck(@RequestBody Map<String, String> orderData) {
+    public ResponseEntity<List<Integer>> orderCheck(@RequestBody Map<String, String> orderData) {
         String orderDate = orderData.get("orderDate");
         System.out.println("컨트롤러 : " + orderDate);
-        List<Order> list = orderService.getDateOrderList(orderDate);
-        System.out.println("adminController :" + list);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        List<Integer> result = orderService.getDateOrderList(orderDate);
+        System.out.println("adminController :" + result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

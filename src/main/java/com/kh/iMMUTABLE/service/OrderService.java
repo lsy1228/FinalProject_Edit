@@ -4,6 +4,7 @@ import com.kh.iMMUTABLE.constant.OrderStatus;
 import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.repository.OrderRepository;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,10 +57,19 @@ public class OrderService {
         List<Order> orderList = orderRepository.findByOrderStatus(OrderStatus.valueOf(orderStatus));
         return orderList;
     }
-
-    public List<Order> getDateOrderList(String orderDate){
+    //날짜별 주문 건 토탈가격과 주문건수 구하기
+    public List<Integer> getDateOrderList(String orderDate){
         List<Order> orderList = orderRepository.findByOrderDate(LocalDate.parse(orderDate));
-        return orderList;
+        int listLangth = 0;
+        int totalPrice = 0;
+        List<Integer> result = new ArrayList<>();
+        for(Order order : orderList) {
+            totalPrice += order.getTotalPrice();
+            listLangth++;
+        }
+        result.add(listLangth);
+        result.add(totalPrice);
+        return result;
     }
 
 }
