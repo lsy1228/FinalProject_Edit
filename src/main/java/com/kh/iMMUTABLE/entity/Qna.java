@@ -18,7 +18,7 @@ public class Qna {
     @Column(name = "qna_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int qnaId;
+    private long qnaId;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

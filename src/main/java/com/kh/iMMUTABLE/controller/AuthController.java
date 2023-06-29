@@ -28,6 +28,7 @@ public class AuthController {
         System.out.println("user Email :  " + userEmail);
         System.out.println("user Password :  " + userPwd);
         boolean result = userService.getUserList(userEmail,userPwd);
+        System.out.println("로그인 반환값 : " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/check")

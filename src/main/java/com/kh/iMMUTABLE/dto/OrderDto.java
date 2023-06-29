@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class OrderDto {
-    private int orderId;// 주문Id (PK)
-    private int userId;// 유저ID
+    private long orderId;// 주문Id (PK)
+    private long userId;// 유저ID
     private String orderAddress;
     private LocalDate orderDate;
     private String productName;

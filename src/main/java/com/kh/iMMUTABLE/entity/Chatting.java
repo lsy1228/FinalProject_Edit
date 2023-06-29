@@ -23,7 +23,7 @@ public class Chatting {
     @Column(name = "chatting_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int chattingId;
+    private long chattingId;
 
     //채팅창id 외래키 가져오기
     @ManyToOne(fetch = FetchType.LAZY)

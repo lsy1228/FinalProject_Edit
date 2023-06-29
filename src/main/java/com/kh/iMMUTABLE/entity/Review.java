@@ -16,7 +16,7 @@ public class Review {
     @Id
     @Column(name = "review_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int review_id;
+    private long review_id;
     @Column(nullable = false)
     private String review_title;
     @Column(nullable = false)

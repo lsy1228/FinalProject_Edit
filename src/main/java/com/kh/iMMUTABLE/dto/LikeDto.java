@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter @Setter
 public class LikeDto {
     private long likeId;
-    private int productId;
+    private long productId;
     private long userId;
     private String productName;
     private int productPrice;
-    private String productMainImg;
+    private String productImgFst;
 }

@@ -20,7 +20,7 @@ public class ChatList {
     @Column(name = "chat_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int chatId;
+    private long chatId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

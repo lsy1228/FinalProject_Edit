@@ -21,9 +21,11 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/likeInsert")
-    public ResponseEntity<Boolean> likeProduct (@RequestBody Map<String, Object> likeData) {
-        String id = (String)likeData.get("id");
-        int productId = (int)likeData.get("productId");
+    public ResponseEntity<Boolean> likeProduct (@RequestBody Map<String, String> likeData) {
+        String id = likeData.get("id");
+        long productId = Long.parseLong(likeData.get("productId"));
+        System.out.println("컨트롤러 아이디" + id);
+        System.out.println("컨트롤러 상품 아이디 : " + productId);
         boolean result = likeService.likeInsert(id, productId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -36,5 +38,20 @@ public class LikeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping("/likeDelete")
+    public ResponseEntity<Boolean> dislikeProduct (@RequestBody Map<String, String> dislikeData) {
+        String id = dislikeData.get("id");
+        long productId = Long.parseLong(dislikeData.get("productId"));
+        boolean result = likeService.likeDelete(id, productId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    @PostMapping("/Heart")
+    public ResponseEntity<Boolean> viewHeart (@RequestBody Map<String, String> heartData) {
+        String id = heartData.get("id");
+        long productId = Long.parseLong(heartData.get("productId"));
+        System.out.println(id + " " + productId);
+        boolean result = likeService.likeView(id, productId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

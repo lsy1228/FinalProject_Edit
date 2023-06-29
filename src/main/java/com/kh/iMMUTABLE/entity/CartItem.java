@@ -16,7 +16,7 @@ public class CartItem {
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int cartItemId;
+    private long cartItemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
@@ -26,21 +26,7 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-
     private int cartPrice;
 
     private int count;
-
-    public static CartItem createCartItem(Cart cart,Product product,int count){
-        CartItem cartItem = new CartItem();
-        cartItem.setCart(cart);
-        cartItem.setProduct(product);
-        cartItem.setCount(count);
-
-        return cartItem;
-    }
-
-    public void addCount(int count){
-        this.count += count;
-    }
 }
