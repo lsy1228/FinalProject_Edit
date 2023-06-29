@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import com.kh.iMMUTABLE.entity.User;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -60,5 +62,24 @@ public class QnaService {
     public List<Qna> getStatusQnaList(String qnaStatus){
         List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
         return qnaList;
+    }
+
+    public List<QnaDto> getQna(String productId) {
+        Product product = productRepository.findByProductId(Long.parseLong(productId));
+        List<Qna> qnas = product.getQnaList();
+
+        List<QnaDto> qnaDtos = new ArrayList<>();
+        for(Qna qna : qnas) {
+            QnaDto qnaDto = new QnaDto();
+            qnaDto.setQnaId(qna.getQnaId());
+            qnaDto.setQnaTitle(qna.getQnaTitle());
+            qnaDto.setQnaContent(qna.getQnaContent());
+            qnaDto.setQnaDate(qna.getQnaDate());
+
+            User user = userRepository.findByUserId(qna.getUser().getUserId());
+            qnaDto.setUserName(user.getUserName());
+            qnaDtos.add(qnaDto);
+        }
+        return qnaDtos;
     }
 }
