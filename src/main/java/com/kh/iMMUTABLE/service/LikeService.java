@@ -1,6 +1,8 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.dto.LikeDto;
+import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Like;
 import com.kh.iMMUTABLE.entity.Product;
 import com.kh.iMMUTABLE.entity.User;
@@ -24,15 +26,19 @@ public class LikeService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-
-    public boolean likeInsert(String id, int productId) {
+    public boolean likeInsert(String id, long productId) {
         User user = userRepository.findByUserEmail(id);
         Product product = productRepository.findByProductId(productId);
-        Like like = new Like();
-        like.setUser(user);
-        like.setProduct(product);
-        Like saveLike = likeRepository.save(like);
-        return true;
+        boolean isLiked = likeRepository.existsByUserUserIdAndProductProductId(user.getUserId(), productId);
+        if (isLiked) {
+            return false;
+        } else {
+            Like like = new Like();
+            like.setUser(user);
+            like.setProduct(product);
+            Like saveLike = likeRepository.save(like);
+            return true;
+        }
     }
 
     public List<LikeDto> likeList(String id) {
@@ -50,9 +56,24 @@ public class LikeService {
             Product product = productRepository.findByProductId(like.getProduct().getProductId());
             likeDto.setProductName(product.getProductName());
             likeDto.setProductPrice(product.getProductPrice());
-            likeDto.setProductMainImg(product.getProductMainImg());
+            likeDto.setProductImgFst(product.getProductImgFst());
             likeDtoList.add(likeDto);
         }
         return likeDtoList;
+    }
+
+    public boolean likeDelete (String id, long productId) {
+        User user = userRepository.findByUserEmail(id);
+        Like like = likeRepository.findByUserUserIdAndProductProductId(user.getUserId() , productId);
+        if(like!= null) {
+            likeRepository.delete(like);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean likeView (String id, long productId) {
+        User user = userRepository.findByUserEmail(id);
+        return likeRepository.existsByUserUserIdAndProductProductId(user.getUserId(), productId);
     }
 }

@@ -20,7 +20,7 @@ public class Order {
     @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int orderId;
+    private long orderId;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore

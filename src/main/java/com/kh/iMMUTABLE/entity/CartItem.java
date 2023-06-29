@@ -16,7 +16,7 @@ public class CartItem {
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int cartItemId;
+    private long cartItemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
@@ -25,8 +25,6 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-    private String productName;
-    private String productColor;
 
     private int cartPrice;
 

@@ -20,7 +20,7 @@ public class Product {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int productId;
+    private long productId;
     @Column(nullable = false)
     private String productName;     // 상품명
     @Column(nullable = false)

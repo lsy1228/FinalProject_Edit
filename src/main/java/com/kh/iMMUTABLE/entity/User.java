@@ -42,7 +42,7 @@ public class User {
     private List<Like> likes = new ArrayList<>();
 
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
-    public User(int user, String email, String password, String name, Authority authority) {
+    public User(long user, String email, String password, String name, Authority authority) {
         this.userId = user;
         this.userEmail = email;
         this.userPwd = password;

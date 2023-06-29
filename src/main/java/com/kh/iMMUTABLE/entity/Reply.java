@@ -16,7 +16,7 @@ public class Reply {
     @Id
     @Column(name = "reply_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int replyId;
+    private long replyId;
 
     @Column(nullable = false)
     private String replyComment;

@@ -9,4 +9,6 @@ import java.util.List;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
+    Like findByUserUserIdAndProductProductId(long userId, long productId);
+    boolean existsByUserUserIdAndProductProductId(long userId, long productId);
 }

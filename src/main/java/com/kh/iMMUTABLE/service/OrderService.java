@@ -25,7 +25,7 @@ public class OrderService {
         for(Order order : orderList){
             OrderDto orderDto = new OrderDto();
             orderDto.setOrderId(order.getOrderId());
-            orderDto.setUserId((int) order.getUser().getUserId());
+            orderDto.setUserId(order.getUser().getUserId());
             orderDto.setOrderAddress(order.getOrderAddress());
             orderDto.setOrderDate(order.getOrderDate());
             orderDto.setTotalPrice(order.getTotalPrice());

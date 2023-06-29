@@ -24,7 +24,7 @@ public class AdminService {
         List<UserDto> userDtos = new ArrayList<>();
         for(User user : userList){
             UserDto userDto = new UserDto();
-            userDto.setUserId((int) user.getUserId());
+            userDto.setUserId(user.getUserId());
             userDto.setUserName(user.getUserName());
             userDto.setUserAddr(user.getUserAddr());
             userDto.setUserPhone(user.getUserPhone());
