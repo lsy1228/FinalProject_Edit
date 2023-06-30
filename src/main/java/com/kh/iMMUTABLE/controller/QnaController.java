@@ -1,8 +1,5 @@
 package com.kh.iMMUTABLE.controller;
 
-import com.kh.iMMUTABLE.dto.QnaDto;
-import com.kh.iMMUTABLE.entity.Faq;
-import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,15 +25,15 @@ public class QnaController {
         String productId = qnaData.get("productId");
         String qnaTitle = qnaData.get("qnaTitle");
         String qnaContent = qnaData.get("qnaContent");
+        System.out.println(userEmail + " " + productId + " " + qnaTitle + " " + qnaContent);
         LocalDateTime qnaDate = LocalDateTime.now();
         boolean result = qnaService.qnaUpload(userEmail ,productId, qnaTitle, qnaContent, qnaDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/memQnaLoad")
-    public ResponseEntity<List<Qna>> listQna() {
-        List<Qna> result = qnaService.getQnaList();
-        System.out.println(result);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    @GetMapping("/qnaList")
+    public ResponseEntity<List<QnaDto>> qnaList (@RequestParam String productId) {
+        List<QnaDto> qnaDtos = qnaService.getQna(productId);
+        return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
     }
 }

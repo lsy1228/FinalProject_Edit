@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -66,21 +67,22 @@ public class QnaService {
         return qnaList;
     }
 
-    // member qna 목록 가져오기
-    public List<Qna> getQnaList() {
-        List<Qna> memQnaList = qnaRepository.findAll();
-        List<QnaDto> result = new ArrayList<>();
-        for(Qna qna : memQnaList) {
+    public List<QnaDto> getQna(String productId) {
+        Product product = productRepository.findByProductId(Long.parseLong(productId));
+        List<Qna> qnas = product.getQnaList();
+
+        List<QnaDto> qnaDtos = new ArrayList<>();
+        for(Qna qna : qnas) {
             QnaDto qnaDto = new QnaDto();
             qnaDto.setQnaId(qna.getQnaId());
             qnaDto.setQnaTitle(qna.getQnaTitle());
             qnaDto.setQnaContent(qna.getQnaContent());
             qnaDto.setQnaDate(qna.getQnaDate());
-            qnaDto.setUserId(qna.getUser().getUserId());
-            result.add(qnaDto);
-            System.out.println(result);
+
+            User user = userRepository.findByUserId(qna.getUser().getUserId());
+            qnaDto.setUserName(user.getUserName());
+            qnaDtos.add(qnaDto);
         }
-        System.out.println(result);
-        return memQnaList;
+        return qnaDtos;
     }
 }
