@@ -102,6 +102,7 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
+    //상품 디테일 이미지 수정
     public boolean getProductImgDetail(long ProductId , String productDetail, String productImgDetail) {
         Product product = productRepository.findByProductId(ProductId);
         product.setProductDetail(productDetail);
@@ -109,6 +110,7 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
+    //상품 디테일 내용 수정
     public boolean getProductDetail(long ProductId ,long productStock,String productSellStatus,String productName) {
         Product product = productRepository.findByProductId(ProductId);
         product.setProductStock(productStock);
