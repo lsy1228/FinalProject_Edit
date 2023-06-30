@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "qna")
-@Getter @Setter @ToString
+@Getter @Setter
+@ToString
 public class Qna {
     @Id
     @Column(name = "qna_id")

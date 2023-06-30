@@ -14,7 +14,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-@Getter @Setter @ToString
+@Getter @Setter
+@ToString
 public class Product {
     @Id
     @Column(name = "product_id")
@@ -52,5 +53,5 @@ public class Product {
 
 
 
-    public Product(){}
+//    public Product(){}
 }

@@ -1,5 +1,8 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.QnaDto;
+import com.kh.iMMUTABLE.entity.Faq;
+import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @RestController // JSON 등 객체로 반환해준다
@@ -26,6 +30,13 @@ public class QnaController {
         String qnaContent = qnaData.get("qnaContent");
         LocalDateTime qnaDate = LocalDateTime.now();
         boolean result = qnaService.qnaUpload(userEmail ,productId, qnaTitle, qnaContent, qnaDate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/memQnaLoad")
+    public ResponseEntity<List<Qna>> listQna() {
+        List<Qna> result = qnaService.getQnaList();
+        System.out.println(result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

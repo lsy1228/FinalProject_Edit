@@ -1,8 +1,10 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
+import com.kh.iMMUTABLE.dto.FaqDto;
 import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.entity.Faq;
 import com.kh.iMMUTABLE.entity.Product;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.repository.ProductRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.kh.iMMUTABLE.entity.User;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +45,7 @@ public class QnaService {
         return true;
     }
 
-    // QnA 업로드
+    // AdminQnA 업로드
     public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDateTime qnaDate){
         System.out.println(userEmail + productId + qnaTitle + qnaContent + qnaDate);
         Qna qna = new Qna();
@@ -57,8 +60,27 @@ public class QnaService {
         return true;
     }
 
+    // admin qna 목록 가져오기
     public List<Qna> getStatusQnaList(String qnaStatus){
         List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
         return qnaList;
+    }
+
+    // member qna 목록 가져오기
+    public List<Qna> getQnaList() {
+        List<Qna> memQnaList = qnaRepository.findAll();
+        List<QnaDto> result = new ArrayList<>();
+        for(Qna qna : memQnaList) {
+            QnaDto qnaDto = new QnaDto();
+            qnaDto.setQnaId(qna.getQnaId());
+            qnaDto.setQnaTitle(qna.getQnaTitle());
+            qnaDto.setQnaContent(qna.getQnaContent());
+            qnaDto.setQnaDate(qna.getQnaDate());
+            qnaDto.setUserId(qna.getUser().getUserId());
+            result.add(qnaDto);
+            System.out.println(result);
+        }
+        System.out.println(result);
+        return memQnaList;
     }
 }
