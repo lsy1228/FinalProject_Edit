@@ -16,5 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserPwd(String userPwd);
 
+    User findByUserId(long userId);
+
     boolean existsByUserEmail(String userEmail); // entity 이름과 같아야함, exists에 s 붙여주기
 }
