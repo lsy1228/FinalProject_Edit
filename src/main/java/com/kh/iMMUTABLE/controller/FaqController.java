@@ -46,4 +46,16 @@ public class FaqController {
         boolean result = faqService.faqDelete(Long.valueOf(faqId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    // faq 수정
+    @PostMapping("/editFaq")
+    public ResponseEntity<Boolean> editInfo(@RequestBody Map<String, String> faqData) {
+        Long faqId = Long.valueOf(faqData.get("faqId"));
+        String faqTitle = faqData.get("faqTitle");
+        String faqContent = faqData.get("faqContent");
+        LocalDateTime faqDate = LocalDateTime.now();
+        System.out.println(faqId);
+        boolean result = faqService.faqEdit(String.valueOf(faqId), faqTitle, faqContent, faqDate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

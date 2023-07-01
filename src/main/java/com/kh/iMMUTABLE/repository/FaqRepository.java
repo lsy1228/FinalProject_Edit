@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface FaqRepository extends JpaRepository<Faq, Long> {
     List<Faq> findAll();
+
+    Faq findByFaqId(Long faqId);
 }

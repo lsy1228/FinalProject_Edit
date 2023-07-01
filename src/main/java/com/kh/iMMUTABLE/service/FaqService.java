@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -48,6 +49,24 @@ public class FaqService {
     public boolean faqDelete(Long faqId) {
         System.out.println(faqId);
         faqRepository.deleteById(faqId);
+        return true;
+    }
+
+    // faq 수정
+    public boolean faqEdit(String faqId,String faqTitle, String faqContent, LocalDateTime faqDate) {
+        try {
+            Faq faq = faqRepository.findByFaqId(Long.valueOf(faqId));
+            if (faq == null) {
+                return false;
+            }
+            faq.setFaqId(Long.parseLong(faqId));
+            faq.setFaqTitle(faqTitle);
+            faq.setFaqContent(faqContent);
+            faq.setFaqDate(faqDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }
