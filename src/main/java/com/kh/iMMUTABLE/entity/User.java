@@ -19,7 +19,6 @@ public class User {
     @Id // 해당 필드가 primary key임을 지정
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private long userId;
     // 회원번호 생성 조건
     @Column(nullable = false)
@@ -38,8 +37,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Like> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Qna> qnas;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Cart> carts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<ChatList> chatLists;
 
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
     public User(long user, String email, String password, String name, Authority authority) {

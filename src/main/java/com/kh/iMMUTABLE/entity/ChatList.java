@@ -25,7 +25,6 @@ public class ChatList {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "chatList", cascade = CascadeType.ALL, orphanRemoval = true)
