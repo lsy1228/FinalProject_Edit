@@ -20,17 +20,8 @@ public class UserService {
     private final UserRepository userRepository;
     //고객 로그인 체크
     public boolean getUserList(String userEmail, String userPassword){
-        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        System.out.println("service : " + userEmail);
-        System.out.println("service : " + userPassword);
-        System.out.println(userList);
-        //역할 여부 추출
-        for(User user : userList){
-            String userAuth = String.valueOf(user.getAuthority());
-            System.out.println(userAuth);
-        }
-        if(!userList.isEmpty()) return true;
-        else return false;
+        User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        return true;
     }
 
     public boolean userCheck(String userEmail) {

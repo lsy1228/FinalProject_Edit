@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "qna")
-@Getter @Setter @ToString
+@Getter @Setter @ToString(exclude = "qna")
 public class Qna {
     @Id
     @Column(name = "qna_id")

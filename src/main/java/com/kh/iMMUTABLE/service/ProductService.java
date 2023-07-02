@@ -117,4 +117,23 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
+    public List<ProductDto> getProductList(String productName) {
+        List<Product> products = productRepository.findByProductName(productName);
+        System.out.println();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product : products) {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductId(product.getProductId());
+            productDto.setProductName(product.getProductName());
+            productDto.setProductColor(product.getProductColor());
+            productDto.setProductSize(product.getSizeStatus().toString());
+            productDto.setProductPrice(product.getProductPrice());
+            productDto.setProductContent(product.getProductDetail());
+            productDto.setProductImgFst(product.getProductImgFst());
+            productDto.setProductImgSnd(product.getProductImgSnd());
+            productDto.setProductImgDetail(product.getProductImgDetail());
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
 }

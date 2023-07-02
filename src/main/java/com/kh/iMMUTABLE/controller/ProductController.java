@@ -88,6 +88,12 @@ public class ProductController {
         boolean result = productService.getProductDetail(productId,productStock,productSellStatus,productName);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    @GetMapping("/getProductData")
+    public ResponseEntity<List<ProductDto>> getProductList(@RequestParam String productName) {
+        String name = productName;
+        System.out.println(name);
+        List<ProductDto> productDtos = productService.getProductList(productName);
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
 
 }

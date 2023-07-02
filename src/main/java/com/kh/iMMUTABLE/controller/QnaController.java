@@ -33,8 +33,9 @@ public class QnaController {
     }
 
     @GetMapping("/qnaList")
-    public ResponseEntity<List<QnaDto>> qnaList (@RequestParam String productId) {
-        List<QnaDto> qnaDtos = qnaService.getQna(productId);
+    public ResponseEntity<List<QnaDto>> qnaList (@RequestParam String heartProductId) {
+        System.out.println("확인 : " + heartProductId);
+        List<QnaDto> qnaDtos = qnaService.getQna(heartProductId);
         return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
     }
 }
