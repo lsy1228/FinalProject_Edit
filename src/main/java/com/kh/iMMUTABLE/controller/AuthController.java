@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -108,6 +109,13 @@ public class AuthController {
         } else {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/userData")
+    public ResponseEntity<UserDto> memberData(@RequestBody Map<String, String> userDate) {
+        String userEmail = userDate.get("email");
+        UserDto result = userService.getOrderUser(userEmail);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

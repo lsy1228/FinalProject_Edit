@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,19 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    //고객 로그인 체크
+    //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
-        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        System.out.println("service : " + userEmail);
-        System.out.println("service : " + userPassword);
-        System.out.println(userList);
-        //역할 여부 추출
-        for(User user : userList){
-            String userAuth = String.valueOf(user.getAuthority());
-            System.out.println(userAuth);
-        }
-        if(!userList.isEmpty()) return true;
+        User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        if(user != null)return true;
         else return false;
+
     }
 
     public boolean userCheck(String userEmail) {
@@ -122,6 +116,14 @@ public class UserService {
         userRepository.delete(user);
         return true;
     }
-
-
+    //주문한 사람 정보 가져오기
+    public UserDto getOrderUser(String userId) {
+        User users = userRepository.findByUserEmail(userId);
+        UserDto userDto = new UserDto();
+        userDto.setUserPhone(users.getUserPhone());
+        userDto.setUserEmail(users.getUserEmail());
+        userDto.setUserName(users.getUserName());
+        userDto.setUserAddr(users.getUserAddr());
+        return userDto;
+    }
 }

@@ -24,5 +24,5 @@ public class QnaDto {
     private String userName;
 
     @Enumerated(EnumType.STRING)
-    private QnaStatus qnaStatus;
+    private QnaStatus qnaStatus = QnaStatus.HOLD;
 }
