@@ -19,10 +19,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    //고객 로그인 체크
+    //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
         User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        return true;
+        if(user != null){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public boolean userCheck(String userEmail) {
