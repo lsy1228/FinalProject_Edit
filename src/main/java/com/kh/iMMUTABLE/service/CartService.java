@@ -115,21 +115,7 @@ public class CartService {
 
             cartItemDtoList.add(cartItemDto);
         }
-
-//        for(CartItem cartItem : cartItemList ) {
-//            CartItemDto cartItemDto = new CartItemDto();
-//            cartItemDto.setCartItemId((int) cartItem.getCartItemId());
-//            cartItemDto.setCount(cartItem.getCount());
-//            cartItemDto.setProductPrice(cartItem.getCartPrice());
-//
-//            //상품정보에서 상품사진이랑 상품명 get
-//            Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
-//            cartItemDto.setProductName(product.getProductName());
-//            cartItemDto.setProductImgFst(product.getProductImgFst());
-//
-//            cartItemDtoList.add(cartItemDto);
-//        }
-
         return cartItemDtoList;
+
     }
 }
