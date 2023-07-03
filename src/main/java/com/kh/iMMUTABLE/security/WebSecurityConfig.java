@@ -51,7 +51,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
         return http.build();
     }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

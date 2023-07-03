@@ -108,6 +108,7 @@ public class CartService {
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
 
+
             //상품정보에서 상품사진이랑 상품명 get
             Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
             cartItemDto.setProductName(product.getProductName());
@@ -116,6 +117,5 @@ public class CartService {
             cartItemDtoList.add(cartItemDto);
         }
         return cartItemDtoList;
-
     }
 }
