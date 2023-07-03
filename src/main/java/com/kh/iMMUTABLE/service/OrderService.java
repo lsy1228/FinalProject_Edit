@@ -54,7 +54,9 @@ public class OrderService {
     }
     //주문 상태를 찾는 리스트
     public List<Order> getStatusOrderList(String orderStatus){
+        System.out.println("서비스 : " + orderStatus);
         List<Order> orderList = orderRepository.findByOrderStatus(OrderStatus.valueOf(orderStatus));
+        System.out.println(orderList);
         return orderList;
     }
     //날짜별 주문 건 토탈가격과 주문건수 구하기

@@ -25,6 +25,7 @@ public class AdminPageHeadController {
     @PostMapping("/newOrderList")
     public ResponseEntity<List<Order>> newOrderList(@RequestBody Map<String, String> orderData){
         String orderStatus = orderData.get("orderStatus");
+        System.out.println(orderStatus);
         List<Order> list = orderService.getStatusOrderList(orderStatus);
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -41,6 +42,7 @@ public class AdminPageHeadController {
     @PostMapping("/qnaLoadList")
     public ResponseEntity<List<Qna>> newQnaList(@RequestBody Map<String, String> qnaData){
         String qnaStatus = qnaData.get("qnaStatus");
+        System.out.println(qnaStatus);
         List<Qna> list = qnaService.getStatusQnaList(qnaStatus);
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);

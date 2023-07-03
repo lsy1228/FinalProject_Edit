@@ -63,7 +63,9 @@ public class QnaService {
 
     // admin qna 목록 가져오기
     public List<Qna> getStatusQnaList(String qnaStatus){
+        System.out.println(qnaStatus);
         List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
+        System.out.println(qnaList);
         return qnaList;
     }
 
