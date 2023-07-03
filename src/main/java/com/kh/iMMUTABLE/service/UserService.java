@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -113,6 +114,14 @@ public class UserService {
         userRepository.delete(user);
         return true;
     }
-
-
+    //주문한 사람 정보 가져오기
+    public UserDto getOrderUser(String userId) {
+        User users = userRepository.findByUserEmail(userId);
+        UserDto userDto = new UserDto();
+        userDto.setUserPhone(users.getUserPhone());
+        userDto.setUserEmail(users.getUserEmail());
+        userDto.setUserName(users.getUserName());
+        userDto.setUserAddr(users.getUserAddr());
+        return userDto;
+    }
 }
