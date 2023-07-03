@@ -63,10 +63,22 @@ public class FaqService {
             faq.setFaqTitle(faqTitle);
             faq.setFaqContent(faqContent);
             faq.setFaqDate(faqDate);
+            faqRepository.save(faq);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    //faq id로 목록 가져오기
+    public FaqDto faqIdList(Long faqId) {
+        Faq faqIdList = faqRepository.findByFaqId(faqId);
+        FaqDto faqDto = new FaqDto();
+        faqDto.setFaqId(faqIdList.getFaqId());
+        faqDto.setTitle(faqIdList.getFaqTitle());
+        faqDto.setContent(faqIdList.getFaqContent());
+        faqDto.setFaqDate(faqIdList.getFaqDate());
+        return faqDto;
     }
 }

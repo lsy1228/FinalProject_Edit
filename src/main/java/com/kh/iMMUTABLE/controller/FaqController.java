@@ -58,4 +58,12 @@ public class FaqController {
         boolean result = faqService.faqEdit(String.valueOf(faqId), faqTitle, faqContent, faqDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    // faq id 가져오기
+    @GetMapping("/faqIdList")
+    public ResponseEntity<FaqDto> listFaq (@RequestParam String faqId) {
+        FaqDto result = faqService.faqIdList(Long.valueOf(faqId));
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
