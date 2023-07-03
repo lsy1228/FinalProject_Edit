@@ -22,11 +22,8 @@ public class UserService {
     //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
         User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        if(user != null){
-            return true;
-        } else {
-            return false;
-        }
+        if(user != null)return true;
+        else return false;
 
     }
 
