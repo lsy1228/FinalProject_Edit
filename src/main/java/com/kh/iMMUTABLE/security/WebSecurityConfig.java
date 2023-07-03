@@ -40,7 +40,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/faq/**","/product/**", "/admin/**", "/email/**", "/verify/**", "/like/**", "/qna/**","/adminPage/**").permitAll()
+                .antMatchers("/auth/**", "/faq/**","/product/**", "/admin/**", "/email/**", "/verify/**", "/like/**", "/qna/**","/adminPage/**","/cart/**", "/addCartItem/**", "/CartItemList/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 .anyRequest().authenticated()
 

@@ -29,4 +29,25 @@ public class CartItem {
     private int cartPrice;
 
     private int count;
+
+
+
+//    public static CartItem createCartItem(Cart cart,Product product,int count){
+//        CartItem cartItem = new CartItem();
+//        cartItem.setCart(cart);
+//        cartItem.setProduct(product);
+//        cartItem.setCount(count);
+//
+//        return cartItem;
+//    }
+//
+//    // 장바구니에 담을 상품 수량 증가
+//    public void addCount(int count){
+//        this.count += count;
+//    }
+//
+//    // 장바구니에 담을 수량 반영
+//    public void updateCount(int count){
+//        this.count = count;
+//    }
 }
