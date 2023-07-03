@@ -71,6 +71,7 @@ public class CartService {
                 findCartId.setCartId(cart.getCartId());
             }
         }
+
         CartItem cartItem = new CartItem();
         if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
             cartItem.setCart(findCartId);
