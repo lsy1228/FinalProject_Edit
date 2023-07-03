@@ -22,8 +22,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private long orderId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @Column(nullable = false)
     private String orderAddress;
