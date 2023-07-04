@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,17 +74,31 @@ public class CartService {
         }
 
         CartItem cartItem = new CartItem();
-        if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
-            cartItem.setCart(findCartId);
-//            cartItem.setCartId(findCartId.getCartId());
-            cartItem.setCartPrice(product.getProductPrice());
-            cartItem.setCount(1); //처음 count는 무조건 '1'로 set
-            cartItem.setProduct(product);
+        CartItem afterSave = new CartItem();
 
-            //cartItemRepository.save(cartItem);
+        if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
+            CartItem findCartItem = new CartItem();
+            findCartItem.setCart(findCartId);
+            findCartItem.setProduct(product);
+
+            CartItem existCartItem = cartItemRepository.findByCartCartIdAndProductProductId(findCartId.getCartId(), product.getProductId());
+
+            if(existCartItem != null
+                && existCartItem.getCartItemId() > 0
+                && existCartItem.getProduct().getProductId() > 0) { //만 카 아이템 이 존재한다
+                //return existCartItem;
+            } else  {
+                cartItem.setCart(findCartId);
+//              cartItem.setCartId(findCartId.getCartId());
+                cartItem.setCartPrice(product.getProductPrice());
+                cartItem.setCount(1); //처음 count는 무조건 '1'로 set
+                cartItem.setProduct(product);
+
+                afterSave = cartItemRepository.save(cartItem);
+            }
         }
 
-        return cartItemRepository.save(cartItem);
+        return afterSave;
     }
 
 
@@ -118,4 +133,10 @@ public class CartService {
         }
         return cartItemDtoList;
     }
-}
+
+
+
+    // 상품 수량 업데이트
+
+
+    }
