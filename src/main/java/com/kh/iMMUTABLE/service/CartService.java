@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -74,14 +75,33 @@ public class CartService {
         }
 
         CartItem cartItem = new CartItem();
+        CartItem afterSave = new CartItem();
+
         if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
-            cartItem.setCart(findCartId);
-            cartItem.setCartPrice(product.getProductPrice());
-            cartItem.setCount(1); //처음 count는 무조건 '1'로 set
-            cartItem.setProduct(product);
+            CartItem findCartItem = new CartItem();
+            findCartItem.setCart(findCartId);
+            findCartItem.setProduct(product);
+
+            CartItem existCartItem = cartItemRepository.findByCartCartIdAndProductProductId(findCartId.getCartId(), product.getProductId());
+
+            if(existCartItem != null
+                && existCartItem.getCartItemId() > 0
+                && existCartItem.getProduct().getProductId() > 0) { //만 카 아이템 이 존재한다
+                //return existCartItem;
+            } else  {
+                cartItem.setCart(findCartId);
+//              cartItem.setCartId(findCartId.getCartId());
+                cartItem.setCartPrice(product.getProductPrice());
+                cartItem.setCount(1); //처음 count는 무조건 '1'로 set
+                cartItem.setProduct(product);
+
+                afterSave = cartItemRepository.save(cartItem);
+            }
         }
-        return cartItemRepository.save(cartItem);
+
+        return afterSave;
     }
+
 
     // 상품 List 조회
     public List<CartItemDto> getCartItemList(String email) {
@@ -95,13 +115,15 @@ public class CartService {
 
         List<CartItem> cartList = cartItemRepository.findByCartCartId(cart.getCartId());
         System.out.println(cartList);
+        //List<CartItem> cartItemList = cartList.getCartItemList();
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
 
-        for(CartItem cartItem : cartList) { // for문을 이용해 cart id에 대한 목록 가져오기
+        for(CartItem cartItem : cartList) {
             CartItemDto cartItemDto = new CartItemDto();
             cartItemDto.setCartItemId((int) cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
+
 
             //상품정보에서 상품사진이랑 상품명 get
             Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
@@ -112,4 +134,10 @@ public class CartService {
         }
         return cartItemDtoList;
     }
-}
+
+
+
+    // 상품 수량 업데이트
+
+
+    }

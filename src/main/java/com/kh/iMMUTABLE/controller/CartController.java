@@ -51,6 +51,15 @@ public class CartController {
             return new ResponseEntity<List<CartItemDto>>(result, HttpStatus.OK);
 
     }
+
+    @PostMapping("/updateCount")
+    public ResponseEntity<Boolean> updateCount(@RequestBody Map<String, String> cartData){
+        int idx = Integer.parseInt(cartData.get("count"));
+        int updatedValue = Integer.parseInt(cartData.get("count"));
+        boolean result = cartService.updateCount(idx, updatedValue);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
 
 
