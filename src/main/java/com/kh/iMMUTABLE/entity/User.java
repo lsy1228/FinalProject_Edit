@@ -19,6 +19,7 @@ public class User {
     @Id // 해당 필드가 primary key임을 지정
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private long userId;
     // 회원번호 생성 조건
     @Column(nullable = false)
@@ -37,17 +38,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Qna> qnas;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Qna> qnas = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Cart> carts;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Like> likes;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<ChatList> chatLists;
 

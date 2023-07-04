@@ -118,4 +118,14 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    //회원 프로필 사진 수정
+    @PostMapping("/saveUserImgInfo")
+    public ResponseEntity<Boolean> saveUserImgInfo(@RequestBody Map<String, String> userData){
+        String userEmail = userData.get("userEmail");
+        String userImg = userData.get("userImg");
+        System.out.println(userImg);
+        boolean result = userService.saveUserImgInfo(userEmail,userImg);
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

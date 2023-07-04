@@ -2,6 +2,7 @@ package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.ChatListDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
+import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.entity.Order;
@@ -46,8 +47,8 @@ public class AdminController {
     }
     //qna가져오기
     @GetMapping("/qnaLoad")
-    public ResponseEntity<List<Qna>> qnaLoad(){
-        List<Qna> list = qnaService.getQnaListAll();
+    public ResponseEntity<List<QnaDto>> qnaLoad(){
+        List<QnaDto> list = qnaService.getQnaListAll();
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
