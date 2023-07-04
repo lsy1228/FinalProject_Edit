@@ -33,6 +33,23 @@ public class UserService {
         else return true;
     }
 
+    public boolean getAdminList(String userEmail, String userPassword){
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(User user : userList){
+            UserDto userDto = new UserDto();
+            userDto.setUserEmail(user.getUserEmail());
+            userDto.setUserPwd(user.getUserPwd());
+            userDto.setAuthority(user.getAuthority());
+            userDtos.add(userDto);
+        }
+        if(userDtos.isEmpty())
+            return false;
+        else if(userDtos.get(0).getAuthority() == Authority.valueOf("ROLE_ADMIN"))
+            return true;
+        else return false;
+    }
+
     public boolean userCheck(String userEmail) {
         boolean isEmail = userRepository.existsByUserEmail(userEmail);
         System.out.println("이메일 : " + userEmail);
