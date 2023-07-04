@@ -30,9 +30,22 @@ public class QnaService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    public List<Qna> getQnaListAll() {
+    public List<QnaDto> getQnaListAll() {
         List<Qna> qnaList = qnaRepository.findAll();
-        return qnaList;
+        List<QnaDto> qnaDtos = new ArrayList<>();
+        for(Qna qna : qnaList){
+            QnaDto qnaDto = new QnaDto();
+            qnaDto.setQnaId(qna.getQnaId());
+            qnaDto.setProductId(qna.getProduct().getProductId());
+            qnaDto.setUserId(qna.getUser().getUserId());
+            qnaDto.setQnaContent(qna.getQnaContent());
+            qnaDto.setQnaStatus(qna.getQnaStatus());
+            qnaDto.setQnaTitle(qna.getQnaTitle());
+            qnaDto.setQnaDate(qna.getQnaDate());
+            qnaDto.setReply(qna.getReply());
+            qnaDtos.add(qnaDto);
+        }
+        return qnaDtos;
     }
 
     // Q&A 댓글
@@ -63,9 +76,7 @@ public class QnaService {
 
     // admin qna 목록 가져오기
     public List<QnaDto> getStatusQnaList(String qnaStatus){
-        System.out.println(qnaStatus);
         List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
-//        List<Qna> qnaList = qnaRepository.findAll();
         List<QnaDto> qnaDtos = new ArrayList<>();
         for(Qna qna : qnaList){
             QnaDto qnaDto = new QnaDto();
