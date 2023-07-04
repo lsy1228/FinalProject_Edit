@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Order findByOrderId(long OrderId);
 
-    List<Order> findByOrderStatus(OrderStatus OrderStatus);
+    List<Order> findByOrderStatus(OrderStatus orderStatus);
 
     List<Order> findByOrderDate(LocalDate orderDate);
 }

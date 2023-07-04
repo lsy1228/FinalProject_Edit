@@ -1,7 +1,6 @@
 package com.kh.iMMUTABLE.repository;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
-import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.entity.Qna;
 import org.springframework.data.jpa.repository.JpaRepository;
 

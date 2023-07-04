@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.QnaStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +26,9 @@ public class Qna {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Column(nullable = false)
