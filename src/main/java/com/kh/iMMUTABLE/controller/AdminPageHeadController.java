@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
 import com.kh.iMMUTABLE.service.OrderService;
@@ -40,10 +41,10 @@ public class AdminPageHeadController {
     }
     //신규 Qna 확인
     @PostMapping("/qnaLoadList")
-    public ResponseEntity<List<Qna>> newQnaList(@RequestBody Map<String, String> qnaData){
+    public ResponseEntity<List<QnaDto>> newQnaList(@RequestBody Map<String, String> qnaData){
         String qnaStatus = qnaData.get("qnaStatus");
         System.out.println(qnaStatus);
-        List<Qna> list = qnaService.getStatusQnaList(qnaStatus);
+        List<QnaDto> list = qnaService.getStatusQnaList(qnaStatus);
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

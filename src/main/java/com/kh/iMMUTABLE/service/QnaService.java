@@ -62,11 +62,17 @@ public class QnaService {
     }
 
     // admin qna 목록 가져오기
-    public List<Qna> getStatusQnaList(String qnaStatus){
+    public List<QnaDto> getStatusQnaList(String qnaStatus){
         System.out.println(qnaStatus);
         List<Qna> qnaList = qnaRepository.findByQnaStatus(QnaStatus.valueOf(qnaStatus));
-        System.out.println(qnaList);
-        return qnaList;
+//        List<Qna> qnaList = qnaRepository.findAll();
+        List<QnaDto> qnaDtos = new ArrayList<>();
+        for(Qna qna : qnaList){
+            QnaDto qnaDto = new QnaDto();
+            qnaDto.setUserId(qna.getUser().getUserId());
+            qnaDtos.add(qnaDto);
+        }
+        return qnaDtos;
     }
 
     public List<QnaDto> getQna(String productId) {
