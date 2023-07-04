@@ -139,6 +139,7 @@ public class UserService {
         userDto.setUserEmail(users.getUserEmail());
         userDto.setUserName(users.getUserName());
         userDto.setUserAddr(users.getUserAddr());
+        userDto.setAuthority(users.getAuthority());
         return userDto;
     }
 }
