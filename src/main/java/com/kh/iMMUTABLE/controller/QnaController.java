@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.service.QnaService;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +33,51 @@ public class QnaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // 제품 Qna
     @GetMapping("/qnaList")
     public ResponseEntity<List<QnaDto>> qnaList (@RequestParam String heartProductId) {
         System.out.println("확인 : " + heartProductId);
         List<QnaDto> qnaDtos = qnaService.getQna(heartProductId);
         return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
+    }
+
+    // 나의 Qna
+    @GetMapping("/myQnaList")
+    public ResponseEntity<List<QnaDto>> myQnaList (@RequestParam String id) {
+        System.out.println("마이qna : " + id);
+        List<QnaDto> qnaDtos = qnaService.getMyQna(id);
+        return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
+    }
+
+    // 나의 Qna 수정 모달 제품 정보
+    @GetMapping("/myQnaProductInfo")
+    public ResponseEntity<ProductDto> myQnaProductInfo (@RequestParam long productId) {
+        ProductDto productDto = qnaService.getMyQnaProductInfo(productId);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    }
+
+    // 내가 쓴 Qna 내용 가져오기
+    @GetMapping("/editViewMyQna")
+    public ResponseEntity<QnaDto> editViewMyQna (@RequestParam long qnaId) {
+        QnaDto qnaDto = qnaService.getMyQnaCon(qnaId);
+        return new ResponseEntity<>(qnaDto, HttpStatus.OK);
+    }
+
+    // 나의 Qna 수정
+    @PostMapping("/editMyQna")
+    public ResponseEntity<Boolean> editMyQna (@RequestBody Map<String, String> editData) {
+        String qnaId = editData.get("qnaId");
+        String title = editData.get("title");
+        String content = editData.get("content");
+        boolean result = qnaService.editMyQna(qnaId, title, content);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 나의 Qna 삭제
+    @PostMapping("/deleteMyQna")
+    public ResponseEntity<Boolean> deleteMyQna (@RequestBody Map<String, String> deleteQna) {
+        String qnaId = deleteQna.get("qnaId");
+        boolean result = qnaService.deleteMyQna(qnaId);
+        return  new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
