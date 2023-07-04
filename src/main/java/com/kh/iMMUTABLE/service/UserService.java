@@ -21,10 +21,16 @@ public class UserService {
     private final UserRepository userRepository;
     //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
-        User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        System.out.println("서비스 로그인 : " + user);
-        if(user != null)return true;
-        else return false;
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(User user : userList){
+            UserDto userDto = new UserDto();
+            userDto.setUserEmail(user.getUserEmail());
+            userDto.setUserPwd(user.getUserPwd());
+            userDtos.add(userDto);
+        }
+        if(userDtos.isEmpty())return false;
+        else return true;
     }
 
     public boolean userCheck(String userEmail) {
