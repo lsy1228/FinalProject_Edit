@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
@@ -24,18 +25,18 @@ public class AdminPageHeadController {
     private final QnaService qnaService;
     //신규 주문건 확인
     @PostMapping("/newOrderList")
-    public ResponseEntity<List<Order>> newOrderList(@RequestBody Map<String, String> orderData){
+    public ResponseEntity<List<OrderDto>> newOrderList(@RequestBody Map<String, String> orderData){
         String orderStatus = orderData.get("orderStatus");
         System.out.println(orderStatus);
-        List<Order> list = orderService.getStatusOrderList(orderStatus);
+        List<OrderDto> list = orderService.getStatusOrderList(orderStatus);
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     //배송중 주문건 확인
     @PostMapping("/shipOrderList")
-    public ResponseEntity<List<Order>> shipOrderList(@RequestBody Map<String, String> orderData){
+    public ResponseEntity<List<OrderDto>> shipOrderList(@RequestBody Map<String, String> orderData){
         String orderStatus = orderData.get("orderStatus");
-        List<Order> list = orderService.getStatusOrderList(orderStatus);
+        List<OrderDto> list = orderService.getStatusOrderList(orderStatus);
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
