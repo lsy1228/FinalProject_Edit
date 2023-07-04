@@ -118,7 +118,7 @@ public class UserService {
         userDto.setUserEmail(users.getUserEmail());
         userDto.setUserName(users.getUserName());
         userDto.setUserPwd(users.getUserPwd());
-
+        userDto.setUserImg(users.getUserImg());
         return userDto;
     }
 
