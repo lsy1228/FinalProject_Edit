@@ -101,6 +101,15 @@ public class UserService {
         return true;
     }
 
+    // 회원 이미지정보 수정
+    public boolean saveUserImgInfo(String userEmail, String userImg) {
+        System.out.println("서비스 : " + userImg);
+        User user = userRepository.findByUserEmail(userEmail);
+        user.setUserImg(userImg);
+        userRepository.save(user);
+        return true;
+    }
+
     // 정보 가져오기
     public UserDto getUser(String userId) {
         User users = userRepository.findByUserEmail(userId);
