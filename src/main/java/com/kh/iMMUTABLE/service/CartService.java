@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,17 +76,12 @@ public class CartService {
         CartItem cartItem = new CartItem();
         if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
             cartItem.setCart(findCartId);
-//            cartItem.setCartId(findCartId.getCartId());
             cartItem.setCartPrice(product.getProductPrice());
             cartItem.setCount(1); //처음 count는 무조건 '1'로 set
             cartItem.setProduct(product);
-
-            //cartItemRepository.save(cartItem);
         }
-
         return cartItemRepository.save(cartItem);
     }
-
 
     // 상품 List 조회
     public List<CartItemDto> getCartItemList(String email) {
@@ -99,15 +95,13 @@ public class CartService {
 
         List<CartItem> cartList = cartItemRepository.findByCartCartId(cart.getCartId());
         System.out.println(cartList);
-        //List<CartItem> cartItemList = cartList.getCartItemList();
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
 
-        for(CartItem cartItem : cartList) {
+        for(CartItem cartItem : cartList) { // for문을 이용해 cart id에 대한 목록 가져오기
             CartItemDto cartItemDto = new CartItemDto();
             cartItemDto.setCartItemId((int) cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
-
 
             //상품정보에서 상품사진이랑 상품명 get
             Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
