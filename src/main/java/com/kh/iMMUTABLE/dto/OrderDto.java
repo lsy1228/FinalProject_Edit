@@ -17,6 +17,7 @@ public class OrderDto {
     private long userId;// 유저ID
     private String orderAddress;
     private LocalDate orderDate;
+    private Long productId;
     private String productName;
     private String productColor;
     private String productSize;
@@ -25,6 +26,4 @@ public class OrderDto {
     private OrderStatus orderStatus;
     private String shipCompany;
     private int shipCode;
-
-
 }

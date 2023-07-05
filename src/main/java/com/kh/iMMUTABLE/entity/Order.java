@@ -31,6 +31,10 @@ public class Order {
     private String orderAddress;
     private LocalDate orderDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     private String productName;
 
     private String productColor;
@@ -43,8 +47,4 @@ public class Order {
 
     private String shipCompany;
     private int shipCode;
-
-
-
-
 }
