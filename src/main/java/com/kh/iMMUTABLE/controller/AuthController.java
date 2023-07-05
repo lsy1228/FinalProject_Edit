@@ -138,7 +138,7 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signupToken")
     public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto requestDto) {
         return ResponseEntity.ok(authService.signup(requestDto));
     }
