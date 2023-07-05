@@ -29,11 +29,11 @@ public class Users {
 
     @Column(nullable = false)
     private String userPwd; // 비밀번호
-    @Column(nullable = false)
+
     private String userName; // 이름
-    @Column(nullable = false)
+
     private String userAddr; // 주소
-    @Column(nullable = false)
+
     private String userPhone; // 폰 번호
     private LocalDateTime userDate; // 가입일
     private String userImg; // 회원 이미지
