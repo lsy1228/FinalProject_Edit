@@ -4,6 +4,7 @@ package com.kh.iMMUTABLE.controller;
 import com.kh.iMMUTABLE.dto.TokenDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.dto.UserRequestDto;
+import com.kh.iMMUTABLE.dto.UserResponseDto;
 import com.kh.iMMUTABLE.service.AuthService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -137,9 +138,13 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
+    @PostMapping("/signup")
+    public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto requestDto) {
+        return ResponseEntity.ok(authService.signup(requestDto));
+    }
     @PostMapping("/loginToken")
-    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<TokenDto> loginToken(@RequestBody UserRequestDto requestDto) {
+        System.out.println("컨트롤러 접속 완료 : " + requestDto);
         return ResponseEntity.ok(authService.login(requestDto));
     }
 }

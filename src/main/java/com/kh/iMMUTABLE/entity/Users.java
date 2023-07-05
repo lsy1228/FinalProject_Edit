@@ -58,5 +58,4 @@ public class Users {
         this.userPwd = password;
         this.authority = authority;
     }
-
 }
