@@ -2,6 +2,7 @@ package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.QnaStatus;
 import com.kh.iMMUTABLE.dto.FaqDto;
+import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.dto.QnaDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Faq;
@@ -66,6 +67,7 @@ public class QnaService {
         User user = userRepository.findByUserEmail(userEmail);
         Product product = productRepository.findByProductId(Long.parseLong(productId));
         qna.setUser(user);
+        qna.setQnaStatus(QnaStatus.HOLD);
         qna.setProduct(product);
         qna.setQnaTitle(qnaTitle);
         qna.setQnaContent(qnaContent);
@@ -106,4 +108,65 @@ public class QnaService {
         }
         return qnaDtos;
     }
+
+    // 나의 Qna 가져오기
+    public List<QnaDto> getMyQna(String id) {
+        User user = userRepository.findByUserEmail(id);
+        List<Qna> qnas = user.getQnas();
+
+        List<QnaDto> qnaDtos = new ArrayList<>();
+        for(Qna qna : qnas) {
+            QnaDto qnaDto = new QnaDto();
+            qnaDto.setQnaId(qna.getQnaId());
+            qnaDto.setQnaStatus(qna.getQnaStatus());
+            qnaDto.setProductId(qna.getProduct().getProductId());
+            qnaDto.setQnaTitle(qna.getQnaTitle());
+            qnaDto.setQnaContent(qna.getQnaContent());
+            qnaDto.setUserName(user.getUserName());
+            qnaDto.setQnaDate(qna.getQnaDate());
+            qnaDtos.add(qnaDto);
+        }
+        return qnaDtos;
+    }
+
+    // 나의 Qna 수정 모달 제품 정보
+    public ProductDto getMyQnaProductInfo (long productId) {
+        Product product = productRepository.findByProductId(productId);
+        ProductDto productDto = new ProductDto();
+        productDto.setProductImgFst(product.getProductImgFst());
+        productDto.setProductName(product.getProductName());
+        productDto.setProductPrice(product.getProductPrice());
+        return productDto;
+    }
+
+    // 내가 쓴 Qna 내용 가져오기
+    public QnaDto getMyQnaCon (long qnaId) {
+        Qna qna = qnaRepository.findByQnaId(qnaId);
+        QnaDto qnaDto = new QnaDto();
+        qnaDto.setQnaTitle(qna.getQnaTitle());
+        qnaDto.setQnaContent(qna.getQnaContent());
+        return qnaDto;
+    }
+
+    // 나의 Qna 수정
+    public boolean editMyQna (String qnaId, String title, String content) {
+        long id = Long.parseLong(qnaId);
+        Qna qna = qnaRepository.findByQnaId(id);
+        if(qna != null) {
+            qna.setQnaTitle(title);
+            qna.setQnaContent(content);
+            qna.setQnaDate(LocalDateTime.now());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 나의 Qna 삭제
+    public boolean deleteMyQna (String qnaId) {
+        long id = Long.parseLong(qnaId);
+        qnaRepository.deleteById(id);
+        return true;
+    }
+
 }

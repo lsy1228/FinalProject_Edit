@@ -26,12 +26,17 @@ public class AuthController {
     public ResponseEntity<Boolean>  userList(@RequestBody Map<String, String> loginData) {
         String userEmail = loginData.get("email"); // userEmail?
         String userPwd = loginData.get("pwd");
-        System.out.println("user Email :  " + userEmail);
-        System.out.println("user Password :  " + userPwd);
         boolean result = userService.getUserList(userEmail,userPwd);
-        System.out.println("로그인 반환값 : " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @PostMapping("/adminLogin")
+    public ResponseEntity<Boolean>  adminList(@RequestBody Map<String, String> loginData) {
+        String userEmail = loginData.get("email"); // userEmail?
+        String userPwd = loginData.get("pwd");
+        boolean result = userService.getAdminList(userEmail,userPwd);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/check")
     public ResponseEntity<Boolean> regMemCheck (@RequestParam String email) {
         System.out.println("이메일 확인인인 : " + email);
@@ -118,4 +123,14 @@ public class AuthController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    //회원 프로필 사진 수정
+    @PostMapping("/saveUserImgInfo")
+    public ResponseEntity<Boolean> saveUserImgInfo(@RequestBody Map<String, String> userData){
+        String userEmail = userData.get("userEmail");
+        String userImg = userData.get("userImg");
+        System.out.println(userImg);
+        boolean result = userService.saveUserImgInfo(userEmail,userImg);
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

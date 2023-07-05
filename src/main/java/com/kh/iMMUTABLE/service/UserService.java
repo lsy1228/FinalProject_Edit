@@ -21,9 +21,32 @@ public class UserService {
     private final UserRepository userRepository;
     //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
-        User user = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
-        System.out.println("서비스 로그인 : " + user);
-        if(user != null)return true;
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(User user : userList){
+            UserDto userDto = new UserDto();
+            userDto.setUserEmail(user.getUserEmail());
+            userDto.setUserPwd(user.getUserPwd());
+            userDtos.add(userDto);
+        }
+        if(userDtos.isEmpty())return false;
+        else return true;
+    }
+
+    public boolean getAdminList(String userEmail, String userPassword){
+        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(User user : userList){
+            UserDto userDto = new UserDto();
+            userDto.setUserEmail(user.getUserEmail());
+            userDto.setUserPwd(user.getUserPwd());
+            userDto.setAuthority(user.getAuthority());
+            userDtos.add(userDto);
+        }
+        if(userDtos.isEmpty())
+            return false;
+        else if(userDtos.get(0).getAuthority() == Authority.valueOf("ROLE_ADMIN"))
+            return true;
         else return false;
     }
 
@@ -95,6 +118,15 @@ public class UserService {
         return true;
     }
 
+    // 회원 이미지정보 수정
+    public boolean saveUserImgInfo(String userEmail, String userImg) {
+        System.out.println("서비스 : " + userImg);
+        User user = userRepository.findByUserEmail(userEmail);
+        user.setUserImg(userImg);
+        userRepository.save(user);
+        return true;
+    }
+
     // 정보 가져오기
     public UserDto getUser(String userId) {
         User users = userRepository.findByUserEmail(userId);
@@ -103,7 +135,7 @@ public class UserService {
         userDto.setUserEmail(users.getUserEmail());
         userDto.setUserName(users.getUserName());
         userDto.setUserPwd(users.getUserPwd());
-
+        userDto.setUserImg(users.getUserImg());
         return userDto;
     }
 
@@ -124,6 +156,7 @@ public class UserService {
         userDto.setUserEmail(users.getUserEmail());
         userDto.setUserName(users.getUserName());
         userDto.setUserAddr(users.getUserAddr());
+        userDto.setAuthority(users.getAuthority());
         return userDto;
     }
 }
