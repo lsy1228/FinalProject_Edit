@@ -2,7 +2,6 @@ package com.kh.iMMUTABLE.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.OrderStatus;
-import com.kh.iMMUTABLE.constant.QnaStatus;
 import com.kh.iMMUTABLE.constant.SizeStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +25,14 @@ public class Order {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private Users user;
+
     @Column(nullable = false)
     private String orderAddress;
     private LocalDate orderDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     private String productName;
 
@@ -42,8 +46,4 @@ public class Order {
 
     private String shipCompany;
     private int shipCode;
-
-
-
-
 }

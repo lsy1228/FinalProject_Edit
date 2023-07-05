@@ -5,6 +5,10 @@ import com.kh.iMMUTABLE.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends JpaRepository<Cart, String> {
+import java.util.Optional;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
     Cart findByUserUserEmail(String userEmail);
+
+//    Cart deleteCartByCartId(Long cartId);
 }
