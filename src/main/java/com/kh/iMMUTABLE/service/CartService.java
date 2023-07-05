@@ -5,7 +5,7 @@ import com.kh.iMMUTABLE.dto.CartItemDto;
 import com.kh.iMMUTABLE.entity.Cart;
 import com.kh.iMMUTABLE.entity.CartItem;
 import com.kh.iMMUTABLE.entity.Product;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.CartItemRepository;
 import com.kh.iMMUTABLE.repository.CartRepository;
 import com.kh.iMMUTABLE.repository.ProductRepository;
@@ -36,7 +36,7 @@ public class CartService {
         System.out.println(" email : " + email);
         System.out.println("productId : " + productId);
 
-        User tempUser = userRepository.findByUserEmail(email);
+        Users tempUser = userRepository.findByUserEmail(email);
         long id = tempUser.getUserId();
 
         //로그인된 user가 아니라면 Exception
@@ -53,7 +53,7 @@ public class CartService {
 //            User user = userRepository.findByUserEmail(String.valueOf(id)
             cart = new Cart();
 
-            User user = new User();
+            Users user = new Users();
             user.setUserId(id);
 
             cart.setUser(user); //user의 id를 던져준다.
@@ -106,7 +106,7 @@ public class CartService {
     public List<CartItemDto> getCartItemList(String email) {
 
         // user_email로 user_id get
-        User user = userRepository.findByUserEmail(email);
+        Users user = userRepository.findByUserEmail(email);
         Long user_id = user.getUserId();
         // Cart 테이블에서 user_id로 cart_id get
         Cart cart = cartRepository.findByUserUserEmail(email);
