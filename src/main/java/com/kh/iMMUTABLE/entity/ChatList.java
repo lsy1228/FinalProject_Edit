@@ -25,7 +25,7 @@ public class ChatList {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     @OneToMany(mappedBy = "chatList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chatting> chattingList = new ArrayList<>();

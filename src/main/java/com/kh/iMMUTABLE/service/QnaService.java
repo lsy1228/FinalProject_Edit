@@ -14,7 +14,7 @@ import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.entity.Users;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class QnaService {
     public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDateTime qnaDate){
         System.out.println(userEmail + productId + qnaTitle + qnaContent + qnaDate);
         Qna qna = new Qna();
-        User user = userRepository.findByUserEmail(userEmail);
+        Users user = userRepository.findByUserEmail(userEmail);
         Product product = productRepository.findByProductId(Long.parseLong(productId));
         qna.setUser(user);
         qna.setQnaStatus(QnaStatus.HOLD);
@@ -101,7 +101,7 @@ public class QnaService {
             qnaDto.setQnaDate(qna.getQnaDate());
             qnaDto.setQnaStatus(QnaStatus.HOLD);
 
-            User user = userRepository.findByUserId(qna.getUser().getUserId());
+            Users user = userRepository.findByUserId(qna.getUser().getUserId());
             qnaDto.setUserName(user.getUserName());
             qnaDto.setUserId(user.getUserId());
             qnaDtos.add(qnaDto);
@@ -111,7 +111,7 @@ public class QnaService {
 
     // 나의 Qna 가져오기
     public List<QnaDto> getMyQna(String id) {
-        User user = userRepository.findByUserEmail(id);
+        Users user = userRepository.findByUserEmail(id);
         List<Qna> qnas = user.getQnas();
 
         List<QnaDto> qnaDtos = new ArrayList<>();

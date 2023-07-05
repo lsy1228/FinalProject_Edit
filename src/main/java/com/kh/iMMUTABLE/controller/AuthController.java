@@ -1,8 +1,10 @@
 package com.kh.iMMUTABLE.controller;
 
 
+import com.kh.iMMUTABLE.dto.TokenDto;
 import com.kh.iMMUTABLE.dto.UserDto;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.dto.UserRequestDto;
+import com.kh.iMMUTABLE.service.AuthService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class AuthController {
 
     private final UserService userService;
+    private final AuthService authService;
     @PostMapping("/login")
     public ResponseEntity<Boolean>  userList(@RequestBody Map<String, String> loginData) {
         String userEmail = loginData.get("email"); // userEmail?
@@ -132,5 +135,11 @@ public class AuthController {
         boolean result = userService.saveUserImgInfo(userEmail,userImg);
         System.out.println(result);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/loginToken")
+    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto requestDto) {
+        return ResponseEntity.ok(authService.login(requestDto));
     }
 }

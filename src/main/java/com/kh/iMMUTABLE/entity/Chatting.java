@@ -35,7 +35,7 @@ public class Chatting {
     //고객아이디
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     //채팅 메시지
     @Lob //문자열보다 긴 문자열을 사용

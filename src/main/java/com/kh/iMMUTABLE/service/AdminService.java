@@ -1,7 +1,8 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.dto.UserDto;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,9 @@ public class AdminService {
 
 
     public List<UserDto> getUserListAll(){
-        List<User> userList = userRepository.findAll();
+        List<Users> userList = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
-        for(User user : userList){
+        for(Users user : userList){
             UserDto userDto = new UserDto();
             userDto.setUserId(user.getUserId());
             userDto.setUserName(user.getUserName());
