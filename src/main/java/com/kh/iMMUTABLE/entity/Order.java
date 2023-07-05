@@ -2,7 +2,6 @@ package com.kh.iMMUTABLE.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kh.iMMUTABLE.constant.OrderStatus;
-import com.kh.iMMUTABLE.constant.QnaStatus;
 import com.kh.iMMUTABLE.constant.SizeStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +24,7 @@ public class Order {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private Users user;
 
     @Column(nullable = false)
     private String orderAddress;

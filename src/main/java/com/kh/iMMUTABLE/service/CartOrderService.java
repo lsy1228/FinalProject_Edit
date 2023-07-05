@@ -9,6 +9,7 @@ import com.kh.iMMUTABLE.repository.OrderRepository;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -29,10 +30,9 @@ public class CartOrderService {
     public boolean cartOrder(String userId, Long cartId) {
         System.out.println(userId);
         System.out.println(cartId);
-        User user = userRepository.findByUserEmail(userId);
+        Users user = userRepository.findByUserEmail(userId);
         System.out.println(user.getUserEmail());
         Optional<Cart> cartOpt = cartRepository.findById(cartId);
-//        List<OrderDto> orderDtoList = new ArrayList<>();
 
         if(cartOpt.isPresent()) {
             Cart cart = cartOpt.get();
