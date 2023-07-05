@@ -1,5 +1,6 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.User;
 import com.kh.iMMUTABLE.repository.UserRepository;

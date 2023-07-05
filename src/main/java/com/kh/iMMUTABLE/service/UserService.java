@@ -2,7 +2,7 @@ package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.dto.UserDto;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +21,9 @@ public class UserService {
     private final UserRepository userRepository;
     //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
-        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<Users> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
         List<UserDto> userDtos = new ArrayList<>();
-        for(User user : userList){
+        for(Users user : userList){
             UserDto userDto = new UserDto();
             userDto.setUserEmail(user.getUserEmail());
             userDto.setUserPwd(user.getUserPwd());
@@ -34,9 +34,9 @@ public class UserService {
     }
 
     public boolean getAdminList(String userEmail, String userPassword){
-        List<User> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
+        List<Users> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
         List<UserDto> userDtos = new ArrayList<>();
-        for(User user : userList){
+        for(Users user : userList){
             UserDto userDto = new UserDto();
             userDto.setUserEmail(user.getUserEmail());
             userDto.setUserPwd(user.getUserPwd());
@@ -59,7 +59,7 @@ public class UserService {
 
     //고객 회원가입
     public boolean signUpUser(String userName, String userEmail, String userPwd, String userAddr,String userPhone){
-        User user = new User();
+        Users user = new Users();
         user.setUserName(userName);
         user.setUserEmail(userEmail);
         user.setUserPwd(userPwd);
@@ -67,7 +67,7 @@ public class UserService {
         user.setUserPhone(userPhone);
         user.setUserDate(LocalDateTime.now());
         user.setAuthority(Authority.valueOf("ROLE_USER"));
-        User signUpUser = userRepository.save(user);
+        Users signUpUser = userRepository.save(user);
         return true;
     }
 
@@ -90,7 +90,7 @@ public class UserService {
     public boolean updateUserPassword(String userEmail, String newPassword) { // newPassword로 새로운 비밀번호 입력 받기
         log.debug("userEmail : " + userEmail);
         log.debug("newPassword : " + newPassword);
-        User user = userRepository.findByUserEmail(userEmail);
+        Users user = userRepository.findByUserEmail(userEmail);
         if (user != null) {
             user.setUserPwd(newPassword);
             userRepository.save(user);
@@ -103,7 +103,7 @@ public class UserService {
     // 회원 정보 수정
     public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone, String userAddr) {
         try {
-            User user = userRepository.findByUserEmail(userEmail);
+            Users user = userRepository.findByUserEmail(userEmail);
             if(user == null) {
                 return false;
             }
@@ -121,7 +121,7 @@ public class UserService {
     // 회원 이미지정보 수정
     public boolean saveUserImgInfo(String userEmail, String userImg) {
         System.out.println("서비스 : " + userImg);
-        User user = userRepository.findByUserEmail(userEmail);
+        Users user = userRepository.findByUserEmail(userEmail);
         user.setUserImg(userImg);
         userRepository.save(user);
         return true;
@@ -129,7 +129,7 @@ public class UserService {
 
     // 정보 가져오기
     public UserDto getUser(String userId) {
-        User users = userRepository.findByUserEmail(userId);
+        Users users = userRepository.findByUserEmail(userId);
         UserDto userDto = new UserDto();
         userDto.setUserPhone(users.getUserPhone());
         userDto.setUserEmail(users.getUserEmail());
@@ -141,7 +141,7 @@ public class UserService {
 
     // 회원 탈퇴
     public boolean memberSec(String userPwd) {
-        User user = userRepository.findByUserPwd(userPwd);
+        Users user = userRepository.findByUserPwd(userPwd);
         if (user == null) {
             return false;
         }
@@ -150,7 +150,7 @@ public class UserService {
     }
     //주문한 사람 정보 가져오기
     public UserDto getOrderUser(String userId) {
-        User users = userRepository.findByUserEmail(userId);
+        Users users = userRepository.findByUserEmail(userId);
         UserDto userDto = new UserDto();
         userDto.setUserPhone(users.getUserPhone());
         userDto.setUserEmail(users.getUserEmail());

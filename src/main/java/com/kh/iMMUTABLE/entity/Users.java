@@ -9,13 +9,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Entity // JPA에 Entity 클래스임을 알려줌, DB테이블로 만들어져야 할 클래스
 @Table(name = "users")
 @Getter @Setter @ToString
 //기본 생성자 질문드리기
 @NoArgsConstructor
-public class User {
+public class Users {
     @Id // 해당 필드가 primary key임을 지정
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,14 +52,11 @@ public class User {
     private List<ChatList> chatLists;
 
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
-    public User(long user, String email, String password, String name, Authority authority) {
+    public Users(long user, String email, String password, Authority authority) {
         this.userId = user;
         this.userEmail = email;
         this.userPwd = password;
-        this.userName = name;
         this.authority = authority;
-
     }
-
 
 }
