@@ -5,7 +5,7 @@ import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Like;
 import com.kh.iMMUTABLE.entity.Product;
-import com.kh.iMMUTABLE.entity.User;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.LikeRepository;
 import com.kh.iMMUTABLE.repository.ProductRepository;
 import com.kh.iMMUTABLE.repository.UserRepository;
@@ -27,7 +27,7 @@ public class LikeService {
     private final ProductRepository productRepository;
 
     public boolean likeInsert(String id, long productId) {
-        User user = userRepository.findByUserEmail(id);
+        Users user = userRepository.findByUserEmail(id);
         Product product = productRepository.findByProductId(productId);
         boolean isLiked = likeRepository.existsByUserUserIdAndProductProductId(user.getUserId(), productId);
         if (isLiked) {
@@ -43,7 +43,7 @@ public class LikeService {
 
     public List<LikeDto> likeList(String id) {
         System.out.println("서비스좋아요아이디 : " + id);
-        User user = userRepository.findByUserEmail(id);
+        Users user = userRepository.findByUserEmail(id);
         List<Like> likeList = user.getLikes();
 
         List<LikeDto> likeDtoList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class LikeService {
     }
 
     public boolean likeDelete (String id, long productId) {
-        User user = userRepository.findByUserEmail(id);
+        Users user = userRepository.findByUserEmail(id);
         Like like = likeRepository.findByUserUserIdAndProductProductId(user.getUserId() , productId);
         if(like!= null) {
             likeRepository.delete(like);
@@ -73,7 +73,7 @@ public class LikeService {
     }
 
     public boolean likeView (String id, long productId) {
-        User user = userRepository.findByUserEmail(id);
+        Users user = userRepository.findByUserEmail(id);
         if(user == null) {
             return false;
         }
