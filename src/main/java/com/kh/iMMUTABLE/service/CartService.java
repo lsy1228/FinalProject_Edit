@@ -37,14 +37,7 @@ public class CartService {
         System.out.println(" email : " + email);
         System.out.println("productId : " + productId);
 
-        Users tempUser = userRepository.findByUserEmail(email);
-        long id = tempUser.getUserId();
-
-        //로그인된 user가 아니라면 Exception
-        if (id < 0) { //user_id가 존재하지 않는 경우
-            // 사용자가 존재하지 않는 경우 예외 처리 또는 오류 메시지 반환
-            throw new UsernameNotFoundException("User not found");
-        }
+        Users user = userRepository.findByUserEmail(email);
         Cart findCartId = new Cart(); //카트Id
 
         Product product = productRepository.findByProductId(productId);
@@ -53,16 +46,11 @@ public class CartService {
         if (cart == null) { //기존에 장바구니 기능을 사용한적 없는 사용자면
 //            User user = userRepository.findByUserEmail(String.valueOf(id)
             cart = new Cart();
-
-            Users user = new Users();
-            user.setUserId(id);
-
             cart.setUser(user); //user의 id를 던져준다.
 
             Cart userCart = cartRepository.save(cart);
             System.out.println("생성된 카드id " + userCart.getCartId());
             System.out.println(userCart);
-            System.out.println(userCart.toString());
             if(userCart.getCartId() > 0){
                //findCartId
                 findCartId.setCartId(userCart.getCartId());

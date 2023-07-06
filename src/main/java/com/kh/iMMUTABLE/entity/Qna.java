@@ -26,9 +26,8 @@ public class Qna {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private Users user;
 
     @Column(nullable = false)
