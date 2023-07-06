@@ -47,10 +47,33 @@ public class CartController {
     // 장바구니 리스트 불러오기
     @GetMapping("/cartItemList")
     public ResponseEntity<List<CartItemDto>> getCartItemList(@RequestParam String id) {
-        List<CartItemDto> result = cartService.getCartItemList(id);
-        return new ResponseEntity<List<CartItemDto>>(result, HttpStatus.OK);
+            List<CartItemDto> result = cartService.getCartItemList(id);
+            return new ResponseEntity<List<CartItemDto>>(result, HttpStatus.OK);
+
     }
 
+    // 수량 업데이트
+    @PostMapping("/updateCount")
+    public ResponseEntity<CartItemDto> updateCount(@RequestBody Map<String, Object> cartData) {
+        int count = (int) cartData.get("count");
+        //int cartItemId = (int) cartData.get("cartList");
+        //List<> cartitem = (List<>) cartData.get("cartList");
+        int idx = (int)cartData.get("idx");
+        List<Map> tempList = (List<Map>)cartData.get("cartList");
+        Map<String, Object> tempMap = tempList.get(idx);
+
+        int cartItemId = (int)tempMap.get("cartItemId");
+
+        // int cartItemId = cartData.get("cartList").get
+        //ArrayList<Cart> cartItem = (ArrayList<Cart>) cartData.get("cartList");
+//        int cartItemId = (int) cartItem.get(idx).getCartItemList().get
+        CartItem cart = cartService.updateCount(count, cartItemId);
+        CartItemDto result = new CartItemDto();
+        result.setCount(cart.getCount());
+        result.setProductPrice(cart.getCartPrice());
+
+        return new ResponseEntity<CartItemDto>(result, HttpStatus.OK);
+    }
 }
 
 
