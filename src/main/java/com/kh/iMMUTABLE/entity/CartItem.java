@@ -30,6 +30,10 @@ public class CartItem {
 
     private int count;
 
+
+
+
+
 //    public static CartItem createCartItem(Cart cart,Product product,int count){
 //        CartItem cartItem = new CartItem();
 //        cartItem.setCart(cart);
@@ -48,4 +52,6 @@ public class CartItem {
 //    public void updateCount(int count){
 //        this.count = count;
 //    }
+
+
 }

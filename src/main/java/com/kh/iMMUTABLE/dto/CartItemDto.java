@@ -22,6 +22,14 @@ public class CartItemDto {
 
     private long userId;
 
+    private long setOriginProductPrice;
+
+    // 총합 가격
+    private long listTotalPrice;
+
+
+
+
 
 }
 

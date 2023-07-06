@@ -1,6 +1,5 @@
 package com.kh.iMMUTABLE.service;
 
-import com.kh.iMMUTABLE.dto.CartDto;
 import com.kh.iMMUTABLE.dto.CartItemDto;
 import com.kh.iMMUTABLE.entity.Cart;
 import com.kh.iMMUTABLE.entity.CartItem;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -118,8 +116,12 @@ public class CartService {
         //List<CartItem> cartItemList = cartList.getCartItemList();
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
 
-        for(CartItem cartItem : cartList) {
+
+        for (CartItem cartItem : cartList) {
+
             CartItemDto cartItemDto = new CartItemDto();
+
+
             cartItemDto.setCartItemId((int) cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
@@ -129,15 +131,24 @@ public class CartService {
             Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
             cartItemDto.setProductName(product.getProductName());
             cartItemDto.setProductImgFst(product.getProductImgFst());
-
+            cartItemDto.setSetOriginProductPrice(product.getProductPrice());
             cartItemDtoList.add(cartItemDto);
+
         }
         return cartItemDtoList;
     }
 
 
 
-    // 상품 수량 업데이트
+    public CartItem updateCount(int count, long cartItemId){
+        CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
+        cartItem.setCount(count);
 
+        Product tempProduct  = productRepository.findByProductId(cartItem.getProduct().getProductId());
+        cartItem.setCartPrice(count * tempProduct.getProductPrice());
 
+        CartItem cartItemDto = cartItemRepository.save(cartItem);
+
+        return cartItemDto;
     }
+}
