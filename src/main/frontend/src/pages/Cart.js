@@ -237,7 +237,7 @@ const Cart=()=>{
 
     // 주문창으로 이동
     const onClickCartOrder = (cartId) => {
-        navigate(`/CartOrder/${16}`);
+        navigate(`/CartOrder/${cartId}`);
     }
     
 
@@ -269,33 +269,55 @@ const Cart=()=>{
         };
         getCartList();
     }, []);
- 
-       
-        
-        // 수량을 증가
-        // const countPlus = (idx) => { 
-        //     setCount(prevCount => {
-        //       const newCount = [...prevCount];
-        //       newCount[idx] += 1;
- 
-        //       return newCount;
-        //     });
-        //   };
 
 
-        // 수량을 감소
-        // const countMinus = (idx) => {
-        //     setCount(prevCount => {
-        //       const newCount = [...prevCount];
-        //       if (newCount[idx] > 1) {
-        //         newCount[idx] -= 1;
-       
-        //       }
-        //       return newCount;
-        //     });
-        //   };
-          
-          
+
+    // 토탈 가격
+    const calculateTotalPrice = () => {
+        let totalPrice = 0;
+        for(let i = 0; i< cartList.length; i++){
+            totalPrice += cartList[i].setOriginProductPrice * count[i];
+            console.log("total" + totalPrice)
+        }
+        return totalPrice.toLocaleString();
+
+    }
+
+    const updateCount = async (count, cartList, idx) => {
+        const response = await AxiosFinal.updateCount( count, cartList, idx);
+        const result = response.data;
+        console.log(result)
+    };
+    console.log(cartList)
+
+
+    // 수량 증가
+    const countPlus = (idx) => {
+        console.log(idx);
+        setCount(prevCount => {
+            const newCount = [...prevCount];
+            newCount[idx] += 1;
+
+            updateCount(newCount[idx], cartList, idx);
+            return newCount;
+        });
+    };
+
+
+    // 수량 감소
+    const countMinus = (idx) => {
+        setCount(prevCount => {
+            const newCount = [...prevCount];
+            if (newCount[idx] > 1) {
+                newCount[idx] -= 1;
+                updateCount(newCount[idx], cartList, idx);
+            }
+            return newCount;
+        });
+    };
+
+    console.log(cartList)
+
 
     return(
         <Container>
@@ -315,14 +337,14 @@ const Cart=()=>{
                         <div className="product_image">
                             <img src ={e.productImgFst} /></div>                        
                         <div className="itemName">{e.productName}</div>
-                            {/* <div className="count">
-                                            <input type="text" Value={count[index]}/>
-                                            <div className="countbutton">
-                                                <button className="plus" onClick={()=>countPlus(index)}>∧</button>
-                                                <button className="minus" onClick={()=>countMinus(index)}>∨</button>
-                                            </div>
-                                        </div>    
-                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div> */}
+                    <div className="count">
+                        <input type="text" Value={count[index]} />
+                        <div className="countbutton">
+                            <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                            <button className="minus" onClick={()=>countMinus(index)}>∨</button>
+                        </div>
+                    </div>
+                    <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
                     </Products_in>  
                             ))}
                 </Products>     
@@ -339,7 +361,7 @@ const Cart=()=>{
                  )} 
                 </OrderInfo>
                 {cartList && cartList.map(cart => (
-                    <button className="paymentBtn" onClick={() => onClickCartOrder(cart.cartId)}>{totalPrice-6000}won payment</button>
+                    <button key={cart.cartId} className="paymentBtn" onClick={() => onClickCartOrder(cart.cartId)}>payment</button>
                 ))}
                 </MainBody>
         </Container>
