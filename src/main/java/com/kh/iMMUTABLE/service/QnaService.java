@@ -99,7 +99,7 @@ public class QnaService {
             qnaDto.setQnaTitle(qna.getQnaTitle());
             qnaDto.setQnaContent(qna.getQnaContent());
             qnaDto.setQnaDate(qna.getQnaDate());
-            qnaDto.setQnaStatus(QnaStatus.HOLD);
+            qnaDto.setQnaStatus(qna.getQnaStatus());
 
             Users user = userRepository.findByUserId(qna.getUser().getUserId());
             qnaDto.setUserName(user.getUserName());
@@ -120,6 +120,7 @@ public class QnaService {
             qnaDto.setQnaId(qna.getQnaId());
             qnaDto.setQnaStatus(qna.getQnaStatus());
             qnaDto.setProductId(qna.getProduct().getProductId());
+            qnaDto.setReply(qna.getReply());
             qnaDto.setQnaTitle(qna.getQnaTitle());
             qnaDto.setQnaContent(qna.getQnaContent());
             qnaDto.setUserName(user.getUserName());
