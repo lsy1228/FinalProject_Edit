@@ -113,6 +113,7 @@ public class CartService {
             cartItemDto.setCartItemId((int) cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
+            cartItemDto.setCartId(cart.getCartId());
 
 
             //상품정보에서 상품사진이랑 상품명 get
