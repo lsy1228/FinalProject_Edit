@@ -100,7 +100,7 @@ public class QnaService {
             qnaDto.setQnaContent(qna.getQnaContent());
             qnaDto.setQnaDate(qna.getQnaDate());
             qnaDto.setQnaStatus(qna.getQnaStatus());
-
+            qnaDto.setReply(qna.getReply());
             Users user = userRepository.findByUserId(qna.getUser().getUserId());
             qnaDto.setUserName(user.getUserName());
             qnaDto.setUserId(user.getUserId());

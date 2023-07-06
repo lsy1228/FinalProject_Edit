@@ -331,6 +331,15 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
     },
 
+    updateCount : async(count, cartList, idx) => {
+            const updateCount = {
+                count : count,
+                cartList : cartList,
+                idx : idx
+            }
+            return await axios.post(Final_proj + "/cart/updateCount", updateCount);
+        },
+
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
         const qna = {
