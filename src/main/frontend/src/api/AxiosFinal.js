@@ -12,8 +12,8 @@ const AxiosFinal = {
     },
     adminSignUp: async(email, pw) => {    
         const signUpToken = {
-            email : email,
-            pwd : pw 
+            userEmail : email,
+            userPwd : pw
         };
         return await axios.post(Final_proj + "/auth/signupToken", signUpToken);
     },
@@ -28,8 +28,8 @@ const AxiosFinal = {
       // 어드민 토큰로그인
       adminTokenLogin: async(email, pw) => {    
         const adminTokenLogin = {
-            email : email,
-            pwd : pw 
+            userEmail : email,
+            userPwd : pw
         };
         return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
     },
@@ -330,6 +330,15 @@ const AxiosFinal = {
     cartItemList : async(id) => {
         return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
     },
+
+    updateCount : async(count, cartList, idx) => {
+            const updateCount = {
+                count : count,
+                cartList : cartList,
+                idx : idx
+            }
+            return await axios.post(Final_proj + "/cart/updateCount", updateCount);
+        },
 
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {

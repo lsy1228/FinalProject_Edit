@@ -246,11 +246,9 @@ const AdminSignUp = () => {
             console.log("가입가능");
             // 가입 진행
             const memberReg = await AxiosFinal.adminSignUp(inputEmail, inputPw);
-        
-            if(memberReg.data === true) {
+            console.log(memberReg.data);
+            if(memberReg.data !== null) {
                 navigate("/AdminPage");
-            } else {
-                alert("회원 가입에 실패했습니다");
             }
         } else {
             alert("이미 가입된 회원입니다");

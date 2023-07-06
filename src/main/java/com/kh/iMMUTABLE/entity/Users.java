@@ -52,10 +52,9 @@ public class Users {
     private List<ChatList> chatLists;
 
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
-    public Users(long user, String email, String password, Authority authority) {
-        this.userId = user;
-        this.userEmail = email;
-        this.userPwd = password;
-        this.authority = authority;
+    public Users(String userEmail, String userPwd, Authority userAuth) {
+        this.userEmail = userEmail;
+        this.userPwd = userPwd;
+        this.authority = userAuth;
     }
 }

@@ -226,10 +226,16 @@ const QnATable = styled.table`
         }   
     }
     .qnaContent {
-        height: 40px;
         font-size: 14px;
         .content {
-            margin: 0 80px;
+            margin: 10px 60px;
+        }
+    }
+    .qnaReply {
+        background-color: whitesmoke;
+        .reply {
+            margin: 0 60px;
+            padding: 10px 0;
         }
     }
 `;
@@ -247,8 +253,8 @@ const ProductInfo = () => {
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState();   // 사이즈에 따른 상품 아이디
     const [product, setProduct] = useState([]);
-    const [qnaData, setQnaData] = useState([]); 
-    const [expanded, setExpanded] = useState([]); 
+    const [qnaData, setQnaData] = useState([]);
+    const [expanded, setExpanded] = useState([]);
 
     // pagenation
     const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
@@ -263,7 +269,7 @@ const ProductInfo = () => {
     const handleSelect = (e) => {
         const productId = e.target.value;
         // console.log(productId);
-        setProductId(productId);    
+        setProductId(productId);
     };
 
     const detailClick = () => {
@@ -275,7 +281,7 @@ const ProductInfo = () => {
             nav("/Login");
         } else {
         await AxiosFinal.likeProduct(id, heartProductId);
-        setlikeClick(true); 
+        setlikeClick(true);
         }
     }
 
@@ -293,7 +299,7 @@ const ProductInfo = () => {
             nav("/Login");
         }
     }
-   
+
 
     useEffect(()=> {
         const storedData = window.localStorage.getItem("productData");
@@ -304,24 +310,24 @@ const ProductInfo = () => {
             const rsp = await AxiosFinal.viewHeart(id, heartProductId);
             if(rsp.data) {
                 setlikeClick(true);
-            } else { 
+            } else {
                 setlikeClick(false);
             }
-        } 
+        }
 
         const qnaView = async(heartProductId) => {
             const rsp = await AxiosFinal.viewQna(heartProductId);
             console.log(rsp.data);
             setQnaData(rsp.data);
         }
-        
+
 
         if (heartProductId) {
             heartView(id, heartProductId);
             qnaView(heartProductId);
           }
     }, [modalOpen]);
-    
+
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {
@@ -339,7 +345,7 @@ const ProductInfo = () => {
         console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
         console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
 
-        const params = await AxiosFinal.addCartItem(id, productId); 
+        const params = await AxiosFinal.addCartItem(id, productId);
 
     }
 
@@ -351,7 +357,7 @@ const ProductInfo = () => {
         <Container>
                 <Header />
             <InnerContainer>
-                {product.length > 0 && (<div className="product">           
+                {product.length > 0 && (<div className="product">
                     <div className="productImg">
                             <img src={product[0].productImgFst} alt="" />
                             <img src={product[0].productImgSnd} alt="" />
@@ -378,7 +384,6 @@ const ProductInfo = () => {
                                {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
                                 <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
                             </div>
-                            <div className="productDesc">product desc</div>
                             <div className="detailWrapper">
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
@@ -390,7 +395,7 @@ const ProductInfo = () => {
                     </div>
                 </div>)}
                 <Review>
-                    <div className="review"> 
+                    <div className="review">
                         <div className="reviewBoard">Review</div>
                         <hr />
                         <ReviewTable>
@@ -435,21 +440,26 @@ const ProductInfo = () => {
                                 <React.Fragment key={index}>
                                     <tr onClick={() => handleQna(index)}>
                                     <td className="number">{offset + index + 1}.</td>
-                                    <td className="status">{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
+                                    <td className="status" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
                                     <td className="title">{e.qnaTitle}</td>
                                     <td className="user">{e.userName.substring(0,1)}**</td>
                                     <td className="date">{e.qnaDate}</td>
                                     </tr>
                                     {expanded.includes(index) && (
-                                    <td colSpan={4} className="qnaContent">
+                                    <td colSpan={5} className="qnaContent">
                                         <p className="content">{e.qnaContent}</p>
+                                        {e.reply &&
+                                           <div className="qnaReply">
+                                            <p className="reply">{e.reply}</p>
+                                           </div>
+                                        }
                                     </td>
                                     )}
                                 </React.Fragment>
                                 ))
                                 ) : (
                                     <tr>
-                                    <td colSpan={4}>문의가 없습니다.</td>
+                                    <td colSpan={5}>문의가 없습니다.</td>
                                     </tr>
                                 )}
                             </tbody>

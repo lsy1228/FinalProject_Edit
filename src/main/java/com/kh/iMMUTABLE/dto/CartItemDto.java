@@ -27,7 +27,7 @@ public class CartItemDto {
     // 총합 가격
     private long listTotalPrice;
 
-
+    private long cartId;
 
 
 

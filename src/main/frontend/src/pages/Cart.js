@@ -145,6 +145,12 @@ const Products_in=styled.div`
     img{
         width: 80px;
     }
+
+    .total{
+
+        display: flex;
+        position: reltive;
+    }
 `
 const Total=styled.div`
     display: flex;
@@ -198,50 +204,18 @@ const OrderInfo=styled.div`
 
 
 const Cart=()=>{
+    const [count, setCount] = useState([]);
 
     const navigate = useNavigate();
 
     const[cartList, setCartList] = useState([]); 
-
-    // 가격 임의 설정
-    const price = 1000;
-    // 토탈 가격 임의 설정
-    const[totalPrice,setTotalPrice]=useState(1);
-
-
-    // const countUpChange= async(cartItemId,count)=> {
-    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-    //     console.log("==> cartItemId : " + cartItemId);
-    //     console.log("==> count : " + count);
-
-     
-    //         //cartItemID 를 넘겨줌
-    //         const rsp = await AxiosFinal.updateCartItem();
-
-    // }
-
-    // const countDownChange= async(cartItemId)=> {
-    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-    //     console.log("==> cartItemId : " + cartItemId);
-    //     //setNumber(number-1);
-    //     // if(number <= 1){
-    //     //     setNumber(1);
-    //     // }
-    //     //setTotalPrice(price*number);
-    //     const getCartList = async()=>{
-    //         //cartItemID 를 넘겨줌
-    //         const rsp = await AxiosFinal.updateCartItem();
-    //      };
-    // }
 
 
     // 주문창으로 이동
     const onClickCartOrder = (cartId) => {
         navigate(`/CartOrder/${cartId}`);
     }
-    
 
-    const [count,setCount] = useState([]);
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
     // 팝업창 열기
@@ -254,7 +228,7 @@ const Cart=()=>{
     }
 
     const id = window.localStorage.getItem("userIdSuv");
-    // console.log("=Cart== > id " + id)
+
     useEffect(() => {
         const getCartList = async()=>{
             if(!id) {
@@ -264,8 +238,9 @@ const Cart=()=>{
             if(rsp.status === 200) {
                 const copyCnt = rsp.data.map(e => e.count);
                 setCartList(rsp.data);
-                // setCount(copyCnt);
-            } 
+                console.log(rsp.data);
+                setCount(copyCnt);
+            }
         };
         getCartList();
     }, []);
@@ -283,6 +258,7 @@ const Cart=()=>{
 
     }
 
+
     const updateCount = async (count, cartList, idx) => {
         const response = await AxiosFinal.updateCount( count, cartList, idx);
         const result = response.data;
@@ -291,32 +267,34 @@ const Cart=()=>{
     console.log(cartList)
 
 
-    // 수량 증가
-    const countPlus = (idx) => {
-        console.log(idx);
-        setCount(prevCount => {
-            const newCount = [...prevCount];
-            newCount[idx] += 1;
-
-            updateCount(newCount[idx], cartList, idx);
-            return newCount;
-        });
-    };
 
 
-    // 수량 감소
-    const countMinus = (idx) => {
-        setCount(prevCount => {
-            const newCount = [...prevCount];
-            if (newCount[idx] > 1) {
+
+        // 수량 증가
+        const countPlus = (idx) => {
+            console.log(idx);
+            setCount(prevCount => {
+              const newCount = [...prevCount];
+              newCount[idx] += 1;
+              updateCount(newCount[idx], cartList, idx);
+              return newCount;
+            });
+          };
+
+
+        // 수량 감소
+        const countMinus = (idx) => {
+            setCount(prevCount => {
+              const newCount = [...prevCount];
+              if (newCount[idx] > 1) {
                 newCount[idx] -= 1;
                 updateCount(newCount[idx], cartList, idx);
-            }
-            return newCount;
-        });
-    };
+              }
+              return newCount;
+            });
+          };
 
-    console.log(cartList)
+          console.log(cartList)
 
 
     return(
@@ -335,20 +313,26 @@ const Cart=()=>{
                         <div className="checkBox">
                             <input type="checkbox"/></div>
                         <div className="product_image">
-                            <img src ={e.productImgFst} /></div>                        
+                            <img src ={e.productImgFst} /></div>
                         <div className="itemName">{e.productName}</div>
-                    <div className="count">
-                        <input type="text" Value={count[index]} />
-                        <div className="countbutton">
-                            <button className="plus" onClick={()=>countPlus(index)}>∧</button>
-                            <button className="minus" onClick={()=>countMinus(index)}>∨</button>
-                        </div>
-                    </div>
-                    <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
-                    </Products_in>  
-                            ))}
-                </Products>     
-                <OrderInfo>                    
+                            <div className="count">
+                                            <input type="text" Value={count[index]} />
+                                            <div className="countbutton">
+                                                <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                                                <button className="minus" onClick={()=>countMinus(index)}>∨</button>
+                                            </div>
+                                        </div>
+                        <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
+                    </Products_in>
+                             ))}
+                </Products>
+
+                <Total>
+                   {calculateTotalPrice()} won
+
+                </Total>
+
+                <OrderInfo>
                     <div className="shippingInfo">
                             ACCOUNT DETAIL
                             <div className="name">leetaetae</div>

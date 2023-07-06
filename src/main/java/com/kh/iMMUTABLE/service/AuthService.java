@@ -29,6 +29,7 @@ public class AuthService {
         if (userRepository.existsByUserEmail(requestDto.getUserEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
+        System.out.println("서비스 사인업 requestDto: " + requestDto);
         Users user = requestDto.toUser(passwordEncoder);
         return UserResponseDto.of(userRepository.save(user));
     }
