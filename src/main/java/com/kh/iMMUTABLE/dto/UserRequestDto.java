@@ -12,19 +12,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Builder
 public class UserRequestDto {
     private String userEmail;
-    private String password;
+    private String userPwd;
 
     public Users toUser(PasswordEncoder passwordEncoder) {
+        System.out.println("리퀘스트 : " + userEmail);
+        System.out.println("리퀘스트 : " + userPwd);
         return Users.builder()
                 .userEmail(userEmail)
-                .userPwd(passwordEncoder.encode(password))
+                .userPwd(passwordEncoder.encode(userPwd))
                 .userAuth(Authority.ROLE_ADMIN)
                 .build();
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
         System.out.println("RequestDto 접속 완료");
-        return new UsernamePasswordAuthenticationToken(userEmail, password);
+        return new UsernamePasswordAuthenticationToken(userEmail, userPwd);
     }
 
 }

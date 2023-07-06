@@ -12,8 +12,8 @@ const AxiosFinal = {
     },
     adminSignUp: async(email, pw) => {    
         const signUpToken = {
-            email : email,
-            pwd : pw 
+            userEmail : email,
+            userPwd : pw
         };
         return await axios.post(Final_proj + "/auth/signupToken", signUpToken);
     },
