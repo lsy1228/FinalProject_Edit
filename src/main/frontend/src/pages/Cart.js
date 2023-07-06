@@ -236,9 +236,8 @@ const Cart=()=>{
 
 
     // 주문창으로 이동
-    const onClickCartOrder = async() => {
-        const getList = await AxiosFinal.getCartList()
-        navigate("/CartOrder");
+    const onClickCartOrder = (cartId) => {
+        navigate(`/CartOrder/${16}`);
     }
     
 
@@ -339,8 +338,10 @@ const Cart=()=>{
                         <PopupPostCode onClose={closePostCode} />
                  )} 
                 </OrderInfo>
-                <button className="paymentBtn" onClick={onClickCartOrder}>{totalPrice-6000}won payment</button>
-            </MainBody>        
+                {cartList && cartList.map(cart => (
+                    <button className="paymentBtn" onClick={() => onClickCartOrder(cart.cartId)}>{totalPrice-6000}won payment</button>
+                ))}
+                </MainBody>
         </Container>
     );
 };

@@ -49,7 +49,7 @@ function App() {
           <Route path="/Mypost" element={<Mypost/>} />
           <Route path="/Review" element={<Review/>} />
           <Route path="/Wishlist" element={<Wishlist/>} />
-          <Route path="/CartOrder" element={<CartOrder/>} />
+          <Route path="/CartOrder/:cartId" element={<CartOrder/>} />
           <Route path="/OrderComplete" element={<OrderComplete/>} />
           <Route path="/AdminSignUp" element={<AdminSignUp/>} />
         </Routes>
