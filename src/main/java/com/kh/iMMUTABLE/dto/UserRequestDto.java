@@ -16,9 +16,9 @@ public class UserRequestDto {
 
     public Users toUser(PasswordEncoder passwordEncoder) {
         return Users.builder()
-                .email(userEmail)
-                .password(passwordEncoder.encode(password))
-                .authority(Authority.ROLE_ADMIN)
+                .userEmail(userEmail)
+                .userPwd(passwordEncoder.encode(password))
+                .userAuth(Authority.ROLE_ADMIN)
                 .build();
     }
 
