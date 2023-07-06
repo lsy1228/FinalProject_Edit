@@ -18,10 +18,12 @@ public class AdminUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        return null;
-//        return userRepository.findByUserEmail(userEmail)
-//                .map(this::createUserDetails)
-//                .orElseThrow(() -> new UsernameNotFoundException(userEmail + " 을 DB에서 찾을 수 없습니다"));
+        Users user = userRepository.findByUserEmail(userEmail);
+        if (user != null) {
+            return createUserDetails(user);
+        } else {
+            throw new UsernameNotFoundException(userEmail + " 을 DB에서 찾을 수 없습니다");
+        }
     }
 
     private UserDetails createUserDetails(Users users) {

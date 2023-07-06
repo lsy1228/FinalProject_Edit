@@ -23,6 +23,7 @@ public class UserRequestDto {
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
+        System.out.println("RequestDto 접속 완료");
         return new UsernamePasswordAuthenticationToken(userEmail, password);
     }
 

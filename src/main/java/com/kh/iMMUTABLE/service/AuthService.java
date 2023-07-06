@@ -2,6 +2,8 @@ package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.dto.TokenDto;
 import com.kh.iMMUTABLE.dto.UserRequestDto;
+import com.kh.iMMUTABLE.dto.UserResponseDto;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.jwt.TokenProvider;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +25,21 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
+    public UserResponseDto signup(UserRequestDto requestDto) {
+        if (userRepository.existsByUserEmail(requestDto.getUserEmail())) {
+            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        }
+        Users user = requestDto.toUser(passwordEncoder);
+        return UserResponseDto.of(userRepository.save(user));
+    }
+
     //로그인시 TokenDto 를 반환한다.
     public TokenDto login(UserRequestDto requestDto) {
+        System.out.println("토큰디티오 접속 완료");
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
+        System.out.println("authenticationToken : " + authenticationToken);
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+        System.out.println("authentication" + authentication);
         return tokenProvider.generateTokenDto(authentication);
     }
 }
