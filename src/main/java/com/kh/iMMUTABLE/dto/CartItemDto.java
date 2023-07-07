@@ -1,16 +1,19 @@
 package com.kh.iMMUTABLE.dto;
 
+import com.kh.iMMUTABLE.constant.SizeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Enumerated;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItemDto {
-    private int cartItemId;
+    private long cartItemId;
 
     private String productName;
 
@@ -28,6 +31,9 @@ public class CartItemDto {
     private long listTotalPrice;
 
     private long cartId;
+
+    @Enumerated
+    private SizeStatus sizeStatus;
 
 
 

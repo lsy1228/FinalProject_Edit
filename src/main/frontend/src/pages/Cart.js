@@ -213,8 +213,14 @@ const Cart=()=>{
 
 
     // 주문창으로 이동
-    const onClickCartOrder = () => {
-        navigate("/CartOrder");
+    const onClickCartOrder = (cartId) => {
+        console.log(cartId);
+        navigate(`/CartOrder/${cartId}`);
+       }
+
+    // 장바구니에 제품이 없을경우 shop 페이지로 이동
+    const onClickShop = () => {
+        navigate('/Shop');
     }
 
 
@@ -319,6 +325,7 @@ const Cart=()=>{
                         <div className="product_image">
                             <img src ={e.productImgFst} /></div>
                         <div className="itemName">{e.productName}</div>
+                        <div className="itemSize">{e.sizeStatus}</div>
                             <div className="count">
                                             <input type="text" Value={count[index]} />
                                             <div className="countbutton">
@@ -336,19 +343,10 @@ const Cart=()=>{
 
                 </Total>
 
-                <OrderInfo>
-                    <div className="shippingInfo">
-                            ACCOUNT DETAIL
-                            <div className="name">leetaetae</div>
-                            <div className="addr">46, Samosil-gil,Nam-myeon, Gimcheon-si, <br/> Gyeongsangbuk-do, Republic of Korea</div>
-                            <div className="phone">+821010004000</div>
-                    </div>
-                    <button className="addrChange" onClick={openPostCode}>배송지 변경</button>
-                    {isPopupOpen && (
-                        <PopupPostCode onClose={closePostCode} />
-                 )}
-                </OrderInfo>
-                <button className="paymentBtn" onClick={onClickCartOrder}>payMent</button>
+                {cartList && cartList.length > 0 ?(
+                    <button className="paymentBtn" onClick={() => onClickCartOrder(cartList[0].cartId)}>payment</button>
+                ) : (
+                <button className="paymentBtn" onClick={onClickShop}>SHOP</button> )}
             </MainBody>        
         </Container>
     );

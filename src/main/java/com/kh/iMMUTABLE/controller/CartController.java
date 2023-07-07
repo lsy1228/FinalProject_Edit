@@ -20,7 +20,6 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 
@@ -29,17 +28,17 @@ public class CartController {
 
    // 장바구니 추가
     @PostMapping("/addCartItem")
-    public ResponseEntity<CartItem> addCartItem(@RequestBody Map<String, String> cartData) {
+    public ResponseEntity<Boolean> addCartItem(@RequestBody Map<String, String> cartData) {
 
         try {
             String tempEmail = cartData.get("id"); //id로 찍히지만 실제로 넘어오는건 Email
-            String tempProductId = cartData.get("productId").toString();
+            String tempProductId = cartData.get("productId");
 
-            int productId = Integer.parseInt(tempProductId);
+            long productId = Long.parseLong(tempProductId);
 
-            CartItem cartItem = cartService.addCartItem(tempEmail, productId);
+            boolean result = cartService.addCartItem(tempEmail, productId);
 
-            return new ResponseEntity<>(cartItem, HttpStatus.CREATED);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (UsernameNotFoundException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -47,8 +46,11 @@ public class CartController {
     // 장바구니 리스트 불러오기
     @GetMapping("/cartItemList")
     public ResponseEntity<List<CartItemDto>> getCartItemList(@RequestParam String id) {
-            List<CartItemDto> result = cartService.getCartItemList(id);
-            return new ResponseEntity<List<CartItemDto>>(result, HttpStatus.OK);
+        List<CartItemDto> result = cartService.getCartItemList(id);
+        if (result == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+            return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
