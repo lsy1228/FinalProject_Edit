@@ -141,7 +141,7 @@ const AdminLoginModal = (props) => {
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
 //        console.log(response);
         console.log(responseToken.data);
-        if(responseToken.data===true){
+        if(responseToken.data!==null){
             close();
         }else{
             alert("id와 pw를 확인해주세요");
