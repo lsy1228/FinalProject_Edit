@@ -155,6 +155,7 @@ const AdminLoginModal = (props) => {
 //        const response = await AxiosFinal.adminLogin(inputId,inputPw);
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
 //        console.log(response);
+        console.log(responseToken)
         console.log(responseToken.data);
         //토큰을 넣는다.
         setTokenAdmin(responseToken.data.accessToken);
