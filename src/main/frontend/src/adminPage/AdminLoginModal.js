@@ -158,7 +158,7 @@ const AdminLoginModal = (props) => {
         console.log(responseToken.data);
         //토큰을 넣는다.
         setTokenAdmin(responseToken.data.accessToken);
-        if(responseToken.data!==null){
+        if(responseToken.data.accessToken!==null){
             close();
         }else{
             alert("id와 pw를 확인해주세요");

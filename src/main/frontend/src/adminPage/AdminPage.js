@@ -209,15 +209,15 @@ const AdminPage=()=>{
         const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore),tokenAdmin);
         setTodayBefore(today.data);
         const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore),tokenAdmin);
-        setOnedayBefore (onday.data);
+        setOnedayBefore(onday.data);
         const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore),tokenAdmin);
-        setTwodayBefore (twoday.data);
+        setTwodayBefore(twoday.data);
         const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore),tokenAdmin);
-        setThreedayBefore (threeday.data);
+        setThreedayBefore(threeday.data);
         const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore),tokenAdmin);
-        setFourdayBefore (fourday.data);
+        setFourdayBefore(fourday.data);
         const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore),tokenAdmin);
-        setFivedayBefore (fiveday.data);
+        setFivedayBefore(fiveday.data);
         const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore),tokenAdmin);
         setSixdayBefore(sixday.data);  
     }

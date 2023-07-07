@@ -31,7 +31,12 @@ const AxiosFinal = {
             userEmail : email,
             userPwd : pw
         };
-        return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
+        try{
+            return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
+            }catch (error){
+                console.log(error);
+                console.log(error.response.status);
+            }
     },
     //로그인시 로그인 유저 정보 저장
     orderMemberData: async(email) =>{
