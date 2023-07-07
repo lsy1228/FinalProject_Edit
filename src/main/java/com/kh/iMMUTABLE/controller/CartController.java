@@ -26,7 +26,7 @@ import java.util.Map;
 public class CartController {
     private final CartService cartService;
 
-   // 장바구니 추가
+    // 장바구니 추가
     @PostMapping("/addCartItem")
     public ResponseEntity<Boolean> addCartItem(@RequestBody Map<String, String> cartData) {
 
@@ -50,7 +50,7 @@ public class CartController {
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-            return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
@@ -77,5 +77,3 @@ public class CartController {
         return new ResponseEntity<CartItemDto>(result, HttpStatus.OK);
     }
 }
-
-

@@ -97,13 +97,14 @@ const Board = () => {
     };
 
     const onClickUpload = async () => {
-        console.log("click");
+        console.log("faqId : " + faqId);
         let response;
-        if (faqId) {
+        if (faqId != 0 ) { // faq id가 0이 아니면 수정
             // Update existing FAQ post
             response = await AxiosFinal.faqEdit(faqId, inputTitle, inputContent);
-        } else {
+        } else { // 0 이면 신규 작성
             // Create new FAQ post
+            console.log("faqUpload Call : " + faqId);
             response = await AxiosFinal.faqUpload(inputTitle, inputContent);
         }
 
@@ -122,7 +123,12 @@ const Board = () => {
     useEffect(() => {
         console.log(faqId);
         const getFaqList = async() => {
-            const response = await AxiosFinal.faqIdList(faqId);
+            let response = 0;
+            if(faqId) {
+                response = await AxiosFinal.faqIdList(faqId);
+            } else {
+                response = await AxiosFinal.faqList();
+            }
             if(response.status === 200) {
                 setFaq(response.data);
                 console.log(response.data);

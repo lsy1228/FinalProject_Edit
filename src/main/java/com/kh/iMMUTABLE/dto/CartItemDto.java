@@ -35,7 +35,5 @@ public class CartItemDto {
     @Enumerated
     private SizeStatus sizeStatus;
 
-
-
 }
 

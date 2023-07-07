@@ -404,12 +404,11 @@ const AxiosFinal = {
     }, 
 
     // cart에서 상품 목록 가져오기
-    getCartList : async(userEmail, cartId) => {
+    getCartList : async(cartId) => {
         const getList = {
-            userEmail : userEmail,
             cartId : cartId
         }
-        return await axios.post(Final_proj + "/order/cartOrder", getList);
+        return await axios.get(Final_proj + "/order/cartOrder", getList);
     }
     
 };
