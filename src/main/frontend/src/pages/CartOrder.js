@@ -235,6 +235,7 @@ const CartOrder = () => {
 
     useEffect(() => {
         console.log(cartId);
+        console.log(typeof cartId);
         const getCartList = async() => {
             const response = await AxiosFinal.getCartList(cartId);
             if (response.data) {

@@ -17,9 +17,10 @@ public class OrderDto {
     private long userId;// 유저ID
     private String orderAddress;
     private LocalDate orderDate;
-    private Long productId;
+    private long productId;
     private String productName;
     private String productColor;
+    private String productImgFst;
     private String productSize;
     private int totalPrice;
     @Enumerated(EnumType.STRING)

@@ -50,30 +50,38 @@ public class CartOrderService {
 //        return cartDto;
 //    }
 
-    public boolean cartOrder(Long cartId) {
+    public List<OrderDto> cartOrder(Long cartId) {
 //        System.out.println(userId);
         System.out.println(cartId);
 //        Users user = userRepository.findByUserEmail(userId);
 //        System.out.println(user.getUserEmail());
-        Optional<Cart> cartOpt = cartRepository.findById(cartId);
+        Optional<Cart> cart = cartRepository.findById(cartId); // 카트아이디로 해당되는 카트 찾음
+        List<OrderDto> orderDtoList = new ArrayList<>();    // 반환될 OrderDto
 
-        if(cartOpt.isPresent()) {
-            Cart cart = cartOpt.get();
-
-            for (CartItem cartItem : cart.getCartItemList()) {
-                Order order = new Order();
+        if (cart.isPresent()) {  // 카트가 존재하면
+            for (CartItem cartItem : cart.get().getCartItemList()) { // 해당 카트에 있는 카트 아이템 가져옴
+                Order order = new Order();  // Order 엔티티에 정보 저장하기 위해 생성
                 order.setUser(cartItem.getCart().getUser());
                 order.setOrderDate(LocalDate.from(LocalDateTime.now()));
                 order.setTotalPrice(cartItem.getCartPrice());
                 order.setProduct(cartItem.getProduct());
-//                order.setOrderAddress(user.getUserAddr());
+                order.setOrderAddress(cartItem.getCart().getUser().getUserAddr());
                 order.setOrderStatus(OrderStatus.CHECK);
                 order.setSizeStatus(cartItem.getProduct().getSizeStatus());
-                Order saveOrder = orderRepository.save(order);
+                orderRepository.save(order);
+
+                OrderDto orderDto = new OrderDto();
+                orderDto.setUserId(order.getUser().getUserId());
+                orderDto.setOrderDate(order.getOrderDate());
+                orderDto.setProductId(order.getProduct().getProductId());
+                orderDto.setProductName(order.getProductName());
+                orderDto.setProductImgFst(order.getProduct().getProductImgFst());
+                orderDtoList.add(orderDto);
             }
+            // 카트 삭제
+//            cartRepository.deleteById(cartId);
         }
-        // 카트 삭제
-        cartRepository.deleteById(cartId);
-        return true;
+        return orderDtoList;
+
     }
 }

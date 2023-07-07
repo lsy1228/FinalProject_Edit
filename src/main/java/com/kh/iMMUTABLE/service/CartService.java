@@ -61,6 +61,7 @@ public class CartService {
             cartItem.setCartPrice(product.getProductPrice());   // 카트 아이템의 가격은 해당 제품의 가격
             cartItem = cartItemRepository.save(cartItem);   // 카트 아이템 저장
         }
+
         return true;
     }
 

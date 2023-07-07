@@ -401,10 +401,7 @@ const AxiosFinal = {
 
     // cart에서 상품 목록 가져오기
     getCartList : async(cartId) => {
-        const getList = {
-            cartId : cartId
-        }
-        return await axios.get(Final_proj + "/order/cartOrder", getList);
+        return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
     }
     
 };
