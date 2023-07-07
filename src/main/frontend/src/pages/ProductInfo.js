@@ -261,14 +261,12 @@ const ProductInfo = () => {
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
 
-    console.log(product);
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
 
     const handleSelect = (e) => {
         const productId = e.target.value;
-        // console.log(productId);
         setProductId(productId);
     };
 

@@ -21,7 +21,6 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
