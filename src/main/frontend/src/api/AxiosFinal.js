@@ -45,8 +45,17 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/product/items`);
     },
     //어드민 페이지에서 아이템 전체 불러오기
-    onLoadInventory: async() => {
-        return await axios.get(Final_proj + `/admin/items`);
+    onLoadInventory : async(token) => {
+        try{
+            return await axios.get(Final_proj + `/admin/items`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+            });
+            } catch(error){
+                return error.response.status;
+            }
     },
     //어드민페이지 head상태창 신규조회
     newOrderCheck: async(orderStatus) => {    
@@ -68,7 +77,7 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/adminPage/qnaLoadList", newQna);
     },
     //아이템 업로드
-    productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail)=>{
+    productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail,token)=>{
         const upLoad={
             productName:title,
             productPrice:price,
@@ -80,17 +89,32 @@ const AxiosFinal = {
             productImgSnd:imgSnd,
             productImgDetail:imgDetail
         };
-        return await axios.post(Final_proj + "/admin/upload", upLoad);
+        try{
+        return await axios.post(Final_proj + "/admin/upload", upLoad,{
+          headers :{
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          }});
+          }catch(error){
+            return error.response.status;
+          }
+
     },    
     //어드민페이지 회원 전체조회
     customerManage : async(token) => {
+        try{
             return await axios.get(Final_proj + `/admin/check`,{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 },
             });
-        },
+            } catch(error){
+//                console.log(error);
+//                console.log(error.response.status)
+                return error.response.status;
+            }
+     },
     //어드민페이지 회원 선택 삭제
     customerDelete : async(userId) => {
         const deleteUser={
@@ -99,9 +123,18 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/admin/deleteUser", deleteUser);
     },
      //어드민페이지 qna 전체조회
-     qnaLoadManage : async() => {
-        return await axios.get(Final_proj + `/admin/qnaLoad`);
-    },
+     qnaLoadManage : async(token) => {
+         try{
+             return await axios.get(Final_proj + `/admin/qnaLoad`,{
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + token
+                  },
+             });
+             } catch(error){
+                  return error.response.status;
+         }
+      },
     //어드민페이지에 qna답변달기
     qnaUploadReply : async(qnaId,statue,reply)=>{
         const qnaReplyUpLoad={
@@ -111,9 +144,18 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
     },
-       //어드민페이지 주문건 전체조회
-       orderLoadManage : async() => {
-        return await axios.get(Final_proj + `/admin/orderLoad`);
+    //어드민페이지 주문건 전체조회
+    orderLoadManage : async(token) => {
+         try{
+             return await axios.get(Final_proj + `/admin/orderLoad`,{
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + token
+                  },
+             });
+             } catch(error){
+                  return error.response.status;
+         }
     },
     // 어드민페이지 주문건 수정
     orderUploadData : async(orderId,orderStatus,shipCode,shipCompany)=>{
@@ -161,13 +203,31 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/product/changDetail", changeDetail);
     },
     //7일치 데이터 로드
-    onLoadOrderDate:async(date)=>{
+    onLoadOrderDate:async(date,token)=>{
         const day={orderDate : date};
-        return await axios.post(Final_proj + "/admin/findOrderDay", day);
+        try{
+            return await axios.post(Final_proj + "/admin/findOrderDay", day,{
+                headers:{
+                       'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                 },
+            });
+            }catch(error){
+                return error.response.status;
+            }
     },
     // 어드민페이지 채팅 리스트 가져오기
-    onLoadChatList:async()=>{
-        return await axios.get(Final_proj + `/admin/chatList`);
+    onLoadChatList : async(token) => {
+         try{
+             return await axios.get(Final_proj + `/admin/chatList`,{
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + token
+                  },
+             });
+             } catch(error){
+                  return error.response.status;
+         }
     },
     //회원 조회
     memberGet: async(userId) => {

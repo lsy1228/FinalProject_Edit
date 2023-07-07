@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState,useContext  } from "react";
 import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -6,6 +6,7 @@ import AxiosFinal from "../api/AxiosFinal";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserInfo";
 
 const Container=styled.div`
 width: 100%;
@@ -131,6 +132,9 @@ const DivImg = styled.div`
   }`;
 const  ItemUpload = () =>{
   const navigate = useNavigate();
+  // 토큰을 가져올 contextAPi
+  const context = useContext(UserContext);
+  const { tokenAdmin } = context;
   //이미지
   const [selectedImages, setSelectedImages] = useState([]);
   //서버에 보내지는 파일
@@ -252,10 +256,10 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                      uploadProdData.category,
                                                      uploadProdData.content,
                                                      imageURL[0],imageURL[1],
-                                                     prodDetailImg)
+                                                     prodDetailImg,tokenAdmin)
                                                
 
-   if(response.status===401){
+   if(response===401){
             navigate("/Admin401Error")
        }
   }
