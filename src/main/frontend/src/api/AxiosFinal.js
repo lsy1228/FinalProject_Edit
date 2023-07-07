@@ -28,8 +28,8 @@ const AxiosFinal = {
       // 어드민 토큰로그인
       adminTokenLogin: async(email, pw) => {    
         const adminTokenLogin = {
-            email : email,
-            pwd : pw 
+            userEmail : email,
+            userPwd : pw
         };
         return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
     },
