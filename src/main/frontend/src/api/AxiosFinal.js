@@ -44,6 +44,10 @@ const AxiosFinal = {
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
     },
+    //어드민 페이지에서 아이템 전체 불러오기
+    onLoadInventory: async() => {
+        return await axios.get(Final_proj + `/admin/items`);
+    },
     //어드민페이지 head상태창 신규조회
     newOrderCheck: async(orderStatus) => {    
          const newOrder = {
@@ -76,12 +80,17 @@ const AxiosFinal = {
             productImgSnd:imgSnd,
             productImgDetail:imgDetail
         };
-        return await axios.post(Final_proj + "/product/upload", upLoad);
+        return await axios.post(Final_proj + "/admin/upload", upLoad);
     },    
     //어드민페이지 회원 전체조회
-    customerManage : async() => {
-        return await axios.get(Final_proj + `/admin/check`);
-    },
+    customerManage : async(token) => {
+            return await axios.get(Final_proj + `/admin/check`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+            });
+        },
     //어드민페이지 회원 선택 삭제
     customerDelete : async(userId) => {
         const deleteUser={

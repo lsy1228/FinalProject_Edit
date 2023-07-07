@@ -1,7 +1,8 @@
-import React , { useState } from "react";
+import React , {useContext, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
     .normalBackground{
@@ -138,6 +139,9 @@ const AdminLoginModal = (props) => {
 
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
+    //토큰을 담을 contextAPI
+    const context = useContext(UserContext);
+    const {setTokenAdmin} = context;
 
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -152,6 +156,8 @@ const AdminLoginModal = (props) => {
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
 //        console.log(response);
         console.log(responseToken.data);
+        //토큰을 넣는다.
+        setTokenAdmin(responseToken.data.accessToken);
         if(responseToken.data!==null){
             close();
         }else{

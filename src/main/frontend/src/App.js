@@ -23,6 +23,7 @@ import UserStore from './context/UserInfo';
 import CartOrder from './pages/CartOrder';
 import OrderComplete from './pages/OrderComplete';
 import AdminSignUp from './adminPage/AdminSignUp';
+import Admin401Error from './adminPage/Admin401Error';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/CartOrder/:cartId" element={<CartOrder/>} />
           <Route path="/OrderComplete" element={<OrderComplete/>} />
           <Route path="/AdminSignUp" element={<AdminSignUp/>} />
+          <Route path="/Admin401Error" element={<Admin401Error/>} />
         </Routes>
       </Router>
     </UserStore>
