@@ -2,6 +2,17 @@ import React  from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
+    .normalBackground{
+
+    }
+    .blockBackground{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    }
     .modal {
         display: none;  // 숨겨진 상태로 시작
         position: fixed;
@@ -164,6 +175,7 @@ const LoginFailModal = (props) => {
 
     return (
         <Container>
+            <div className={open? 'blockBackground' : 'normalBackground'}>
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
                <div className="form">
@@ -177,6 +189,7 @@ const LoginFailModal = (props) => {
                     </div>
              
             }   
+            </div>
             </div>
         </Container>
     );
