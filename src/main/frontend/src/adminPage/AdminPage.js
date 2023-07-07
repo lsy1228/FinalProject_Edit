@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SaleDate from "./SaleDate";
 import OrderCheck from "./OrderCheck";
 import ItemUpload from "./ItemUpload";
@@ -136,7 +136,7 @@ const SideBustton=styled.div`
 
 `
 const AdminPage=()=>{
-    
+    const navigate = useNavigate();
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
@@ -151,12 +151,18 @@ const AdminPage=()=>{
     //customermanagement선택시 실행되는 엑시오스
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         // console.log(response.data);
         setCustomerData(response.data);
     }
     //qna 선택시 샐행되는 엑시오스
     const onLoadQnaData = async() =>{ 
         const response = await AxiosFinal.qnaLoadManage();
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         console.log(response.data);
         setQnaData(response.data);
         // console.log("qnadata",qnaData);
@@ -164,12 +170,18 @@ const AdminPage=()=>{
     //orderCheck 선택시 실행되는 엑시오스
     const onLoadOrderData = async()=>{
         const response = await AxiosFinal.orderLoadManage();
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setOrderData(response.data);
         console.log(response.data);
     }
     //inventory 선택시 실행되는 엑시오스
     const onLoadInventory=async()=>{
         const response = await AxiosFinal.onLoadInventory();
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setInventoryData(response.data)
         console.log(response.data);
     }
@@ -212,6 +224,9 @@ const AdminPage=()=>{
 
     const onLoadChatList =async()=>{
         const response = await AxiosFinal.onLoadChatList();
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setChatList(response.data);
         console.log(response.data);
     }
@@ -239,7 +254,10 @@ const AdminPage=()=>{
     const onReLoadData=async()=>{
         const newOrder = await AxiosFinal.newOrderCheck("CHECK");
         const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
-        const newQna = await AxiosFinal.newQnaCheck("HOLD");     
+        const newQna = await AxiosFinal.newQnaCheck("HOLD");
+         if(newOrder.status===401){
+           navigate("/Admin401Error")
+         }
         setNewOrder(newOrder.data.length);
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
