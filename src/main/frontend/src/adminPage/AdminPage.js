@@ -151,10 +151,11 @@ const AdminPage=()=>{
     //customermanagement선택시 실행되는 엑시오스
     const onLoadCustomerData = async() =>{
         const response = await AxiosFinal.customerManage(tokenAdmin);
-        if(response.status===401){
+        if(response === 401){
            navigate("/Admin401Error")
         }
-        // console.log(response.data);
+//        console.log(response);
+//        console.log(response.data);
         setCustomerData(response.data);
     }
     //qna 선택시 샐행되는 엑시오스
@@ -205,19 +206,19 @@ const AdminPage=()=>{
         }
 
         //각 날짜 별 전달받기.
-        const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore));
+        const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore),tokenAdmin);
         setTodayBefore(today.data);
-        const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore));
-        setOnedayBefore (onday.data);
-        const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore));
-        setTwodayBefore (twoday.data);
-        const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore));
-        setThreedayBefore (threeday.data);
-        const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore));
-        setFourdayBefore (fourday.data);
-        const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore));        
-        setFivedayBefore (fiveday.data);
-        const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore));
+        const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore),tokenAdmin);
+        setOnedayBefore(onday.data);
+        const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore),tokenAdmin);
+        setTwodayBefore(twoday.data);
+        const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore),tokenAdmin);
+        setThreedayBefore(threeday.data);
+        const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore),tokenAdmin);
+        setFourdayBefore(fourday.data);
+        const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore),tokenAdmin);
+        setFivedayBefore(fiveday.data);
+        const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore),tokenAdmin);
         setSixdayBefore(sixday.data);  
     }
 
