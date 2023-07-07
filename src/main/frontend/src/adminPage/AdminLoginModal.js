@@ -151,10 +151,8 @@ const AdminLoginModal = (props) => {
         setInputPw(e.target.value)
     };
 
-    const onClickLogin=  async() =>{ 
-//        const response = await AxiosFinal.adminLogin(inputId,inputPw);
+    const onClickLogin=  async() =>{
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
-//        console.log(response);
         console.log(responseToken)
         console.log(responseToken.data);
         //토큰을 넣는다.
