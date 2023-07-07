@@ -20,11 +20,11 @@ import java.util.Map;
 public class CartOrderController {
     private final CartOrderService cartOrderService;
 
-    @PostMapping ("/cartOrder")
+    @GetMapping ("/cartOrder")
     public ResponseEntity<Boolean> orderCart (@RequestBody Map<String, String> orderData) {
-        String userEmail = orderData.get("userEmail");
+//        String userEmail = orderData.get("userEmail");
         Long cartId = Long.valueOf(orderData.get("cartId"));
-        boolean result = cartOrderService.cartOrder(userEmail, cartId);
+        boolean result = cartOrderService.cartOrder(cartId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

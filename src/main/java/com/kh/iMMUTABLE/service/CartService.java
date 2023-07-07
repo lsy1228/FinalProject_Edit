@@ -31,61 +31,37 @@ public class CartService {
     private final ProductService productService;
 
     // 상품 추가
-    public CartItem addCartItem(String email, int productId) {
+    public boolean addCartItem(String email, long productId) {
         System.out.println(" email : " + email);
         System.out.println("productId : " + productId);
 
-        Users user = userRepository.findByUserEmail(email);
-        Cart findCartId = new Cart(); //카트Id
+        Users users = userRepository.findByUserEmail(email);    // 해당하는 유저 찾기
+        long id = users.getUserId();    // 회원 번호 찾기
 
-        Product product = productRepository.findByProductId(productId);
+        Product product = productRepository.findByProductId(productId); // 해당하는 제품 찾기
+        Cart cart = cartRepository.findByUserUserId(id); // 해당 회원 카트 있는지 찾기
 
-        Cart cart = cartRepository.findByUserUserEmail(email);
-        if (cart == null) { //기존에 장바구니 기능을 사용한적 없는 사용자면
-//            User user = userRepository.findByUserEmail(String.valueOf(id)
-            cart = new Cart();
-            cart.setUser(user); //user의 id를 던져준다.
-
-            Cart userCart = cartRepository.save(cart);
-            System.out.println("생성된 카드id " + userCart.getCartId());
-            System.out.println(userCart);
-            if(userCart.getCartId() > 0){
-               //findCartId
-                findCartId.setCartId(userCart.getCartId());
-            }
-        } else {
-            //기존에 장바구니 기능을 사용한 user라면
-            if(cart.getCartId() > 0 ){ //cart_id가 있는 경우
-                findCartId.setCartId(cart.getCartId());
-            }
+        if(cart==null) {    // 카트가 없다면
+            cart = new Cart();  // 새로운 카트 생성
+            cart.setUser(users);    // 카트에 회원 정보 저장
+            cart = cartRepository.save(cart);   // 카트 저장
         }
 
-        CartItem cartItem = new CartItem();
-        CartItem afterSave = new CartItem();
-
-        if(findCartId.getCartId() > 0){ //카트Id가 존재하면 해당 카트ID를 Fk로 하여 CartItem 테이블에 해당 상품에 대한 값을 insert해준다.
-            CartItem findCartItem = new CartItem();
-            findCartItem.setCart(findCartId);
-            findCartItem.setProduct(product);
-
-            CartItem existCartItem = cartItemRepository.findByCartCartIdAndProductProductId(findCartId.getCartId(), product.getProductId());
-
-            if(existCartItem != null
-                && existCartItem.getCartItemId() > 0
-                && existCartItem.getProduct().getProductId() > 0) { //만 카 아이템 이 존재한다
-                //return existCartItem;
-            } else  {
-                cartItem.setCart(findCartId);
-//              cartItem.setCartId(findCartId.getCartId());
-                cartItem.setCartPrice(product.getProductPrice());
-                cartItem.setCount(1); //처음 count는 무조건 '1'로 set
-                cartItem.setProduct(product);
-
-                afterSave = cartItemRepository.save(cartItem);
-            }
+        // 카트아이템에 선택한 제품이 존재하는지 확인
+        CartItem existCartItem = cartItemRepository.findByCartCartIdAndProductProductId(cart.getCartId(), product.getProductId());
+        if(existCartItem!=null) { // 이미 존재하는 경우
+            existCartItem.setCount(existCartItem.getCount()+1); // 수량을 증가시킴
+            existCartItem.setCartPrice(product.getProductPrice() * existCartItem.getCount()); // 수량에 따른 제품가격
+            cartItemRepository.save(existCartItem);
+        } else {    // 존재하지 않는 경우
+            CartItem cartItem = new CartItem(); // 카트아이템 생성
+            cartItem.setCart(cart); // 카트아이템 카트 번호에 해당하는 카트 정보 저장
+            cartItem.setProduct(product);   // 카트 아이템에 제품 저장
+            cartItem.setCount(1);       // 카트 아이템 수량은 기본 1개
+            cartItem.setCartPrice(product.getProductPrice());   // 카트 아이템의 가격은 해당 제품의 가격
+            cartItem = cartItemRepository.save(cartItem);   // 카트 아이템 저장
         }
-
-        return afterSave;
+        return true;
     }
 
 
@@ -96,30 +72,31 @@ public class CartService {
         Users user = userRepository.findByUserEmail(email);
         Long user_id = user.getUserId();
         // Cart 테이블에서 user_id로 cart_id get
-        Cart cart = cartRepository.findByUserUserEmail(email);
+        Cart cart = cartRepository.findByUserUserId(user_id);
+
+        if(cart==null) {
+            return null;
+        }
+
         // CartItem 테이블에서 cart_id로 cartItem 내 list
-
         List<CartItem> cartList = cartItemRepository.findByCartCartId(cart.getCartId());
-        System.out.println(cartList);
-        //List<CartItem> cartItemList = cartList.getCartItemList();
-        List<CartItemDto> cartItemDtoList = new ArrayList<>();
 
+        List<CartItemDto> cartItemDtoList = new ArrayList<>(); // 반환할 리스트
 
         for (CartItem cartItem : cartList) {
-
             CartItemDto cartItemDto = new CartItemDto();
 
-
-            cartItemDto.setCartItemId((int) cartItem.getCartItemId());
+            cartItemDto.setCartItemId(cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
-            cartItemDto.setCartId(cart.getCartId());
+            cartItemDto.setCartId(cartItem.getCart().getCartId());
 
 
             //상품정보에서 상품사진이랑 상품명 get
             Product product = productRepository.findByProductId(cartItem.getProduct().getProductId());
             cartItemDto.setProductName(product.getProductName());
             cartItemDto.setProductImgFst(product.getProductImgFst());
+            cartItemDto.setSizeStatus(product.getSizeStatus());
             cartItemDto.setSetOriginProductPrice(product.getProductPrice());
             cartItemDtoList.add(cartItemDto);
 

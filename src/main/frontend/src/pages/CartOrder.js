@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
 import PopupPostCode from "../api/PopupPostCode";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import PayLogo from "../img/kakaoPayLogo.png"
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -126,6 +127,10 @@ const CartOrder = () => {
     const [isEmail, setIsEmail] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
 
+    const [cart, setCart] = useState("");
+    const [cartList, setCartList] = useState("");
+    const {cartId} = useParams();
+
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
     const {addr, setAddr} = context;
@@ -227,10 +232,24 @@ const CartOrder = () => {
           }
       };
 
+
+    useEffect(() => {
+        console.log(cartId);
+        const getCartList = async() => {
+            const response = await AxiosFinal.getCartList(cartId);
+            if (response.data) {
+                setCart(response.data);
+                console.log(response.data);
+            }
+        }
+        getCartList(cartId);
+    },[])
+
     return(
         <Container>
             <div className="header" onClick={onClickHeader}>iMMUTABLE</div>
             <p className="item">ORDER SUMMARY</p>
+            <div></div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />
