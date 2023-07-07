@@ -83,9 +83,14 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/admin/upload", upLoad);
     },    
     //어드민페이지 회원 전체조회
-    customerManage : async() => {
-        return await axios.get(Final_proj + `/admin/check`);
-    },
+    customerManage : async(token) => {
+            return await axios.get(Final_proj + `/admin/check`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+            });
+        },
     //어드민페이지 회원 선택 삭제
     customerDelete : async(userId) => {
         const deleteUser={

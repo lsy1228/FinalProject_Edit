@@ -141,7 +141,7 @@ const AdminPage=()=>{
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
         setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
-        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList} = context;
+        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList ,tokenAdmin} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -149,8 +149,8 @@ const AdminPage=()=>{
         setChangeMenu(e);   
     }
     //customermanagement선택시 실행되는 엑시오스
-    const onLoadCustomerData = async() =>{ 
-        const response = await AxiosFinal.customerManage();
+    const onLoadCustomerData = async() =>{
+        const response = await AxiosFinal.customerManage(tokenAdmin);
         if(response.status===401){
            navigate("/Admin401Error")
         }
@@ -158,8 +158,8 @@ const AdminPage=()=>{
         setCustomerData(response.data);
     }
     //qna 선택시 샐행되는 엑시오스
-    const onLoadQnaData = async() =>{ 
-        const response = await AxiosFinal.qnaLoadManage();
+    const onLoadQnaData = async() =>{
+        const response = await AxiosFinal.qnaLoadManage(tokenAdmin);
         if(response.status===401){
            navigate("/Admin401Error")
         }
@@ -169,7 +169,7 @@ const AdminPage=()=>{
     }
     //orderCheck 선택시 실행되는 엑시오스
     const onLoadOrderData = async()=>{
-        const response = await AxiosFinal.orderLoadManage();
+        const response = await AxiosFinal.orderLoadManage(tokenAdmin);
         if(response.status===401){
            navigate("/Admin401Error")
         }
@@ -178,7 +178,7 @@ const AdminPage=()=>{
     }
     //inventory 선택시 실행되는 엑시오스
     const onLoadInventory=async()=>{
-        const response = await AxiosFinal.onLoadInventory();
+        const response = await AxiosFinal.onLoadInventory(tokenAdmin);
         if(response.status===401){
            navigate("/Admin401Error")
         }
@@ -223,7 +223,7 @@ const AdminPage=()=>{
 
 
     const onLoadChatList =async()=>{
-        const response = await AxiosFinal.onLoadChatList();
+        const response = await AxiosFinal.onLoadChatList(tokenAdmin);
         if(response.status===401){
            navigate("/Admin401Error")
         }
