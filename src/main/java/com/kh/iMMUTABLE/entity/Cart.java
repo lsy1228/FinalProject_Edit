@@ -21,6 +21,8 @@ public class Cart {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private long cartId;
 
+    private int totalPrice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users user;
