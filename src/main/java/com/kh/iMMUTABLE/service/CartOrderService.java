@@ -1,6 +1,8 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.OrderStatus;
+import com.kh.iMMUTABLE.dto.CartDto;
+import com.kh.iMMUTABLE.dto.CartItemDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.entity.*;
 import com.kh.iMMUTABLE.repository.CartItemRepository;
@@ -27,11 +29,32 @@ public class CartOrderService {
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
 
-    public boolean cartOrder(String userId, Long cartId) {
-        System.out.println(userId);
+//    public CartDto getCartList(Long cartId) {
+//        System.out.println(cartId);
+//        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+//        CartDto cartDto = new CartDto();
+//
+//        if (optionalCart.isPresent()) {
+//            Cart cart = optionalCart.get();
+//            List<CartItem> cartItems = cart.getCartItemList();
+//            List<CartItemDto> cartItemDtos = new ArrayList<>();
+//
+//            for (CartItem cartItem : cartItems) {
+//                CartItemDto cartItemDto = new CartItemDto();
+//                cartItemDto.setCartItemId(cartItem.getCartItemId());
+//                cartItemDto.setProductPrice(cartItem.getCartPrice());
+//                cartItemDtos.add(cartItemDto);
+//            }
+//            cartDto.setCartItemId(cartItemDtos);
+//        }
+//        return cartDto;
+//    }
+
+    public boolean cartOrder(Long cartId) {
+//        System.out.println(userId);
         System.out.println(cartId);
-        Users user = userRepository.findByUserEmail(userId);
-        System.out.println(user.getUserEmail());
+//        Users user = userRepository.findByUserEmail(userId);
+//        System.out.println(user.getUserEmail());
         Optional<Cart> cartOpt = cartRepository.findById(cartId);
 
         if(cartOpt.isPresent()) {
@@ -43,7 +66,7 @@ public class CartOrderService {
                 order.setOrderDate(LocalDate.from(LocalDateTime.now()));
                 order.setTotalPrice(cartItem.getCartPrice());
                 order.setProduct(cartItem.getProduct());
-                order.setOrderAddress(user.getUserAddr());
+//                order.setOrderAddress(user.getUserAddr());
                 order.setOrderStatus(OrderStatus.CHECK);
                 order.setSizeStatus(cartItem.getProduct().getSizeStatus());
                 Order saveOrder = orderRepository.save(order);

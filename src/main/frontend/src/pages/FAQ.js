@@ -108,7 +108,7 @@ const FAQ = () => {
     const [faqList, setFaqList] = useState(""); // faq 전체를 불러와서 제목과 내용만 추출
 
     const onClickAddFaq = () => {
-        navigate("/Board");
+        navigate(`/Board/0`); // 수정하는 버튼이랑 차별을 주기 위해 0 넣음
     }
 
     // faq 삭제

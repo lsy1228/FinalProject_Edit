@@ -4,6 +4,17 @@ import AxiosFinal from "../api/AxiosFinal";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
+    .normalBackground{
+
+    }
+    .blockBackground{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    }
     a{
         color: black;
         text-decoration: none;
@@ -150,6 +161,7 @@ const AdminLoginModal = (props) => {
 
     return (
         <Container>
+            <div className={open? 'blockBackground' : 'normalBackground'}>
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
                <div className="form">
@@ -164,6 +176,7 @@ const AdminLoginModal = (props) => {
                     </div>
                 </div>            
             }   
+            </div>
             </div>
         </Container>
     );
