@@ -76,7 +76,7 @@ public class CartService {
         Cart cart = cartRepository.findByUserUserId(user_id);
 
         if(cart==null) {
-            return null;
+            return new ArrayList<>();
         }
 
         // CartItem 테이블에서 cart_id로 cartItem 내 list
