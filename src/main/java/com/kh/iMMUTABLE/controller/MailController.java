@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000") // 다른 도메인에서 해당 API접근 가능
 @RestController
 @RequiredArgsConstructor
 public class MailController {

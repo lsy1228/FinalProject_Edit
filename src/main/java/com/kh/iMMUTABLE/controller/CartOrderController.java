@@ -13,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/order")
 @RequiredArgsConstructor
 
