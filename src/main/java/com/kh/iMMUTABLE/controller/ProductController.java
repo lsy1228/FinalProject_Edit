@@ -27,20 +27,6 @@ public class ProductController {
         return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<Boolean> uploadItem (@RequestBody Map<String, String> loginData){
-        String productName = loginData.get("productName");
-        String productPrice = loginData.get("productPrice");
-        String productColor = loginData.get("productColor");
-        String productSize = loginData.get("productSize");
-        String productCategory = loginData.get("productCategory");
-        String productImgFst = loginData.get("productImgFst");
-        String productImgSnd = loginData.get("productImgSnd");
-        String productImgDetail = loginData.get("productImgDetail");
-        System.out.println("컨트롤러 : " + productImgDetail);
-        boolean result = productService.itemUpLoad(productName,productPrice,productColor,productSize,productCategory,productImgFst,productImgSnd,productImgDetail);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 
     @GetMapping("/sellitems")
     public ResponseEntity<List<ProductDto>> sellitems() {

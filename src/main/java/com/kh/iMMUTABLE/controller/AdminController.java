@@ -1,9 +1,6 @@
 package com.kh.iMMUTABLE.controller;
 
-import com.kh.iMMUTABLE.dto.ChatListDto;
-import com.kh.iMMUTABLE.dto.OrderDto;
-import com.kh.iMMUTABLE.dto.QnaDto;
-import com.kh.iMMUTABLE.dto.UserDto;
+import com.kh.iMMUTABLE.dto.*;
 import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Qna;
@@ -29,6 +26,8 @@ public class AdminController {
     private final QnaService qnaService;
     private final OrderService orderService;
     private final ChatListService chatListService;
+
+    private final ProductService productService;
     //admin page 유저리스트 가져오기
     @GetMapping("/check")
     public ResponseEntity<List<UserDto>> idCheck(){
@@ -97,6 +96,26 @@ public class AdminController {
         List<ChatListDto> list = chatListService.getChatListAll();
         System.out.println("adminController :" + list);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    @PostMapping("/upload")
+    public ResponseEntity<Boolean> uploadItem (@RequestBody Map<String, String> loginData){
+        String productName = loginData.get("productName");
+        String productPrice = loginData.get("productPrice");
+        String productColor = loginData.get("productColor");
+        String productSize = loginData.get("productSize");
+        String productCategory = loginData.get("productCategory");
+        String productImgFst = loginData.get("productImgFst");
+        String productImgSnd = loginData.get("productImgSnd");
+        String productImgDetail = loginData.get("productImgDetail");
+        System.out.println("컨트롤러 : " + productImgDetail);
+        boolean result = productService.itemUpLoad(productName,productPrice,productColor,productSize,productCategory,productImgFst,productImgSnd,productImgDetail);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<List<ProductDto>> itemsList() {
+        List<ProductDto> productDtos = productService.getProduct();
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
 
 }
