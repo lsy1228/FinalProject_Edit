@@ -59,7 +59,6 @@ public class CartOrderService {
                 order.setUser(cartItem.getCart().getUser());
                 order.setOrderDate(LocalDate.from(LocalDateTime.now()));
                 order.setCart(cart.get());
-
                 order.setProductName(cartItem.getProduct().getProductName());
                 order.setProductColor(cartItem.getProduct().getProductColor());
                 order.setTotalPrice(cartItem.getCartPrice());
