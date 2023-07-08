@@ -1,4 +1,4 @@
-import React, { useState ,useContext } from "react";
+import React, { useState ,useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo.js";
@@ -152,6 +152,7 @@ const SignUp = () => {
     const [inputPw, setInputPw] = useState("")
     const [inputConPw, setInputConPw] = useState("");
     const [inputPhone, setInputPhone] = useState("");
+    const [inputAddr, setInputAddr] = useState("");
 
     // 오류 메세지
     const [emailMessage, setEmailMessage] = useState("")
@@ -167,6 +168,7 @@ const SignUp = () => {
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
+    const [isAddr, setIsAddr] = useState(false);
 
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
@@ -283,6 +285,19 @@ const SignUp = () => {
           
     }
 
+//    const onChangeAddr = (e) => {
+//        const inputValue = e.target.value;
+//        setInputAddr(inputValue);
+//        if(inputValue!="") {
+//            setIsAddr(true);
+//        } else setIsAddr(false);
+//    }
+
+    useEffect(()=> {
+        setIsAddr(!!addr);
+    }, [addr])
+
+
     const onClickSignUp = async() => {
         console.log("Click 회원가입");
         // 가입 여부 우선 확인
@@ -359,7 +374,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr}/>
+                        <input type="text" placeholder="ADDRESS" className="addrInput"  value={addr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    
@@ -368,7 +383,7 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div>
-                    {(isEmail && isPw && isConPw && isName && isPhone) ? 
+                    {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ?
                     <button className="enable-button" onClick={onClickSignUp}>CREATE</button> :
                     <button className="disable-button">INPUT INFORMATION</button> }
                     </div>                                     

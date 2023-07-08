@@ -22,11 +22,17 @@ import java.util.Map;
 public class CartOrderController {
     private final CartOrderService cartOrderService;
 
-    @GetMapping ("/cartOrder")
-    public ResponseEntity<List<OrderDto>> orderCart (@RequestParam String Id) {
+    @PostMapping  ("/cartOrder")
+    public ResponseEntity<Boolean> orderCart (@RequestBody Map<String, String> saveOrder) {
 //        String userEmail = orderData.get("userEmail");
-        Long cartId = Long.parseLong(Id);
-        List<OrderDto> result = cartOrderService.cartOrder(cartId);
+        long cartId = Long.parseLong(saveOrder.get("cartId"));
+        boolean result = cartOrderService.cartOrder(cartId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping ("/orderList")
+    public ResponseEntity<List<OrderDto>> orderList (@RequestParam String cartId) {
+        List<OrderDto> result = cartOrderService.orderList(Long.parseLong(cartId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

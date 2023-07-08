@@ -472,9 +472,17 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
     }, 
 
-    // cart에서 상품 목록 가져오기
+    // 장바구니 상품목록 order에 저장
     getCartList : async(cartId) => {
-        return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
+        const saveOrder = {
+            cartId : cartId
+        }
+        return await axios.post(Final_proj + "/order/cartOrder", saveOrder);
+    },
+
+    // order 리스트 가져오기
+    getOrderList : async(cartId) => {
+        return await axios.get(Final_proj + `/order/orderList?cartId=${cartId}`);
     }
     
 };

@@ -127,9 +127,22 @@ const CartOrder = () => {
     const [isEmail, setIsEmail] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
 
-    const [cart, setCart] = useState("");
-    const [cartList, setCartList] = useState("");
+    const [order, setOrder] = useState("");
+    const [orderList, setOrderList] = useState("");
     const {cartId} = useParams();
+
+    useEffect(() => {
+            console.log(cartId);
+            console.log(typeof cartId);
+            const getOrderList = async() => {
+                const response = await AxiosFinal.getOrderList(cartId);
+                if(response.data) {
+                    setOrder(response.data);
+                    console.log(response.data);
+                }
+            }
+            getOrderList(cartId);
+        },[]);
 
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
@@ -233,18 +246,7 @@ const CartOrder = () => {
       };
 
 
-    useEffect(() => {
-        console.log(cartId);
-        console.log(typeof cartId);
-        const getCartList = async() => {
-            const response = await AxiosFinal.getCartList(cartId);
-            if (response.data) {
-                setCart(response.data);
-                console.log(response.data);
-            }
-        }
-        getCartList(cartId);
-    },[])
+
 
     return(
         <Container>

@@ -13,4 +13,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByOrderStatus(OrderStatus orderStatus);
 
     List<Order> findByOrderDate(LocalDate orderDate);
+
+    List<Order> findByCartCartId(long cartId);
 }
