@@ -74,7 +74,7 @@ public class CartService {
         long user_id = user.getUserId();
         // Cart 테이블에서 user_id로 cart_id get
         Cart cart = cartRepository.findByUserUserId(user_id);
-
+        int totalPrice = 0;
         if(cart==null) {
             return new ArrayList<>();
         }
@@ -86,7 +86,7 @@ public class CartService {
 
         for (CartItem cartItem : cartList) {
             CartItemDto cartItemDto = new CartItemDto();
-
+            totalPrice += cartItem.getCartPrice();
             cartItemDto.setCartItemId(cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
@@ -102,6 +102,7 @@ public class CartService {
             cartItemDtoList.add(cartItemDto);
 
         }
+        cart.setTotalPrice(totalPrice);
         return cartItemDtoList;
     }
 
