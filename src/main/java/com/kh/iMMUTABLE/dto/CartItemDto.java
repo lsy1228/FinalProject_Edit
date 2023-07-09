@@ -27,6 +27,7 @@ public class CartItemDto {
 
     private long setOriginProductPrice;
 
+
     private long cartId;
 
     @Enumerated
