@@ -37,6 +37,8 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
+	//채팅 웹소켓 다운로드
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 
 }
@@ -84,8 +86,4 @@ task copyReactBuildFiles(type: Copy) {
 
 jar {
 	enabled = false
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }
