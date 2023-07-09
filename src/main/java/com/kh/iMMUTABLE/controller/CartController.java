@@ -4,6 +4,7 @@ package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.CartDto;
 import com.kh.iMMUTABLE.dto.CartItemDto;
+import com.kh.iMMUTABLE.entity.Cart;
 import com.kh.iMMUTABLE.entity.CartItem;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import com.kh.iMMUTABLE.service.CartService;
@@ -76,4 +77,16 @@ public class CartController {
 
         return new ResponseEntity<CartItemDto>(result, HttpStatus.OK);
     }
+
+
+    // 상품 삭제
+    @PostMapping("/deleteItem")
+    public ResponseEntity<List<CartItemDto>> deleteItem(@RequestBody Map<String, String> cartData) {
+        String id = (String) cartData.get("id");
+        long cartItemId = Long.parseLong(cartData.get("cartItemId"));
+        List<CartItemDto> cartItemDtoList = cartService.deleteItem(id, cartItemId);
+        return new ResponseEntity<>(cartItemDtoList, HttpStatus.OK);
+    }
+
+
 }

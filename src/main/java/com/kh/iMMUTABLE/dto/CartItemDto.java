@@ -27,9 +27,6 @@ public class CartItemDto {
 
     private long setOriginProductPrice;
 
-    // 총합 가격
-    private long listTotalPrice;
-
     private long cartId;
 
     @Enumerated

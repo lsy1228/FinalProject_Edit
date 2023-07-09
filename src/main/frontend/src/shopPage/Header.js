@@ -1,14 +1,15 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import DropFiter from "./DropFiter";
 import test from "../img/test.webp"
-import { UserContext } from "../context/UserInfo"; 
+import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
 
 const Container = styled.div`
     width: 100%;
-    display: flex;    
+    display: flex;
 `
 
 const Mainbody=styled.div`
@@ -22,7 +23,7 @@ const TopButton = styled.button`
     &:hover{
         color: rgba(0,0,0,0.5);
     }
-`    
+`
 
 const Head = styled.div`
     width: 100%;
@@ -42,24 +43,24 @@ const Head = styled.div`
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-        
+
     }
 
     .nav1{
         align-items: center;
         justify-content: center;
         display: flex;
-        font-size: 13px;    
+        font-size: 13px;
         cursor: pointer;
         margin-top: auto;
         &:hover{
             color: rgba(0,0,0,0.5);
         }
-        
+
     }
 
     .nav2{
-        
+
         margin-left: 20%;
         width: 300px;
         display: flex;
@@ -86,6 +87,7 @@ const Head = styled.div`
 
 //카트 영역
 const CartToggle=styled.div`
+
     margin-top: 30px;
     width: 260px;
     height: 400px;
@@ -106,11 +108,11 @@ const CartToggle=styled.div`
     font-size: 11px;
     text-decoration: none;
     background-color: black;
-    color: white; 
+    color: white;
     &:hover{
         background-color: #CCC;
         color: black;
-    }   
+    }
   }
 
 
@@ -134,7 +136,7 @@ const CartToggle=styled.div`
   .itemName{
     height: 20px;
     font-weight: bolder;
-    
+
   }
   .deleteItem{
     border: none;
@@ -172,12 +174,13 @@ const CartToggle=styled.div`
   }
   .itemPrice{
   }
-  
+
 `
 
   const CartList=styled.div`
+    border-bottom: 1px solid #ccc;
     width: 100%;
-    height: 360px;
+    height: 100px;
     overflow-y: scroll;
     ::-webkit-scrollbar {
     display: none;
@@ -196,17 +199,19 @@ const IsLoginFalse = [
   ]
   const IsLoginTrue = [
     { name : "logout"},
-    { name : "mypage"},    
-    { name : "cart"},    
+    { name : "mypage"},
+    { name : "cart"},
     { name : "FAQ"}
   ]
 
-  
+
 
 
 const Header = ({ onClick }) => {
+  const [count, setCount] = useState([]);
+    const[cartList, setCartList] = useState([]);
     const [selectedMenu, setSelectedMenu] = useState(null)
- 
+
     const [isMenuClicked, setIsMenuClicked] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     // const {isLogin, setIsLogin} = useContext(UserContext);
@@ -214,6 +219,7 @@ const Header = ({ onClick }) => {
      const [openCart, setOpenCart] = useState(false);
 
     const isLogin = window.localStorage.getItem("isLoginSuv");
+     const id = window.localStorage.getItem("userIdSuv");
 
     const navigate = useNavigate();
     const onChangePage=(e)=>{
@@ -239,9 +245,9 @@ const Header = ({ onClick }) => {
         }
     }
 
-    
+
     const handleMenuClick = (menuName) => {
-       
+
         if (selectedMenu === menuName) {
           setSelectedMenu(null) // 이미 선택된 메뉴를 다시 클릭하면 닫힙니다.
           setIsMenuClicked(true)
@@ -251,55 +257,111 @@ const Header = ({ onClick }) => {
         }
       };
 
-      
+
 
       const handleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
-      //수량 임의 설정
-    const[number,setNumber]=useState(1);
-    const countPlus=()=>{
-        setNumber(number+1);
-    }
-    //상품 수량 줄이는 버튼
-    const countMinus=()=>{
-        setNumber(number-1);
-        if(number <= 1){
-            setNumber(1);
-        }
+
+
+    useEffect(() => {
+        const getCartList = async()=>{
+            if(!id) {
+                return;
+            }
+            const rsp = await AxiosFinal.cartItemList(id);
+            if(rsp.status === 200) {
+                const copyCnt = rsp.data.map(e => e.count);
+                setCartList(rsp.data);
+                console.log(rsp.data);
+                setCount(copyCnt);
+            }
+        };
+        getCartList();
+    }, []);
+
+    const updateCount = async (count, cartList, idx) => {
+        const response = await AxiosFinal.updateCount( count, cartList, idx);
+        const result = response.data;
+        console.log(result)
+    };
+    console.log(cartList)
+
+
+
+    // 수량 증가
+    const countPlus = (idx) => {
+        console.log(idx);
+        setCount(prevCount => {
+            const newCount = [...prevCount];
+            newCount[idx] += 1;
+            updateCount(newCount[idx], cartList, idx);
+            return newCount;
+        });
+    };
+
+
+    // 수량 감소
+    const countMinus = (idx) => {
+        setCount(prevCount => {
+            const newCount = [...prevCount];
+            if (newCount[idx] > 1) {
+                newCount[idx] -= 1;
+                updateCount(newCount[idx], cartList, idx);
+            }
+            return newCount;
+        });
+    };
+
+
+
+    // 카트 아이템 삭제
+    const deleteCartItem = async(id, index) => {
+        console.log(index);
+        console.log("삭제");
+        const cartItemId =  cartList[index].cartItemId;
+console.log(" ::"  + cartItemId);
+        const rsp = await AxiosFinal.deleteCartItem(id, cartItemId);
+        setCartList(rsp.data);
     }
 
-    
+
+
+
 
     return(
-      <Container> 
-            {openCart && <CartToggle>
-                        <CartList>
-                            <div className="cartToggleItem">
-                                <div className="itemImg">
-                                    <img src={test}/>
-                                </div>
-                                <div className="itemInfo">
-                                    <div className="itemName">
-                                    Sweat Shirt
-                                    </div>
-                                    <div className="count">
-                                        <input type="text" value={number}/>
-                                        <div className="countbutton">
-                                        <button className="plus" onClick={countPlus}>∧</button>
-                                        <button className="minus" onClick={countMinus}>∨</button>
-                                        </div>
-                                    </div>    
-                                    <div className="itemPrice">
-                                        1,043,000
-                                    </div>
-                                </div>
-                                <button className="deleteItem">x</button>
-                            </div>
-                         </CartList>
-                            <Link to="/Cart">장바구니</Link>
-                    </CartToggle>}
+      <Container>
+            {openCart &&
+                          <CartToggle >
+                             {cartList && cartList.map((e, index)=>(
+                                  <CartList  key={e.cartItemId}>
+                                      <div className="cartToggleItem">
+                                          <div className="itemImg">
+                                              <img src={e.productImgFst} />
+                                          </div>
+                                          <div className="itemInfo">
+                                              <div className="itemName">
+                                              {e.productName}
+                                              </div>
+                                              <div  className="count">
+                                                  <input type="text" Value={count[index]}/>
+                                                  <div className="countbutton">
+                                                  <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                                                          <button className="minus" onClick={()=>countMinus(index)}>∨</button>
+                                                  </div>
+                                              </div>
+                                              <div className="itemPrice">
+                                              {(e.setOriginProductPrice * count[index]).toLocaleString()} won
+                                              </div>
+                                          </div>
+                                          <button className="deleteItem"  onClick={() => deleteCartItem(id, index)}>x</button>
+                                      </div>
+                                   </CartList>
+                             ))}
+                                      <Link to="/Cart">장바구니</Link>
+                              </CartToggle>
+                                }
         <Mainbody>
        
             <Head>

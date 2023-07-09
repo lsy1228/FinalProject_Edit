@@ -475,8 +475,18 @@ const AxiosFinal = {
     // cart에서 상품 목록 가져오기
     getCartList : async(cartId) => {
         return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
+    },
+
+    // 카트 아이템 삭제
+    deleteCartItem : async(id, cartItemId) => {
+        const deleteItem = {
+            id : id,
+            cartItemId : cartItemId
+        }
+        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem)
     }
-    
+
+
 };
 
 export default AxiosFinal;
