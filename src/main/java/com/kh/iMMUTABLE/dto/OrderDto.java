@@ -22,9 +22,15 @@ public class OrderDto {
     private String productColor;
     private String productImgFst;
     private String productSize;
+    private int productPrice;
     private int totalPrice;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private String shipCompany;
     private int shipCode;
+    private String userName;
+    private String userEmail;
+    private String userAddr;
+    private String userPhone;
+
 }

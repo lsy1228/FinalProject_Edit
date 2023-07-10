@@ -3,12 +3,11 @@ import styled from "styled-components";
 const Container=styled.div`
 .msg_input {
   width: 200px; /* 원하는 너비 설정 */
-  height: auto; /* 높이값 초기화 */
+  height: 20px; /* 높이값 초기화 */
+  font-size:11px;
   line-height : normal; /* line-height 초기화 */
   padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */
-  font-family: inherit; /* 폰트 상속 */
   border: 1px solid #999;
-  border-radius: 18px; /* iSO 둥근모서리 제거 */
   outline-style: none; /* 포커스시 발생하는 효과 제거를 원한다면 */
   -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
   -moz-appearance: none; appearance: none;
@@ -16,28 +15,24 @@ const Container=styled.div`
 }
 .msg_send {
   margin: 10px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: bold;
   width: 100px; /* 원하는 너비 설정 */
-  height: 40px;
+  height: 20px;
+  font-size:11px;
   color: white;
-  background-color: orange;
-  font-size: 13px;
-  font-weight: 400;
-  border-radius: 18px;
+  background-color: black;
   border: orange;
+  &:hover{
+    color:#CCC;
+  }
 }
 .msg_close {
   margin: 40px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: bold;
   width: 140px; /* 원하는 너비 설정 */
-  height: 36px;
+  height: 20px;
   color: white;
-  background-color: darkolivegreen;
+  background-color: black;
   font-size: 13px;
   font-weight: 400;
-  border-radius: 6px;
   border: orange;
 }
 `
@@ -108,10 +103,8 @@ const ChatSocket = () => {
 
     return (
         <Container>
-            <div>socket</div>
             <div>socket connected : {`${socketConnected}`}</div>
-            <div>방번호: {roomId}</div>
-            <h2>소켓으로 문자 전송하기 테스트</h2>
+            <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
             <div>
                 {items.map((item) => {
                 return <div>{`${item.sender} > ${item.message}`}</div>;
@@ -119,8 +112,6 @@ const ChatSocket = () => {
             </div>
             <input className="msg_input" placeholder="문자 전송" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
             <button className="msg_send" onClick={onClickMsgSend}>전송</button>
-            <p/>
-            <button className="msg_close" onClick={onClickMsgClose}>채팅 종료 하기</button>
         </Container>
       );
     };
