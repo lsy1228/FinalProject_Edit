@@ -404,6 +404,7 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
     },
 
+    // 카트 아이템 수량
     updateCount : async(count, cartList, idx) => {
             const updateCount = {
                 count : count,

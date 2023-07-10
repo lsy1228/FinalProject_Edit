@@ -172,6 +172,4 @@ const Bottom = () => {
     )
 };
 
-
-
 export default Bottom;

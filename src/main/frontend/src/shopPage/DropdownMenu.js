@@ -15,7 +15,6 @@ const Container = styled.div`
     z-index: 100;
 `
 
-
 const Head = styled.div`
     margin-right: 15%;
     cursor: pointer;
@@ -68,6 +67,5 @@ const DropdownMenu = () => {
         
     )
 }
-
 
 export default DropdownMenu

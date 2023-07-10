@@ -87,7 +87,6 @@ const Head = styled.div`
 
 //카트 영역
 const CartToggle=styled.div`
-
     margin-top: 30px;
     width: 260px;
     display: flex;

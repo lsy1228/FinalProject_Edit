@@ -72,7 +72,6 @@ const Filter = styled.div`
 
 
 const Top = () => {
-
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
@@ -84,6 +83,7 @@ const Top = () => {
 
     const id = window.localStorage.getItem("userIdSuv");
     console.log(id);
+
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
