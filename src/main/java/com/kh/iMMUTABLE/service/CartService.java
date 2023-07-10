@@ -68,7 +68,7 @@ public class CartService {
 
     // 상품 List 조회
     public List<CartItemDto> getCartItemList(String email) {
-
+        int totalPrice = 0;
         // user_email로 user_id get
         Users user = userRepository.findByUserEmail(email);
         long user_id = user.getUserId();
@@ -86,7 +86,7 @@ public class CartService {
 
         for (CartItem cartItem : cartList) {
             CartItemDto cartItemDto = new CartItemDto();
-
+            totalPrice += cartItem.getCartPrice();
             cartItemDto.setCartItemId(cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
@@ -100,8 +100,8 @@ public class CartService {
             cartItemDto.setSizeStatus(product.getSizeStatus());
             cartItemDto.setSetOriginProductPrice(product.getProductPrice());
             cartItemDtoList.add(cartItemDto);
-
         }
+        cart.setTotalPrice(totalPrice);
         return cartItemDtoList;
     }
 

@@ -59,31 +59,57 @@ const Container = styled.div`
     font-size: 13px;
     font-weight: bold;
   }
-  .payBtn {
-    margin-top: 10px;
-    width: 400px;
-    height: 40px;
-    background-color: white;
-    border: 1px solid black;
-    &:hover{
-      color: #CCC;
-      background-color: black;
-    }
-    margin-bottom : 10px
-  }
-  a {
-    text-decoration: none;
-    font-size: 13px;
-    color: black;
-    justify-content: center;
-    text-align: center;
-    line-height: 40px;
-  }
-  .productContainer {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-  }
+//  .payBtn {
+//    margin-top: 10px;
+//    width: 400px;
+//    height: 40px;
+//    background-color: white;
+//    border: 1px solid black;
+//    &:hover{
+//      color: #CCC;
+//      background-color: black;
+//    }
+//    margin-bottom : 10px
+//  }
+//  a {
+//    text-decoration: none;
+//    font-size: 13px;
+//    color: black;
+//    justify-content: center;
+//    text-align: center;
+//    line-height: 40px;
+//  }
+    .payBtn {
+        margin-top: 10px;
+        width: 400px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        background-color: white;
+        border: 1px solid black;
+        margin-bottom: 10px;
+      }
+
+      .payBtn:hover {
+        background-color: black;
+        color: white;
+      }
+      a {
+        text-decoration: none;
+        font-size: 13px;
+        color: black;
+        justify-content: center;
+        text-align: center;
+        line-height: 40px;
+          }
+      .payBtn:hover a {
+        color: white;
+      }
+      .productContainer {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+      }
 `;
 
 const ProductContainer = styled.div`
@@ -174,17 +200,6 @@ const CartOrder = () => {
     const context = useContext(UserContext);
     const {addr, setAddr} = context;
 
-    useEffect(() => {
-        console.log("카트   ID : " + cartId);
-        console.log(typeof cartId);
-        const getOrderList = async() => {
-            const response = await AxiosFinal.getOrderList(cartId);
-            setOrder(response.data);
-            console.log(response.data);
-        }
-        getOrderList();
-    },[]);
-
 
     //주소찾기 영역
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -218,6 +233,14 @@ const CartOrder = () => {
                 setAddr(response.data.userAddr)
             }
             getUser();
+
+            // totalPrcie 가져오기
+            const handleTotalPrice = async() => {
+                const response = await AxiosFinal.getTotalPrice(cartId);
+                setTotalPrice(response.data);
+                console.log(totalPrice);
+            }
+            handleTotalPrice();
         },[]);
 
     const onClickHeader = () => {
@@ -267,18 +290,12 @@ const CartOrder = () => {
     //컨텍스트에 카카오결제 페이지를 저장한다
     const {setPayUrl,payUrl, totalPrice, setTotalPrice} = context;
 
-    // totalPrcie 가져오기
-    const handleTotalPrice = async() => {
-        const response = await AxiosFinal.getTotalPrice(cartId);
-        setTotalPrice(response.data);
-        console.log(totalPrice);
-    }
+
 
 
     //카카오 결제로 들어가는 axios
     const handlePayment1m = async () => {
         console.log(payUrl);
-        await handleTotalPrice();
           try {
             const items = order.map((cartItem) => ({
                 item_name: cartItem.productName,
@@ -314,20 +331,16 @@ const CartOrder = () => {
             console.log(response.data.tid);
             window.localStorage.setItem("tid", response.data.tid);
             setPayUrl(response.data.next_redirect_pc_url);
-
-            if(response.data) {
-                // order에 추가
-                const rsp = await AxiosFinal.orderPlace(cartId, inputName, inputEmail, inputPhone, addr);
-                console.log(rsp.data);
-                if(rsp.data) {
-                    window.close();
-                }
-            }
         } catch (error) {
         console.error("에러입니다1.");
         console.error(error);
         }
       };
+
+      const clickOrder = async() => {
+        const rsp = await AxiosFinal.orderPlace(cartId, inputName, inputEmail, inputPhone, addr);
+        console.log(rsp.data);
+      }
 
 
     return(
@@ -342,11 +355,11 @@ const CartOrder = () => {
                     <div className="productInfo">
                         <span className="productName">{order.productName}</span>
                         <span className="productSize">{order.sizeStatus}</span>
-                        <span className="price">{}</span>
+                        <span className="price">{order.productPrice}</span>
                     </div>
                 </ProductContainer>
             ))}
-            <div>{totalPrice}</div>
+            <div>Total Price : {totalPrice}</div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />
@@ -371,7 +384,7 @@ const CartOrder = () => {
             <div className="item">PAYMENT</div>
             <hr />
             <div className="payBtn" onMouseOver={handlePayment1m}>
-                <a href={payUrl} target="_self">PAY AND PLACE ORDER</a>
+                <a href={payUrl} target="_self" onClick={clickOrder}>PAY AND PLACE ORDER</a>
             </div>
             <Footer>
                 <div className="fotbox">
