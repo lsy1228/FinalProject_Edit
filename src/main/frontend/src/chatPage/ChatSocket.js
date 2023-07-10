@@ -63,7 +63,7 @@ const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://localhost:8112/ws/chat`;
+    const webSocketUrl = `ws://localhost:8111/ws/chat`;
     const roomId = window.localStorage.getItem("chatRoomId");
     const sender = "곰돌이사육사";
     let ws = useRef(null);

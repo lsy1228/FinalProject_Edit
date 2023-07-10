@@ -8,7 +8,6 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashSet;
 import java.util.Set;
-
 @Getter
 public class ChatRoom {
     private String roomId;
@@ -32,3 +31,4 @@ public class ChatRoom {
                 .forEach(session -> chatService.sendMessage(session, message));
     }
 }
+

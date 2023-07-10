@@ -342,9 +342,9 @@ const ProductInfo = () => {
     }
 
     const clickCart = async(id, productId) => {
-        console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
-        console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
-        console.log("확인");
+//        console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
+//        console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
+//        console.log("확인");
         const params = await AxiosFinal.addCartItem(id, productId);
         console.log(params.data);
          if (params) {
@@ -352,8 +352,6 @@ const ProductInfo = () => {
                 }
 
     }
-
-
 
 
 
@@ -370,7 +368,7 @@ const ProductInfo = () => {
                     <div className="wholeDesc">
                         <div className="descWrapper">
                             <div className="productName">{product[0].productName}</div>
-                            <div className="productPrice">{product[0].productPrice}</div>
+                            <div className="productPrice">{product[0].productPrice.toLocaleString()}</div>
                             <div className="colorSize">
                                 <div className="productColor">{product[0].productColor}</div>
                                 <div className="productSize">
