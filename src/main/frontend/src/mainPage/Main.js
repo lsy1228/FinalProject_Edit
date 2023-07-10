@@ -313,8 +313,8 @@ const Main= () =>{
             console.log(res.data);
             window.localStorage.setItem("chatRoomId", res.data);
             window.location.replace("/Socket");
-        } catch {
-            console.log("error");
+        } catch(error) {
+            console.log(error);
         }
     }
      
