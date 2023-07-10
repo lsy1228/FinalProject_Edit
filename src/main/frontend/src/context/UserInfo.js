@@ -27,6 +27,7 @@ const UserStore = (props) => {
     const [orderUserData, setOrderUserData] = useState("");
     //kakao pay url
     const [payUrl, setPayUrl] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
     //admin 토큰
     const [tokenAdmin, setTokenAdmin] = useState("");
     const [refreshTokenAdmin, setRefreshTokenAdmin] = useState("");
@@ -53,6 +54,7 @@ const UserStore = (props) => {
             chatList,setChatList,
             orderUserData, setOrderUserData,
             payUrl, setPayUrl,
+            totalPrice, setTotalPrice,
             tokenAdmin, setTokenAdmin,
             refreshTokenAdmin, setRefreshTokenAdmin}}>
             {props.children}

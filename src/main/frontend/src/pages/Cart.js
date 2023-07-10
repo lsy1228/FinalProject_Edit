@@ -320,7 +320,6 @@ console.log(" ::"  + cartItemId);
     }
 
 
-
     return(
         <Container>
              <div className="contTop">
