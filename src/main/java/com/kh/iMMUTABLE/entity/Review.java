@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,7 +24,7 @@ public class Review {
     private String review_content;
     @Column(nullable = false)
     private int review_rate;
-    private LocalDateTime review_date;
+    private LocalDate review_date;
 
     @ManyToOne(fetch = FetchType.LAZY) // 많은 리뷰가 하나의 상품에 달리기 때문
     @JoinColumn(name = "product_id")

@@ -50,4 +50,11 @@ public class Order {
 
     private String shipCompany;
     private int shipCode;
+
+    private int count;
+    private int productPrice;
+    private String orderName;
+    private String orderPhone;
+    private String orderEmail;
+
 }
