@@ -8,7 +8,7 @@ import FindEmail from './pages/FindEmail';
 import FindPwd from './pages/FindPwd';
 import Shop from './shopPage/Shop';
 import Top from './shopPage/Top';
-import bottom from './shopPage/bottom';
+import Bottom from './shopPage/Bottom';
 import FAQ from './pages/FAQ';
 import Mypage from './pages/Mypage';
 import Board from './pages/Board';
@@ -40,7 +40,7 @@ function App() {
           <Route path="/FindPwd" element={<FindPwd/>}/>
           <Route path="/Shop" element={<Shop/>}/>
           <Route path="/Top" element={<Top/>}/>
-          <Route path="/bottom" element={<bottom/>}/>
+          <Route path="/Bottom" element={<Bottom/>}/>
           <Route path="/FAQ" element={<FAQ/>}/>
           <Route path="/Board/:faqId" element={<Board/>}/>
           <Route path="/Mypage" element={<Mypage/>}/>
