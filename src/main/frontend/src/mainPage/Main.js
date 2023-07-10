@@ -313,7 +313,7 @@ const Main= () =>{
             const res = await ChatAxios.chatRoomOpen("테스트 채팅방");
             console.log(res.data);
             window.localStorage.setItem("chatRoomId", res.data);
-            window.location.open("/ChatSocket");
+            window.open("/ChatSocket");
         } catch(error) {
             console.log(error);
         }
