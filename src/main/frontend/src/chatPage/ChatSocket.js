@@ -65,7 +65,7 @@ const ChatSocket = () => {
     const [rcvMsg, setRcvMsg] = useState("");
     const webSocketUrl = `ws://localhost:8111/ws/chat`;
     const roomId = window.localStorage.getItem("chatRoomId");
-    const sender = "곰돌이사육사";
+    const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);
     const [items, setItems] = useState([]);
 
@@ -122,6 +122,8 @@ const ChatSocket = () => {
       };
     }, [socketConnected]);
 
+
+
     return (
         <Container>
             <div className="bodyArea">
@@ -130,9 +132,11 @@ const ChatSocket = () => {
                     <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
                 </div>
                 <div className="chatContentArea">
+
                     {items.map((item) => {
                     return <div>{`${item.sender} > ${item.message}`}</div>;
                     })}
+
                 </div>
                 <div className="sendArea">
                     <input className="msg_input" placeholder="문자 전송" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
