@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
+import ChatAxios from "../api/ChatAxios.js";
+import ChatSocket from "../chatPage/ChatSocket.js"
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -304,7 +306,19 @@ const Main= () =>{
         }
         console.log(isOpen) ; 
       };
-    
+
+    //채팅방 입력시 채팅방
+    const chatTest = async() => {
+        try {
+            const res = await ChatAxios.chatRoomOpen("테스트 채팅방");
+            console.log(res);
+            console.log(res.data);
+            window.localStorage.setItem("chatRoomId", res.data);
+            window.open("/ChatSocket");
+        } catch(error) {
+            console.log(error);
+        }
+    }
      
     return(
         <Container>
@@ -329,12 +343,13 @@ const Main= () =>{
                             iMMUTABLE
                         </div>
                         <div className="top2">
+
                           {isLogin==="FALSE" && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
+                          {isLogin==="TRUE" && IsLoginTrue.map(s=> (
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
@@ -361,7 +376,7 @@ const Main= () =>{
                         </div>
                         <div className="bottomChat">
                             <input type="text" className="chatInput" placeholder="내용을 입력하세요"/>
-                            <input type="button" className="sendButton" value="send"/>
+                            <input type="button" className="sendButton" value="send"  onClick={chatTest}/>
                         </div>
                     </Chat>
                 <Foot>

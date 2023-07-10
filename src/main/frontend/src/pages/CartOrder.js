@@ -4,17 +4,16 @@ import { UserContext } from "../context/UserInfo";
 import PopupPostCode from "../api/PopupPostCode";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import PayLogo from "../img/kakaoPayLogo.png"
 import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
     .header {
         margin-bottom: 20px;
@@ -103,6 +102,109 @@ const Container = styled.div`
         text-align: center;
         line-height: 40px;
     }
+  .header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 50px;
+  }
+  hr {
+    width: 95%;
+  }
+  .billingInput {
+    width: 395px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 10px;
+    border: 1px solid #ccc;
+    &::placeholder {
+      padding: 5px;
+      font-size: 10px;
+    };
+  }
+  .addrBtn {
+    text-align: right;
+    width: 50px;
+    font-size: 10px;
+    background-color: white;
+    border: none;
+    &:hover{
+      color: #CCC;
+    }
+    margin-bottom : 10px
+  }
+  .hint {
+    width: 50%;
+    display: flex;
+    margin: 5px 0px 0px 8px;
+    justify-content:right;
+    align-items:center;
+    font-size: 12px;
+    color: #999;
+  }
+  .item {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .payBtn {
+    margin-top: 10px;
+    width: 400px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid black;
+    &:hover{
+      color: #CCC;
+      background-color: black;
+    }
+    margin-bottom : 10px
+  }
+  a {
+    text-decoration: none;
+    font-size: 13px;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    line-height: 40px;
+  }
+  .productContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+`;
+
+const ProductContainer = styled.div`
+  width: 50%;
+  height: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+
+  img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100%;
+  }
+  .productInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .productName,
+  .productSize,
+  .price {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  .hr-dashed {
+    width: 95%;
+    border : 0px;
+    border-top: 1px dashed
+  }
 `;
 
 const Footer = styled.div`
@@ -110,8 +212,8 @@ const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
-
+    
+    
     .fotbox{
         height: 100px;
     }
@@ -159,7 +261,7 @@ const CartOrder = () => {
     const context = useContext(UserContext);
     const {addr, setAddr} = context;
 
-     //주소찾기 영역
+    //주소찾기 영역
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     // 팝업창 열기
@@ -220,7 +322,7 @@ const CartOrder = () => {
         } else {
             setEmailMessage('이메일 형식이 올바르지 않습니다.')
             setIsEmail(false)
-        }
+        } 
     }
 
     //전화번호 정규식
@@ -234,9 +336,8 @@ const CartOrder = () => {
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.');
             setIsPhone(true);
-        }
+        } 
     };
-
 
     //컨텍스트에 카카오결제 페이지를 저장한다
     const {setPayUrl,payUrl} = context;
@@ -275,7 +376,6 @@ const CartOrder = () => {
                 },
               }
             );
-
             console.log(response.data); // 결제 요청 결과 확인
             console.log(response.data.next_redirect_pc_url);
             console.log(response.data.tid);
@@ -298,18 +398,23 @@ const CartOrder = () => {
 
 
 
+
     return(
         <Container>
             <div className="header" onClick={onClickHeader}>iMMUTABLE</div>
+            <br />
             <p className="item">ORDER SUMMARY</p>
-            <div>
-                {/* {order && order.map((e)=> (
-                    <div key={e.orderId}>
-                        <img src={e.productImgFst} alt="" />
-                        <div className="productName">{e.productName}</div>
+            <hr />
+            {order && order.map((order) => (
+                <ProductContainer key={order.orderId}>
+                    <img src={order.productImgFst} />
+                    <div className="productInfo">
+                        <span className="productName">{order.productName}</span>
+                        <span className="productSize">{order.productSize}</span>
+                        <span className="price">{order.totalPrice}</span>
                     </div>
-                ))} */}
-            </div>
+                </ProductContainer>
+            ))}
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />
@@ -338,15 +443,15 @@ const CartOrder = () => {
             </div>
             <Footer>
                 <div className="fotbox">
-              <div className="tt1">
-              iMMUTABLE & Q / A
-              </div>
-              <div className="tt2">
-              MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
-                </div>
-                <div className="tt2">
-                카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
-                </div>
+                    <div className="tt1">
+                        iMMUTABLE & Q / A
+                    </div>
+                    <div className="tt2">
+                        MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
+                    </div>
+                    <div className="tt2">
+                        카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
+                    </div>
                 </div>
             </Footer>
         </Container>
