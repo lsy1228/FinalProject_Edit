@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import TOP from "./Top";
+import Top from "./Top";
+import Bottom from "./Bottom";
+import Shop from "./Shop";
+import { Link } from "react-router-dom";
 
 
 
@@ -11,7 +14,6 @@ const Container = styled.div`
     display: flex;
     z-index: 100;
 `
-
 
 const Head = styled.div`
     margin-right: 15%;
@@ -43,11 +45,11 @@ const DropdownMenu = () => {
     return(
         <Container> 
             <Head>
-                <a href="SHOP"><div className="top">SHOP</div></a>
+               <Link to="/Shop"><div className="top">SHOP</div></Link>
                 <div className="list">NEW RELEASRS</div>
-                <a href="TOP"><div className="list">TOPS</div></a>
+                <Link to="/Top"><div className="list">TOPS</div></Link>
                 <div className="list">OUTERWEAR</div>
-                <div className="list">BOTTOMS</div>
+                <Link to="/Bottom"><div className="list">BOTTOMS</div></Link>
                 <div className="list">FOOTWEAR</div>
                 <div className="list">ACCESSORIES</div>
             </Head>
@@ -65,6 +67,5 @@ const DropdownMenu = () => {
         
     )
 }
-
 
 export default DropdownMenu
