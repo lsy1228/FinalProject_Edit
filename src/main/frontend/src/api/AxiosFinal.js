@@ -503,7 +503,7 @@ const AxiosFinal = {
             id : id,
             cartItemId : cartItemId
             }
-        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem)
+        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem);
     // // order 저장
     // getOrderList : async(cartId, inputName, inputEmail, inputPhone, addr) => {
     //     return await axios.post(Final_proj + `/order/orderList?cartId=${cartId}`);
