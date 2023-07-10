@@ -1,43 +1,64 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 const Container=styled.div`
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+.bodyArea{
+    width:400px;
+    height:600px;
+    display:flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.chatHeadArea{
+    display: flex;
+    justify-content: space-between;
+    background-color: #CCC;
+}
+.chatContentArea{
+    height:100%;
+    overflow-y: scroll;
+}
+.sendArea{
+    width: 100%;
+    height: 25px;
+    display: flex;
+
+}
 .msg_input {
-  width: 200px; /* 원하는 너비 설정 */
-  height: 20px; /* 높이값 초기화 */
-  font-size:11px;
-  line-height : normal; /* line-height 초기화 */
-  padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */
-  border: 1px solid #999;
-  outline-style: none; /* 포커스시 발생하는 효과 제거를 원한다면 */
-  -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
-  -moz-appearance: none; appearance: none;
+     width: 100%;
+     font-size:11px;
+     line-height : normal;
+     padding: .8em .5em;
+     border: 1px solid #999;
+     outline-style: none; /* 포커스시 발생하는 효과 제거를 원한다면 */
+     -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
+     -moz-appearance: none; appearance: none;
 
 }
 .msg_send {
-  margin: 10px;
-  width: 100px; /* 원하는 너비 설정 */
-  height: 20px;
-  font-size:11px;
-  color: white;
-  background-color: black;
-  border: orange;
-  &:hover{
-    color:#CCC;
-  }
+     width: 100px;
+     height: 25px;
+     font-size: 11px;
+     color: white;
+     background-color: black;
+     border: orange;
+     &:hover{
+        color:#CCC;
+     }
 }
 .msg_close {
-  margin: 40px;
-  width: 140px; /* 원하는 너비 설정 */
-  height: 20px;
-  color: white;
-  background-color: black;
-  font-size: 13px;
-  font-weight: 400;
-  border: orange;
+     width: 30px;
+     font-size: 15px;
+     background-color: white;
+     border: none;
+
+
 }
 `
-
-
 const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
@@ -103,15 +124,21 @@ const ChatSocket = () => {
 
     return (
         <Container>
-            <div>socket connected : {`${socketConnected}`}</div>
-            <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
-            <div>
-                {items.map((item) => {
-                return <div>{`${item.sender} > ${item.message}`}</div>;
-                })}
+            <div className="bodyArea">
+                <div className="chatHeadArea">
+                    <div>socket connected : {`${socketConnected}`}</div>
+                    <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
+                </div>
+                <div className="chatContentArea">
+                    {items.map((item) => {
+                    return <div>{`${item.sender} > ${item.message}`}</div>;
+                    })}
+                </div>
+                <div className="sendArea">
+                    <input className="msg_input" placeholder="문자 전송" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
+                    <button className="msg_send" onClick={onClickMsgSend}>전송</button>
+                </div>
             </div>
-            <input className="msg_input" placeholder="문자 전송" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
-            <button className="msg_send" onClick={onClickMsgSend}>전송</button>
         </Container>
       );
     };
