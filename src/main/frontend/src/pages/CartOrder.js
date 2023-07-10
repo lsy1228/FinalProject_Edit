@@ -166,11 +166,15 @@ const CartOrder = () => {
     const [isEmail, setIsEmail] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
 
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState("");
     const {cartId} = useParams();
 
+    //저장된 주소값을 설정하여 주소는 받아온다.
+    const context = useContext(UserContext);
+    const {addr, setAddr} = context;
+
     useEffect(() => {
-        console.log(cartId);
+        console.log("카트   ID : " + cartId);
         console.log(typeof cartId);
         const getOrderList = async() => {
             const response = await AxiosFinal.getOrderList(cartId);
@@ -180,10 +184,6 @@ const CartOrder = () => {
         getOrderList();
     },[]);
 
-
-    //저장된 주소값을 설정하여 주소는 받아온다.
-    const context = useContext(UserContext);
-    const {addr, setAddr} = context;
 
     //주소찾기 영역
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -248,15 +248,15 @@ const CartOrder = () => {
     // totalPrcie 가져오기
     const handleTotalPrice = async() => {
         const response = await AxiosFinal.getTotalPrice(cartId);
-        setTotalPrice = response.data;
-        console.log(resultPrice)
+        setTotalPrice(response.data);
+        console.log(totalPrice);
     }
 
 
     //카카오 결제로 들어가는 axios
     const handlePayment1m = async () => {
         try {
-            totalPrice = await handleTotalPrice();
+            await handleTotalPrice();
             console.log(totalPrice);
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
