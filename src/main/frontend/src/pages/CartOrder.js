@@ -397,8 +397,6 @@ const CartOrder = () => {
       };
 
 
-
-
     return(
         <Container>
             <div className="header" onClick={onClickHeader}>iMMUTABLE</div>
@@ -406,12 +404,12 @@ const CartOrder = () => {
             <p className="item">ORDER SUMMARY</p>
             <hr />
             {order && order.map((order) => (
-                <ProductContainer key={order.orderId}>
+                <ProductContainer key={order.cartItemId}>
                     <img src={order.productImgFst} />
                     <div className="productInfo">
                         <span className="productName">{order.productName}</span>
-                        <span className="productSize">{order.productSize}</span>
-                        <span className="price">{order.totalPrice}</span>
+                        <span className="productSize">{order.sizeStatus}</span>
+                        <span className="price">{}</span>
                     </div>
                 </ProductContainer>
             ))}

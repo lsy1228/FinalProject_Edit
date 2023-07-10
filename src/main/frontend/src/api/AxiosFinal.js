@@ -492,6 +492,8 @@ const AxiosFinal = {
             addr : addr
         }
         return await axios.post(Final_proj + "/order/cartOrder", saveOrder);
+        },
+
     // cart에서 상품 목록 가져오기
     getCartList : async(cartId) => {
         return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
@@ -503,7 +505,8 @@ const AxiosFinal = {
             id : id,
             cartItemId : cartItemId
             }
-        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem)
+        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem);
+    },
     // // order 저장
     // getOrderList : async(cartId, inputName, inputEmail, inputPhone, addr) => {
     //     return await axios.post(Final_proj + `/order/orderList?cartId=${cartId}`);
