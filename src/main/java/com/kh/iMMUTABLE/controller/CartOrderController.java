@@ -2,6 +2,7 @@ package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.CartItemDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
+import com.kh.iMMUTABLE.entity.Cart;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.repository.CartItemRepository;
@@ -47,6 +48,13 @@ public class CartOrderController {
     @GetMapping ("/orderList")
     public ResponseEntity<List<OrderDto>> orderList (@RequestParam String cartId) {
         List<OrderDto> result = cartOrderService.orderList(Long.parseLong(cartId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // total price 들고오기
+    @GetMapping("/totalPrice")
+    public ResponseEntity<Integer> cartOrderTotalPrice (@RequestParam String cartId) {
+        int result = cartOrderService.getTotalPrice(Long.parseLong(cartId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
