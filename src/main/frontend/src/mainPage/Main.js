@@ -311,6 +311,7 @@ const Main= () =>{
     const chatTest = async() => {
         try {
             const res = await ChatAxios.chatRoomOpen("테스트 채팅방");
+            console.log(res);
             console.log(res.data);
             window.localStorage.setItem("chatRoomId", res.data);
             window.open("/ChatSocket");
