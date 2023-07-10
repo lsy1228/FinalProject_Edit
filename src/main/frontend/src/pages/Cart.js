@@ -214,13 +214,7 @@ const Cart=()=>{
 
     // 주문창으로 이동, order에 장바구니 정보 저장
     const onClickCartOrder = async(cartId) => {
-//        navigate(`/CartOrder/${cartId}`);
-        const response = await AxiosFinal.getCartList(cartId);
-        if(response.data) {
-            navigate(`/CartOrder/${cartId}`);
-        } else {
-            return false;
-        }
+        navigate(`/CartOrder/${cartId}`);
     }
 
     // 장바구니에 제품이 없을경우 shop 페이지로 이동

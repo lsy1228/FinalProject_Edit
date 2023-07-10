@@ -110,12 +110,21 @@ public class CartService {
 
     public CartItem updateCount(int count, long cartItemId){
         CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
-        cartItem.setCount(count);
+        int preCount = cartItem.getCount(); // 원래 수량
+        cartItem.setCount(count);           // 수량 변경
 
         Product tempProduct  = productRepository.findByProductId(cartItem.getProduct().getProductId());
         cartItem.setCartPrice(count * tempProduct.getProductPrice());
 
         CartItem cartItemDto = cartItemRepository.save(cartItem);
+
+        // cart 총 가격 업데이트
+        Cart cart = cartItem.getCart();
+        int cartTotalPrice = cart.getTotalPrice();
+        int cartItemPriceDiff = (count - preCount) * tempProduct.getProductPrice();
+        int newTotalPrce = cartTotalPrice + cartItemPriceDiff;
+        cart.setTotalPrice(newTotalPrce);
+        cartRepository.save(cart);
 
         return cartItemDto;
     }

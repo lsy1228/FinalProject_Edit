@@ -60,16 +60,40 @@ const Container = styled.div`
         font-weight: bold;
     }
     .payBtn {
-        margin-top: 10px;
-        width: 400px;   
+    margin-top: 10px;
+    width: 400px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    }
+
+    .payBtn:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .payBtn a {
+        color: black;
+    }
+
+    .payBtn:hover a {
+        color: white;
+    }
+
+    .changeInfo {
+        width: 400px;
         height: 40px;
         background-color: white;
         border: 1px solid black;
-        &:hover{
+        &:hover {
             color: #CCC;
             background-color: black;
         }
-        margin-bottom : 10px
+
+
     }
     a {
         text-decoration: none;
@@ -86,8 +110,8 @@ const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
+
+
     .fotbox{
         height: 100px;
     }
@@ -127,22 +151,9 @@ const CartOrder = () => {
     const [isEmail, setIsEmail] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
 
-    const [order, setOrder] = useState("");
-    const [orderList, setOrderList] = useState("");
+    const [order, setOrder] = useState([]); // 주문 목록
+    const [user, setUser] = useState([]);
     const {cartId} = useParams();
-
-    useEffect(() => {
-            console.log(cartId);
-            console.log(typeof cartId);
-            const getOrderList = async() => {
-                const response = await AxiosFinal.getOrderList(cartId);
-                if(response.data) {
-                    setOrder(response.data);
-                    console.log(response.data);
-                }
-            }
-            getOrderList(cartId);
-        },[]);
 
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
@@ -155,11 +166,32 @@ const CartOrder = () => {
     const openPostCode = () => {
         setIsPopupOpen(true);
     }
-     
+
 	// 팝업창 닫기
     const closePostCode = (e) => {
         setIsPopupOpen(false);
     }
+
+
+    useEffect(() => {
+            console.log(cartId);
+            const getOrderList = async() => {
+                const response = await AxiosFinal.realOrderList(cartId);
+                console.log(response.data);
+                setOrder(response.data);
+            };
+            getOrderList();
+
+            const getUser = async() => {
+                const response = await AxiosFinal.orderGetUser(cartId);
+                setUser(response.data);
+                setInputName(response.data.userName);
+                setInputEmail(response.data.userEmail);
+                setInputPhone(response.data.userPhone);
+                setAddr(response.data.userAddr)
+            }
+            getUser();
+        },[]);
 
     const onClickHeader = () => {
         navigate("/");
@@ -188,7 +220,7 @@ const CartOrder = () => {
         } else {
             setEmailMessage('이메일 형식이 올바르지 않습니다.')
             setIsEmail(false)
-        } 
+        }
     }
 
     //전화번호 정규식
@@ -202,31 +234,40 @@ const CartOrder = () => {
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.');
             setIsPhone(true);
-        } 
+        }
     };
 
+
     //컨텍스트에 카카오결제 페이지를 저장한다
-    const {setPayUrl,payUrl,totalPrice,setTotalPrice} = context; 
+    const {setPayUrl,payUrl} = context;
 
     //카카오 결제로 들어가는 axios
     const handlePayment1m = async () => {
         console.log(payUrl);
-        // setTotalPrice(10000);
           try {
+            const items = order.map((cartItem) => ({
+                item_name: cartItem.productName,
+                product_price: cartItem.productPrice
+                // product_count : cartItem.count
+              }));
+            const descItemName = items.length > 1 ? `${items[0].item_name} 외 ${items.length-1}개` : items[0].item_name;
+            const totalPrice = items.reduce((acc, cartItem)=> acc + cartItem.product_price, 0);
+            // const totalCount = items.reduce((acc, cartItem)=> acc + cartItem.count, 0);
+
             const response = await axios.post(
-              'https://kapi.kakao.com/v1/payment/ready',    
+              'https://kapi.kakao.com/v1/payment/ready',
               {
                 cid: 'TC0ONETIME', // 가맹점 CID
                 partner_order_id: 'partner_order_id', // 가맹점 주문번호
                 partner_user_id: 'partner_user_id', // 가맹점 회원 ID
-                item_name: 'iMMUTABLE 결제창',
+                item_name: descItemName,
                 quantity: 30,
-                total_amount: 1000, // 결제 금액
+                total_amount: totalPrice, // 결제 금액
                 tax_free_amount: 0,
                 approval_url: 'http://localhost:3000/OrderComplete', // 결제 성공 시 리다이렉트할 URL
                 cancel_url: 'http://localhost:3000/CartOrder', // 결제 취소 시 리다이렉트할 URL
                 fail_url: 'http://localhost:3000/CartOrder', // 결제 실패 시 리다이렉트할 URL
-              },   
+              },
               {
                 headers: {
                   Authorization: `KakaoAK 3923bafc46ca0d258af73bbf339e36d4`, // admin key
@@ -234,17 +275,26 @@ const CartOrder = () => {
                 },
               }
             );
+
             console.log(response.data); // 결제 요청 결과 확인
             console.log(response.data.next_redirect_pc_url);
             console.log(response.data.tid);
             window.localStorage.setItem("tid", response.data.tid);
-            setPayUrl(response.data.next_redirect_pc_url);    
-          } catch (error) {
-            console.error("에러입니다1.");
-            console.error(error);
-          }
-      };
+            setPayUrl(response.data.next_redirect_pc_url);
 
+            if(response.data) {
+                // order에 추가
+                const rsp = await AxiosFinal.orderPlace(cartId, inputName, inputEmail, inputPhone, addr);
+                console.log(rsp.data);
+                if(rsp.data) {
+                    window.close();
+                }
+            }
+        } catch (error) {
+        console.error("에러입니다1.");
+        console.error(error);
+        }
+      };
 
 
 
@@ -252,32 +302,40 @@ const CartOrder = () => {
         <Container>
             <div className="header" onClick={onClickHeader}>iMMUTABLE</div>
             <p className="item">ORDER SUMMARY</p>
-            <div></div>
+            <div>
+                {/* {order && order.map((e)=> (
+                    <div key={e.orderId}>
+                        <img src={e.productImgFst} alt="" />
+                        <div className="productName">{e.productName}</div>
+                    </div>
+                ))} */}
+            </div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />
-            <input type="name" className="billingInput" placeholder="NAME" onChange={onChangeName}/>
-            <input type="email" className="billingInput" placeholder="EMAIL" onChange={onChangeMail}/>
+            <input type="name" className="billingInput" defaultValue={user.userName} onChange={onChangeName}/>
+            <input type="email" className="billingInput" defaultValue={user.userEmail}  onChange={onChangeMail}/>
             <div className="hint">
                         {inputEmail.length > 0 && (
                         <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>)}
                     </div>
-            <input type="address" className="billingInput" value={addr} placeholder="ADDRESS"/>
+            <input type="address" className="billingInput" value={addr}/>
             <button className="addrBtn" onClick={openPostCode}>FIND</button>
             <div id='popupDom'>
-                            {isPopupOpen && (                    
-                                    <PopupPostCode onClose={closePostCode} />
-                            )} 
+                            {isPopupOpen && (
+                                    <PopupPostCode onClose={closePostCode}/>
+                            )}
                         </div>
-            <input type="phone" className="billingInput" placeholder="PHONE" onChange={onChangePhone}/>
+            <input type="phone" className="billingInput" defaultValue={user.userPhone} onChange={onChangePhone}/>
             <div className="hint">
                             {inputPhone.length > 0 && (
                             <span className={`message ${isPhone ? 'success' : 'error'}`}>{phoneMessage}</span>)}
                     </div>
-
             <div className="item">PAYMENT</div>
             <hr />
-            <a href={payUrl} target="blank"className="payBtn" onClick={handlePayment1m}>PAY AND PLACE ORDER</a>
+            <div className="payBtn" onMouseOver={handlePayment1m}>
+                <a href={payUrl} target="_self">PAY AND PLACE ORDER</a>
+            </div>
             <Footer>
                 <div className="fotbox">
               <div className="tt1">

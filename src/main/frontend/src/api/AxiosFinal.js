@@ -470,21 +470,44 @@ const AxiosFinal = {
             qnaId : qnaId
         }
         return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
-    }, 
+    },
+
+    // 오더페이지에서 카트 목록 가져오기
+    realOrderList : async(cartId) => {
+        return await axios.get(Final_proj + `/order/cartOrderList?cartId=${cartId}`);
+    },
+
+    // 오더페이지에서 주문하는 회원정보 가져오기
+    orderGetUser : async(cartId) => {
+        return await axios.get(Final_proj + `/order/orderGetUser?cartId=${cartId}`);
+    },
 
     // 장바구니 상품목록 order에 저장
-    getCartList : async(cartId) => {
+    orderPlace : async(cartId, inputName, inputEmail, inputPhone, addr) => {
         const saveOrder = {
-            cartId : cartId
+            cartId : cartId,
+            inputName : inputName,
+            inputEmail : inputEmail,
+            inputPhone : inputPhone,
+            addr : addr
         }
         return await axios.post(Final_proj + "/order/cartOrder", saveOrder);
     },
 
-    // order 리스트 가져오기
-    getOrderList : async(cartId) => {
-        return await axios.get(Final_proj + `/order/orderList?cartId=${cartId}`);
+    // // order 저장
+    // getOrderList : async(cartId, inputName, inputEmail, inputPhone, addr) => {
+    //     return await axios.post(Final_proj + `/order/orderList?cartId=${cartId}`);
+    // }
+
+    // 주문내역 조회
+    orderHistory : async(userEmail) => {
+        return await axios.get(Final_proj + `/order/orderHistory?userEmail=${userEmail}`);
+    },
+
+    // 주문내역 리뷰 제품 정보 불러오기
+    reviewProduct : async(productId) => {
+        return await axios.get(Final_proj + `/review/reviewProduct?productId=${productId}`);
     }
-    
 };
 
 export default AxiosFinal;
