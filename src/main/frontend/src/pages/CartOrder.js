@@ -245,11 +245,19 @@ const CartOrder = () => {
     //컨텍스트에 카카오결제 페이지를 저장한다
     const {setPayUrl,payUrl,totalPrice,setTotalPrice} = context;
 
+    // totalPrcie 가져오기
+    const handleTotalPrice = async() => {
+        const response = await AxiosFinal.getTotalPrice(cartId);
+        setTotalPrice = response.data;
+        console.log(resultPrice)
+    }
+
+
     //카카오 결제로 들어가는 axios
     const handlePayment1m = async () => {
-        console.log(payUrl);
-        // setTotalPrice(10000);
         try {
+            totalPrice = await handleTotalPrice();
+            console.log(totalPrice);
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
                 {
@@ -258,7 +266,7 @@ const CartOrder = () => {
                     partner_user_id: 'partner_user_id', // 가맹점 회원 ID
                     item_name: 'iMMUTABLE 결제창',
                     quantity: 30,
-                    total_amount: 1000, // 결제 금액
+                    total_amount: totalPrice, // 결제 금액
                     tax_free_amount: 0,
                     approval_url: 'http://localhost:3000/OrderComplete', // 결제 성공 시 리다이렉트할 URL
                     cancel_url: 'http://localhost:3000/CartOrder', // 결제 취소 시 리다이렉트할 URL

@@ -92,4 +92,10 @@ public class CartOrderService {
         return result;
     }
 
+    // totalprice 가져오기
+    public int getTotalPrice (long cartId) {
+        Optional<Cart> cart = cartRepository.findById(cartId);
+        int totalPrice = cart.get().getTotalPrice();
+        return totalPrice;
+    }
 }

@@ -483,8 +483,11 @@ const AxiosFinal = {
     // order 리스트 가져오기
     getOrderList : async(cartId) => {
         return await axios.get(Final_proj + `/order/orderList?cartId=${cartId}`);
+    },
+    // totalPrice 가져오기
+    getTotalPrice : async(cartId) => {
+         return await axios.get(Final_proj + `/order/totalPrice?cartId=${cartId}`);
     }
-    
 };
 
 export default AxiosFinal;
