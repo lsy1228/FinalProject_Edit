@@ -88,14 +88,19 @@ const Products_in=styled.div`
   &:hover{
     background-color: rgba(0,0,0,0.1);
   }
-  .checkBox{
-    width: 20px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-  }
+
+   .delete_item{
+          background-color:white;
+          border: none;
+          cursor : pointer;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 10px;
+      }
+
   .product_image{
     display: flex;
     justify-content: center;
@@ -212,15 +217,10 @@ const Cart=()=>{
     const[cartList, setCartList] = useState([]);
 
 
-    // 주문창으로 이동, order에 장바구니 정보 저장
-    const onClickCartOrder = async(cartId) => {
-//        navigate(`/CartOrder/${cartId}`);
-        const response = await AxiosFinal.getCartList(cartId);
-        if(response.data) {
-            navigate(`/CartOrder/${cartId}`);
-        } else {
-            return false;
-        }
+    // 주문창으로 이동
+    const onClickCartOrder = (cartId) => {
+        console.log(cartId);
+        navigate(`/CartOrder/${cartId}`);
     }
 
     // 장바구니에 제품이 없을경우 shop 페이지로 이동
@@ -310,38 +310,47 @@ const Cart=()=>{
 
     console.log(cartList)
 
+    // 카트 아이템 삭제
+    const deleteCartItem = async(id, index) => {
+        console.log(index);
+        console.log("삭제");
+        const cartItemId =  cartList[index].cartItemId;
+console.log(" ::"  + cartItemId);
+        const rsp = await AxiosFinal.deleteCartItem(id, cartItemId);
+        setCartList(rsp.data);
+    }
+
+
 
     return(
         <Container>
-            <div className="contTop">
-                <div className="chkBtn">
-                    <button className="chkAll">전체 선택</button>
-                    <button className="chkDel">선택 삭제</button>
-                </div>
-                <Link to="/">home</Link>
-            </div>
+             <div className="contTop">
+                            <div className="chkBtn">
+                            </div>
+                            <Link to="/">home</Link>
+                        </div>
             <MainBody>
 
-                <Products>
-                    {cartList && cartList.map((e, index)=>(
-                        <Products_in key={e.cartItemId}>
-                            <div className="checkBox">
-                                <input type="checkbox"/></div>
-                            <div className="product_image">
-                                <img src ={e.productImgFst} /></div>
-                            <div className="itemName">{e.productName}</div>
-                            <div className="itemSize">{e.sizeStatus}</div>
+ <Products>
+                {cartList && cartList.map((e, index)=>(
+                <Products_in key={e.cartItemId}>
+                        <div className="product_image">
+                            <img src ={e.productImgFst} /></div>
+                        <div className="itemName">{e.productName}</div>
+                                 <div className="itemSize">{e.sizeStatus}</div>
                             <div className="count">
-                                <input type="text" Value={count[index]} />
-                                <div className="countbutton">
-                                    <button className="plus" onClick={()=>countPlus(index)}>∧</button>
-                                    <button className="minus" onClick={()=>countMinus(index)}>∨</button>
-                                </div>
-                            </div>
-                            <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
-                        </Products_in>
-                    ))}
+                                            <input type="text" Value={count[index]} />
+                                            <div className="countbutton">
+                                                <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                                                <button className="minus" onClick={()=>countMinus(index)}>∨</button>
+                                            </div>
+                                        </div>
+                        <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
+                        <button className="delete_item" onClick={() => deleteCartItem(id, index)}>x</button>
+                    </Products_in>
+                             ))}
                 </Products>
+
 
                 <Total>
                     {calculateTotalPrice()} won

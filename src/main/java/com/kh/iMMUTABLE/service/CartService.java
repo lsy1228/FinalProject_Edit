@@ -59,7 +59,7 @@ public class CartService {
             cartItem.setProduct(product);   // 카트 아이템에 제품 저장
             cartItem.setCount(1);       // 카트 아이템 수량은 기본 1개
             cartItem.setCartPrice(product.getProductPrice());   // 카트 아이템의 가격은 해당 제품의 가격
-            cartItem = cartItemRepository.save(cartItem);   // 카트 아이템 저장
+            CartItem result = cartItemRepository.save(cartItem);   // 카트 아이템 저장
         }
 
         return true;
@@ -71,10 +71,10 @@ public class CartService {
 
         // user_email로 user_id get
         Users user = userRepository.findByUserEmail(email);
-        Long user_id = user.getUserId();
+        long user_id = user.getUserId();
         // Cart 테이블에서 user_id로 cart_id get
         Cart cart = cartRepository.findByUserUserId(user_id);
-        int totalPrice = 0;
+
         if(cart==null) {
             return new ArrayList<>();
         }
@@ -86,7 +86,7 @@ public class CartService {
 
         for (CartItem cartItem : cartList) {
             CartItemDto cartItemDto = new CartItemDto();
-            totalPrice += cartItem.getCartPrice();
+
             cartItemDto.setCartItemId(cartItem.getCartItemId());
             cartItemDto.setCount(cartItem.getCount());
             cartItemDto.setProductPrice(cartItem.getCartPrice());
@@ -102,7 +102,6 @@ public class CartService {
             cartItemDtoList.add(cartItemDto);
 
         }
-        cart.setTotalPrice(totalPrice);
         return cartItemDtoList;
     }
 
@@ -118,5 +117,19 @@ public class CartService {
         CartItem cartItemDto = cartItemRepository.save(cartItem);
 
         return cartItemDto;
+    }
+
+    // 상품 삭제
+    public List<CartItemDto> deleteItem (String id, long cartItemId){
+        Users users = userRepository.findByUserEmail(id);
+        CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
+        System.out.println(" cartItme callBack " + cartItem.toString());
+        List<CartItemDto> cartItemDtoList = new ArrayList<>();
+        if(cartItem.getCartItemId() > 0 ) { //cartItem
+            cartItemRepository.delete(cartItem);
+            //cartItemDtoList = this.getCartItemList(id);
+        }
+        cartItemDtoList = this.getCartItemList(id);
+        return cartItemDtoList;
     }
 }

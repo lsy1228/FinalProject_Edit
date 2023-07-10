@@ -22,14 +22,14 @@ const InnerContainer = styled.div`
     width: 100%;
     height: 100vh;
     margin-top: 50px;
-    
+
     .product {
         margin: 0 40px;
         display: flex;
         .productImg {
             display: flex;
             flex-direction: column;
-            width: 70%;         
+            width: 70%;
             justify-content: center;
             align-items: center;
             img {
@@ -38,7 +38,7 @@ const InnerContainer = styled.div`
                 width: 500px;
                 height: 100%;
             }
-           
+
         }
         .wholeDesc {
             width: 30%;
@@ -92,7 +92,7 @@ const InnerContainer = styled.div`
                     .faHeart {
                         color: red;
                     }
-                    .cart {  
+                    .cart {
                         width: 268px;
                         height: 50px;
                         margin: 20px 0;
@@ -111,7 +111,7 @@ const InnerContainer = styled.div`
                 }
                 .detailWrapper {
                     p {
-                        font-size: 12px; 
+                        font-size: 12px;
                         &:hover {
                             cursor: pointer;
                             color: gray;
@@ -168,7 +168,7 @@ const ReviewTable = styled.table`
         td {
             text-align: center;
         }
-        
+
     }
 `;
 
@@ -223,7 +223,7 @@ const QnATable = styled.table`
                 cursor: pointer;
                 color: gray;
             }
-        }   
+        }
     }
     .qnaContent {
         font-size: 14px;
@@ -261,12 +261,14 @@ const ProductInfo = () => {
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
 
+    console.log(product);
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
 
     const handleSelect = (e) => {
         const productId = e.target.value;
+        // console.log(productId);
         setProductId(productId);
     };
 
@@ -342,8 +344,12 @@ const ProductInfo = () => {
     const clickCart = async(id, productId) => {
         console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
         console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
-
+        console.log("확인");
         const params = await AxiosFinal.addCartItem(id, productId);
+        console.log(params.data);
+         if (params) {
+                    alert("장바구니에 상품이 담겼습니다.")
+                }
 
     }
 
@@ -470,12 +476,13 @@ const ProductInfo = () => {
                                 setPage={setPage}      // 페이지 번호를 변경
                             />
                 </QnA>
-                
+
             </InnerContainer>
-                
+
         </Container>
     )
 
 }
+
 
 export default ProductInfo;

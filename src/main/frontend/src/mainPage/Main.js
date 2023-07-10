@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
+import ChatAxios from "../api/ChatAxios.js";
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -304,7 +305,18 @@ const Main= () =>{
         }
         console.log(isOpen) ; 
       };
-    
+
+    //채팅방 입력시 채팅방
+    const chatTest = async() => {
+        try {
+            const res = await ChatAxios.chatRoomOpen("테스트 채팅방");
+            console.log(res.data);
+            window.localStorage.setItem("chatRoomId", res.data);
+            window.location.replace("/Socket");
+        } catch(error) {
+            console.log(error);
+        }
+    }
      
     return(
         <Container>
@@ -361,7 +373,7 @@ const Main= () =>{
                         </div>
                         <div className="bottomChat">
                             <input type="text" className="chatInput" placeholder="내용을 입력하세요"/>
-                            <input type="button" className="sendButton" value="send"/>
+                            <input type="button" className="sendButton" value="send"  onClick={chatTest}/>
                         </div>
                     </Chat>
                 <Foot>

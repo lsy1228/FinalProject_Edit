@@ -472,12 +472,9 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
     }, 
 
-    // 장바구니 상품목록 order에 저장
+    // cart에서 상품 목록 가져오기
     getCartList : async(cartId) => {
-        const saveOrder = {
-            cartId : cartId
-        }
-        return await axios.post(Final_proj + "/order/cartOrder", saveOrder);
+        return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
     },
 
     // order 리스트 가져오기
@@ -486,7 +483,15 @@ const AxiosFinal = {
     },
     // totalPrice 가져오기
     getTotalPrice : async(cartId) => {
-         return await axios.get(Final_proj + `/order/totalPrice?cartId=${cartId}`);
+        return await axios.get(Final_proj + `/order/totalPrice?cartId=${cartId}`);
+    },
+    // 카트 아이템 삭제
+    deleteCartItem : async(id, cartItemId) => {
+        const deleteItem = {
+            id : id,
+            cartItemId : cartItemId
+            }
+        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem)
     }
 };
 
