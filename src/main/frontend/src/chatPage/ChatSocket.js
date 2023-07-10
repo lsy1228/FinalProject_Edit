@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import styled, {css} from "styled-components";
+import styled from "styled-components";
+const Container=styled.div`
 .msg_input {
   width: 200px; /* 원하는 너비 설정 */
   height: auto; /* 높이값 초기화 */
@@ -39,10 +40,10 @@ import styled, {css} from "styled-components";
   border-radius: 6px;
   border: orange;
 }
+`
 
 
-
-const SocketTest = () => {
+const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -106,7 +107,7 @@ const SocketTest = () => {
     }, [socketConnected]);
 
     return (
-        <div >
+        <Container>
             <div>socket</div>
             <div>socket connected : {`${socketConnected}`}</div>
             <div>방번호: {roomId}</div>
@@ -120,8 +121,8 @@ const SocketTest = () => {
             <button className="msg_send" onClick={onClickMsgSend}>전송</button>
             <p/>
             <button className="msg_close" onClick={onClickMsgClose}>채팅 종료 하기</button>
-        </div>
+        </Container>
       );
     };
 
-    export default SocketTest;
+    export default ChatSocket;
