@@ -493,6 +493,8 @@ const AxiosFinal = {
             addr : addr
         }
         return await axios.post(Final_proj + "/order/cartOrder", saveOrder);
+        },
+
     // cart에서 상품 목록 가져오기
     getCartList : async(cartId) => {
         return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
