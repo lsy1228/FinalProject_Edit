@@ -265,7 +265,7 @@ const CartOrder = () => {
     };
 
     //컨텍스트에 카카오결제 페이지를 저장한다
-    const {setPayUrl,payUrl} = context;
+    const {setPayUrl,payUrl, totalPrice, setTotalPrice} = context;
 
     // totalPrcie 가져오기
     const handleTotalPrice = async() => {
@@ -278,11 +278,11 @@ const CartOrder = () => {
     //카카오 결제로 들어가는 axios
     const handlePayment1m = async () => {
         console.log(payUrl);
+        await handleTotalPrice();
           try {
             const items = order.map((cartItem) => ({
                 item_name: cartItem.productName,
                 product_price: cartItem.productPrice
-                // product_count : cartItem.count
               }));
             const descItemName = items.length > 1 ? `${items[0].item_name} 외 ${items.length-1}개` : items[0].item_name;
             const totalPrice = items.reduce((acc, cartItem)=> acc + cartItem.product_price, 0);
@@ -298,9 +298,9 @@ const CartOrder = () => {
                 quantity: 30,
                 total_amount: totalPrice, // 결제 금액
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/OrderComplete', // 결제 성공 시 리다이렉트할 URL
-                cancel_url: 'http://localhost:3000/CartOrder', // 결제 취소 시 리다이렉트할 URL
-                fail_url: 'http://localhost:3000/CartOrder', // 결제 실패 시 리다이렉트할 URL
+                approval_url: 'http://localhost:8111/OrderComplete', // 결제 성공 시 리다이렉트할 URL
+                cancel_url: 'http://localhost:8111/CartOrder', // 결제 취소 시 리다이렉트할 URL
+                fail_url: 'http://localhost:8111/CartOrder', // 결제 실패 시 리다이렉트할 URL
               },
               {
                 headers: {
@@ -348,6 +348,7 @@ const CartOrder = () => {
                     </div>
                 </ProductContainer>
             ))}
+            <div>{totalPrice}</div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />

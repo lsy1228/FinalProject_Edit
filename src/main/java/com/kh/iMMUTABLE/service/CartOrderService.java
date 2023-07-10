@@ -110,6 +110,7 @@ public class CartOrderService {
         int totalPrice = cart.get().getTotalPrice();
         return totalPrice;
     }
+
     public UserDto orderGetUser(long cartId) {
         Optional<Cart> cartOptional = cartRepository.findById(cartId);
         if(cartOptional.isPresent()) {
