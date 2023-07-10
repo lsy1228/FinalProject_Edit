@@ -353,7 +353,6 @@ console.log(" ::"  + cartItemId);
 
                 <Total>
                     {calculateTotalPrice()} won
-
                 </Total>
 
                 {cartList && cartList.length > 0 ?(

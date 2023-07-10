@@ -370,7 +370,7 @@ const ProductInfo = () => {
                     <div className="wholeDesc">
                         <div className="descWrapper">
                             <div className="productName">{product[0].productName}</div>
-                            <div className="productPrice">{product[0].productPrice}</div>
+                            <div className="productPrice">{product[0].productPrice.toLocaleString()}</div>
                             <div className="colorSize">
                                 <div className="productColor">{product[0].productColor}</div>
                                 <div className="productSize">

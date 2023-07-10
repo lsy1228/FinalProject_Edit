@@ -71,7 +71,7 @@ const Filter = styled.div`
 
 
 
-const Top = () => {
+const Bottom = () => {
 
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
@@ -92,7 +92,7 @@ const Top = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if (rsp.status === 200) {
-            const filteredProduct = rsp.data.filter((item) => item.productCategory === 'top');
+            const filteredProduct = rsp.data.filter((item) => item.productCategory === 'bottom');
              setProduct(filteredProduct);
         };
        };
@@ -169,10 +169,9 @@ const Top = () => {
                 />
         </Mainboby>
       </Container>
-
     )
 };
 
 
 
-export default Top;
+export default Bottom;

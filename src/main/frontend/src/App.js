@@ -7,7 +7,8 @@ import Cart from './pages/Cart';
 import FindEmail from './pages/FindEmail';
 import FindPwd from './pages/FindPwd';
 import Shop from './shopPage/Shop';
-import TOP from './shopPage/Top';
+import Top from './shopPage/Top';
+import bottom from './shopPage/bottom';
 import FAQ from './pages/FAQ';
 import Mypage from './pages/Mypage';
 import Board from './pages/Board';
@@ -33,22 +34,24 @@ function App() {
         <Routes>
           <Route path="/" element={<Main/>}/>
           <Route path="/Login" element={<Login/>}/>
-          <Route path="/SignUp" element={<SignUp/>}/>        
+          <Route path="/SignUp" element={<SignUp/>}/>
           <Route path="/Cart" element={<Cart/>}/>
           <Route path="/FindEmail" element={<FindEmail/>}/>
           <Route path="/FindPwd" element={<FindPwd/>}/>
           <Route path="/Shop" element={<Shop/>}/>
-          <Route path="/Top" element={<TOP/>}/>
+          <Route path="/Top" element={<Top/>}/>
+          <Route path="/bottom" element={<bottom/>}/>
           <Route path="/FAQ" element={<FAQ/>}/>
           <Route path="/Board/:faqId" element={<Board/>}/>
-          <Route path="/Mypage" element={<Mypage/>}/>        
+          <Route path="/Mypage" element={<Mypage/>}/>
           <Route path="/AdminPage" element={<AdminPage/>}/>
-          <Route path="ProductInfo" element={<ProductInfo/>}/> 
-          <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
-          <Route path="/Secession" element={<Secession/>}/> 
-          <Route path="/ProductInfo" element={<ProductInfo/>}/> 
+          <Route path="ProductInfo" element={<ProductInfo/>}/>
+          <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/>
+          <Route path="/Secession" element={<Secession/>}/>
+          <Route path="/ProductInfo" element={<ProductInfo/>}/>
           <Route path="/Order" element={<Order/>} />
           <Route path="/Mypost" element={<Mypost/>} />
+          <Route path="/Review" element={<Review/>} />
           <Route path="/Review:productId" element={<Review/>} />
           <Route path="/Wishlist" element={<Wishlist/>} />
           <Route path="/CartOrder/:cartId" element={<CartOrder/>} />
@@ -59,8 +62,6 @@ function App() {
         </Routes>
       </Router>
     </UserStore>
-
   );
 }
-
 export default App;

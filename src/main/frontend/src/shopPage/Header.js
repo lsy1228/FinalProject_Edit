@@ -90,7 +90,6 @@ const CartToggle=styled.div`
 
     margin-top: 30px;
     width: 260px;
-    height: 400px;
     display: flex;
     flex-direction: column;
     border: 1px solid #CCC;
@@ -181,7 +180,7 @@ const CartToggle=styled.div`
     border-bottom: 1px solid #ccc;
     width: 100%;
     height: 100px;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     ::-webkit-scrollbar {
     display: none;
     }
