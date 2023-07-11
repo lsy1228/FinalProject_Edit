@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
 import AxiosFinal from "../api/AxiosFinal";
 import { isCompositeComponent } from "react-dom/test-utils";
+import Shop from "../shopPage/Shop";
+
 
 const Container=styled.div`
   width: 100%;
@@ -17,7 +19,7 @@ const Container=styled.div`
     display: flex;
     flex-direction: row;
   }
-  .chkBtn{
+  .shop{
     width: 100%;
     height: 30px;
     display: flex;
@@ -320,7 +322,8 @@ console.log(" ::"  + cartItemId);
     return(
         <Container>
              <div className="contTop">
-                            <div className="chkBtn">
+                            <div className="shop">
+                              <Link to="/shop">shop</Link>
                             </div>
                             <Link to="/">home</Link>
                         </div>

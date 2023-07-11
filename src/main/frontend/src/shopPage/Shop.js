@@ -53,20 +53,41 @@ const Container_in = styled.div`
 `;  
 
 const Filter = styled.div`
-    width: 100px;
-    margin-top: 20px;
-    font-size: 13px;
+    width: 250px;
+    margin: 20px 0px 20px 0px;
+    font-size: 12px;
     color: black;
     float: right;
     display: flex;
-    cursor: pointer;    
+    cursor: pointer;
+
+    .name{
+        width: 50px;
+        height: 16px;
+        border-right: 1px solid black;
+    }
+
+    .lowPrice{
+        margin-left: 10px;
+        width: 80px;
+        height: 16px;
+        border-right: 1px solid black;
+    }
+
+    .highPrice{
+        width: 90px;
+        margin-left: 10px;
+    }
 `
 
 const Shop = () => {
+
+
+
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
-    const {item, setItem} = useContext(UserContext);;
+    const {item, setItem} = useContext(UserContext);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
@@ -78,7 +99,7 @@ const Shop = () => {
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
     };
-  
+
     useEffect(() => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
@@ -87,7 +108,8 @@ const Shop = () => {
        };
        getProduct();
       }, []);
-    
+
+
     const mergeProduct = {};
 
     product.forEach((e) => {
@@ -109,9 +131,24 @@ const Shop = () => {
     }
     });
 
-    const handleFilter = () => {
-        setIsFilterOpen(!isFilterOpen);
+    // 가격 높은순
+    const priceHigh = () => {
+        const sortedProduct = [...product].sort((a, b) => b.productPrice - a.productPrice);
+        setProduct(sortedProduct);
+    };
+
+    // 가격 낮은 순
+    const priceLow = () => {
+        const sortedProduct = [...product].sort((a, b) => a.productPrice - b.productPrice);
+        setProduct(sortedProduct);
+    };
+
+    // 이름 순
+    const sortByName = () => {
+        const sortedProduct = [...product].sort((a, b) => a.productName.localeCompare(b.productName));
+        setProduct(sortedProduct);
       };
+
 
     const onclick = async(e) => {
         const productName = e.productName;
@@ -120,21 +157,23 @@ const Shop = () => {
         setItem(result);
         window.localStorage.setItem("heartProductId",result[0].productId);
         window.localStorage.setItem("productData", JSON.stringify(rsp.data));
-
         nav("/ProductInfo");
-    }
+    };
+
+
+
+
 
     return(
       <Container>
         <Header onClick={handleHeaderClick}/>
-       
+
         <Mainboby >
             <Filter>
-                <div onClick={handleFilter}>
-                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
-                    {isFilterOpen && <DropFiter/>}
-                </div>
-            </Filter>  
+                <div className="name" onClick={sortByName}>이름 순</div>
+                <div className="lowPrice" onClick={priceLow}>가격 낮은 순</div>
+                <div className="highPrice" onClick={priceHigh}>가격 높은 순</div>
+            </Filter>
             <Article >
             {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
                 <Container_in key={e.productName} onClick={()=>onclick(e)}>
