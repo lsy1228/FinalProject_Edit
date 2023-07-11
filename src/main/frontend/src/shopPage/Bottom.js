@@ -60,13 +60,31 @@ const Container_in = styled.div`
 
 
 const Filter = styled.div`
-    width: 100px;
-    margin-top: 20px;
-    font-size: 13px;
+    width: 250px;
+    margin: 20px 0px 20px 0px;
+    font-size: 12px;
     color: black;
     float: right;
     display: flex;
     cursor: pointer;
+
+    .name{
+        width: 50px;
+        height: 16px;
+        border-right: 1px solid black;
+    }
+
+    .lowPrice{
+        margin-left: 10px;
+        width: 80px;
+        height: 16px;
+        border-right: 1px solid black;
+    }
+
+    .highPrice{
+        width: 90px;
+        margin-left: 10px;
+    }
 `
 
 
@@ -142,10 +160,9 @@ const Bottom = () => {
 
         <Mainboby >
             <Filter>
-                <div onClick={handleFilter}>
-                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
-                    {isFilterOpen && <DropFiter/>}
-                </div>
+                <div className="name" onClick={sortByName}>이름 순</div>
+                <div className="lowPrice" onClick={priceLow}>가격 낮은 순</div>
+                <div className="highPrice" onClick={priceHigh}>가격 높은 순</div>
             </Filter>
             <Article >
             {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
