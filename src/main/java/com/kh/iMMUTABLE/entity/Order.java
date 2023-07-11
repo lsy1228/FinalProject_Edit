@@ -56,5 +56,5 @@ public class Order {
     private String orderName;
     private String orderPhone;
     private String orderEmail;
-
+    private boolean reviewed = false;
 }

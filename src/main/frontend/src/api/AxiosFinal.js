@@ -508,10 +508,11 @@ const AxiosFinal = {
             }
         return await axios.post(Final_proj + "/cart/deleteItem", deleteItem);
      },
-    // // order 저장
-    // getOrderList : async(cartId, inputName, inputEmail, inputPhone, addr) => {
-    //     return await axios.post(Final_proj + `/order/orderList?cartId=${cartId}`);
-    // }
+
+    // totalPrice 가져오기
+     getTotalPrice : async(cartId) => {
+         return await axios.get(Final_proj + `/order/totalPrice?cartId=${cartId}`);
+     },
 
     // 주문내역 조회
     orderHistory : async(userEmail) => {
@@ -521,6 +522,19 @@ const AxiosFinal = {
     // 주문내역 리뷰 제품 정보 불러오기
     reviewProduct : async(productId) => {
         return await axios.get(Final_proj + `/review/reviewProduct?productId=${productId}`);
+    },
+
+     // 리뷰 작성하기
+    submitReview : async(rate, productId, title, content, userEmail, orderId) => {
+        const reviewData = {
+            rate : rate,
+            productId : productId,
+            title : title,
+            content : content,
+            userEmail : userEmail,
+            orderId : orderId
+        }
+        return await axios.post(Final_proj + "/review/writeReview", reviewData);
     }
     
 };

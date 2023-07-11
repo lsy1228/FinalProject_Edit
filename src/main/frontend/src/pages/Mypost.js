@@ -149,7 +149,7 @@ const Mypost = () => {
         }
         viewMyQna(id);
 
-    }, [deleteCount]);
+    }, [deleteCount, modalOpen]);
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {

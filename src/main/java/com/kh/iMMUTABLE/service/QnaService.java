@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.kh.iMMUTABLE.entity.Users;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class QnaService {
     }
 
     // AdminQnA 업로드
-    public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDateTime qnaDate){
+    public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDate qnaDate){
         System.out.println(userEmail + productId + qnaTitle + qnaContent + qnaDate);
         Qna qna = new Qna();
         Users user = userRepository.findByUserEmail(userEmail);
@@ -156,7 +157,7 @@ public class QnaService {
         if(qna != null) {
             qna.setQnaTitle(title);
             qna.setQnaContent(content);
-            qna.setQnaDate(LocalDateTime.now());
+            qna.setQnaDate(LocalDate.now());
             return true;
         } else {
             return false;

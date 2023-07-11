@@ -51,7 +51,7 @@ function App() {
           <Route path="/ProductInfo" element={<ProductInfo/>}/>
           <Route path="/Order" element={<Order/>} />
           <Route path="/Mypost" element={<Mypost/>} />
-          <Route path="/Review:productId" element={<Review/>} />
+          <Route path="/Review/:productId" element={<Review/>} />
           <Route path="/Wishlist" element={<Wishlist/>} />
           <Route path="/CartOrder/:cartId" element={<CartOrder/>} />
           <Route path="/OrderComplete" element={<OrderComplete/>} />

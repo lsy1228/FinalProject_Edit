@@ -144,6 +144,7 @@ public class CartOrderService {
             orderDto.setProductId(order.getProduct().getProductId());
             orderDto.setProductPrice(order.getProductPrice());
             orderDto.setOrderDate(order.getOrderDate());
+            orderDto.setReviewed(order.isReviewed());
             orderDtos.add(orderDto);
         }
         return orderDtos;

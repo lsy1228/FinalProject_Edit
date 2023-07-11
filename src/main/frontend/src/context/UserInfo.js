@@ -31,6 +31,8 @@ const UserStore = (props) => {
     //admin 토큰
     const [tokenAdmin, setTokenAdmin] = useState("");
     const [refreshTokenAdmin, setRefreshTokenAdmin] = useState("");
+
+    const [orderId, setOrderId] = useState("");
     
     return (
         <UserContext.Provider value={{
@@ -56,7 +58,8 @@ const UserStore = (props) => {
             payUrl, setPayUrl,
             totalPrice, setTotalPrice,
             tokenAdmin, setTokenAdmin,
-            refreshTokenAdmin, setRefreshTokenAdmin}}>
+            refreshTokenAdmin, setRefreshTokenAdmin,
+            orderId, setOrderId}}>
             {props.children}
         </UserContext.Provider>   
     );

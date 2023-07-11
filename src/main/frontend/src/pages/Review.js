@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import {Link , useNavigate} from 'react-router-dom';
+import {Link , useNavigate, useParams} from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import MyPageHeader from "../shopPage/MypageHeader";
+import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
 
 
 const Container = styled.div`
@@ -108,7 +110,13 @@ const Product = styled.div`
 
 const Review = () => {
     const navigate = useNavigate();
+    const {productId} = useParams();
+    const [productInfo, setProductInfo] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
+    const {orderId} = useContext(UserContext);
+    const id = window.localStorage.getItem("userIdSuv");
 
     const [clicked, setClicked] = useState([false, false, false, false, false]);
     const array = [0, 1, 2, 3, 4];
@@ -122,6 +130,42 @@ const Review = () => {
     let score = clicked.filter(Boolean).length;
     console.log(score);
 
+    useEffect(()=> {
+        const getProductInfo = async() => {
+            const rsp = await AxiosFinal.reviewProduct(productId);
+            console.log(rsp.data); setProductInfo(rsp.data);
+        }
+        getProductInfo();
+
+    },[]);
+
+    const writeTitle = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const writeContent = (e) => {
+        setContent(e.target.value);
+    }
+
+    const writeReview = () => {
+        if (title === "" || content === "") {
+            alert("제목, 내용을 모두 입력해주세요");
+            return;
+        }
+        const reviewWrite = async() => {
+            const rsp = await AxiosFinal.submitReview(score, productId, title, content, id, orderId);
+            console.log(rsp.data);
+            if(rsp.data) {
+                alert("리뷰가 작성되었습니다.");
+                navigate("/Order");
+            } else {
+                alert("리뷰 작성에 실패하였습니다.");
+            }
+        }
+        reviewWrite();
+    }
+
+
     return (
         <Container>
             <MyPageHeader />
@@ -133,8 +177,8 @@ const Review = () => {
                     <div className="wrapper">
                         <div className="product">
                             <div className="imgName">
-                                <img src="product.jpg" alt="" />
-                                <div className="Name"><span>Viscose Tricot Crewneck</span></div>
+                                <img src={productInfo.productImgFst} alt="" />
+                                <div className="Name"><span>{productInfo.productName}</span></div>
                             </div>
                         </div>
                         <div className="content">
@@ -147,16 +191,17 @@ const Review = () => {
                             ))}</div>
                             <div className="Title">
                                 <div className="title">제목</div>
-                                <input type="text" placeholder="제목을 입력하세요"/>
+                                <input type="text" placeholder="제목을 입력하세요" value={title} onChange={writeTitle}/>
                             </div>
                             <div className="rvCon">
                                 <div className="rvContent">내용</div>
-                                <textarea placeholder="내용을 입력하세요"/>
+                                <textarea placeholder="내용을 입력하세요" value={content} onChange={writeContent}/>
                             </div>
                             <div className="Btn">
-                                <button>등록하기</button>
+                                <button onClick={writeReview}>등록하기</button>
                             </div>
                         </div>
+
                     </div>
                 </Product>
             </InnerContainer>

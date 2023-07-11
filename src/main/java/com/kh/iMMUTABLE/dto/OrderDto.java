@@ -32,5 +32,6 @@ public class OrderDto {
     private String userEmail;
     private String userAddr;
     private String userPhone;
+    private boolean reviewed;
 
 }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import {useNavigate} from 'react-router-dom';
 
 const Container = styled.div`
     .modal {
@@ -155,6 +156,8 @@ const EditQnaModal = (props) => {
     const [inputContent, setInputContent] = useState('');
     const [product, setProduct] = useState([]);
 
+    const nav = useNavigate();
+
     useEffect(()=> {
         const editProductInfo = async(productId) => {
             const response = await AxiosFinal.myQnaProductInfo(productId);
@@ -185,7 +188,6 @@ const EditQnaModal = (props) => {
         if(response.data) {
             alert("문의 수정이 완료되었습니다");
             close();
-            window.location.reload();
         } else {
             alert("문의 수정이 실패하였습니다");
             close();

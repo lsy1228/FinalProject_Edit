@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {Link , useNavigate} from 'react-router-dom';
 import MyPageHeader from "../shopPage/MypageHeader";
 import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
+import Pagenation from "./Pagenation";
 
 const Container = styled.div`
     width: 100%;
@@ -24,7 +26,7 @@ const InnerContainer = styled.div`
 
 const OrderTable = styled.div`
     width: 100%;
-    height: 500px;
+    height: 550px;
     .wrapper {
         margin: 0 40px;
         .orderTable {
@@ -62,13 +64,22 @@ const OrderTable = styled.div`
                     align-items: center;
                 }
             }
-            button {
+            .reviewWrite {
                 width: 100px;
                 height: 30px;
                 background-color: black;
                 color: white;
-                outline: none;
                 cursor: pointer;
+            }
+            .reviewBtn {
+                width: 100px;
+                height: 30px;
+                background-color: white;
+                color: black;
+            }
+            .noOrder {
+                height: 100px;
+                cursor: default;
             }
         }
     }
@@ -79,12 +90,21 @@ const OrderTable = styled.div`
 const Order = () => {
     const navigate = useNavigate();
 
-    const onClick = (productId) => {
+    const {orderId, setOrderId} = useContext(UserContext);
+
+    const onClick = (productId, orderId) => {
+        console.log("오더아이디" + orderId);
+        setOrderId(orderId);
         navigate(`/Review/${productId}`);
     }
 
     const id = window.localStorage.getItem("userIdSuv");
     const [orderList, setOrderList] = useState([]);
+
+    // pagenation
+    const [limit, setLimit] = useState(5);
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * limit;
 
     useEffect(()=> {
         const orderView = async() => {
@@ -112,8 +132,8 @@ const Order = () => {
                                 <th className="Price">주문금액</th>
                                 <th className="Review">리뷰작성</th>
                             </tr>
-                            <tbody> {/* DB에서 값 가져오기 */}
-                                {orderList.map((e) => (
+                            <tbody>
+                                {orderList.length > 0 ? (orderList.slice(offset, offset+limit).map((e) => (
                                 <tr key={e.orderId}>
                                     <td className="tdInfo">
                                         <div className="product"><img src={e.productImgFst} alt="" /></div>
@@ -123,16 +143,27 @@ const Order = () => {
                                     <td className="tdDate">{e.orderDate}</td>
                                     <td className="tdNum">{e.orderId}</td>
                                     <td className="tdPrice">{e.productPrice}원</td>
-                                    <td className="tdStatus"><button onClick={()=>onClick(e.productId)}>리뷰작성</button></td>
+                                    {e.reviewed ? (
+                                        <td className="tdStatus"><button className="reviewBtn">작성완료</button></td>
+                                    ) : (
+                                    <td className="tdStatus"><button className="reviewWrite" onClick={()=>onClick(e.productId, e.orderId)}>리뷰작성</button></td>
+                                    )}
                                 </tr>
-                                ))}
+                                ))) : (
+                                    <tr>
+                                        <td colSpan={5} className="noOrder"> 주문 내역이 없습니다. </td>
+                                    </tr>
+                                )}
                             </tbody>
-
                         </table>
                     </div>
-
                 </OrderTable>
-
+                <Pagenation
+                    total={orderList.length}
+                    limit={limit}
+                    page={page}
+                    setPage={setPage}
+                />
             </InnerContainer>
         </Container>
     );

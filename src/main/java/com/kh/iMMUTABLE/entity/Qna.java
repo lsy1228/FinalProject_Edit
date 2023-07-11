@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +37,7 @@ public class Qna {
     @Column(nullable = false)
     private String qnaContent;
     private String qnaPwd;
-    private LocalDateTime qnaDate;
+    private LocalDate qnaDate;
     @Enumerated(EnumType.STRING)
     private QnaStatus qnaStatus;
 

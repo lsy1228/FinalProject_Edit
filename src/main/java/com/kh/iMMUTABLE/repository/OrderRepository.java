@@ -19,4 +19,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByCartCartId(long cartId);
 
     List<Order> findByUserUserId(long userId);
+
 }

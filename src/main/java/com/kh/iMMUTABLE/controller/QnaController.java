@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +29,9 @@ public class QnaController {
         String productId = qnaData.get("productId");
         String qnaTitle = qnaData.get("qnaTitle");
         String qnaContent = qnaData.get("qnaContent");
-        System.out.println(userEmail + " " + productId + " " + qnaTitle + " " + qnaContent);
-        LocalDateTime qnaDate = LocalDateTime.now();
+        LocalDate nowDate = LocalDate.now();
+        String qnaDateString = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate qnaDate = LocalDate.parse(qnaDateString);
         boolean result = qnaService.qnaUpload(userEmail ,productId, qnaTitle, qnaContent, qnaDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
