@@ -266,13 +266,13 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/signup", member);
     },
-    //탈퇴
-    memberSec : async(userPwd) =>{
-        const sec ={
-            userPwd : userPwd            
-        };
-        return await axios.post(Final_proj + "/auth/sec", sec);
-    },   
+     //탈퇴
+       memberSec : async(userId) =>{
+           const sec ={
+               userEmail : userId
+           };
+           return await axios.post(Final_proj + "/auth/sec", sec);
+       },
     // 이메일 인증
     mailCode : async(email) => {
         return await axios.get(Final_proj + `/email/?email=${email}`);
