@@ -21,6 +21,50 @@ const Container=styled.div`
 .chatContentArea{
     height:100%;
     overflow-y: scroll;
+       .otherUser{
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ownUser{
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+        .userName{
+            font-size: 12px;
+            margin:0 3px 3px 5px;
+        }
+        .messageInfo{
+            display: flex;
+        }
+        .otherUserMessage{
+            margin-left: 10px;
+            margin-right: 5px;
+            padding: 6px 10px 6px 10px;
+            width: fit-content;
+            background-color: black;
+            color: white;
+            font-size: 13px;
+            border-radius: 10px;
+        }
+        .userTime{
+            font-size:10px;
+            height: 100%;
+            display: flex;
+            align-items: end;
+        }
+        .ownUserMessage{
+            margin-right: 10px;
+            margin-left: 5px;
+            padding: 6px 10px 6px 10px;
+            width: fit-content;
+            border: 1px solid black;
+            font-size: 13px;
+            border-radius: 10px;
+        }
+
 }
 .sendArea{
     width: 100%;
@@ -122,7 +166,7 @@ const ChatSocket = () => {
       };
     }, [socketConnected]);
 
-
+    console.log(items);
 
     return (
         <Container>
@@ -134,7 +178,16 @@ const ChatSocket = () => {
                 <div className="chatContentArea">
 
                     {items.map((item) => {
-                    return <div>{`${item.sender} > ${item.message}`}</div>;
+                       return <div className={item.sender === sender ? "ownUser" : "otherUser"}>
+                                <div className="userName">
+                                   {item.sender}
+                                </div>
+                                <div className="messageInfo">
+                                   <div className={item.sender === sender ? "ownUserMessage" : "otherUserMessage"}>
+                                      {item.message}
+                                   </div>
+                                </div>
+                              </div>;
                     })}
 
                 </div>
