@@ -90,7 +90,7 @@ const Container=styled.div`
      }
 }
 .msg_close {
-     width: 30px;
+     width: 20px;
      font-size: 15px;
      background-color: white;
      border: none;
@@ -171,7 +171,7 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <div>socket connected : {`${socketConnected}`}</div>
+                    <div>Chatting Connected : {`${socketConnected}`}</div>
                     <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
                 </div>
                 <div className="chatContentArea">
