@@ -153,10 +153,10 @@ const ChatSocket = () => {
         if (socketConnected) {
             ws.current.send(
                 JSON.stringify({
-                "type":"ENTER",
+                "type": "ENTER",
                 "roomId": roomId,
                 "sender": sender,
-                "message":"처음으로 접속 합니다."}));
+                "message": "처음으로 접속 합니다."}));
         }
         ws.current.onmessage = (evt) => {
             const data = JSON.parse(evt.data);
@@ -176,9 +176,8 @@ const ChatSocket = () => {
                     <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
                 </div>
                 <div className="chatContentArea">
-
                     {items.map((item) => {
-                       return <div className={item.sender === sender ? "ownUser" : "otherUser"}>
+                       return<div className={item.sender === sender ? "ownUser" : "otherUser"}>
                                 <div className="userName">
                                    {item.sender}
                                 </div>
