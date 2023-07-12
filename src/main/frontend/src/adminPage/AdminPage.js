@@ -137,6 +137,10 @@ const SideBustton=styled.div`
 `
 const AdminPage=()=>{
     const navigate = useNavigate();
+    //로그인 값을 저장하여 새로고침 되어도 로그인 창이 뜨지 않게 설정한다
+    window.localStorage.setItem("isLoginAdminPage", "FALSE");
+    const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
+
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
@@ -276,7 +280,7 @@ const AdminPage=()=>{
 
     return(
         <Container > 
-            <AdminLoginModal open={onModal} close={closeModal}/>
+           {isAdminLogin === "FALSE"  && <AdminLoginModal open={onModal} close={closeModal}/>}
              <div className={onBlur ? "blur" : "holebody"}>         
             <Head> 
                 <div className="headTop">

@@ -159,7 +159,9 @@ const AdminLoginModal = (props) => {
         setTokenAdmin(responseToken.data.accessToken);
         setRefreshTokenAdmin(responseToken.data.refreshToken)
         if(responseToken.data.accessToken!==null){
+            window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
+
         }else{
             alert("id와 pw를 확인해주세요");
         }
