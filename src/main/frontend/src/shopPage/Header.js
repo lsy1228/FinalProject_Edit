@@ -43,7 +43,6 @@ const Head = styled.div`
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-
     }
 
     .nav1{
@@ -56,12 +55,10 @@ const Head = styled.div`
         &:hover{
             color: rgba(0,0,0,0.5);
         }
-
     }
 
     .nav2{
-
-        margin-left: 20%;
+        margin-left: 40%;
         width: 300px;
         display: flex;
         justify-content: center;
@@ -71,7 +68,6 @@ const Head = styled.div`
     }
 
     .nav3{
-
         display: flex;
         width: 300px;
         justify-content: flex-end;
@@ -193,9 +189,7 @@ const Header = ({ onClick }) => {
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu  />} 
             </Head>
-        
             </Mainbody>
-       
        </Container>  
        
      )

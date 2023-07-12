@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PopupPostCode from "../api/PopupPostCode";
 import { UserContext } from "../context/UserInfo";
 import AxiosFinal from "../api/AxiosFinal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../adminPage/FireBase";
 
@@ -441,7 +441,7 @@ const ModifyingInfo = () => {
                     </Body>
                     <div className="btn">
                         <button className="modify-btn" onClick={onClickInfoSave}>회원정보수정</button>
-                        <button className="cancle-btn">취소</button>
+                        <Link to={"/Mypage"}> <button className="cancle-btn">취소</button></Link>
                     </div>
                 </InnerContainer>
                 

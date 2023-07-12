@@ -48,7 +48,6 @@ const Container_in = styled.div`
         width: 200px;
         font-size: 15px;
         font-weight:bolder;
-
     }
 
     .price{
@@ -86,6 +85,8 @@ const Filter = styled.div`
         margin-left: 10px;
     }
 `
+
+
 
 
 
@@ -153,6 +154,26 @@ const Bottom = () => {
 
         nav("/ProductInfo");
     }
+
+
+
+        // 가격 높은순
+        const priceHigh = () => {
+            const sortedProduct = [...product].sort((a, b) => b.productPrice - a.productPrice);
+            setProduct(sortedProduct);
+        };
+
+        // 가격 낮은 순
+        const priceLow = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productPrice - b.productPrice);
+            setProduct(sortedProduct);
+        };
+
+        // 이름 순
+        const sortByName = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productName.localeCompare(b.productName));
+            setProduct(sortedProduct);
+        };
 
     return(
       <Container>

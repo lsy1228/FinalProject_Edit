@@ -154,6 +154,25 @@ const Top = () => {
         nav("/ProductInfo");
     }
 
+
+    // 가격 높은순
+        const priceHigh = () => {
+            const sortedProduct = [...product].sort((a, b) => b.productPrice - a.productPrice);
+            setProduct(sortedProduct);
+        };
+
+        // 가격 낮은 순
+        const priceLow = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productPrice - b.productPrice);
+            setProduct(sortedProduct);
+        };
+
+        // 이름 순
+        const sortByName = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productName.localeCompare(b.productName));
+            setProduct(sortedProduct);
+          };
+
     return(
       <Container>
         <Header onClick={handleHeaderClick}/>

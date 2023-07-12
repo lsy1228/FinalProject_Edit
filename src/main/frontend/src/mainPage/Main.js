@@ -403,6 +403,10 @@ const Main= () =>{
         else if(e==="mypage"){
             navigate("/Mypage")
         }
+        else if(e==="NOTICE"){
+            navigate("/FAQ")
+        }
+
     }
     
     //해당 값만큼(300) 너비를 주어 사이드 바가 올라올 수 있게 한다.
