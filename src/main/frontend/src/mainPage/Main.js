@@ -6,6 +6,7 @@ import side from "../img/side.png"
 import chat from "../img/chat.png"
 import ChatAxios from "../api/ChatAxios.js";
 import ChatSocket from "../chatPage/ChatSocket.js"
+import ChatEmpty from "../chatPage/ChatEmpty.js"
 import AxiosFinal from "../api/AxiosFinal";
 
 
@@ -403,6 +404,7 @@ const Main= () =>{
             console.log(res);
             console.log(res.data);
             window.localStorage.setItem("chatRoomId", res.data);
+            setOnChatOpen(true);
 //            window.open("/ChatSocket");
         } catch(error) {
             console.log(error);
@@ -474,7 +476,7 @@ const Main= () =>{
             setCartList(rsp.data);
         }
 
-     
+    const isChatLoginNow =  window.localStorage.getItem("chatRoomId");
     return(
         <Container>
             <Side style={{transform: `translateX(${isOpen}px)`}}> 
@@ -550,7 +552,8 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            <ChatSocket/>
+                            {isChatLoginNow != "" && <ChatSocket/>}
+                            {isChatLoginNow === "" && <ChatEmpty/>}
                             <button className="sendButton" onClick={()=>chatTest()}>채팅 시작하기</button>
                     </Chat>
                 <Foot>

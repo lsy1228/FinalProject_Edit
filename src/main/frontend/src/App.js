@@ -26,6 +26,7 @@ import OrderComplete from './pages/OrderComplete';
 import AdminSignUp from './adminPage/AdminSignUp';
 import Admin401Error from './adminPage/Admin401Error';
 import ChatSocket from './chatPage/ChatSocket'
+import ChatEmpty from './chatPage/ChatEmpty'
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="/AdminSignUp" element={<AdminSignUp/>} />
           <Route path="/Admin401Error" element={<Admin401Error/>} />
           <Route path="/ChatSocket" element={<ChatSocket/>} />
+          <Route path="/ChatEmpty" element={<ChatEmpty/>} />
         </Routes>
       </Router>
     </UserStore>
