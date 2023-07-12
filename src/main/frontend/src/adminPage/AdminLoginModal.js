@@ -161,6 +161,7 @@ const AdminLoginModal = (props) => {
         setTokenAdmin(responseToken.data.accessToken);
         setRefreshTokenAdmin(responseToken.data.refreshToken)
         if(responseToken.data.accessToken!==null){
+            window.localStorage.setItem("userIdSuv", inputId);
             window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
 
