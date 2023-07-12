@@ -409,6 +409,10 @@ const Main= () =>{
         }
     }
 
+    const [onChatOpen,setOnChatOpen] = useState("false");
+    useEffect(()=>{
+        setOnChatOpen("true")
+    },[onChatOpen])
 
     useEffect(() => {
             const getCartList = async()=>{
@@ -546,8 +550,8 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            <ChatSocket />
-                            <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>
+                            <ChatSocket/>
+                            <button className="sendButton" onClick={()=>chatTest()}>채팅 시작하기</button>
                     </Chat>
                 <Foot>
                     <div className="topFoot">

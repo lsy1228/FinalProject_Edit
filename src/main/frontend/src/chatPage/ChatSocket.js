@@ -94,6 +94,10 @@ const Container=styled.div`
      font-size: 15px;
      background-color: white;
      border: none;
+     &:hover{
+     background-color:black;
+     color:white;
+     }
 
 
 }
