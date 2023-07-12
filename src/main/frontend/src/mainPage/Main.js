@@ -197,7 +197,7 @@ const Foot = styled.div`
 `
 //채팅
 const Chat =styled.div`
-    width: 240px;
+    width: 300px;
     position: absolute;
     bottom: 6rem;
     right: 2rem;
@@ -206,41 +206,18 @@ const Chat =styled.div`
     //그래야 안에 들어간 컨텐츠들이 사라진다.
     overflow: hidden;
     transition: height 0.35s ease;
-    .topChat{
-        height: 50px;
-        border-bottom: 1px solid rgba(0,0,0,0.5);       
-    }
-    .midChat{
-        height: 85%;
-        overflow-y: scroll;
-        ::-webkit-scrollbar {
-        display: none;
-        }
-        border-bottom: 1px solid rgba(0,0,0,0.5);
-    }
-    .bottomChat{
-        height: 45px;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    //채팅타이핑input
-    .chatInput{
-        width: 78%;
-        height: 35px;
-        border: none;
-        border-radius: 10px;
-        outline: none;
-        background-color: rgba(0,0,0,0);
-    }
+    display: flex;
+    flex-direction: column;
     //채팅 send기능 버튼
     .sendButton{
-        width: 18%;
-        height: 30px;
+        width: 100%;
+        height: 100%;
         border: none;
-        border-radius: 4px;
-        background-color: rgba(0,0,0,0);    
+        background-color: #CCC;
+        &:hover{
+        background-color:black;
+        color:white;
+        }
     }
 
 `
@@ -426,7 +403,7 @@ const Main= () =>{
             console.log(res);
             console.log(res.data);
             window.localStorage.setItem("chatRoomId", res.data);
-            window.open("/ChatSocket");
+//            window.open("/ChatSocket");
         } catch(error) {
             console.log(error);
         }
@@ -510,36 +487,33 @@ const Main= () =>{
                 </div>
                 
             </Side>
-            {openCart &&
-                                      <CartToggle >
-                                         {cartList && cartList.map((e, index)=>(
-                                              <CartList  key={e.cartItemId}>
-                                                  <div className="cartToggleItem">
-                                                      <div className="itemImg">
-                                                          <img src={e.productImgFst} />
-                                                      </div>
-                                                      <div className="itemInfo">
-                                                          <div className="itemName">
-                                                          {e.productName}
-                                                          </div>
-                                                          <div  className="count">
-                                                              <input type="text" Value={count[index]}/>
-                                                              <div className="countbutton">
-                                                              <button className="plus" onClick={()=>countPlus(index)}>∧</button>
-                                                                      <button className="minus" onClick={()=>countMinus(index)}>∨</button>
-                                                              </div>
-                                                          </div>
-                                                          <div className="itemPrice">
-                                                          {(e.setOriginProductPrice * count[index]).toLocaleString()} won
-                                                          </div>
-                                                      </div>
-                                                      <button className="deleteItem"  onClick={() => deleteCartItem(id, index)}>x</button>
+            {openCart &&<CartToggle >
+                            {cartList && cartList.map((e, index)=>(
+                                    <CartList  key={e.cartItemId}>
+                                       <div className="cartToggleItem">
+                                           <div className="itemImg">
+                                               <img src={e.productImgFst} />
+                                           </div>
+                                           <div className="itemInfo">
+                                               <div className="itemName">
+                                                   {e.productName}
+                                               </div>
+                                               <div  className="count">
+                                                  <input type="text" Value={count[index]}/>
+                                                  <div className="countbutton">
+                                                    <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                                                    <button className="minus" onClick={()=>countMinus(index)}>∨</button>
                                                   </div>
-                                               </CartList>
-                                         ))}
-                                                  <Link to="/Cart">장바구니</Link>
-                                          </CartToggle>
-                                            }
+                                               </div>
+                                               <div className="itemPrice">
+                                                  {(e.setOriginProductPrice * count[index]).toLocaleString()} won
+                                               </div>
+                                           </div>
+                                           <button className="deleteItem"  onClick={() => deleteCartItem(id, index)}>x</button>
+                                       </div>
+                                    </CartList>))}
+                                    <Link to="/Cart">장바구니</Link>
+                          </CartToggle>}
             <MainBody>
                 <Head>
                     <div className="top">
@@ -572,16 +546,8 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                        <div className="topChat">
-                            head & img
-                        </div>
-                        <div className="midChat">
-                            chat message
-                        </div>
-                        <div className="bottomChat">
-                            <input type="text" className="chatInput" placeholder="내용을 입력하세요"/>
-                            <input type="button" className="sendButton" value="send"  onClick={chatTest}/>
-                        </div>
+                            <ChatSocket />
+                            <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>
                     </Chat>
                 <Foot>
                     <div className="topFoot">

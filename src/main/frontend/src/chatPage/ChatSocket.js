@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 const Container=styled.div`
-    width: 100vw;
-    height: 100vh;
-    display:flex;
-    justify-content: center;
-    align-items: center;
 .bodyArea{
-    width:400px;
+    width:300px;
     height:600px;
     display:flex;
     flex-direction: column;
@@ -166,8 +161,12 @@ const ChatSocket = () => {
       };
     }, [socketConnected]);
 
-    console.log(items);
-
+    // console.log(items);
+    //메시지창 실행 시 항상 맨 아래로 오게한다!
+    const messageEndRef = useRef(null);
+    useEffect(() => {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, [items]);
     return (
         <Container>
             <div className="bodyArea">
@@ -186,12 +185,13 @@ const ChatSocket = () => {
                                       {item.message}
                                    </div>
                                 </div>
-                              </div>;
+                              </div>
                     })}
+                     <div ref={messageEndRef}></div>
 
                 </div>
                 <div className="sendArea">
-                    <input className="msg_input" placeholder="문자 전송" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
+                    <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
                     <button className="msg_send" onClick={onClickMsgSend}>전송</button>
                 </div>
             </div>
