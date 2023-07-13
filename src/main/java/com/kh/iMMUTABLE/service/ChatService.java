@@ -12,6 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
 
@@ -51,11 +52,18 @@ public class ChatService {
         }
     }
     //방 데이터 저장
-    public boolean saveRoom(String roomId, String userId){
+    public boolean saveRoom(String roomName, String userId){
         ChatList chatList = new ChatList();
-        chatList.setRoomId(roomId);
+        chatList.setRoomName(roomName);
         chatList.setUserId(userId);
         chatListRepository.save(chatList);
+        return true;
+    }
+    //방 데이터 삭제
+    @Transactional
+    public boolean removeRoom(String roomName){
+        System.out.println("차트서비스 roomId : " + roomName);
+        chatListRepository.deleteByRoomName(roomName);
         return true;
     }
 }

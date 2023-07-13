@@ -10,12 +10,19 @@ const ChatAxios = {
         }
         return await axios.post(Final_proj + "/chat/room", chatObject);
     },
-    saveChatData: async function(roomId,userId) {
+    saveChatData: async function(roomName,userId) {
         const saveChatData= {
-            "roomId" : roomId,
+            "roomName" : roomName,
             "userId" : userId,
         }
         return await axios.post(Final_proj + "/chat/saveChatData", saveChatData);
+    },
+    removeChatData: async function(roomName) {
+        const removeChatData= {
+            "roomName" : roomName
+        }
+        return await axios.post(Final_proj + "/chat/removeChatData", removeChatData);
     }
+
 };
 export default ChatAxios;

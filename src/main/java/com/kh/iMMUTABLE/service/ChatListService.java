@@ -24,7 +24,7 @@ public class ChatListService {
         List<ChatListDto> chatListDtos = new ArrayList<>();
         for(ChatList chatListList : chatList){
             ChatListDto chatListDto = new ChatListDto();
-            chatListDto.setRoomId(chatListList.getRoomId());
+            chatListDto.setRoomName(chatListList.getRoomName());
             chatListDto.setUserId(chatListList.getUserId());
             chatListDtos.add(chatListDto);
         }

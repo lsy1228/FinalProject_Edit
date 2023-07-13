@@ -16,9 +16,9 @@ public class ChatList {
     @Column(name = "chat_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long chatRoomId;
-    @Lob
-    @Column(name = "room_id")
-    private String roomId;
+
+    @Column(name = "room_Name", length = 600)
+    private String roomName;
     @Column(name = "user_id")
     private String userId;
 }

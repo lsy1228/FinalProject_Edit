@@ -31,9 +31,16 @@ public class ChatController {
     }
     @PostMapping("/saveChatData")
     public ResponseEntity<Boolean> saveRoom(@RequestBody Map<String, String> saveChatData) {
-        String roomId = saveChatData.get("roomId");
+        String roomName = saveChatData.get("roomName");
         String userId = saveChatData.get("userId");
-        boolean result = chatService.saveRoom(roomId,userId);
+        boolean result = chatService.saveRoom(roomName,userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @PostMapping("/removeChatData")
+    public ResponseEntity<Boolean> removeRoom(@RequestBody Map<String, String> saveChatData) {
+        String roomName = saveChatData.get("roomName");
+        System.out.println("컨트롤러 : " + roomName);
+        boolean result = chatService.removeRoom(roomName);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

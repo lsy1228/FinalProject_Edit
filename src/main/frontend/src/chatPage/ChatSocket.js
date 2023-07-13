@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import ChatAxios from "../api/ChatAxios.js";
+
 const Container=styled.div`
 .bodyArea{
     width:300px;
@@ -148,10 +150,11 @@ const ChatSocket = () => {
             "sender":sender,
             "message":"종료 합니다."}));
         ws.current.close();
-
-        window.localStorage.removeItem("chatRoomId");
-
         alert("채팅을 종료합니다.")
+    }
+    const onMsgClose =async()=>{
+        window.localStorage.removeItem("chatRoomId");
+        const response = await ChatAxios.removeChatData(roomId);
     }
 
     useEffect(() => {
@@ -190,7 +193,7 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <button className="chatClose" onClick={onClickMsgClose}>chat close</button>
+                    <button className="chatClose" onClick={()=>{onClickMsgClose();onMsgClose();}}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
                 </div>
                 <div className="chatContentArea">
