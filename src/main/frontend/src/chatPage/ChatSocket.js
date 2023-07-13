@@ -83,10 +83,16 @@ const Container=styled.div`
      font-size: 11px;
      color: white;
      background-color: black;
-     border: orange;
      &:hover{
         color:#CCC;
      }
+}
+.msg_ready{
+     width: 100px;
+     height: 25px;
+     font-size: 11px;
+     color: white;
+     background-color: #CCC;
 }
 .chatClose {
      width: 100%;
@@ -119,14 +125,18 @@ const ChatSocket = () => {
     }
 
     const onClickMsgSend = (e) => {
-        e.preventDefault();
-        ws.current.send(
-            JSON.stringify({
-            "type":"TALK",
-            "roomId": roomId,
-            "sender": sender,
-            "message":inputMsg}));
-            setInputMsg("");
+        if(inputMsg===""){
+        alert("empty contents!!!");
+        }else{
+            e.preventDefault();
+            ws.current.send(
+                JSON.stringify({
+                "type":"TALK",
+                "roomId": roomId,
+                "sender": sender,
+                "message":inputMsg}));
+                setInputMsg("");
+        }
     }
     const onClickMsgClose = () => {
         ws.current.send(
@@ -194,8 +204,9 @@ const ChatSocket = () => {
 
                 </div>
                 <div className="sendArea">
-                    <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={()=>onEnterKey()}/>
-                    <button className="msg_send" onClick={onClickMsgSend}>전송</button>
+                    <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
+                    {inputMsg != "" && <button className="msg_send" onClick={onClickMsgSend}>전송</button>}
+                    {inputMsg === "" && <button className="msg_ready" disabled='disabled'>전송</button>}
                 </div>
             </div>
         </Container>
