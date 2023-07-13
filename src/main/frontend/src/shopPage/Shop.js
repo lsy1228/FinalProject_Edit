@@ -25,6 +25,7 @@ const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+
 `
 
 const Container_in = styled.div`

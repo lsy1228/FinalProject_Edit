@@ -34,6 +34,7 @@ const Container_in = styled.div`
     margin-left: 10px;
 
 
+
     .blur {
         filter: blur(5px); /* 흐릿한 효과를 원하는 정도로 조절합니다. */
     }
