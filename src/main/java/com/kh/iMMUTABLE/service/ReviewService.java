@@ -1,6 +1,7 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.dto.ReviewDto;
 import com.kh.iMMUTABLE.entity.Order;
 import com.kh.iMMUTABLE.entity.Product;
 import com.kh.iMMUTABLE.entity.Review;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +31,7 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
 
+    // 리뷰 관련 제품 정보 가져오기
     public ProductDto reviewProduct(long productId) {
         Product product = productRepository.findByProductId(productId);
         ProductDto productDto = new ProductDto();
@@ -34,6 +40,7 @@ public class ReviewService {
         return productDto;
     }
 
+    // 리뷰 작성하기
     public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId) {
         Users users = userRepository.findByUserEmail(userEmail);
         Product product = productRepository.findByProductId(productId);
@@ -50,5 +57,27 @@ public class ReviewService {
         order.setReviewed(true);
         reviewRepository.save(review);
         return true;
+    }
+
+    // 제품 별 리뷰 불러오기
+    public List<ReviewDto> viewReview(String productName) {
+        List<Product> productList = productRepository.findByProductName(productName);
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+
+        for(Product product : productList) {
+            long productId = product.getProductId();
+            List<Review> reviews = reviewRepository.findByProductProductId(productId);
+            for(Review review : reviews) {
+                ReviewDto reviewDto = new ReviewDto();
+                reviewDto.setOrderId(review.getOrder().getOrderId());
+                reviewDto.setReviewTitle(review.getReview_title());
+                reviewDto.setReviewContent(review.getReview_content());
+                reviewDto.setReviewRate(review.getReview_rate());
+                reviewDto.setUserName(review.getUser().getUserName());
+                reviewDto.setReviewDate(review.getReview_date());
+                reviewDtoList.add(reviewDto);
+            }
+        }
+        return reviewDtoList;
     }
 }

@@ -1,7 +1,9 @@
 package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.ProductDto;
+import com.kh.iMMUTABLE.dto.ReviewDto;
 import com.kh.iMMUTABLE.service.ReviewService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,6 +47,13 @@ public class ReviewController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // 제품 별 리뷰 불러오기
+    @GetMapping("/viewReview")
+    public ResponseEntity<List<ReviewDto>> viewReview (@RequestParam String productName) {
+        System.out.println("리뷰 상품이름 : " + productName);
+        List<ReviewDto> result = reviewService.viewReview(productName);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 }

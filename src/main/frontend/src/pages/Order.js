@@ -93,7 +93,6 @@ const Order = () => {
     const {orderId, setOrderId} = useContext(UserContext);
 
     const onClick = (productId, orderId) => {
-        console.log("오더아이디" + orderId);
         setOrderId(orderId);
         navigate(`/Review/${productId}`);
     }
@@ -114,6 +113,8 @@ const Order = () => {
         orderView();
     }, []);
 
+    const sortedOrderList = orderList.slice().reverse();
+
 
     return (
         <Container>
@@ -133,7 +134,7 @@ const Order = () => {
                                 <th className="Review">리뷰작성</th>
                             </tr>
                             <tbody>
-                                {orderList.length > 0 ? (orderList.slice(offset, offset+limit).map((e) => (
+                                {sortedOrderList.length > 0 ? (sortedOrderList.slice(offset, offset+limit).map((e) => (
                                 <tr key={e.orderId}>
                                     <td className="tdInfo">
                                         <div className="product"><img src={e.productImgFst} alt="" /></div>

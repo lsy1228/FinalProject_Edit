@@ -535,6 +535,11 @@ const AxiosFinal = {
             orderId : orderId
         }
         return await axios.post(Final_proj + "/review/writeReview", reviewData);
+    },
+
+    // 제품 별 리뷰 불러오기
+    viewReview : async(productName) => {
+        return await axios.get(Final_proj + `/review/viewReview?productName=${productName}`);
     }
     
 };
