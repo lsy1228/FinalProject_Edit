@@ -285,6 +285,7 @@ const AdminPage=()=>{
     //어드민페이지 로그아웃
     const logoutPage =()=>{
         window.localStorage.setItem("isLoginAdminPage", "FALSE");
+        window.localStorage.removeItem("userIdSuv");
         setOnBlur(true);
         setOnModal(true);
         setIsLogin(false);
