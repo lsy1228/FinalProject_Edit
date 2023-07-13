@@ -182,6 +182,7 @@ const ChatSocket = () => {
     useEffect(() => {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }, [items]);
+
     return (
         <Container>
             <div className="bodyArea">

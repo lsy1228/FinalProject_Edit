@@ -232,6 +232,10 @@ const ChatButton=styled.button`
     background-position: 40%;
     border: none;
     background-color: white;
+    @media only screen and ( max-width: 390px){
+        right: 1rem;
+        bottom: 0.3rem;
+    }
 `
 
 //카트 영역
