@@ -148,7 +148,9 @@ const ChatSocket = () => {
             "sender":sender,
             "message":"종료 합니다."}));
         ws.current.close();
+
         window.localStorage.removeItem("chatRoomId");
+
         alert("채팅을 종료합니다.")
     }
 

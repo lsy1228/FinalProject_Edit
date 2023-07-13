@@ -14,8 +14,11 @@ import javax.persistence.*;
 public class ChatList {
     @Id
     @Column(name = "chat_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long chatRoomId;
+    @Lob
+    @Column(name = "room_id")
     private String roomId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users user;
+    @Column(name = "user_id")
+    private String userId;
 }

@@ -54,9 +54,7 @@ public class ChatService {
     public boolean saveRoom(String roomId, String userId){
         ChatList chatList = new ChatList();
         chatList.setRoomId(roomId);
-        Users users = new Users();
-        users.setUserEmail(userId);
-        chatList.setUser(users);
+        chatList.setUserId(userId);
         chatListRepository.save(chatList);
         return true;
     }

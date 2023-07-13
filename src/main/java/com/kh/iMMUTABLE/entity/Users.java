@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Entity // JPA에 Entity 클래스임을 알려줌, DB테이블로 만들어져야 할 클래스
 @Table(name = "users")
@@ -43,8 +41,6 @@ public class Users {
     private List<Cart> carts;
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Like> likes;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<ChatList> chatLists;
     @Builder//빌더 패턴!!! 시큐리티쪽은 빌더 패턴을 많이 쓴다. 매개변수가 많을 때 순서 안지켜도 됨
     public Users(String userEmail, String userPwd, Authority userAuth) {
         this.userEmail = userEmail;
