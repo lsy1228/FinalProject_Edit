@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,5 +29,14 @@ public class ChatController {
     public List<ChatRoom> findAllRoom() {
         return chatService.findAllRoom();
     }
+    @PostMapping("/saveChatData")
+    public ResponseEntity<Boolean> saveRoom(@RequestBody Map<String, String> saveChatData) {
+        String roomId = saveChatData.get("roomId");
+        String userId = saveChatData.get("userId");
+        boolean result = chatService.saveRoom(roomId,userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
 
 }

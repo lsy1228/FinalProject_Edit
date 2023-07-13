@@ -9,6 +9,13 @@ const ChatAxios = {
             "name" : name
         }
         return await axios.post(Final_proj + "/chat/room", chatObject);
+    },
+    saveChatData: async function(roomId,userId) {
+        const saveChatData= {
+            "roomId" : roomId,
+            "userId" : userId,
+        }
+        return await axios.post(Final_proj + "/chat/saveChatData", saveChatData);
     }
 };
 export default ChatAxios;

@@ -1,7 +1,10 @@
 package com.kh.iMMUTABLE.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.entity.ChatRoom;
+import com.kh.iMMUTABLE.entity.Users;
+import com.kh.iMMUTABLE.repository.ChatListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,8 +20,8 @@ import java.util.*;
 @Service
 public class ChatService {
     private final ObjectMapper objectMapper;
+    private final ChatListRepository chatListRepository;
     private Map<String, ChatRoom> chatRooms;
-
     @PostConstruct // 의존성 주입 이후 초기화를 수행하는 메소드
     private void init() {
         chatRooms = new LinkedHashMap<>();
@@ -29,7 +32,6 @@ public class ChatService {
     public ChatRoom findRoomById(String roomId) {
         return chatRooms.get(roomId);
     }
-
     // 방 개설하기
     public ChatRoom createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
@@ -47,5 +49,15 @@ public class ChatService {
         } catch(IOException e) {
             log.error(e.getMessage(), e);
         }
+    }
+    //방 데이터 저장
+    public boolean saveRoom(String roomId, String userId){
+        ChatList chatList = new ChatList();
+        chatList.setRoomId(roomId);
+        Users users = new Users();
+        users.setUserEmail(userId);
+        chatList.setUser(users);
+        chatListRepository.save(chatList);
+        return true;
     }
 }
