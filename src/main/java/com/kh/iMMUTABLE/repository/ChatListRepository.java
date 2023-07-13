@@ -4,6 +4,6 @@ import com.kh.iMMUTABLE.entity.ChatList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatListRepository extends JpaRepository<ChatList, Long> {
-    ChatList deleteByRoomName(String roomName);
+    int deleteByRoomName(String roomName);
 
 }

@@ -3,7 +3,6 @@ package com.kh.iMMUTABLE.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.entity.ChatRoom;
-import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.ChatListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +62,7 @@ public class ChatService {
     @Transactional
     public boolean removeRoom(String roomName){
         System.out.println("차트서비스 roomId : " + roomName);
-        chatListRepository.deleteByRoomName(roomName);
+        int result = chatListRepository.deleteByRoomName(roomName);
         return true;
     }
 }
