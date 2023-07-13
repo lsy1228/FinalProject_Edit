@@ -140,8 +140,8 @@ public class UserService {
     }
 
     // 회원 탈퇴
-    public boolean memberSec(String userPwd) {
-        Users user = userRepository.findByUserPwd(userPwd);
+    public boolean memberSec(String userEmail) {
+        Users user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
             return false;
         }

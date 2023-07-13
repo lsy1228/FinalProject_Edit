@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../context/UserInfo";
 import AxiosFinal from "../api/AxiosFinal";
 
 
@@ -18,9 +17,9 @@ const MainBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;   
+    align-items: center;
 
-  
+
 `
 
 const Logo = styled.div`
@@ -60,9 +59,9 @@ const Information = styled.div`
             align-items: center;
             justify-content: center;
             color: #8b9192;
-        
+
         }
-    
+
         .text2{
             display: flex;
             font-size: 12px;
@@ -97,7 +96,7 @@ const Input = styled.input`
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
         color: black;
         width: 345px;
         height: 20px;
@@ -134,8 +133,8 @@ const PwdBtn2= styled.button`
 const Secession = () => {
     const userId = window.localStorage.getItem("userIdSuv");
     console.log(userId)
-   
-    const nav = useNavigate(); 
+
+    const nav = useNavigate();
 
 
 
@@ -144,7 +143,7 @@ const Secession = () => {
     // 입력된 password 값을 가져온다.
     const [userPwd, setUserPwd] = useState("");
     const [changePw, setChangePW] = useState(false);
-    
+
 
     useEffect(()=> {
         const getUser = async() => {
@@ -155,12 +154,12 @@ const Secession = () => {
         getUser();
     }, []);
 
-     
+
     const onChangePw = (e) => {
         setUserPwd(e.target.value);
         console.log(userPwd)
         if(user.userPwd === e.target.value) {
-            setChangePW(true); 
+            setChangePW(true);
         }
         else {
             setChangePW(false);
@@ -170,12 +169,15 @@ const Secession = () => {
 
     const onClickSec = async() => {
         console.log("확인")
-        const response = await AxiosFinal.memberSec(userPwd);
+        const response = await AxiosFinal.memberSec(userId);
+        console.log(userId);
         const result = response.data;
         console.log(result);
         if (result) {
+            window.localStorage.setItem("isLoginSuv", "FALSE");
             alert("탈퇴 완료")
             nav("/");
+            window.location.reload("/");
         }
     }
 

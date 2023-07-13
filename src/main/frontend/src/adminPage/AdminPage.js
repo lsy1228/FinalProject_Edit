@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect  } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import SaleDate from "./SaleDate";
@@ -137,6 +137,19 @@ const SideBustton=styled.div`
 `
 const AdminPage=()=>{
     const navigate = useNavigate();
+    //로그인 값을 저장하여 새로고침 되어도 로그인 창이 뜨지 않게 설정한다.
+    const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
+    //배경화면의 블러를 처리한다.
+    const [onBlur, setOnBlur] = useState(true);
+    //유즈 이펙트를 통해서 isAdminLogin값이 바뀔때만 실행한다.
+    useEffect(()=>{
+        if(isAdminLogin==="TRUE"){
+            setOnBlur(false);
+        }
+    },[isAdminLogin])
+
+    console.log(isAdminLogin);
+
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
@@ -266,17 +279,14 @@ const AdminPage=()=>{
     
     //어드민페이지 로그인 창 모달
     const [onModal, setOnModal] = useState(true);
-    //배경화면 블러를 관리함
-    const [onBlur, setOnBlur] = useState(true);
     const closeModal = () => {
         setOnModal(false);
-        setOnBlur(false);
     }
 
 
     return(
         <Container > 
-            <AdminLoginModal open={onModal} close={closeModal}/>
+           {isAdminLogin === "FALSE"  && <AdminLoginModal open={onModal} close={closeModal}/>}
              <div className={onBlur ? "blur" : "holebody"}>         
             <Head> 
                 <div className="headTop">

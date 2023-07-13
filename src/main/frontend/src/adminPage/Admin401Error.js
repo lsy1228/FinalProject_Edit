@@ -59,6 +59,7 @@ const Admin401Error =()=>{
     const onClickLogin=  async() =>{
             navigate("/adminPage")
     }
+    window.localStorage.setItem("isLoginAdminPage", "FALSE");
     return(
         <Container>
             <Body>

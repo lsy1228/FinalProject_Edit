@@ -136,6 +136,8 @@ const Container = styled.div`
 
 const AdminLoginModal = (props) => {
     const {open, close} = props;
+    //첫 로그인 값을 false로 바꿔준다 adminpage에서 해주면 새로고침마다 계속 false가 뜨기 때문에 모달 창에서 선언 해준다!
+    window.localStorage.setItem("isLoginAdminPage", "FALSE");
 
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
@@ -159,7 +161,10 @@ const AdminLoginModal = (props) => {
         setTokenAdmin(responseToken.data.accessToken);
         setRefreshTokenAdmin(responseToken.data.refreshToken)
         if(responseToken.data.accessToken!==null){
+            window.localStorage.setItem("userIdSuv", inputId);
+            window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
+
         }else{
             alert("id와 pw를 확인해주세요");
         }

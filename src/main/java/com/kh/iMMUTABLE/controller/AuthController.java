@@ -108,10 +108,9 @@ public class AuthController {
     // 탈퇴
     @PostMapping("/sec")
     public ResponseEntity<Boolean> memberSec(@RequestBody Map<String, String> userDate) {
-        String userEmail = userDate.get("userId");
-        String userPwd = userDate.get("userPwd");
-        System.out.println(userPwd);
-        boolean result = userService.memberSec(userPwd);
+        String userEmail = userDate.get("userEmail");
+        System.out.println(userEmail);
+        boolean result = userService.memberSec(userEmail);
         if (result) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
