@@ -11,24 +11,30 @@ import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
+    height: 100vh;
     display: flex;    
     flex-direction: column;
 `
+
 const Mainboby=styled.div`
     margin: 0px 40px 0px 40px;
     `
+
+
 const Article = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
     flex-wrap: wrap;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
+
+
 const Container_in = styled.div`
-    height: 400px;
+    height: 500px;
     width: 300px;
     margin-left: 10px;
-
 
 
     .blur {
