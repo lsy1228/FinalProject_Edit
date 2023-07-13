@@ -210,6 +210,10 @@ const Chat =styled.div`
     transition: height 0.35s ease;
     display: flex;
     flex-direction: column;
+     @media only screen and ( max-width: 390px){
+            right: 3rem;
+            bottom: 3.5em;
+        }
     //채팅 send기능 버튼
     .sendButton{
         width: 100%;

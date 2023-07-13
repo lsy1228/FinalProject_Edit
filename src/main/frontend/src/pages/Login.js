@@ -21,7 +21,7 @@ const Body = styled.div`
     justify-content: center;
     align-items: center;
     @media only screen and ( max-width: 390px){
-        width: 380px;
+        width: 350px;
     }
     .blur {
         filter: blur(5px);
@@ -55,7 +55,7 @@ const Body = styled.div`
             color: white;
         }
         @media only screen and ( max-width: 390px){
-                width: 380px;
+                width: 350px;
         }
     }
     a{  
