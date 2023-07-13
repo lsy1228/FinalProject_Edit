@@ -359,7 +359,7 @@ const CartOrder = () => {
                     </div>
                 </ProductContainer>
             ))}
-            <div>Total Price : {totalPrice}</div>
+            <div>TOTAL PRICE : {totalPrice}</div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />
