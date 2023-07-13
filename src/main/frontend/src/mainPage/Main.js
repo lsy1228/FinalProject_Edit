@@ -103,6 +103,9 @@ const Head = styled.div`
         padding: 0 20px 0 10px;
         display: flex;
         justify-content: space-between;
+        @media only screen and ( max-width: 390px){
+           flex-direction: column;
+        }
     }
     .top1{
         height: 70px;
