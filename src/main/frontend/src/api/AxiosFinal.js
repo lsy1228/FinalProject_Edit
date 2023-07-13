@@ -133,6 +133,7 @@ const AxiosFinal = {
             });
         }catch(error){
                  return error.response.status;
+        }
     },
      //어드민페이지 qna 전체조회
      qnaLoadManage : async(token) => {
