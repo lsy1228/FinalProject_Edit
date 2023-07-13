@@ -26,7 +26,9 @@ const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 `
 
