@@ -82,6 +82,7 @@ const Container=styled.div`
      height: 25px;
      font-size: 11px;
      color: white;
+     border:none;
      background-color: black;
      &:hover{
         color:#CCC;
@@ -92,6 +93,7 @@ const Container=styled.div`
      height: 25px;
      font-size: 11px;
      color: white;
+     border:none;
      background-color: #CCC;
 }
 .chatClose {
