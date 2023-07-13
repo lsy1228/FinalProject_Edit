@@ -3,14 +3,13 @@ import styled from "styled-components";
 const Container=styled.div`
 .bodyArea{
     width:300px;
-    height:100vh;
+    height:650px;
     display:flex;
     flex-direction: column;
-    border: 1px solid black;
 }
 .chatHeadArea{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     background-color: #CCC;
 }
 .chatContentArea{
@@ -89,17 +88,16 @@ const Container=styled.div`
         color:#CCC;
      }
 }
-.msg_close {
-     width: 20px;
-     font-size: 15px;
+.chatClose {
+     width: 100%;
+     height: 40px;
+     font-size: 11px;
      background-color: white;
      border: none;
      &:hover{
      background-color:black;
      color:white;
      }
-
-
 }
 `
 const ChatSocket = () => {
@@ -176,8 +174,8 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
+                    <button className="chatClose" onClick={onClickMsgClose}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
-                    <button className="msg_close" onClick={onClickMsgClose}>&times;</button>
                 </div>
                 <div className="chatContentArea">
                     {items.map((item) => {
@@ -196,7 +194,7 @@ const ChatSocket = () => {
 
                 </div>
                 <div className="sendArea">
-                    <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
+                    <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={()=>onEnterKey()}/>
                     <button className="msg_send" onClick={onClickMsgSend}>전송</button>
                 </div>
             </div>

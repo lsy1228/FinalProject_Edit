@@ -202,7 +202,6 @@ const Chat =styled.div`
     bottom: 6rem;
     right: 2rem;
     background-color: rgba(255,255,255,0.8);
-    border-left: 2px solid #CCC;
     //그래야 안에 들어간 컨텐츠들이 사라진다.
     overflow: hidden;
     transition: height 0.35s ease;
