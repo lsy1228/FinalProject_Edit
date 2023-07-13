@@ -137,7 +137,7 @@ const SideBustton=styled.div`
 `
 const AdminPage=()=>{
     const navigate = useNavigate();
-    //로그인 값을 저장하여 새로고침 되어도 로그인 창이 뜨지 않게 설정한다.
+    //로그인 정보를 가져 올 로컬스토리지(새로고침을 방지해준다)
     const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
     //배경화면의 블러를 처리한다.
     const [onBlur, setOnBlur] = useState(true);
