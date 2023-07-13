@@ -164,7 +164,6 @@ const AdminLoginModal = (props) => {
             window.localStorage.setItem("userIdSuv", inputId);
             window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
-
         }else{
             alert("id와 pw를 확인해주세요");
         }

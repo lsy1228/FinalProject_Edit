@@ -141,13 +141,12 @@ const AdminPage=()=>{
     const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
     //배경화면의 블러를 처리한다.
     const [onBlur, setOnBlur] = useState(true);
-    //유즈 이펙트를 통해서 isAdminLogin값이 바뀔때만 실행한다.
+    //유즈 이펙트를 통해서 로컬스토리지값이 바뀔때만 실행한다.
     useEffect(()=>{
         if(isAdminLogin==="TRUE"){
             setOnBlur(false);
         }
     },[isAdminLogin])
-
     console.log(isAdminLogin);
 
     const context = useContext(UserContext);
@@ -282,7 +281,12 @@ const AdminPage=()=>{
     const closeModal = () => {
         setOnModal(false);
     }
-
+    //어드민페이지 로그아웃
+    const logoutPage =()=>{
+        window.localStorage.setItem("isLoginAdminPage", "FALSE");
+        setOnBlur(true);
+        setOnModal(true);
+    }
 
     return(
         <Container > 
@@ -290,7 +294,7 @@ const AdminPage=()=>{
              <div className={onBlur ? "blur" : "holebody"}>         
             <Head> 
                 <div className="headTop">
-                    <button>logout</button>
+                    <button onClick={logoutPage}>logout</button>
                     <button onClick={onReLoadData}>reload</button>
                     <Link to="/">home</Link>
                 </div>

@@ -212,7 +212,7 @@ const Chat =styled.div`
     //채팅 send기능 버튼
     .sendButton{
         width: 100%;
-        height: 100%;
+        height: 70px;
         border: none;
         background-color: #CCC;
         &:hover{
@@ -220,7 +220,6 @@ const Chat =styled.div`
         color:white;
         }
     }
-
 `
 //채팅 on/off버튼
 const ChatButton=styled.button`
@@ -410,11 +409,12 @@ const Main= () =>{
             console.log(error);
         }
     }
-
+    //채팅 화면이 랜더링이 돌아가게하는 컴포넌트
     const [onChatOpen,setOnChatOpen] = useState("false");
     useEffect(()=>{
-        setOnChatOpen("true")
-    },[onChatOpen])
+        if(isChatLoginNow != "")setOnChatOpen("true")
+        else if(isChatLoginNow ==="")setOnChatOpen("false")
+    },[isChatLoginNow])
 
     useEffect(() => {
             const getCartList = async()=>{
@@ -552,8 +552,8 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            {isChatLoginNow != "" && <ChatSocket/>}
-                            {isChatLoginNow === "" && <ChatEmpty/>}
+                            {onChatOpen === "false" && <ChatSocket/>}
+                            {onChatOpen === "true" && <ChatEmpty/>}
                             <button className="sendButton" onClick={()=>chatTest()}>채팅 시작하기</button>
                     </Chat>
                 <Foot>
