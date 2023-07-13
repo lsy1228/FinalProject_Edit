@@ -143,7 +143,7 @@ const Qna = () =>{
     };
     //Qnadata를 가져옴
     const context = useContext(UserContext);
-    const {qnaData,tokenAdmin} = context;
+    const {qnaData} = context;
 
    
     //답변과 답변 상태가 담길 상수
@@ -161,6 +161,8 @@ const Qna = () =>{
             [name]: e.target.value
           })
     }
+    //토큰을 담을 상수
+    const tokenAdmin = window.localStorage.getItem("AdminToken")
     //답변과 답변 상태를 비동기 통신으로 전달.
     const onSubmitQna =async(props)=>{  
         //덜 담긴 정보를 한번 더 랜더링 하여 최종으로 다 담기게 한다.

@@ -139,6 +139,8 @@ const AdminPage=()=>{
     const navigate = useNavigate();
     //로그인 정보를 가져 올 로컬스토리지(새로고침을 방지해준다)
     const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
+    //토큰을 받아온다
+    const tokenAdmin = window.localStorage.getItem("AdminToken")
     //배경화면의 블러를 처리한다.
     const [onBlur, setOnBlur] = useState(true);
     //유즈 이펙트를 통해서 isAdminLogin이 TRUE값으로 바뀌면 블러를 숨겨준다!
@@ -154,7 +156,7 @@ const AdminPage=()=>{
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
         setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
-        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList ,tokenAdmin, isLogin, setIsLogin} = context;
+        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList ,isLogin, setIsLogin} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -286,6 +288,7 @@ const AdminPage=()=>{
     const logoutPage =()=>{
         window.localStorage.setItem("isLoginAdminPage", "FALSE");
         window.localStorage.removeItem("userIdSuv");
+        window.localStorage.removeItem("AdminToken")
         setOnBlur(true);
         setOnModal(true);
         setIsLogin(false);

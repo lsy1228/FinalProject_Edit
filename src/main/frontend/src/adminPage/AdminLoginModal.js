@@ -141,7 +141,7 @@ const AdminLoginModal = (props) => {
     const [inputPw,setInputPw] = useState("");
     //토큰을 담을 contextAPI
     const context = useContext(UserContext);
-    const {setTokenAdmin, setRefreshTokenAdmin} = context;
+    const { setRefreshTokenAdmin } = context;
     //id 입력
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -156,7 +156,7 @@ const AdminLoginModal = (props) => {
         console.log(responseToken)
         console.log(responseToken.data);
         //토큰을 넣는다.
-        setTokenAdmin(responseToken.data.accessToken);
+        window.localStorage.setItem("AdminToken", responseToken.data.accessToken);
         setRefreshTokenAdmin(responseToken.data.refreshToken)
         if(responseToken.data.accessToken!==null){
             window.localStorage.setItem("userIdSuv", inputId);
