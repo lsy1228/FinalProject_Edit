@@ -20,7 +20,7 @@ const Body = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media only screen and ( min-width: 390px){
+    @media only screen and ( max-width: 390px){
         width: 380px;
     }
     .blur {
@@ -54,7 +54,7 @@ const Body = styled.div`
             background-color: black;
             color: white;
         }
-        @media only screen and ( min-width: 390px){
+        @media only screen and ( max-width: 390px){
                 width: 380px;
         }
     }
