@@ -103,6 +103,7 @@ const Container=styled.div`
 const AdminChatSocket = (props) => {
     console.log(props);
     console.log(props.setRoomId);
+    console.log(items)
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -141,10 +142,6 @@ const AdminChatSocket = (props) => {
             "message":"종료 합니다."}));
         ws.current.close();
         alert("채팅을 종료합니다.")
-    }
-    const onMsgClose =async()=>{
-        window.localStorage.removeItem("chatRoomId");
-        const response = await ChatAxios.removeChatData(roomId);
     }
     useEffect(() => {
         console.log("방번호 : " + roomId);
