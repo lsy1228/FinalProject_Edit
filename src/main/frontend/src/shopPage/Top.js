@@ -38,8 +38,6 @@ const Article = styled.div`
 
     @media only screen and ( max-width: 390px){
         display: flex;
-        align-items: center;
-        justify-content: center;
         width: 390px;
 
       }
@@ -263,6 +261,7 @@ const Top = () => {
 
     )
 };
+
 
 
 

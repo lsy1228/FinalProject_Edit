@@ -98,7 +98,7 @@ const Head = styled.div`
             width: 60px;
             flex-direction: column;
             margin-left: 20px;
-    }
+        }
     }
 
 `
