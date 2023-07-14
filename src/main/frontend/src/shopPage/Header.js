@@ -15,7 +15,11 @@ const Container = styled.div`
 const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
+    @media only screen and ( max-width: 390px){
+        margin: 0;
+    }
     `
+
 
 const TopButton = styled.button`
     border: none;
@@ -23,6 +27,7 @@ const TopButton = styled.button`
     &:hover{
         color: rgba(0,0,0,0.5);
     }
+
 `
 
 const Head = styled.div`
@@ -34,6 +39,9 @@ const Head = styled.div`
     a{
         text-decoration: none;
         color: black;
+
+
+
     }
 
 
@@ -55,6 +63,10 @@ const Head = styled.div`
         &:hover{
             color: rgba(0,0,0,0.5);
         }
+        @media only screen and ( max-width: 390px){
+            margin-top: 30px;
+
+    }
     }
 
     .nav2{
@@ -65,6 +77,11 @@ const Head = styled.div`
         align-items: center;
         font-weight: bolder;
         font-size: 50px;
+        @media only screen and ( max-width: 390px){
+        margin-left: 10%;
+        font-size: 28px;
+        width: 160px;
+      }
     }
 
     .nav3{
@@ -76,9 +93,16 @@ const Head = styled.div`
         div{
             margin-left: 20px;
         }
+        @media only screen and ( max-width: 390px){
+
+            width: 60px;
+            flex-direction: column;
+            margin-left: 20px;
+    }
     }
 
 `
+
 
 
 
