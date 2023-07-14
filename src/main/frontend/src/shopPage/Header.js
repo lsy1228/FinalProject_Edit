@@ -20,6 +20,7 @@ const Mainbody=styled.div`
     }
     `
 
+
 const TopButton = styled.button`
     border: none;
     background-color: white;

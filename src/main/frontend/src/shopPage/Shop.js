@@ -94,7 +94,6 @@ const Container_in = styled.div`
       }
     }
 
-
     .price{
         width: 200px;
         font-size: 10px;

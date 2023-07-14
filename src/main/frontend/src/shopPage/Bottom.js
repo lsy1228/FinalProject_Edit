@@ -122,6 +122,7 @@ const Filter = styled.div`
         justify-content: center;
       }
 
+
     .name{
         width: 50px;
         height: 16px;
