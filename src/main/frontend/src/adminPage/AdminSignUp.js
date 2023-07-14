@@ -18,10 +18,10 @@ const Container = styled.div`
 
 `;
 const InerContainer = styled.div`
-display: flex;
-flex-direction:column;
-width: 400px;
-height: 500px;
+    display: flex;
+    flex-direction:column;
+    width: 400px;
+    height: 500px;
 a{  
     width: 398px;
     height: 40px;
@@ -37,6 +37,9 @@ a{
         background-color: black;
         color:white;
     }
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 .top{
     width: 100%;
@@ -59,6 +62,9 @@ input {
         padding: 5px;
         font-size: 10px;
     };
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 .emailBtn,
 .verifyBtn,
@@ -72,6 +78,9 @@ input {
         color: #CCC;
     }
     margin-bottom : 10px
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 .singUp {
     display: flex;
@@ -92,15 +101,6 @@ input {
       font-size: 12px;
       color: #999;
 }
-.addrFind {
-    margin-right: 10px;
-    width: 170px;
-}
-
-.addrBtn {
-    height: 40px;
-}
-
 .success {
     color: royalblue;
 }
@@ -116,6 +116,9 @@ input {
     height: 38px;
     color: white;
     background-color: black;
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 .enable-button:active {
     font-size: 10px;
@@ -127,6 +130,9 @@ input {
     &:hover {
         border: 1px solid black;
     }
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 .disable-button {
     width: 100%;
@@ -139,6 +145,9 @@ input {
     &:hover{
         color: #CCC;
     }
+     @media only screen and ( max-width: 390px){
+            width: 350px;
+        }
 }
 `;
 
