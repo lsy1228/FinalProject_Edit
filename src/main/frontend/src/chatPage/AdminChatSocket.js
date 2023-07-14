@@ -197,7 +197,6 @@ const AdminChatSocket = (props) => {
                               </div>
                     })}
                      <div ref={messageEndRef}></div>
-
                 </div>
                 <div className="sendArea">
                     <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
