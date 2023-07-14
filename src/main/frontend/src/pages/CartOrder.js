@@ -59,57 +59,37 @@ const Container = styled.div`
     font-size: 13px;
     font-weight: bold;
   }
-//  .payBtn {
-//    margin-top: 10px;
-//    width: 400px;
-//    height: 40px;
-//    background-color: white;
-//    border: 1px solid black;
-//    &:hover{
-//      color: #CCC;
-//      background-color: black;
-//    }
-//    margin-bottom : 10px
-//  }
-//  a {
-//    text-decoration: none;
-//    font-size: 13px;
-//    color: black;
-//    justify-content: center;
-//    text-align: center;
-//    line-height: 40px;
-//  }
-    .payBtn {
-        margin-top: 10px;
-        width: 400px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        background-color: white;
-        border: 1px solid black;
-        margin-bottom: 10px;
-      }
+.payBtn {
+    margin-top: 10px;
+    width: 400px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 10px;
+  }
 
-      .payBtn:hover {
-        background-color: black;
-        color: white;
+  .payBtn:hover {
+    background-color: black;
+    color: white;
+  }
+  a {
+    text-decoration: none;
+    font-size: 13px;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    line-height: 40px;
       }
-      a {
-        text-decoration: none;
-        font-size: 13px;
-        color: black;
-        justify-content: center;
-        text-align: center;
-        line-height: 40px;
-          }
-      .payBtn:hover a {
-        color: white;
-      }
-      .productContainer {
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 20px;
-      }
+  .payBtn:hover a {
+    color: white;
+  }
+  .productContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
 `;
 
 const ProductContainer = styled.div`

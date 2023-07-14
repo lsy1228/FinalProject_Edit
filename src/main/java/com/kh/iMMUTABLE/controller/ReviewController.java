@@ -26,9 +26,9 @@ public class ReviewController {
     // 리뷰 관련 제품 정보 가져오기
     @GetMapping("/reviewProduct")
     public ResponseEntity<ProductDto> reviewProduct (@RequestParam String productId) {
-       ProductDto result = reviewService.reviewProduct(Long.parseLong(productId));
-       return new ResponseEntity<>(result, HttpStatus.OK);
-   }
+        ProductDto result = reviewService.reviewProduct(Long.parseLong(productId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     // 리뷰 작성하기
     @PostMapping("/writeReview")
@@ -50,8 +50,22 @@ public class ReviewController {
     // 제품 별 리뷰 불러오기
     @GetMapping("/viewReview")
     public ResponseEntity<List<ReviewDto>> viewReview (@RequestParam String productName) {
-        System.out.println("리뷰 상품이름 : " + productName);
         List<ReviewDto> result = reviewService.viewReview(productName);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 내가 쓴 리뷰 불러오기
+    @GetMapping("/myReview")
+    public ResponseEntity<List<ReviewDto>> myReview (@RequestParam String id) {
+        List<ReviewDto> result = reviewService.myReview(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 내가 쓴 리뷰 삭제
+    @PostMapping("/deleteReview")
+    public ResponseEntity<Boolean> deleteReview (@RequestBody Map<String, String> deleteReview) {
+        String reviewId = deleteReview.get("reviewId");
+        boolean result = reviewService.deleteReview(reviewId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
