@@ -176,7 +176,11 @@ const ChatSocket = () => {
         }
         ws.current.onmessage = (evt) => {
             const data = JSON.parse(evt.data);
+            console.log("evt:",evt);
+            console.log("evt.data:",evt.data);
+            console.log("data:",data);
             console.log(data.message);
+            console.log(ws);
             setRcvMsg(data.message);
             setItems((prevItems) => [...prevItems, data]);
       };

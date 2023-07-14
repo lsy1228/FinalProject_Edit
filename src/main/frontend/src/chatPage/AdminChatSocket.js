@@ -101,8 +101,6 @@ const Container=styled.div`
 }
 `
 const AdminChatSocket = (props) => {
-    console.log(props);
-    console.log(props.setRoomId);
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -122,6 +120,7 @@ const AdminChatSocket = (props) => {
 
     // 메시지를 보냄
     const onClickMsgSend = (e) => {
+        console.log(ws);
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
@@ -155,12 +154,14 @@ const AdminChatSocket = (props) => {
                 "message": "처음으로 접속 합니다."}));
         }
         ws.current.onmessage = (evt) => {
+            console.log("evt:",evt);
             const data = JSON.parse(evt.data);
             console.log(data.message);
             setRcvMsg(data.message);
             setItems((prevItems) => [...prevItems, data]);
       };
-    }, [setInputMsg]);
+    }, [roomId]);
+
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);
