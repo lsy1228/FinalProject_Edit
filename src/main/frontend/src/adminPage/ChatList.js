@@ -36,23 +36,6 @@ const ChattingData=styled.div`
     border-left:1px solid #CCC;
     border-bottom: 1px solid #CCC;
     border-right: 1px solid #CCC;
-    .chatHead{
-        width: 100%;
-        height: 100px;
-        border-bottom:1px solid #CCC;
-        background-color: aliceblue;
-    }
-    .chatMiddle{
-        width: 100%;
-        height: 547px;
-        border-bottom:1px solid #CCC;
-    }
-    .chatFooter{
-        width: 100%;
-        height: 70px;
-        border-bottom:1px solid #CCC;
-        background-color: aliceblue;
-    }
 `
 const ChatList=()=>{
     const context = useContext(UserContext);
