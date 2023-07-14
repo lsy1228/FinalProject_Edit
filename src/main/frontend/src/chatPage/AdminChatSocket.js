@@ -102,12 +102,13 @@ const Container=styled.div`
 `
 const AdminChatSocket = (props) => {
     console.log(props);
+    console.log(props.setRoomId);
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
     const webSocketUrl = `ws://localhost:8111/ws/chat`;
-    const roomId = window.localStorage.getItem("chatRoomId");
-    const sender = window.localStorage.getItem("userIdSuv");
+    const roomId = props.setRoomId;
+    const sender = "iMMUTABLE관리자";
     let ws = useRef(null);
     const [items, setItems] = useState([]);
 
