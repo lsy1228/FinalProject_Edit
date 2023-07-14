@@ -19,6 +19,6 @@ public class ChatList {
 
     @Column(name = "room_Name", length = 600)
     private String roomName;
-    @Column(name = "user_id")
+    @Column(name = "user_id",length = 255)
     private String userId;
 }

@@ -154,6 +154,9 @@ const AdminLoginModal = (props) => {
     const onClickLogin=  async() =>{
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
         console.log(responseToken)
+        if(responseToken===401){
+            alert("id 또는 pw를 확인해주세요");
+        }
         console.log(responseToken.data);
         //토큰을 넣는다.
         window.localStorage.setItem("AdminToken", responseToken.data.accessToken);
@@ -162,8 +165,6 @@ const AdminLoginModal = (props) => {
             window.localStorage.setItem("userIdSuv", inputId);
             window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
-        }else{
-            alert("id와 pw를 확인해주세요");
         }
     }
 

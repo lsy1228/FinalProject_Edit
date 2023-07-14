@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/UserInfo";
+
 //전체 컨테이너 CSS
 const Container=styled.div`
     width: 100%;
@@ -52,19 +54,19 @@ const ChattingData=styled.div`
     }
 `
 const ChatList=()=>{
+    const context = useContext(UserContext);
+    const {chatList} = context;
+    console.log(chatList);
+
     return(
         <Container> 
           <ChatListView>
-            <ChatListData>
-                대화
-            </ChatListData>
-            <ChatListData>
-                대화
-            </ChatListData>
-            <ChatListData>
-                대화
-            </ChatListData>
+              {chatList && chatList.map((l,index)=>
+                  <ChatListData key={l.roomName}>
+                     {l.userId}
+                   </ChatListData>)}
           </ChatListView>
+
           <ChatListView>
             <ChattingData>  
                 <div className="chatHead">
