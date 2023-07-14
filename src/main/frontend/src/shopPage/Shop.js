@@ -92,8 +92,8 @@ const Container_in = styled.div`
             width: 100px;
             font-size: 13px;
       }
-
     }
+
 
     .price{
         width: 200px;

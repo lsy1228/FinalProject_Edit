@@ -16,8 +16,7 @@ const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
     @media only screen and ( max-width: 390px){
-
-    margin: 0;
+        margin: 0;
     }
     `
 

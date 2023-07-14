@@ -114,6 +114,7 @@ const Filter = styled.div`
     float: right;
     display: flex;
     cursor: pointer;
+
     @media only screen and ( max-width: 390px){
         margin: 20px 0px 20px 0px;
         width: 390px;
