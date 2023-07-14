@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
+import AdminChatSocket from "../chatPage/AdminChatSocket";
 
 //전체 컨테이너 CSS
 const Container=styled.div`
@@ -58,6 +59,13 @@ const ChatList=()=>{
     const {chatList} = context;
     console.log(chatList);
 
+    //방ID를 담을 useState
+    const [onRoomId,setOnRoomId]=useState();
+    const onFindRoomId=(roomId)=>{
+        console.log(roomId);
+        setOnRoomId(roomId);
+    }
+
     return(
         <Container> 
           <ChatListView>
@@ -68,17 +76,9 @@ const ChatList=()=>{
           </ChatListView>
 
           <ChatListView>
-            <ChattingData>  
-                <div className="chatHead">
-
-                </div>
-                <div className="chatMiddle">
-
-                </div>
-                <div className="chatFooter">
-
-                </div>   
-            </ChattingData>
+               <ChattingData>
+                    <AdminChatSocket setRoomId={onRoomId}/>
+               </ChattingData>
           </ChatListView>
         
         </Container>
