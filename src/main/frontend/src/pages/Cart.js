@@ -55,6 +55,12 @@ const MainBody=styled.div`
   flex-direction: column;
   width: 80%;
   height: 90%;
+
+    @media only screen and ( max-width: 390px){
+          width: 90%;
+      }
+
+
   .paymentBtn{
     margin: 10px 0 0 0;
     width: 100%;

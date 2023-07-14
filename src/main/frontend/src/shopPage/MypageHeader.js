@@ -7,11 +7,19 @@ import AxiosFinal from "../api/AxiosFinal";
 const Container = styled.div`
     width: 100%;
     display: flex;
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+    }
+
 `
 
 const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
+    @media only screen and ( max-width: 390px){
+        margin: 0;
+    }
+
     `
 
 const TopButton = styled.button`
@@ -26,7 +34,11 @@ const Head = styled.div`
     width: 100%;
     height: 70px;
     display: flex;
-    flex-direction: column;
+
+    @media only screen and ( max-width: 390px){
+        align-items: center;
+
+}
 
     a{
         text-decoration: none;
@@ -37,21 +49,11 @@ const Head = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
-        flex-direction: row;
-
-    }
-
-    .nav1{
-        align-items: center;
+        @media only screen and ( max-width: 390px){
+        flex-direction: column;
         justify-content: center;
-        display: flex;
-        font-size: 13px;
-        cursor: pointer;
-        margin-top: auto;
-        &:hover{
-            color: rgba(0,0,0,0.5);
-        }
-
+        align-items: center;
+      }
     }
 
     .nav2{
@@ -61,6 +63,11 @@ const Head = styled.div`
         align-items: center;
         font-weight: bolder;
         font-size: 50px;
+        @media only screen and ( max-width: 390px){
+        margin-left: 5%;
+        font-size: 40px;
+        width: 180px;
+      }
     }
 
     .nav3{
@@ -73,8 +80,11 @@ const Head = styled.div`
         div{
             margin-left: 20px;
         }
+        @media only screen and ( max-width: 390px){
+            width: 390px;
+            height: 30px;
+      }
     }
-
 `
 
 //카트 영역
