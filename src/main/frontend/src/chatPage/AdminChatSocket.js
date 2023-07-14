@@ -5,7 +5,7 @@ import ChatAxios from "../api/ChatAxios.js";
 const Container=styled.div`
 .bodyArea{
     width:100%;
-    height:100%;
+    height:calc(100vh - 180px);
     display:flex;
     flex-direction: column;
 }
@@ -99,7 +99,6 @@ const Container=styled.div`
      border:none;
      background-color: #CCC;
 }
-
 `
 const AdminChatSocket = (props) => {
     console.log(props);
@@ -115,11 +114,9 @@ const AdminChatSocket = (props) => {
     const onChangMsg = (e) => {
         setInputMsg(e.target.value)
     }
-
     const onEnterKey = (e) => {
         if(e.key === 'Enter') onClickMsgSend(e);
     }
-
     const onClickMsgSend = (e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
@@ -148,7 +145,6 @@ const AdminChatSocket = (props) => {
         window.localStorage.removeItem("chatRoomId");
         const response = await ChatAxios.removeChatData(roomId);
     }
-
     useEffect(() => {
         console.log("방번호 : " + roomId);
         if (!ws.current) {
@@ -173,7 +169,6 @@ const AdminChatSocket = (props) => {
             setItems((prevItems) => [...prevItems, data]);
       };
     }, [socketConnected]);
-
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);

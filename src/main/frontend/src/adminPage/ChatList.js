@@ -69,10 +69,10 @@ const ChatList=()=>{
     return(
         <Container> 
           <ChatListView>
-              {chatList && chatList.map((l,index)=>
-                  <ChatListData key={l.roomName}>
-                     {l.userId}
-                   </ChatListData>)}
+            {chatList && chatList.map((l,index)=>
+                  <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
+                      {l.userId}
+                  </ChatListData>)}
           </ChatListView>
 
           <ChatListView>
