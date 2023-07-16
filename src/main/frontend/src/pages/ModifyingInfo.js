@@ -7,10 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../adminPage/FireBase";
 
-
 const Container = styled.div`
     width: 100%;
     display: flex;
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+        height: 100vh;
+      }
 `
 
 const MainBody = styled.div`
@@ -19,6 +22,10 @@ const MainBody = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+        height: 100vh;
+      }
 `
 
 const Logo = styled.div`
@@ -36,12 +43,19 @@ const Logo = styled.div`
         height: 70px;
         font-weight: bolder;
         font-size: 50px;
+        @media only screen and ( max-width: 390px){
+            font-size: 30px;
+        }
     }
 `
 
 const Title = styled.div`
     width: 100%;
-    margin-top: 50px;    
+    margin-top: 50px;
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+        margin-top: 0%;
+      }
 
     .ti{
         font-weight: bold;
@@ -50,7 +64,7 @@ const Title = styled.div`
         display: flex;
         height: 20px;
     }
-  
+
 `
 
 const Info = styled.div`
@@ -59,9 +73,12 @@ const Info = styled.div`
     width: 1000px;
     height: 120px;
     border: 1px solid #ccc;
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+      }
 
     input::placeholder{
-            font-size: 5px; 
+            font-size: 5px;
         }
 
     .userInfo {
@@ -69,7 +86,13 @@ const Info = styled.div`
         justify-content: center;
         align-items: center;
         display: flex;
+        @media only screen and ( max-width: 390px){
+            display: flex;
+            width: 390px;
+
+        }
     }
+
 
     .profileImg{
         border: 1px solid #ccc  ;
@@ -77,36 +100,68 @@ const Info = styled.div`
         display: flex;
         width: 60px;
         height: 60px;
+        @media only screen and ( max-width: 390px){
+        width: 80px;
+        height: 80px;
+      }
     }
 
     .line{
         margin: 0px 10px 0px 10px;
         border-left: 1px solid #ccc;
         height: 60px;
+        @media only screen and ( max-width: 390px){
+            margin: 0;
+            border: none;
+      }
     }
     .content{
         display: flex;
         font-size: 12px;
+        @media only screen and ( max-width: 390px){
+            display: flex;
+            margin-top: auto;
+            width: 300px;
+            align-items: center;
+            justify-content: center;
+        }
+
     }
     .profileChangBtn{
         border: 1px solid black;
         background-color: white;
         font-size: 11px;
         width: 100px;
+        @media only screen and ( max-width: 390px){
+            width: 100px;
+            margin: 0px 40px 30px 200px;
+            position: absolute;
+
+        }
         &:hover{
             background-color: black;
             color: white;
         }
+
     }
     input{
       width: 110px;
       margin-right: 10px;
-      ::file-selector-button {  
+      @media only screen and ( max-width: 390px){
+            width: 80px;
+            margin: 0px 80px 30px 40px;
+            position: absolute;
+        }
+
+      ::file-selector-button {
       margin-left: 10px;
       width: 100px;
       background: #fff;
       border: 1px solid black;
       font-size: 11px;
+      @media only screen and ( max-width: 390px){
+            width: 70px;
+        }
       &:hover{
         background-color: black;
         color: white;
@@ -116,16 +171,17 @@ const Info = styled.div`
 `
 
 const InnerContainer = styled.div`
-    width: 100vw;
     width: 1000px;
     height: 100%;
     margin-top: 30px;
-   
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+      }
 
     .t1{
         width: 100px;
         float: left;
-      
+
     }
     .t2{
         font-size: 12px;
@@ -148,12 +204,15 @@ const InnerContainer = styled.div`
         background-color: black;
         margin-right: 10px;
         color: white;
-        font-size: 11px;        
+        font-size: 11px;
         :hover{
             color: #646166;
         }
+        @media only screen and ( max-width: 390px){
+        width: 100px;
+      }
     }
-    
+
     .cancle-btn{
         width: 300px;
         height: 40px;
@@ -165,49 +224,69 @@ const InnerContainer = styled.div`
         :hover{
             color: #646166;
         }
+        @media only screen and ( max-width: 390px){
+        width: 100px;
+
+      }
     }
-
-
-    
 `
 
 const Body = styled.div`
     display: flex;
     width: 1000px;
-
+    @media only screen and ( max-width: 390px){
+        width: 390px;
+      }
     .input{
         flex-direction: column;
         margin-top: 10px;
         border-top: 2px solid #ccc;
         display: flex;
         width: 1000px;
+        @media only screen and ( max-width: 390px){
+        width: 390px;
+        }
 
         input::placeholder{
-            font-size: 6px; 
+            font-size: 6px;
+
         }
-        
+
+
     }
 
     .item{
-        
         padding: 18px 0px 15px 0px;
         border-bottom: 1px solid #ccc;
         display: flex;
         height: 20px;
         width: 1000px;
+        @media only screen and ( max-width: 390px){
+        width: 390px;
+        }
     }
 
     label{
         font-size: 11px;
         width: 150px;
         display: flex;
+        @media only screen and ( max-width: 390px){
+            width: 140px;
+
+        }
     }
-    
+
     .hint{
         font-size: 10px;
         width: 250px;
         margin-top: auto;
         margin-left: 10px;
+        @media only screen and ( max-width: 390px){
+            position: absolute;
+            margin: 20px 0px 0px 160px;
+            width: 220px;
+        }
+
     }
 
 
@@ -228,15 +307,23 @@ const Footer = styled.div`
     align-items: center;
     justify-content: center;
     height: 50px;
+    @media only screen and ( max-width: 390px){
+        margin-bottom: 100px;
+      }
+
 
     .tt1{
-     
         display: flex;
         align-items: center;
         justify-content: center;
         color: #8b9192;
         font-size: 13px;
         font-weight: 600;
+        @media only screen and ( max-width: 390px){
+        font-size: 15px;
+
+      }
+
     }
 
 
@@ -246,6 +333,10 @@ const Footer = styled.div`
         justify-content: center;
         color: #c1c2c8;
         font-size: 10px;
+        @media only screen and ( max-width: 390px){
+            font-size: 12px;
+      }
+
     }
 
 `
