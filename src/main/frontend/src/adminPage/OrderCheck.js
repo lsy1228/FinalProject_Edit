@@ -2,6 +2,7 @@ import React,{useContext,useState} from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
 import AxiosFinal from "../api/AxiosFinal";
+import { useNavigate } from "react-router-dom";
 
 
 const Container=styled.table`
@@ -134,9 +135,10 @@ const OrderInfo=styled.tr`
     
 `
 const  OrderCheck = () =>{
+    const navigate = useNavigate();
     //orderdata를 가져옴
     const context = useContext(UserContext);
-    const {orderData} = context;
+    const {orderData,adminT} = context;
     
     const [orderStatue, setOrderStatue] = useState({
         orderStatus: '',
@@ -197,6 +199,8 @@ const  OrderCheck = () =>{
         } 
        console.log(orderStatue);
     }
+    //토큰을 담을 상수
+    const tokenAdmin = window.localStorage.getItem("AdminToken")
     //주문건 제출 useState로 랜더링 되지 않은 함수들 한번 더 적용
     const onSubmitOrder=async(o)=>{
         console.log(o);
@@ -237,7 +241,10 @@ const  OrderCheck = () =>{
         } 
 
         console.log(orderStatue);
-        const response = AxiosFinal.orderUploadData(o.orderId,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
+        const response = AxiosFinal.orderUploadData(o.orderId,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany,tokenAdmin);
+        if(response===401){
+            navigate("/Admin401Error");
+        }
     }
     return(
 

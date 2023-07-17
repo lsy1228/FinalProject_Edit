@@ -120,7 +120,6 @@ const AdminChatSocket = (props) => {
 
     // 메시지를 보냄
     const onClickMsgSend = (e) => {
-        console.log(ws);
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
@@ -154,14 +153,12 @@ const AdminChatSocket = (props) => {
                 "message": "처음으로 접속 합니다."}));
         }
         ws.current.onmessage = (evt) => {
-            console.log("evt:",evt);
             const data = JSON.parse(evt.data);
             console.log(data.message);
             setRcvMsg(data.message);
             setItems((prevItems) => [...prevItems, data]);
       };
     }, [roomId]);
-
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);
@@ -189,6 +186,7 @@ const AdminChatSocket = (props) => {
                               </div>
                     })}
                      <div ref={messageEndRef}></div>
+
                 </div>
                 <div className="sendArea">
                     <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
