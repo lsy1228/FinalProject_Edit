@@ -21,4 +21,7 @@ public class ChatList {
     private String roomName;
     @Column(name = "user_id",length = 255)
     private String userId;
+
+    private String lastMessage;
+
 }

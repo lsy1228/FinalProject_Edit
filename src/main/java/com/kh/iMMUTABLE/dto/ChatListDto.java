@@ -10,6 +10,6 @@ import lombok.ToString;
 public class ChatListDto {
     private String roomName;
     private String userId;
-
+    private String lastMessage;
 
 }
