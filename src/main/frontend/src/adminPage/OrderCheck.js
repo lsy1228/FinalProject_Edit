@@ -244,7 +244,7 @@ const  OrderCheck = () =>{
         const response = AxiosFinal.orderUploadData(o.orderId,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany,tokenAdmin);
         if(response===401){
             navigate("/Admin401Error")
-        }
+        };
     }
     return(
 

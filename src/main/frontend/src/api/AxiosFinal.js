@@ -193,7 +193,7 @@ const AxiosFinal = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
-        });
+        })
         }catch(error){
              return error.response.status;
         }
