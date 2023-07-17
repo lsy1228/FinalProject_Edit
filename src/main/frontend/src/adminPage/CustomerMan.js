@@ -105,7 +105,7 @@ const  CustomerMan = () =>{
     }
 
     const onLoadCustomerData = async() =>{ 
-        const response = await AxiosFinal.customerManage();
+        const response = await AxiosFinal.customerManage(tokenAdmin);
         console.log(response.data);
         setCustomerData(response.data);
     }
