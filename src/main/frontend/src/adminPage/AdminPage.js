@@ -241,7 +241,7 @@ const AdminPage=()=>{
         setSixdayBefore(sixday.data);  
     }
 
-
+    //채팅창 가져오기
     const onLoadChatList =async()=>{
         const response = await AxiosFinal.onLoadChatList(tokenAdmin);
         if(response.status===401){
