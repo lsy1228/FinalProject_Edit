@@ -59,7 +59,7 @@ const Container = styled.div`
     font-size: 13px;
     font-weight: bold;
   }
-.payBtn {
+  .payBtn {
     margin-top: 10px;
     width: 400px;
     height: 40px;
@@ -81,7 +81,7 @@ const Container = styled.div`
     justify-content: center;
     text-align: center;
     line-height: 40px;
-      }
+  }
   .payBtn:hover a {
     color: white;
   }
@@ -127,34 +127,29 @@ const ProductContainer = styled.div`
 `;
 
 const Footer = styled.div`
-    margin-top: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .fotbox{
+    height: 100px;
+  }
+  .tt1{
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
-    .fotbox{
-        height: 100px;
-    }
-
-    .tt1{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #8b9192;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-
-    .tt2{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #c1c2c8;
-        font-size: 12px;
-    }
-
+    color: #8b9192;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .tt2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c1c2c8;
+    font-size: 12px;
+  }
 `
 
 const CartOrder = () => {
