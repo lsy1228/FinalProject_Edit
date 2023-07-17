@@ -166,7 +166,7 @@ const AdminChatSocket = (props) => {
             setRcvMsg(data.message);
             setItems((prevItems) => [...prevItems, data]);
       };
-    }, [socketConnected]);
+    }, [roomId]);
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);
