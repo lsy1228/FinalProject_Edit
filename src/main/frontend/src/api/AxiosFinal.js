@@ -180,14 +180,23 @@ const AxiosFinal = {
          }
     },
     // 어드민페이지 주문건 수정
-    orderUploadData : async(orderId,orderStatus,shipCode,shipCompany)=>{
+    orderUploadData : async(orderId,orderStatus,shipCode,shipCompany,token)=>{
         const orderUpLoadData={
             orderId : orderId,
             orderStatue : orderStatus,
             orderShipCode : shipCode,
             orderShipCompany : shipCompany,
         };
-        return await axios.post(Final_proj + "/admin/orderUpLoad", orderUpLoadData);
+        try{
+        return await axios.post(Final_proj + "/admin/orderUpLoad", orderUpLoadData,{
+        headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        })
+        }catch(error){
+             return error.response.status;
+        }
     },        
     //어드민 페이지 상품 Fst이미지 수정
     productChangeImgFst : async(productId,fstUrl)=>{
