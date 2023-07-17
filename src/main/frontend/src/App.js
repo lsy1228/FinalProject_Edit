@@ -45,7 +45,6 @@ function App() {
           <Route path="/Board/:faqId" element={<Board/>}/>
           <Route path="/Mypage" element={<Mypage/>}/>
           <Route path="/AdminPage" element={<AdminPage/>}/>
-          <Route path="ProductInfo" element={<ProductInfo/>}/>
           <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/>
           <Route path="/Secession" element={<Secession/>}/>
           <Route path="/ProductInfo" element={<ProductInfo/>}/>

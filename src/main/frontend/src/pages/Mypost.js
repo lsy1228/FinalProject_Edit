@@ -22,20 +22,18 @@ const InnerContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-`
+`;
+
 
 const Review = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 400px;
-    margin: 20px 0;
+    height: auto;
     padding-bottom: 20px;
     .review {
         margin: 0 40px;
-        height: 100%;
+        /* height: 100%; */
         margin-top: 20px;
         .reviewBoard {
             height: 20px;
@@ -43,10 +41,19 @@ const Review = styled.div`
             font-weight: bold;
         }
     }
+    @media (max-width: 390px) {
+        height: fit-content;
+        padding-bottom: 0;
+        .review {
+            margin: 0;
+        }
+    }
 `;
+
 
 const ReviewTable = styled.table`
     width: 100%;
+    height: fit-content;
     margin-bottom: 50px;
     tr {
         width: 100%;
@@ -102,12 +109,29 @@ const ReviewTable = styled.table`
     .noReview {
         padding: 50px 0;
     }
+    @media (max-width: 390px) {
+        height: fit-content;
+        tr {
+            .Num, .num, .User, .user{
+                display: none;
+            }
+            .Product, .Title, .Date, .Delete {
+                width: 25%;
+            }
+            td {
+                padding: 5px;
+            }
+        }
+        .product {
+            display: block;
+        }
+    }
 
 `;
 
 const QnA = styled.div`
     width: 100%;
-    height: 400px;
+    height: auto;
     padding-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -119,10 +143,18 @@ const QnA = styled.div`
             font-weight: bold;
         }
     }
+    @media (max-width: 390px) {
+        height: fit-content;
+        padding-bottom: 0;
+        .qna {
+            margin: 0;
+        }
+    }
 `;
 
 const QnATable = styled.table`
     width: 100%;
+    height: fit-content;
     margin-bottom: 50px;
     tr {
         width: 100%;
@@ -163,18 +195,36 @@ const QnATable = styled.table`
         font-size: 14px;
         background-color: whitesmoke;
         .content {
-            margin: 5px 60px;
+            margin: 0 60px;
+            margin-bottom: 15px;
         }
     }
     .qnaReply {
-        background-color: whitesmoke;
+        background-color: #dbdbdb;
         .reply {
-            margin: 0 60px;
+            margin: -10px 60px;
             padding: 10px 0;
         }
     }
     .noQna {
         padding: 50px 0;
+    }
+    @media (max-width: 390px) {
+        height: fit-content;
+        tr {
+            .Num, .num, .User, .user{
+                display: none;
+            }
+            .Title {
+                width: 35%;
+            }
+            .edit {
+                white-space: nowrap;
+            }
+            td {
+                padding: 5px;
+            }
+        }
     }
 `;
 
@@ -289,7 +339,7 @@ const Mypost = () => {
                                     (sortedReviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
                                     <React.Fragment key={index}>
                                     <tr>
-                                        <td className="num">{index+1}.</td>
+                                        <td className="num">{reviewOffset+index+1}.</td>
                                         <td className="product">
                                             <img src={e.productImgFst} alt="" />
                                             <p>{e.productName}</p>
@@ -325,7 +375,6 @@ const Mypost = () => {
                         page={reviewPage}
                         setPage={setReviewPage}
                         />
-
                     <QnA>
                         <div className="qna">
                             <div className="qnaBoard">QnA</div>
@@ -348,13 +397,13 @@ const Mypost = () => {
                                 <tr >
                                     <td className="num">{offset + index + 1}.</td>
                                     <td className="title" onClick={()=>handleQna(index)}>{e.qnaTitle}</td>
-                                    <td className="writer">{e.userName}</td>
+                                    <td className="user">{e.userName}</td>
                                     <td className="status" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
                                     <td className="btn">
                                     {e.qnaStatus === "HOLD" ?
                                         (<button onClick={() => editQna(e.productId, e.qnaId)}>수정</button>
                                         ) : (
-                                            '수정불가'
+                                            '불가'
                                         )}
                                     </td>
                                     <td className="Btn"><button onClick={()=>deleteQna(e.qnaId)}>삭제</button></td>
@@ -384,7 +433,6 @@ const Mypost = () => {
                             )}
                             </QnATable>
                         </div>
-
                     </QnA>
                     <Pagenation
                         total={qnaData.length} // 전체 아이템 수

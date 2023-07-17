@@ -106,10 +106,6 @@ const InnerContainer = styled.div`
                         }
                     }
                 }
-                .productDesc {
-                    width: 350px;
-                    font-size: 12px;
-                }
                 .detailWrapper {
                     p {
                         font-size: 12px;
@@ -130,6 +126,28 @@ const InnerContainer = styled.div`
             }
         }
     }
+    @media (max-width: 390px) {
+        .product {
+            margin: 0;
+            width: 100%;
+            flex-direction: column;
+            .productImg {
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .wholeDesc {
+            width: 100%;
+            padding: 20px 30px;
+        }
+        }
+
+
+    }
 `;
 
 
@@ -149,10 +167,21 @@ const Review = styled.div`
             font-weight: bold;
         }
     }
+    @media (max-width: 390px) {
+        height: fit-content;
+        padding-bottom: 0;
+        .review {
+            margin: 0;
+            .reviewBoard {
+                padding-left: 15px;
+            }
+        }
+    }
 `;
 
 const ReviewTable = styled.table`
     width: 100%;
+    height: fit-content;
     margin-bottom: 50px;
     tr {
         width: 100%;
@@ -184,17 +213,35 @@ const ReviewTable = styled.table`
         font-size: 14px;
         background-color: whitesmoke;
         .content {
-            margin: 10px 60px;
+            margin: 5px 60px;
         }
     }
     .noReview {
         padding: 50px 0;
+    }
+    @media (max-width: 390px) {
+        height: fit-content;
+        tr {
+            .Rate, .User {
+                width: 10%;
+            }
+            .Title {
+                width: 30%;
+            }
+            .Num, .number {
+                display: none;
+            }
+            .rate {
+                white-space: nowrap;
+            }
+        }
     }
 
 `;
 
 const QnA = styled.div`
     width: 100%;
+    height: 300px;
     padding-bottom: 20px;
     .qna {
         margin: 0 40px;
@@ -216,10 +263,24 @@ const QnA = styled.div`
             }
         }
     }
+    @media (max-width: 390px) {
+        height: fit-content;
+        padding-bottom: 0;
+        .qna {
+            margin: 0;
+            .qnaBoard {
+                padding-left: 15px;
+            }
+            .qnaWrite {
+                padding-right: 15px;
+            }
+        }
+    }
 `;
 
 const QnATable = styled.table`
     width: 100%;
+    height: fit-content;
     margin-bottom: 50px;
     tr {
         width: 100%;
@@ -251,18 +312,33 @@ const QnATable = styled.table`
         background-color: whitesmoke;
         font-size: 14px;
         .content {
-            margin: 10px 60px;
+            margin: 0 60px;
+            margin-bottom: 15px;
         }
     }
     .qnaReply {
-        background-color: whitesmoke;
+        background-color: #dbdbdb;
         .reply {
-            margin: 0 60px;
+            margin: -10px 60px;
             padding: 10px 0;
         }
     }
     .noQna {
         padding: 50px 0;
+    }
+    @media (max-width: 390px) {
+        height: fit-content;
+        tr {
+            .Num, .number {
+                display: none;
+            }
+            .Status, .User {
+                width: 10%;
+            }
+            .Title {
+                width: 30%;
+            }
+        }
     }
 `;
 
@@ -497,9 +573,11 @@ const ProductInfo = () => {
                                     <td className="date">{e.reviewDate}</td>
                                 </tr>
                                 {rvExpanded.includes(index) && (
+                                <tr>
                                     <td colSpan={5} className="reviewContent">
-                                        <p className="content">{e.reviewContent}</p>
+                                        <p className="content" style={{textAlign:"left"}}>{e.reviewContent}</p>
                                     </td>
+                                </tr>
                                 )}
                                 </React.Fragment>
                                 ))
@@ -525,8 +603,8 @@ const ProductInfo = () => {
                             <div className="qnaBoard">Q&A</div>
                             <div className="qnaWrite" onClick={writeQna}>문의 작성</div>
                         </div>
-                        <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
                         <hr />
+                        <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
                         <QnATable>
                             <thead>
                                 <tr>
@@ -549,14 +627,16 @@ const ProductInfo = () => {
                                     <td className="date">{e.qnaDate}</td>
                                     </tr>
                                     {expanded.includes(index) && (
+                                    <tr>
                                     <td colSpan={5} className="qnaContent">
-                                        <p className="content">{e.qnaContent}</p>
+                                        <p className="content" style={{textAlign:"left"}}>{e.qnaContent}</p>
                                         {e.reply &&
                                            <div className="qnaReply">
-                                            <p className="reply">{e.reply}</p>
+                                            <p className="reply" style={{textAlign:"left"}}>{e.reply}</p>
                                            </div>
                                         }
                                     </td>
+                                    </tr>
                                     )}
                                 </React.Fragment>
                                 ))
@@ -568,15 +648,14 @@ const ProductInfo = () => {
                                 </tbody>
                         </QnATable>
                     </div>
-                    <Pagenation
+                </QnA>
+                <Pagenation
                         total={qnaData.length} // 전체 아이템 수
                         limit={limit}          // 페이지 당 아이템 수
                         page={page}            // 현재 페이지 번호
                         setPage={setPage}      // 페이지 번호를 변경
                             />
-                </QnA>
             </InnerContainer>
-
         </Container>
     )
 

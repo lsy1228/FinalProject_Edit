@@ -17,6 +17,23 @@ const Container = styled.div`
         border-radius: 10px;
  }
 
+    @media (max-width: 390px) {
+        .modal {
+            position: fixed;
+            width: 390px;
+            height: 600px;
+            left: 0;
+        }
+        .form {
+            .main {
+                .product {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+
     .openModal {
         display: flex; // 모달이 보이도록 함
         align-items: center;
