@@ -9,18 +9,25 @@ import Pagenation from "./Pagenation";
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-
 `;
 
 
 const InnerContainer = styled.div`
     width: 100%;
+    height: 80%;
     margin-top: 50px;
     .header {
         margin: 0 40px;
         font-size: 25px;
         font-weight: bold;
         margin-bottom: 20px;
+    }
+    @media (max-width: 390px) {
+        width: 100%;
+        height: 100%;
+        .header {
+            margin: 0;
+        }
     }
 `;
 
@@ -82,7 +89,36 @@ const OrderTable = styled.div`
                 cursor: default;
             }
         }
+    @media (max-width: 390px) {
+        margin: 0;
+        .orderTable{
+            .Info {
+                width: 10%;
+            }
+            .Date, .Price, .Review{
+                width: 20%;
+            }
+            .Num, .tdNum {
+                display: none;
+            }
+            .tdInfo {
+                display: block;
+            }
+            th {
+                font-size: 13px;
+                white-space: nowrap;
+            }
+            .reviewBtn {
+                width: 60px;
+                font-size: 10px;
+            }
+            .reviewWrite {
+                width: 60px;
+                font-size: 10px;
+            }
+        }
     }
+}
 `;
 
 
@@ -159,13 +195,13 @@ const Order = () => {
                         </table>
                     </div>
                 </OrderTable>
-                <Pagenation
+            </InnerContainer>
+            <Pagenation
                     total={orderList.length}
                     limit={limit}
                     page={page}
                     setPage={setPage}
                 />
-            </InnerContainer>
         </Container>
     );
 }

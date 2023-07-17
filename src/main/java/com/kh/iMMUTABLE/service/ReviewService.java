@@ -41,7 +41,7 @@ public class ReviewService {
     }
 
     // 리뷰 작성하기
-    public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId) {
+    public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId, String reviewImg) {
         Users users = userRepository.findByUserEmail(userEmail);
         Product product = productRepository.findByProductId(productId);
         Order order = orderRepository.findByOrderId(orderId);
@@ -54,6 +54,9 @@ public class ReviewService {
         review.setProduct(product);
         review.setReview_date(reviewDate);
         review.setOrder(order);
+        if (reviewImg != null) {
+            review.setReview_img(reviewImg);
+        }
         order.setReviewed(true);
         reviewRepository.save(review);
         return true;
@@ -75,9 +78,45 @@ public class ReviewService {
                 reviewDto.setReviewRate(review.getReview_rate());
                 reviewDto.setUserName(review.getUser().getUserName());
                 reviewDto.setReviewDate(review.getReview_date());
+                if (review.getReview_img() != null) {
+                    reviewDto.setReviewImg(review.getReview_img());
+                }
                 reviewDtoList.add(reviewDto);
             }
         }
         return reviewDtoList;
+    }
+
+    // 내가 쓴 리뷰 불러오기
+    public List<ReviewDto> myReview(String id) {
+        Users users = userRepository.findByUserEmail(id);
+        long userId = users.getUserId();
+        List<Review> reviewList = reviewRepository.findByUserUserId(userId);
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+
+        for(Review review : reviewList) {
+            ReviewDto reviewDto = new ReviewDto();
+            reviewDto.setReviewId(review.getReview_id());
+            reviewDto.setReviewTitle(review.getReview_title());
+            reviewDto.setReviewContent(review.getReview_content());
+            reviewDto.setReviewRate(review.getReview_rate());
+            reviewDto.setUserName(review.getUser().getUserName());
+            reviewDto.setReviewDate(review.getReview_date());
+            reviewDto.setProductName(review.getProduct().getProductName());
+            reviewDto.setProductImgFst(review.getProduct().getProductImgFst());
+            reviewDto.setProductSize(review.getProduct().getSizeStatus().toString());
+            if (review.getReview_img() != null) {
+                reviewDto.setReviewImg(review.getReview_img());
+            }
+            reviewDtoList.add(reviewDto);
+        }
+        return reviewDtoList;
+    }
+
+    // 내가 쓴 리뷰 삭제하기
+    public boolean deleteReview (String reviewId) {
+        long id = Long.parseLong(reviewId);
+        reviewRepository.deleteById(id);
+        return true;
     }
 }

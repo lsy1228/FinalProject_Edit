@@ -20,7 +20,7 @@ const InnerContainer = styled.div`
         margin-bottom: 20px;
     }
     .wrapper {
-        margin: 0 40px;
+        margin: 0 60px;
         display: flex;
         flex-wrap: wrap;
         .product {
@@ -43,6 +43,11 @@ const InnerContainer = styled.div`
             }
         }
     }
+    @media (max-width: 390px) {
+            .wrapper {
+                margin: 0 30px;
+            }
+        }
 `;
 
 
@@ -70,10 +75,6 @@ const Wishlist = () => {
         setWish(!wish);
     }
 
-    const clickLikeProduct = (productId) => {
-        console.log(productId);
-        navigate(`/product/${productId}`);
-    }
 
     return (
         <Container>
@@ -85,16 +86,16 @@ const Wishlist = () => {
                 <div className="wrapper">
                     {product && product.map((e)=> (
                     <div className="product" key={e.productId}>
-                        <img src={e.productImgFst} alt="" onClick={()=>clickLikeProduct(e.productId)}/>
+                        <img src={e.productImgFst} alt="" />
                         <div className="wrapProduct">
                             <div className="productInfo">
                                 <div className="name">{e.productName}</div>
                                 <div className="price">{e.productPrice.toLocaleString()}</div>
                             </div>
-                            <button onClick={()=>deleteWish(id, e.productId)}>X</button> 
-                            </div> 
+                            <button onClick={()=>deleteWish(id, e.productId)}>X</button>
+                            </div>
                         </div>
-                       ))}  
+                       ))}
                 </div>
             </InnerContainer>
         </Container>

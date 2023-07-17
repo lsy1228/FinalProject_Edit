@@ -9,21 +9,22 @@ import { Link } from "react-router-dom";
 
 
 const Container = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow-y: scroll;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow-y: scroll;
 `;
 const InerContainer = styled.div`
-display: flex;
-flex-direction:column;
-width: 400px;
-height: 750px;
-a{  
-    width: 398px;
-    height: 40px;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  width: 400px;
+  height: 750px;
+  a{
+    width: 100%;
+    height: 38px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,46 +34,53 @@ a{
     color: black;
     background-color: white;
     &:hover{
-        background-color: black;
-        color:white;
+      background-color: black;
+      color:white;
     }
-}
-.top{
+    @media only screen and ( max-width: 390px){
+      width: 380px;
+      margin-left: 4px;
+    }
+  }
+  .top{
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 10px;
 
-}
-.input {
-   width: 100%;
-}
-input {
+  }
+  .input {
+    width: 100%;
+  }
+  input {
     width: 395px;
     height: 40px;
     margin-top: 20px;
     font-size: 10px;
     border: 1px solid #ccc;
     &::placeholder {
-        padding: 5px;
-        font-size: 10px;
+      padding: 5px;
+      font-size: 10px;
     };
-}
-.emailBtn,
-.verifyBtn,
-.addrBtn { 
+    @media only screen and ( max-width: 390px){
+      width: 380px;
+    }
+  }
+  .emailBtn,
+  .verifyBtn,
+  .addrBtn {
     text-align: right;
-    width: 50px;   
+    width: 50px;
     font-size: 10px;
     background-color: white;
     border: none;
     &:hover{
-        color: #CCC;
+      color: #CCC;
     }
     margin-bottom : 10px
-}
-.singUp {
+  }
+  .singUp {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,34 +88,34 @@ input {
     /* height: 38px; */
     margin-top: 20px;
     background-color: white;
-}
+  }
 
-.hint {
-        width: 100%;
-      display: flex;
-      margin: 5px 0px 0px 8px;
-      justify-content:right;
-      align-items:center;
-      font-size: 12px;
-      color: #999;
-}
-.addrFind {
+  .hint {
+    width: 100%;
+    display: flex;
+    margin: 5px 0px 0px 8px;
+    justify-content:right;
+    align-items:center;
+    font-size: 12px;
+    color: #999;
+  }
+  .addrFind {
     margin-right: 10px;
     width: 170px;
-}
+  }
 
-.addrBtn {
+  .addrBtn {
     height: 40px;
-}
+  }
 
-.success {
+  .success {
     color: royalblue;
-}
+  }
 
-.error {
+  .error {
     color: red;
-}
-.enable-button {
+  }
+  .enable-button {
     font-size: 10px;
     /* font-weight: bold; */
     margin-bottom: 20px;
@@ -115,8 +123,11 @@ input {
     height: 38px;
     color: white;
     background-color: black;
-}
-.enable-button:active {
+    @media only screen and ( max-width: 390px){
+      width: 380px;
+    }
+  }
+  .enable-button:active {
     font-size: 10px;
     /* font-weight: bold; */
     width: 100%;
@@ -124,10 +135,13 @@ input {
     color: white;
     background-color: black;
     &:hover {
-        border: 1px solid black;
+      border: 1px solid black;
     }
-}
-.disable-button {
+    @media only screen and ( max-width: 390px){
+      width: 380px;
+    }
+  }
+  .disable-button {
     width: 100%;
     height: 38px;
     margin-bottom: 20px;
@@ -136,13 +150,16 @@ input {
     background-color: white;
     border: 1px solid black;
     &:hover{
-        color: #CCC;
+      color: #CCC;
     }
-}
+    @media only screen and ( max-width: 390px){
+      width: 380px;
+    }
+  }
 `;
 
 const SignUp = () => {
-   
+
     const navigate = useNavigate();
 
     // 키보드 입력 받기
@@ -173,22 +190,22 @@ const SignUp = () => {
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
     const {addr, setAddr} = context;
-    
 
 
-     //주소찾기 영역
+
+    //주소찾기 영역
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     // 팝업창 열기
     const openPostCode = () => {
         setIsPopupOpen(true);
     }
-     
-	// 팝업창 닫기
+
+    // 팝업창 닫기
     const closePostCode = (e) => {
         setIsPopupOpen(false);
     }
-    
+
 
     // 이름 정규식
     const onChangeName = (e) => {
@@ -202,8 +219,8 @@ const SignUp = () => {
         }
     }
 
-     //메일 정규식
-     const onChangeMail = (e) => {
+    //메일 정규식
+    const onChangeMail = (e) => {
         const inputEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         const emailCurrent = e.target.value;
         setInputEmail(emailCurrent);
@@ -213,7 +230,7 @@ const SignUp = () => {
         } else {
             setEmailMessage('이메일 형식이 올바르지 않습니다.')
             setIsEmail(false)
-        } 
+        }
     }
 
     //비밀번호 정규식
@@ -227,7 +244,7 @@ const SignUp = () => {
         } else {
             setPwMessage('안전한 비밀번호에요 : )')
             setIsPw(true);
-        }        
+        }
     }
 
     //비밀번호 확인
@@ -240,11 +257,11 @@ const SignUp = () => {
         } else {
             setConPwMessage('비밀 번호가 일치 합니다. )')
             setIsConPw(true);
-        }      
+        }
     }
 
-     //전화번호 정규식
-     const onChangePhone = (e) => {
+    //전화번호 정규식
+    const onChangePhone = (e) => {
         const inputPhoneRegex = /^\d{3}\d{4}\d{4}$/;
         const phoneCurrent = e.target.value;
         setInputPhone(phoneCurrent);
@@ -254,23 +271,23 @@ const SignUp = () => {
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.');
             setIsPhone(true);
-        } 
+        }
     }
     console.log(isPhone);
 
 
-    const onClickEmailAuth = async() => { 
+    const onClickEmailAuth = async() => {
         console.log("이메일 인증 호출 : " + inputEmail);
         const res = await AxiosFinal.mailCode(inputEmail);
-				// Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고, 
-				//서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
+        // Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고,
+        //서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
         console.log(res.data);
 
-    }   
+    }
 
 
-       // 이메일 인증코드 유효성 검사
-       const onClickCode = async() => {
+    // 이메일 인증코드 유효성 검사
+    const onClickCode = async() => {
         console.log(inputEmail, code, code.length);
         console.log(typeof(code));
         const res = await AxiosFinal.mailCodeck(inputEmail, code);
@@ -282,7 +299,7 @@ const SignUp = () => {
             setCodeMessage("인증 코드가 일치하지 않습니다.");
             setIsCode(false);
         }
-          
+
     }
 
 //    const onChangeAddr = (e) => {
@@ -317,12 +334,12 @@ const SignUp = () => {
         } else {
             alert("이미 가입된 회원입니다");
         }
-     }
+    }
 
 
 
 
-   
+
     return(
         <Container>
             <InerContainer>
@@ -333,14 +350,14 @@ const SignUp = () => {
                     <div className="item">
                         <input type="text" placeholder="NAME" onChange={onChangeName}/>
                     </div>
-                
+
                     <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"onChange={onChangeMail}/>
                         <button className="emailBtn" onClick={onClickEmailAuth}>SEND</button>
                     </div>
                     <div className="hint">
                         {inputEmail.length > 0 && (
-                        <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>)}
+                            <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>)}
                     </div>
                     <div className="item1">
                         <input className="verify" type="text" value={code} onChange={e => setCode(e.target.value)} placeholder="VERIFYCODE" />
@@ -348,28 +365,28 @@ const SignUp = () => {
                     </div>
                     <div className="hint">
                         {code.length > 0 && (
-                        <span className={`message ${isCode ? 'success' : 'error'}`}>{codeMessage}</span>)}
+                            <span className={`message ${isCode ? 'success' : 'error'}`}>{codeMessage}</span>)}
                     </div>
 
                     <div className="item">
                         <input type="password" placeholder="PWD" onChange={onChangePw}/>
                     </div>
                     <div className="hint">
-                            {inputPw.length > 0 && (
+                        {inputPw.length > 0 && (
                             <span className={`message ${isPw ? 'success' : 'error'}`}>{pwMessage}</span>)}
                     </div>
                     <div className="item">
                         <input type="password" placeholder="PWD CHECK" onChange={onChangeConPw}/>
                     </div>
                     <div className="hint">
-                            {inputPw.length > 0 && (
+                        {inputPw.length > 0 && (
                             <span className={`message ${isConPw ? 'success' : 'error'}`}>{conPwMessage}</span>)}
                     </div>
                     <div className="item">
                         <input type="phone" placeholder="PHONE" onChange={onChangePhone}/>
                     </div>
                     <div className="hint">
-                            {inputPhone.length > 0 && (
+                        {inputPhone.length > 0 && (
                             <span className={`message ${isPhone ? 'success' : 'error'}`}>{phoneMessage}</span>)}
                     </div>
 
@@ -377,16 +394,16 @@ const SignUp = () => {
                         <input type="text" placeholder="ADDRESS" className="addrInput"  value={addr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
-                            {isPopupOpen && (                    
-                                    <PopupPostCode onClose={closePostCode} />
-                            )} 
+                            {isPopupOpen && (
+                                <PopupPostCode onClose={closePostCode} />
+                            )}
                         </div>
                     </div>
                     <div>
-                    {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ?
-                    <button className="enable-button" onClick={onClickSignUp}>CREATE</button> :
-                    <button className="disable-button">INPUT INFORMATION</button> }
-                    </div>                                     
+                        {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ?
+                            <button className="enable-button" onClick={onClickSignUp}>CREATE</button> :
+                            <button className="disable-button">INPUT INFORMATION</button> }
+                    </div>
                 </div>
                 <Link to="/Login">LOGIN</Link>
             </InerContainer>

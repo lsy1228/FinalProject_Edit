@@ -26,6 +26,7 @@ public class Review {
     @Column(nullable = false)
     private int review_rate;
     private LocalDate review_date;
+    private String review_img;
     @ManyToOne(fetch = FetchType.LAZY) // 많은 리뷰가 하나의 상품에 달리기 때문
     @JoinColumn(name = "product_id")
     private Product product;

@@ -17,6 +17,23 @@ const Container = styled.div`
         border-radius: 10px;
  }
 
+    @media (max-width: 390px) {
+        .modal {
+            position: fixed;
+            width: 390px;
+            height: 600px;
+            left: 0;
+        }
+        .form {
+            .main {
+                .product {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+
     .openModal {
         display: flex; // 모달이 보이도록 함
         align-items: center;
@@ -167,13 +184,20 @@ const Modal = (props) => {
     }
     
     const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
-        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
-        if(response.data) {
-            alert("QnA 작성이 완료되었습니다");
-            close();
+        if(inputTitle === "" || inputContent === "") {
+            alert("제목과 내용 모두 입력해주세요");
+            return;
         } else {
-            alert("QnA 작성에 실패하였습니다");
+            const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
+            if(response.data) {
+                alert("QnA 작성이 완료되었습니다");
+                close();
+            } else {
+                alert("QnA 작성에 실패하였습니다");
+            }
         }
+        setInputTitle("");
+        setInputContent("");
     }
 
     useEffect(()=> {

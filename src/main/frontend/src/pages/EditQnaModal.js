@@ -17,6 +17,15 @@ const Container = styled.div`
         background-color: white;
         border-radius: 10px;
  }
+    @media (max-width: 390px) {
+            .modal {
+                display: none;
+                position: fixed;
+                width: 390px;
+                height: 600px;
+                left: 0;
+            }
+        }
 
     .openModal {
         display: flex; // 모달이 보이도록 함

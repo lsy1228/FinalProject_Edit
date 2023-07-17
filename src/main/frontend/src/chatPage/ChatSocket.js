@@ -114,7 +114,7 @@ const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://localhost:8111/ws/chat`;
+    const webSocketUrl = `ws://52.79.139.223:8111/ws/chat`;
     const roomId = window.localStorage.getItem("chatRoomId");
     const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);
@@ -176,7 +176,11 @@ const ChatSocket = () => {
         }
         ws.current.onmessage = (evt) => {
             const data = JSON.parse(evt.data);
+            console.log("evt:",evt);
+            console.log("evt.data:",evt.data);
+            console.log("data:",data);
             console.log(data.message);
+            console.log(ws);
             setRcvMsg(data.message);
             setItems((prevItems) => [...prevItems, data]);
       };

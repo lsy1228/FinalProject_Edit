@@ -7,7 +7,6 @@ import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import Pagenation from "../pages/Pagenation";
 
-
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -15,8 +14,6 @@ const Container = styled.div`
     flex-direction: column;
       @media only screen and ( max-width: 390px){
         width: 380px;
-
-        /* margin:  0px 10px 0px 10px; */
     }
 
 `
@@ -24,7 +21,7 @@ const Container = styled.div`
 const Mainboby=styled.div`
 
     @media only screen and ( max-width: 390px){
-        width: 390px;
+        width: 380px;
         height: 100vh;
     }
     `
@@ -34,14 +31,9 @@ const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-
-
     @media only screen and ( max-width: 390px){
         display: flex;
-        align-items: center;
-        justify-content: center;
         width: 390px;
-
       }
 
 `
@@ -51,10 +43,11 @@ const Container_in = styled.div`
     height: 500px;
     width: 300px;
     margin-left: 30px;
+    margin-left: 70px;
     @media only screen and ( max-width: 390px){
         width: 193px;
         height: 300px;
-        margin-left: 0;
+        margin-left: 0px;
       }
 
 
@@ -91,7 +84,6 @@ const Container_in = styled.div`
             width: 100px;
             font-size: 13px;
       }
-
     }
 
     .price{
@@ -113,27 +105,24 @@ const Filter = styled.div`
     float: right;
     display: flex;
     cursor: pointer;
-
-
     @media only screen and ( max-width: 390px){
         margin: 20px 0px 20px 0px;
-        width: 390px;
+        width: 380px;
         align-items: center;
         justify-content: center;
       }
 
     .name{
+        border-right: 1px solid black;
         width: 50px;
         height: 16px;
-        border-right: 1px solid black;
     }
 
     .lowPrice{
+        border-right: 1px solid black;
         margin-left: 10px;
         width: 80px;
         height: 16px;
-        border-right: 1px solid black;
-
     }
 
     .highPrice{
@@ -263,6 +252,7 @@ const Top = () => {
 
     )
 };
+
 
 
 

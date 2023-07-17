@@ -12,12 +12,10 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    display: flex;    
+    display: flex;
     flex-direction: column;
       @media only screen and ( max-width: 390px){
-        width: 390px;
-
-        /* margin:  0px 10px 0px 10px; */
+        width: 380px;
     }
 
 `
@@ -25,7 +23,7 @@ const Container = styled.div`
 const Mainboby=styled.div`
 
     @media only screen and ( max-width: 390px){
-        width: 390px;
+        width: 380px;
         height: 100vh;
     }
     `
@@ -35,14 +33,9 @@ const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-
-
     @media only screen and ( max-width: 390px){
         display: flex;
-        align-items: center;
-        justify-content: center;
         width: 390px;
-
       }
 
 `
@@ -52,10 +45,11 @@ const Container_in = styled.div`
     height: 500px;
     width: 300px;
     margin-left: 30px;
+    margin-left: 70px;
     @media only screen and ( max-width: 390px){
         width: 193px;
         height: 300px;
-        margin-left: 0;
+        margin-left: 0px;
       }
 
 
@@ -115,23 +109,22 @@ const Filter = styled.div`
     cursor: pointer;
     @media only screen and ( max-width: 390px){
         margin: 20px 0px 20px 0px;
-        width: 390px;
+        width: 380px;
         align-items: center;
         justify-content: center;
       }
 
     .name{
+        border-right: 1px solid black;
         width: 50px;
         height: 16px;
-        border-right: 1px solid black;
     }
 
     .lowPrice{
+        border-right: 1px solid black;
         margin-left: 10px;
         width: 80px;
         height: 16px;
-        border-right: 1px solid black;
-
     }
 
     .highPrice{
@@ -139,6 +132,7 @@ const Filter = styled.div`
         margin-left: 10px;
     }
 `
+
 
 
 
@@ -262,6 +256,7 @@ const Shop = () => {
       
     )
 };
+
 
 
 export default Shop;        

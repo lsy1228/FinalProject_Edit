@@ -101,24 +101,24 @@ const Container=styled.div`
 }
 `
 const AdminChatSocket = (props) => {
-    console.log(props);
-    console.log(props.setRoomId);
-    console.log(items)
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://localhost:8111/ws/chat`;
+    const webSocketUrl = `ws://52.79.139.223:8111/ws/chat`;
     const roomId = props.setRoomId;
     const sender = "iMMUTABLE_관리자";
     let ws = useRef(null);
     const [items, setItems] = useState([]);
-
+    //채팅 입력 내용이 바뀌는 값
     const onChangMsg = (e) => {
         setInputMsg(e.target.value)
     }
+    //엔터를 누르면 메시지를 보냄
     const onEnterKey = (e) => {
         if(e.key === 'Enter') onClickMsgSend(e);
     }
+
+    // 메시지를 보냄
     const onClickMsgSend = (e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
@@ -133,16 +133,8 @@ const AdminChatSocket = (props) => {
                 setInputMsg("");
         }
     }
-    const onClickMsgClose = () => {
-        ws.current.send(
-            JSON.stringify({
-            "type":"CLOSE",
-            "roomId": roomId,
-            "sender":sender,
-            "message":"종료 합니다."}));
-        ws.current.close();
-        alert("채팅을 종료합니다.")
-    }
+
+
     useEffect(() => {
         console.log("방번호 : " + roomId);
         if (!ws.current) {
@@ -194,7 +186,6 @@ const AdminChatSocket = (props) => {
                               </div>
                     })}
                      <div ref={messageEndRef}></div>
-
                 </div>
                 <div className="sendArea">
                     <input className="msg_input" placeholder="내용을 입력하세요" value ={inputMsg} onChange={onChangMsg} onKeyUp={onEnterKey}/>
