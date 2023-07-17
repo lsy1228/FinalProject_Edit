@@ -6,53 +6,56 @@ import ModalEmail from "./ModalEmail";
 
 
 const Container = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: center;
-    overflow-y: scroll;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  overflow-y: scroll;
 `;
 const InerContainer = styled.div`
-    align-items: center;
-    width: 400px;
-    a{
+  align-items: center;
+  width: 400px;
+  a{
     text-decoration: none;
     color: black;
+  }
+  .top{
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 50px;
+  }
+  .input {
+    margin-top: 30px;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 10px;
+    border: 1px solid #ccc;
+    &::placeholder {
+      padding: 5px;
+      font-size: 10px;
+    };
+    @media only screen and ( max-width: 390px){
+      width: 380px;
     }
-    .top{
-        justify-content: center;
-        align-items: center;
-        font-weight: bolder;
-        font-size: 50px;
+  }
+  .findPwdBtn,
+  .findBtn {
+    margin-top: 20px;
+    text-align: center;
+    width: 200px;
+    font-size: 10px;
+    background-color: white;
+    border: none;
+    &:hover{
+      color: #CCC;
     }
-    .input {
-        margin-top: 30px;
-    }
-    input {
-        width: 100%;
-        height: 40px;
-        margin-top: 20px;
-        font-size: 10px;
-        border: 1px solid #ccc;
-        &::placeholder {
-            padding: 5px;
-            font-size: 10px;
-        };
-    }
-    .findPwdBtn,
-    .findBtn {
-        margin-top: 20px;
-        text-align: center;
-        width: 200px;   
-        font-size: 10px;
-        background-color: white;
-        border: none;
-        &:hover{
-            color: #CCC;
-        }
-        margin-bottom : 10px
-    }
+    margin-bottom : 10px
+  }
 `;
 const FindEmail = () => {
     // useState 이용하여 상태를 업데이트한다.
@@ -69,13 +72,13 @@ const FindEmail = () => {
     const closeModal = () =>{
         setModalOpen(false);
     };
-    
+
     //inputEamil 업데이트
     const handleEmailChange = (e) => {
         setInputEmail(e.target.value);
     };
 
-    const handleSearchId = async() =>{ 
+    const handleSearchId = async() =>{
         console.log("click")
         // 비동기 요청을 통해 서버로 부터 userEmail 검색 요청 
         console.log(inputEmail);
