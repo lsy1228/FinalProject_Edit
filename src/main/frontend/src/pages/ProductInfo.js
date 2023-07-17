@@ -153,8 +153,7 @@ const InnerContainer = styled.div`
 
 const Review = styled.div`
     width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
+    height: auto;
     margin-bottom: 30px;
     .review {
         margin: 0 40px;
@@ -241,8 +240,7 @@ const ReviewTable = styled.table`
 
 const QnA = styled.div`
     width: 100%;
-    height: 300px;
-    padding-bottom: 20px;
+    height: auto;
     .qna {
         margin: 0 40px;
         .qnaBoard {
