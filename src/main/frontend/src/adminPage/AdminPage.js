@@ -272,9 +272,9 @@ const AdminPage=()=>{
     const [newQna,setNewQna] = useState(0);
     //헤드 주문상태창 신규 갱신
     const onReLoadData=async()=>{
-        const newOrder = await AxiosFinal.newOrderCheck("CHECK");
-        const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
-        const newQna = await AxiosFinal.newQnaCheck("HOLD");
+        const newOrder = await AxiosFinal.newOrderCheck("CHECK",tokenAdmin);
+        const shipOrder = await AxiosFinal.shipOrderCheck("SHIP",tokenAdmin);
+        const newQna = await AxiosFinal.newQnaCheck("HOLD",tokenAdmin);
          if(newOrder.status===401){
            navigate("/Admin401Error")
          }
