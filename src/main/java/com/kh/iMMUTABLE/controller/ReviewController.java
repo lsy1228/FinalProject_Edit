@@ -42,8 +42,9 @@ public class ReviewController {
         String reviewDateString = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate reviewDate = LocalDate.parse(reviewDateString);
         long orderId = Long.parseLong(reviewData.get("orderId"));
+        String reviewImg = reviewData.get("imgURL");
 
-        boolean result = reviewService.writeReview(rate, productId, title, content, userEmail, reviewDate, orderId);
+        boolean result = reviewService.writeReview(rate, productId, title, content, userEmail, reviewDate, orderId, reviewImg);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -22,4 +22,5 @@ public class ReviewDto {
     private String productImgFst;
     private String productName;
     private String productSize;
+    private String reviewImg;
 }

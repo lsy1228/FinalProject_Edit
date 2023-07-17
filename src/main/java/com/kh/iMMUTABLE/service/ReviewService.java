@@ -41,7 +41,7 @@ public class ReviewService {
     }
 
     // 리뷰 작성하기
-    public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId) {
+    public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId, String reviewImg) {
         Users users = userRepository.findByUserEmail(userEmail);
         Product product = productRepository.findByProductId(productId);
         Order order = orderRepository.findByOrderId(orderId);
@@ -54,6 +54,9 @@ public class ReviewService {
         review.setProduct(product);
         review.setReview_date(reviewDate);
         review.setOrder(order);
+        if (reviewImg != null) {
+            review.setReview_img(reviewImg);
+        }
         order.setReviewed(true);
         reviewRepository.save(review);
         return true;
@@ -75,6 +78,9 @@ public class ReviewService {
                 reviewDto.setReviewRate(review.getReview_rate());
                 reviewDto.setUserName(review.getUser().getUserName());
                 reviewDto.setReviewDate(review.getReview_date());
+                if (review.getReview_img() != null) {
+                    reviewDto.setReviewImg(review.getReview_img());
+                }
                 reviewDtoList.add(reviewDto);
             }
         }
@@ -99,6 +105,9 @@ public class ReviewService {
             reviewDto.setProductName(review.getProduct().getProductName());
             reviewDto.setProductImgFst(review.getProduct().getProductImgFst());
             reviewDto.setProductSize(review.getProduct().getSizeStatus().toString());
+            if (review.getReview_img() != null) {
+                reviewDto.setReviewImg(review.getReview_img());
+            }
             reviewDtoList.add(reviewDto);
         }
         return reviewDtoList;
