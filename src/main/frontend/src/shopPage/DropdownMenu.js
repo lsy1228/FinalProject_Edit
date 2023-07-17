@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
     background-color: white;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 10px;
     display: flex;
     z-index: 100;
@@ -25,7 +25,7 @@ const Head = styled.div`
         margin: 5px;
         color: black;
     }
-    
+
     .list{
         color: #ccc;
         font-size: 12px;

@@ -10,6 +10,9 @@ import AxiosFinal from "../api/AxiosFinal";
 const Container = styled.div`
     width: 100%;
     display: flex;
+    @media only screen and ( max-width: 390px){
+        width: 380px;
+    }
 `
 
 const Mainbody=styled.div`
@@ -17,6 +20,7 @@ const Mainbody=styled.div`
     margin: 0px 40px 0px 40px;
     @media only screen and ( max-width: 390px){
         margin: 0;
+        width: 380px;
     }
     `
 
@@ -94,10 +98,8 @@ const Head = styled.div`
             margin-left: 20px;
         }
         @media only screen and ( max-width: 390px){
-
             width: 60px;
             flex-direction: column;
-            margin-left: 20px;
         }
     }
 
