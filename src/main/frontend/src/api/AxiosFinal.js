@@ -62,23 +62,50 @@ const AxiosFinal = {
             }
     },
     //어드민페이지 head상태창 신규조회
-    newOrderCheck: async(orderStatus) => {    
+    newOrderCheck: async(orderStatus,token) => {
          const newOrder = {
                 orderStatus : orderStatus
         };
-        return await axios.post(Final_proj + "/adminPage/newOrderList", newOrder);
+        try{
+        return await axios.post(Final_proj + "/adminPage/newOrderList", newOrder,{
+            headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+            },
+        });
+        }catch(error){
+            return error.response.status;
+        }
     },
-    shipOrderCheck: async(orderStatus) => {    
+    shipOrderCheck: async(orderStatus,token) => {
         const shipOrder = {
                 orderStatus : orderStatus
         };
-        return await axios.post(Final_proj + "/adminPage/shipOrderList", shipOrder);
+        try{
+        return await axios.post(Final_proj + "/adminPage/shipOrderList", shipOrder,{
+            headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+            },
+        });
+        }catch(error){
+            return error.response.status;
+        }
     },
-    newQnaCheck: async(qnaStatus) => {    
+    newQnaCheck: async(qnaStatus,token) => {
         const newQna = {
                 qnaStatus : qnaStatus
         };
-        return await axios.post(Final_proj + "/adminPage/qnaLoadList", newQna);
+        try{
+        return await axios.post(Final_proj + "/adminPage/qnaLoadList", newQna,{
+            headers:{
+                       'Content-Type': 'application/json',
+                       'Authorization': 'Bearer ' + token
+            },
+        });
+        }catch(error){
+                return error.response.status;
+        }
     },
     //아이템 업로드
     productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail,token)=>{
