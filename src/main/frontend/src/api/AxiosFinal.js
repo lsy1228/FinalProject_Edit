@@ -567,18 +567,19 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/review/reviewProduct?productId=${productId}`);
     },
 
-     // 리뷰 작성하기
-    submitReview : async(rate, productId, title, content, userEmail, orderId) => {
-        const reviewData = {
-            rate : rate,
-            productId : productId,
-            title : title,
-            content : content,
-            userEmail : userEmail,
-            orderId : orderId
+      // 리뷰 작성하기
+    submitReview : async(rate, productId, title, content, userEmail, orderId, imgURL) => {
+     const reviewData = {
+         rate : rate,
+         productId : productId,
+         title : title,
+         content : content,
+         userEmail : userEmail,
+         orderId : orderId,
+         imgURL : imgURL
         }
         return await axios.post(Final_proj + "/review/writeReview", reviewData);
-    },
+     },
 
     // 제품 별 리뷰 불러오기
     viewReview : async(productName) => {

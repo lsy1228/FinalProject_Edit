@@ -210,9 +210,16 @@ const ReviewTable = styled.table`
     }
     .reviewContent {
         font-size: 14px;
+        text-align: left;
         background-color: whitesmoke;
         .content {
-            margin: 5px 60px;
+            margin: 0 60px;
+        }
+        img {
+            width: 500px;
+            height: auto;
+            margin: 10px 30px 0 30px;
+            padding: 10px 30px;
         }
     }
     .noReview {
@@ -232,6 +239,16 @@ const ReviewTable = styled.table`
             }
             .rate {
                 white-space: nowrap;
+            }
+        }
+        .reviewContent {
+            .content {
+                margin: 10px 10px;
+            }
+            img {
+                width: 370px;
+                height: auto;
+                margin: 10px 10px;
             }
         }
     }
@@ -311,14 +328,16 @@ const QnATable = styled.table`
         font-size: 14px;
         .content {
             margin: 0 60px;
-            margin-bottom: 15px;
+            text-align: left;
         }
     }
     .qnaReply {
-        background-color: #dbdbdb;
+        background-color: whitesmoke;
+        font-weight: bold;
         .reply {
-            margin: -10px 60px;
-            padding: 10px 0;
+            margin: 10px 30px 0 30px;
+            padding: 10px 40px;
+            text-align: left;
         }
     }
     .noQna {
@@ -573,7 +592,10 @@ const ProductInfo = () => {
                                 {rvExpanded.includes(index) && (
                                 <tr>
                                     <td colSpan={5} className="reviewContent">
-                                        <p className="content" style={{textAlign:"left"}}>{e.reviewContent}</p>
+                                        <p className="content" >{e.reviewContent}</p>
+                                        {e.reviewImg && (
+                                            <img src={e.reviewImg} alt=""  />
+                                        )}
                                     </td>
                                 </tr>
                                 )}
@@ -627,10 +649,10 @@ const ProductInfo = () => {
                                     {expanded.includes(index) && (
                                     <tr>
                                     <td colSpan={5} className="qnaContent">
-                                        <p className="content" style={{textAlign:"left"}}>{e.qnaContent}</p>
+                                        <p className="content">{e.qnaContent}</p>
                                         {e.reply &&
                                            <div className="qnaReply">
-                                            <p className="reply" style={{textAlign:"left"}}>{e.reply}</p>
+                                            <p className="reply">▶ {e.reply}</p>
                                            </div>
                                         }
                                     </td>
