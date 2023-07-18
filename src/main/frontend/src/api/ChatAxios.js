@@ -22,7 +22,13 @@ const ChatAxios = {
             "roomName" : roomName
         }
         return await axios.post(Final_proj + "/chat/removeChatData", removeChatData);
+    },
+    updateChatData: async function(roomName,lastMessage) {
+        const updateChatData= {
+            "roomName" : roomName,
+            "lastMessage" : lastMessage
+        }
+        return await axios.post(Final_proj + "/chat/updateChatData", updateChatData);
     }
-
 };
 export default ChatAxios;

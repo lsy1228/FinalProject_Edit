@@ -489,6 +489,10 @@ const Main= () =>{
             setCartList(rsp.data);
         }
 
+    //자식 페이지에서 랜더링을 가져온다
+    const cPage = (e) => {
+      setOnChatOpen(e)
+    };
 
 
     return(
@@ -566,7 +570,7 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            {onChatOpen === true && <ChatSocket />}
+                            {onChatOpen === true && <ChatSocket changePage={cPage}/>}
                             {onChatOpen === false && <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>}
 
                     </Chat>
