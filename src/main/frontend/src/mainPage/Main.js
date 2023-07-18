@@ -420,6 +420,7 @@ const Main= () =>{
             window.localStorage.setItem("chatRoomId", res.data);
             setOnChatOpen(true);
             const roomData = await ChatAxios.saveChatData(window.localStorage.getItem("chatRoomId"),window.localStorage.getItem("userIdSuv"));
+
         } catch(error) {
             console.log(error);
         }

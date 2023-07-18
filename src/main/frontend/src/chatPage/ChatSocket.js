@@ -111,8 +111,12 @@ const Container=styled.div`
 }
 `
 
-const ChatSocket = () => {
+const ChatSocket = (props) => {
+    const {setRoomId} = props;
     const [socketConnected, setSocketConnected] = useState(false);
+
+    const [socketClose, setSocketClose] = useState();
+
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
     const webSocketUrl = `ws://localhost:8111/ws/chat`;
@@ -158,6 +162,7 @@ const ChatSocket = () => {
     const onMsgClose =async()=>{
         window.localStorage.removeItem("chatRoomId");
         const response = await ChatAxios.removeChatData(roomId);
+        setSocketClose(true);
     }
 
    useEffect(() => {
@@ -166,28 +171,33 @@ const ChatSocket = () => {
                ws.current = new WebSocket(webSocketUrl);
                ws.current.onopen = () => {
                    console.log("connected to " + webSocketUrl);
-               setSocketConnected(true);
-               };
-           }
-           if (socketConnected) {
-               ws.current.send(
+                   setSocketConnected(true);
+                   ws.current.send(
                    JSON.stringify({
                    "type": "ENTER",
                    "roomId": roomId,
                    "sender": sender,
                    "message": "처음으로 접속 합니다."}));
+               };
            }
+           console.log(socketConnected);
+//           if (socketConnected) {
+//               ws.current.send(
+//                   JSON.stringify({
+//                   "type": "ENTER",
+//                   "roomId": roomId,
+//                   "sender": sender,
+//                   "message": "처음으로 접속 합니다."}));
+//           }
            ws.current.onmessage = (evt) => {
                const data = JSON.parse(evt.data);
-               console.log("evt:",evt);
-               console.log("evt.data:",evt.data);
-               console.log("data:",data);
-               console.log(data.message);
-               console.log(ws);
                setRcvMsg(data.message);
                setItems((prevItems) => [...prevItems, data]);
          };
-       }, [socketConnected]);
+       },[props]);
+        //새로고침 없이 랜더링이 일어남
+       useEffect(() => {
+        }, [items]);
 
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
