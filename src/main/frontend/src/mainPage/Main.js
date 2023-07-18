@@ -565,7 +565,7 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            {onChatOpen === true && <ChatSocket/>}
+                            {onChatOpen === true && <ChatSocket />}
                             {onChatOpen === false && <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>}
 
                     </Chat>
