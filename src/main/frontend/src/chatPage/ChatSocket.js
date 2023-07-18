@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef ,useCallback} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import ChatAxios from "../api/ChatAxios.js";
 
@@ -111,7 +111,8 @@ const Container=styled.div`
 }
 `
 
-const ChatSocket = () => {
+const ChatSocket = (props) => {
+    const {changePage}=props;
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -120,8 +121,6 @@ const ChatSocket = () => {
     const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);
     const [items, setItems] = useState([]);
-    const [,updateState] = useState();
-    const forceUpdate = useCallback(()=> updateState({}),[]);
 
        const onChangMsg = (e) => {
            setInputMsg(e.target.value)
@@ -153,7 +152,6 @@ const ChatSocket = () => {
             ws.current.close();
             window.localStorage.removeItem("chatRoomId");
             const response = await ChatAxios.removeChatData(roomId);
-            updateState("채팅을 종료합니다.");
         }
 
    useEffect(() => {
@@ -191,7 +189,7 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <button className="chatClose" onClick={()=>{onClickMsgClose();}}>chat close</button>
+                    <button className="chatClose" onClick={()=>{onClickMsgClose();changePage(false);}}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
                 </div>
                 <div className="chatContentArea">
