@@ -128,10 +128,11 @@ const ChatSocket = (props) => {
        const onEnterKey = (e) => {
            if(e.key === 'Enter') onClickMsgSend(e);
        }
-       const onClickMsgSend = (e) => {
+       const onClickMsgSend = async(e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
+            const response = await ChatAxios.updateChatData(roomId,inputMsg);
             e.preventDefault();
             ws.current.send(
                 JSON.stringify({
@@ -141,6 +142,7 @@ const ChatSocket = (props) => {
                 "message":inputMsg}));
                 setInputMsg("");
               }
+
         }
         const onClickMsgClose = async() => {
             ws.current.send(
