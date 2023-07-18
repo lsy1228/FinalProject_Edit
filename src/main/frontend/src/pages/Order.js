@@ -33,7 +33,8 @@ const InnerContainer = styled.div`
 
 const OrderTable = styled.div`
     width: 100%;
-    height: 550px;
+    margin-bottom: 50px;
+    height: auto;
     .wrapper {
         margin: 0 40px;
         .orderTable {
