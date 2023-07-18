@@ -419,19 +419,19 @@ const ModifyingInfo = () => {
 
 
     const onClickInfoSave = async() => {
-        let modifiedUser = { ...user }; // 기존 유저 정보를 복사하여 수정할 정보를 반영할 객체를 생성합니다.
+        let modifiedUser = { ...user }; // 기존 유저 정보를 복사하여 수정할 정보를 반영할 객체를 생성
 
-        // 이름이 변경되었을 때만 수정 정보에 반영합니다.
+        // 이름이 변경되었을 때만 수정 정보에 반영
         if (userName) {
             modifiedUser = { ...modifiedUser, userName: userName };
         }
 
-        // 비밀번호가 변경되었을 때만 수정 정보에 반영합니다.
+        // 비밀번호가 변경되었을 때만 수정 정보에 반영
         if (userPwd) {
             modifiedUser = { ...modifiedUser, userPwd: userPwd };
         }
 
-        // 휴대전화 번호가 변경되었을 때만 수정 정보에 반영합니다.
+        // 휴대전화 번호가 변경되었을 때만 수정 정보에 반영
         if (userPhone) {
             modifiedUser = { ...modifiedUser, userPhone: userPhone };
         }
