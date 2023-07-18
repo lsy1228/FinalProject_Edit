@@ -61,7 +61,7 @@ const OrderComplete = () => {
                 },
                 {
                     headers: {
-                        Authorization: `KakaoAK b630886b504618fa3d906332fdbdb75e`,       // 카카오톡 API 접속 로그인 후 내 애플리케이션 Admin키 저장
+                        Authorization: `KakaoAK 52693ed4af5f5788282f62fcf59992e9`,       // 카카오톡 API 접속 로그인 후 내 애플리케이션 Admin키 저장
                         "Content-type": `application/x-www-form-urlencoded;charset=utf-8`
                     },
                 }

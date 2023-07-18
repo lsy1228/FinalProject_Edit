@@ -138,12 +138,11 @@ const ToggleButton = styled.button`
 `;
 
 const Body = styled.div`
-    width: 100%;
+    width: 900px;
     height: 100%;
     //이미지를 사용 하려면  ${0}양식 사용
     background-image:url(${bckimg});
-    background-size: contain;
-    background-repeat: none;
+    background-size: cover;
     animation: transX 15s linear; 
     //애니메이션 무한반복
     animation-iteration-count: infinite;
@@ -565,7 +564,7 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            {onChatOpen === true && <ChatSocket/>}
+                            {onChatOpen === true && <ChatSocket />}
                             {onChatOpen === false && <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>}
 
                     </Chat>

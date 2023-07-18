@@ -295,16 +295,6 @@ const AxiosFinal = {
     searchUserEmail: async (email) => {
         return await axios.get(Final_proj+ `/auth/searchEmail?userEmail=${email}`);
     },
-    // 비밀번호 찾기 
-    searchPw: async (name, email, id) => {
-            const searchPw = {
-                name : name,
-                email : email,
-                id : id
-
-            };
-        return await axios.post(Final_proj+ "/searchPw", searchPw);
-     },
     // 회원 가입 여부 확인
     memberRegCheck : async(email) => {
         return await axios.get(Final_proj + `/auth/check?email=${email}`);
@@ -338,16 +328,15 @@ const AxiosFinal = {
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
-    },    
-    // 임시 비밀번호 (고치기)
-    pwdReset : async(email, name) => {
-        const reset = {
-            email : email,
-            name : name
-        }
-        return await axios.post(Final_proj + `/resetPwd`, reset);
     },
-    //채팅
+    // 비밀번호 재설정
+    pwdReset: async (email, pwd) => {
+        const reset = {
+            userEmail : email,
+            userPwd : pwd
+        };
+        return await axios.post(Final_proj+ "/auth/updatePwd", reset);
+    },
 
     //faq 업로드
     faqUpload : async(title, content) => {
