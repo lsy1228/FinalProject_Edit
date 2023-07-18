@@ -44,8 +44,10 @@ public class ChatService {
         return chatRoom;
     }
     public <T> void sendMessage(WebSocketSession session, T message) {
+        System.out.println("chat서비스 : " + message);
         try {
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
+            System.out.println(session);
         } catch(IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -63,6 +65,13 @@ public class ChatService {
     public boolean removeRoom(String roomName){
         System.out.println("차트서비스 roomId : " + roomName);
         int result = chatListRepository.deleteByRoomName(roomName);
+        return true;
+    }
+    //마지막 메시지를 DB에 갱신
+    public boolean saveLastMessage(String roomName, String lastMessage){
+        ChatList chatList = chatListRepository.findByRoomName(roomName);
+        chatList.setLastMessage(lastMessage);
+        chatListRepository.save(chatList);
         return true;
     }
 }

@@ -110,25 +110,26 @@ const Container=styled.div`
      }
 }
 `
+
 const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://52.79.139.223:8111/ws/chat`;
+    const webSocketUrl = `ws://localhost:8111/ws/chat`;
     const roomId = window.localStorage.getItem("chatRoomId");
     const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);
     const [items, setItems] = useState([]);
 
-    const onChangMsg = (e) => {
-        setInputMsg(e.target.value)
-    }
+       const onChangMsg = (e) => {
+           setInputMsg(e.target.value)
+       }
 
-    const onEnterKey = (e) => {
-        if(e.key === 'Enter') onClickMsgSend(e);
-    }
+       const onEnterKey = (e) => {
+           if(e.key === 'Enter') onClickMsgSend(e);
+       }
 
-    const onClickMsgSend = (e) => {
+       const onClickMsgSend = (e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
@@ -140,8 +141,8 @@ const ChatSocket = () => {
                 "sender": sender,
                 "message":inputMsg}));
                 setInputMsg("");
+              }
         }
-    }
     const onClickMsgClose = () => {
         ws.current.send(
             JSON.stringify({
@@ -152,39 +153,41 @@ const ChatSocket = () => {
         ws.current.close();
         alert("채팅을 종료합니다.")
     }
+
+
     const onMsgClose =async()=>{
         window.localStorage.removeItem("chatRoomId");
         const response = await ChatAxios.removeChatData(roomId);
     }
 
-    useEffect(() => {
-        console.log("방번호 : " + roomId);
-        if (!ws.current) {
-            ws.current = new WebSocket(webSocketUrl);
-            ws.current.onopen = () => {
-                console.log("connected to " + webSocketUrl);
-            setSocketConnected(true);
-            };
-        }
-        if (socketConnected) {
-            ws.current.send(
-                JSON.stringify({
-                "type": "ENTER",
-                "roomId": roomId,
-                "sender": sender,
-                "message": "처음으로 접속 합니다."}));
-        }
-        ws.current.onmessage = (evt) => {
-            const data = JSON.parse(evt.data);
-            console.log("evt:",evt);
-            console.log("evt.data:",evt.data);
-            console.log("data:",data);
-            console.log(data.message);
-            console.log(ws);
-            setRcvMsg(data.message);
-            setItems((prevItems) => [...prevItems, data]);
-      };
-    }, [socketConnected]);
+   useEffect(() => {
+           console.log("방번호 : " + roomId);
+           if (!ws.current) {
+               ws.current = new WebSocket(webSocketUrl);
+               ws.current.onopen = () => {
+                   console.log("connected to " + webSocketUrl);
+               setSocketConnected(true);
+               };
+           }
+           if (socketConnected) {
+               ws.current.send(
+                   JSON.stringify({
+                   "type": "ENTER",
+                   "roomId": roomId,
+                   "sender": sender,
+                   "message": "처음으로 접속 합니다."}));
+           }
+           ws.current.onmessage = (evt) => {
+               const data = JSON.parse(evt.data);
+               console.log("evt:",evt);
+               console.log("evt.data:",evt.data);
+               console.log("data:",data);
+               console.log(data.message);
+               console.log(ws);
+               setRcvMsg(data.message);
+               setItems((prevItems) => [...prevItems, data]);
+         };
+       }, [socketConnected]);
 
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!

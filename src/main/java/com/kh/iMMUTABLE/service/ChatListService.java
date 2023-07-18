@@ -26,6 +26,7 @@ public class ChatListService {
             ChatListDto chatListDto = new ChatListDto();
             chatListDto.setRoomName(chatListList.getRoomName());
             chatListDto.setUserId(chatListList.getUserId());
+            chatListDto.setLastMessage(chatListList.getLastMessage());
             chatListDtos.add(chatListDto);
         }
     return chatListDtos;

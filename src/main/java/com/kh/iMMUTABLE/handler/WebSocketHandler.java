@@ -21,7 +21,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         log.warn("{}", payload);
         ChatMessageDto chatMessage = objectMapper.readValue(payload, ChatMessageDto.class);
+//        System.out.println("핸들러 DTO메시지 : "+ chatMessage.getMessage());
+//        System.out.println("핸들러 DTO 룸아이디 : "+ chatMessage.getRoomId());
+        //마지막 메시지를 DB에 넣음
+        chatService.saveLastMessage(chatMessage.getRoomId(),chatMessage.getMessage());
         ChatRoom chatRoom = chatService.findRoomById(chatMessage.getRoomId());
+        System.out.println("핸들러 챗 룸 : " + chatRoom);
         chatRoom.handlerActions(session, chatMessage, chatService);
     }
 }

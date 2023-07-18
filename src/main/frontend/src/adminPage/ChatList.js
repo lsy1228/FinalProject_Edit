@@ -54,7 +54,7 @@ const ChatList=()=>{
           <ChatListView>
             {chatList && chatList.map((l,index)=>
                   <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
-                      {l.userId}
+                      {l.userId} / {l.lastMessage}
                   </ChatListData>)}
           </ChatListView>
 
