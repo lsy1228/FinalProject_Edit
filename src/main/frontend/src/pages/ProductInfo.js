@@ -159,11 +159,17 @@ const Review = styled.div`
         margin: 0 40px;
         height: 100%;
         margin-top: 20px;
-        .reviewBoard {
-            height: 20px;
-            padding-right: 20px;
+        .reviewSort {
+            display: flex;
             font-size: 14px;
-            font-weight: bold;
+            .reviewBoard {
+                height: 20px;
+                padding-right: 20px;
+                font-weight: bold;
+            }
+            .sortReview {
+                padding-right: 20px;
+            }
         }
     }
     @media (max-width: 390px) {
@@ -246,9 +252,11 @@ const ReviewTable = styled.table`
                 margin: 10px 10px;
             }
             img {
+                background-color: aliceblue;
                 width: 370px;
                 height: auto;
                 margin: 10px 10px;
+                padding: 0;
             }
         }
     }
@@ -459,7 +467,9 @@ const ProductInfo = () => {
         if(product.length > 0) {
             const reviewView = async() => {
                 const rsp = await AxiosFinal.viewReview(product[0].productName);
-                console.log(rsp.data); setReviewData(rsp.data);
+                console.log(rsp.data);
+                const sortReviewData = rsp.data.sort((a,b)=>new Date(b.reviewDate)-new Date(a.reviewDate));
+                setReviewData(sortReviewData);
             }
             reviewView();
         }
@@ -516,10 +526,21 @@ const ProductInfo = () => {
         return <div>{stars}</div>
     }
 
+    const sortHighRate = () => {
+        const sortedData = [...reviewData];
+        sortedData.sort((a,b)=>b.reviewRate - a.reviewRate);
+        setReviewData(sortedData);
+    }
+
+    const sortRowRate = () => {
+        const reverseData = [...reviewData];
+        reverseData.sort((a,b)=>a.reviewRate - b.reviewRate);
+        setReviewData(reverseData);
+    }
+
+
 
     const sortedQnaData = qnaData.slice().reverse();            // qnaData 역순으로 정렬(최근에 쓴 문의가 위로 오도록)
-    const sortedReviewData = reviewData.slice().reverse();      // reviewData 역순으로 정렬(최근에 쓴 리뷰가 위로 오도록)
-
 
     return (
         <Container>
@@ -564,7 +585,11 @@ const ProductInfo = () => {
                 </div>)}
                 <Review>
                     <div className="review">
-                        <div className="reviewBoard">Review</div>
+                        <div className="reviewSort">
+                            <div className="reviewBoard">Review</div>
+                            <div className="sortReview" onClick={sortHighRate}>별점 높은 순</div>
+                            <div className="reverseSortReview" onClick={sortRowRate}>별점 낮은 순</div>
+                        </div>
                         <hr />
                         <ReviewTable>
                             <thead>
@@ -577,8 +602,8 @@ const ProductInfo = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {sortedReviewData.length > 0 ?
-                                (sortedReviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
+                                {reviewData.length > 0 ?
+                                (reviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
                                 <React.Fragment key={index}>
                                 <tr>
                                     <td className="number">{reviewOffset+index+1}.</td>
