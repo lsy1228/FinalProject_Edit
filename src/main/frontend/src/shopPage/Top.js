@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
-import DropFiter from "./DropFiter";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
@@ -138,7 +137,6 @@ const Top = () => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
     const {item, setItem} = useContext(UserContext);
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
@@ -183,9 +181,7 @@ const Top = () => {
     }
     });
 
-    const handleFilter = () => {
-        setIsFilterOpen(!isFilterOpen);
-      };
+
 
     const onclick = async(e) => {
         const productName = e.productName;

@@ -178,15 +178,15 @@ const InnerContainer = styled.div`
         width: 390px;
       }
 
-    .t1{
+    .info{
         width: 100px;
         float: left;
 
     }
-    .t2{
+    .info2{
         font-size: 12px;
         display: flex;
-        width: 80px;
+        width: 100px;
         float: right;
     }
 
@@ -312,7 +312,7 @@ const Footer = styled.div`
       }
 
 
-    .tt1{
+    .foot{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -327,7 +327,7 @@ const Footer = styled.div`
     }
 
 
-    .tt2{
+    .footInfo{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -344,14 +344,12 @@ const Footer = styled.div`
 const ModifyingInfo = () => {
 
     const [user, setUser] = useState([]);
-    const [userAddr, setUserAddr] = useState("");
     const [userName, setUserName] = useState("");
     const [userPwd, setUserPwd] = useState("");
     const [userPhone, setUserPhone] = useState("");
     const [userEmail, setUserEmail] = useState("");
 
-    // 키보드 입력 받기 
-    const [inputPw, setInputPw] = useState("")
+
     const [inputConPw, setInputConPw] = useState("");
 
     // 오류 메세지
@@ -361,7 +359,7 @@ const ModifyingInfo = () => {
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
 
-    
+
       //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
     const context = useContext(UserContext);
     const {addr} = context;
@@ -376,7 +374,7 @@ const ModifyingInfo = () => {
      const openPostCode = () => {
          setIsPopupOpen(true);
      }
-      
+
      // 팝업창 닫기
      const closePostCode = (e) => {
          setIsPopupOpen(false);
@@ -393,7 +391,7 @@ const ModifyingInfo = () => {
         } else {
             setPwMessage("")
             setIsPw(true);
-        }        
+        }
     }
 
      //비밀번호 확인
@@ -406,20 +404,6 @@ const ModifyingInfo = () => {
         } else {
             setConPwMessage('비밀 번호가 일치 합니다.')
             setIsConPw(true);
-        }      
-    }
-
-
-    const onClickInfoSave = async() => {
-        console.log("확인");
-        const response = await AxiosFinal.saveUserInfo(userId, userName, userPwd, userAddr, userPhone);
-        const result = response.data;
-        console.log(result);
-        if (result) {
-            alert("수정이 완료되었습니다")
-            nav("/Mypage");
-        } else {
-            alert("수정실패");
         }
     }
 
@@ -433,6 +417,52 @@ const ModifyingInfo = () => {
         getUser();
     }, []);
 
+
+    const onClickInfoSave = async() => {
+        let modifiedUser = { ...user }; // 기존 유저 정보를 복사하여 수정할 정보를 반영할 객체를 생성합니다.
+
+        // 이름이 변경되었을 때만 수정 정보에 반영합니다.
+        if (userName) {
+            modifiedUser = { ...modifiedUser, userName: userName };
+        }
+
+        // 비밀번호가 변경되었을 때만 수정 정보에 반영합니다.
+        if (userPwd) {
+            modifiedUser = { ...modifiedUser, userPwd: userPwd };
+        }
+
+        // 휴대전화 번호가 변경되었을 때만 수정 정보에 반영합니다.
+        if (userPhone) {
+            modifiedUser = { ...modifiedUser, userPhone: userPhone };
+        }
+
+
+        console.log("확인");
+        const response = await AxiosFinal.saveUserInfo(userId, modifiedUser.userName, modifiedUser.userPwd, modifiedUser.userPhone);
+        const result = response.data;
+        console.log(result);
+        if (result) {
+            alert("수정이 완료되었습니다")
+            nav("/Mypage");
+        } else {
+            alert("수정실패");
+        }
+
+
+    }
+
+
+    const onChangeName = (e) => {
+        setUserName(e.target.value)
+    }
+
+    const onChangePhone = (e) => {
+        setUserPhone(e.target.value)
+    }
+
+    const onclickInfoerror = () =>{
+        alert("필수 입력사항을 입력해주세요.")
+    }
 
     const [imageURL,setImageURL] = useState();
     const onSelectProfileImg = (e) => {
@@ -448,12 +478,15 @@ const ModifyingInfo = () => {
             console.log("File avalable at",downloadURL);
             alert("이미지 업로드가 완료되었습니다.")
             setImageURL(downloadURL);
+
         })
         })
-    }; 
+    };
     const onChangeProfileImg =async(userEmail)=>{
         console.log(userEmail,imageURL)
         const response = await AxiosFinal.changeUserImg(userEmail,imageURL);
+        alert("이미지가 등록되었습니다.")
+        nav("/Mypage");
     }
     return(
         <Container>
@@ -468,7 +501,7 @@ const ModifyingInfo = () => {
                         회원 정보 수정
                     </div>
                 </Title>
-              
+
                 <Info>
                     <div className="userInfo">
                         <img src={user.userImg} className="profileImg"/>
@@ -476,38 +509,38 @@ const ModifyingInfo = () => {
                         <button onClick={()=>onChangeProfileImg(user.userEmail)} className="profileChangBtn">이미지 수정</button>
                         <div className="line"></div>
                         <div className="content">
-                        저희 쇼핑몰을 이용해 주셔서 감사합니다. 
+                        저희 쇼핑몰을 이용해 주셔서 감사합니다.
                         <br/>
-                       {user.userName} 님의 변경하실 정보를 입력해주세요. 
+                        {user.userName}님의 변경하실 정보를 입력해주세요.
                         </div>
                     </div>
                 </Info>
-                
-                <InnerContainer >    
-                <div className="t1">기본정보</div>
-                    <div className="t2"><div style={{color:'red'}}>*</div>필수입력사항</div>
+
+                <InnerContainer >
+                <div className="info">기본정보</div>
+                    <div className="info2"><div style={{color:'red'}}>★</div>필수입력사항</div>
                     <Body>
                     <div className="input">
                         <div className="item">
-                            <label >이메일 <div style={{color:'red'}}>*</div></label>
-                            <input type="Email" value={user.userEmail} onChange={e => setUserEmail(e.target.value)}/>
+                            <label >이메일</label>
+                            <input type="Email" value={user.userEmail}/>
                         </div>
                         <div className="item">
-                            <label >이름 <div style={{color:'red'}}>*</div></label>
-                            <input type="text" defaultValue={user.userName}  onChange={e => setUserName(e.target.value)} />
+                            <label >이름 <div style={{color:'red'}}>★</div></label>
+                            <input type="text" placeholder="Name" defaultValue={user.userName}  onChange={onChangeName} />
                         </div>
                         <div className="item">
-                            <label >비밀번호 <div style={{color:'red'}}>*</div></label>
+                            <label >비밀번호 <div style={{color:'red'}}>★</div></label>
                             <input type="password" defaultValue={user.userPwd} placeholder="PWD" onChange={onChangePw}/>
-                        
+
                         <div className="hint">
                                 {userPwd.length > 0 && (
                                 <span className={`message ${isPw ? 'success' : 'error'}`} style={{ color: isPw ? 'blue' : 'red' }}>{pwMessage}</span>)}
                         </div>
                         </div>
                         <div className="item">
-                            <label >비밀번호확인 <div style={{color:'red'}}>*</div></label>
-                            <input type="password" defaultValue={user.userPwd} placeholder="PWD CHECK" onChange={onChangeConPw}/>   
+                            <label >비밀번호확인 <div style={{color:'red'}}>★</div></label>
+                            <input type="password" defaultValue={user.userPwd} placeholder="PWD CHECK" onChange={onChangeConPw}/>
                         <div className="hint">
                             {userPwd.length > 0 && (
                             <span className={`message ${isConPw ? 'success' : 'error'}`} style={{ color: isConPw ? 'blue' : 'red' }}>{conPwMessage}</span>)}
@@ -515,37 +548,37 @@ const ModifyingInfo = () => {
                         </div>
                         <div className="item">
                             <label >주소 </label>
-                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} defaultValue={user.userAddr}onChange={e => setUserAddr(e.target.value)}/>
+                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} defaultValue={user.userAddr}/>
                             <button className="addrBtn" onClick={openPostCode}>주소찾기</button>
                             <div id='popupDom'>
-                                {isPopupOpen && (                    
+                                {isPopupOpen && (
                                         <PopupPostCode onClose={closePostCode} />
-                                )} 
+                                )}
                             </div>
-                        </div>  
+                        </div>
                         <div className="item">
-                            <label>휴대전화 <div style={{color:'red'}}>*</div></label>
-                            <input type="phone" placeholder="Phone"  defaultValue={user.userPhone} onChange={e => setUserPhone(e.target.value)} />
+                            <label>휴대전화 <div style={{color:'red'}}>★</div></label>
+                            <input type="phone" placeholder="Phone" defaultValue={user.userPhone}  onChange={onChangePhone} />
                             </div>
-                  
+
                     </div>
                     </Body>
                     <div className="btn">
-                        <button className="modify-btn" onClick={onClickInfoSave}>회원정보수정</button>
+                     <button className="modify-btn" onClick={onClickInfoSave}>회원정보수정</button>
                         <Link to={"/Mypage"}> <button className="cancle-btn">취소</button></Link>
                     </div>
                 </InnerContainer>
-                
-        
+
+
                 <Footer>
                 <div className="fotbox">
-                    <div className="tt1">
+                    <div className="foot">
                         iMMUTABLE & Q / A
                     </div>
-                    <div className="tt2">
+                    <div className="footInfo">
                         MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
                     </div>
-                    <div className="tt2">
+                    <div className="footInfo">
                         카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
                     </div>
                 </div>

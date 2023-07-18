@@ -145,7 +145,6 @@ const Shop = () => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
     const {item, setItem} = useContext(UserContext);
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
     const nav = useNavigate();

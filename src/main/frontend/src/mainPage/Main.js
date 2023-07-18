@@ -490,6 +490,7 @@ const Main= () =>{
         }
 
 
+
     return(
         <Container>
             <Side style={{transform: `translateX(${isOpen}px)`}}> 

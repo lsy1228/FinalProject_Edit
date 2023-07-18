@@ -2,10 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
-import DropFiter from "./DropFiter";
-import test from "../img/test.webp"
-import { UserContext } from "../context/UserInfo";
-import AxiosFinal from "../api/AxiosFinal";
+
 
 const Container = styled.div`
     width: 100%;

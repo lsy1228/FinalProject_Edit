@@ -375,13 +375,12 @@ const AxiosFinal = {
         return await axios.post(Final_proj + `/faq/editFaq`, editFaq);
     },
   
-    // 회원 정보 수정 저장
-    saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
+   // 회원 정보 수정 저장
+    saveUserInfo : async (userId, userName, userPwd, userPhone) =>{
         const userInfo = {
             userId : userId,
             userName : userName,
             userPwd : userPwd,
-            userAddr : userAddr, 
             userPhone : userPhone
         }
         return await axios.post(Final_proj +"/auth/saveInfo", userInfo)

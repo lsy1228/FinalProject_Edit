@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import PopupPostCode from "../api/PopupPostCode";
 import AxiosFinal from "../api/AxiosFinal";
-import { isCompositeComponent } from "react-dom/test-utils";
-import Shop from "../shopPage/Shop";
 
 
 const Container=styled.div`

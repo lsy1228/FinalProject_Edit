@@ -101,13 +101,12 @@ public class UserService {
     }
 
     // 회원 정보 수정
-    public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone, String userAddr) {
+    public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone) {
         try {
             Users user = userRepository.findByUserEmail(userEmail);
             if(user == null) {
                 return false;
             }
-            user.setUserAddr(userAddr);
             user.setUserPhone(userPhone);
             user.setUserName(userName);
             user.setUserPwd(userPwd);
