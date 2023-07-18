@@ -287,16 +287,16 @@ const CartOrder = () => {
                 partner_order_id: 'partner_order_id', // 가맹점 주문번호
                 partner_user_id: 'partner_user_id', // 가맹점 회원 ID
                 item_name: descItemName,
-                quantity: 30,
+                quantity: 1,
                 total_amount: totalPrice, // 결제 금액
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:8111/OrderComplete', // 결제 성공 시 리다이렉트할 URL
-                cancel_url: 'http://localhost:8111/CartOrder', // 결제 취소 시 리다이렉트할 URL
-                fail_url: 'http://localhost:8111/CartOrder', // 결제 실패 시 리다이렉트할 URL
+                approval_url: 'http://proj-immutable.store:8111/OrderComplete', // 결제 성공 시 리다이렉트할 URL
+                cancel_url: 'http://proj-immutable.store:8111/CartOrder', // 결제 취소 시 리다이렉트할 URL
+                fail_url: 'http://proj-immutable.store:8111/CartOrder', // 결제 실패 시 리다이렉트할 URL
               },
               {
                 headers: {
-                  Authorization: `KakaoAK b630886b504618fa3d906332fdbdb75e`, // admin key
+                  Authorization: `KakaoAK 52693ed4af5f5788282f62fcf59992e9`, // admin key
                   "Content-type": `application/x-www-form-urlencoded;charset=utf-8`
                 },
               }
