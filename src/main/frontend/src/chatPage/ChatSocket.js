@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef ,useCallback} from "react";
 import styled from "styled-components";
 import ChatAxios from "../api/ChatAxios.js";
 
@@ -111,12 +111,8 @@ const Container=styled.div`
 }
 `
 
-const ChatSocket = (props) => {
-    const {setRoomId} = props;
+const ChatSocket = () => {
     const [socketConnected, setSocketConnected] = useState(false);
-
-    const [socketClose, setSocketClose] = useState();
-
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
     const webSocketUrl = `ws://localhost:8111/ws/chat`;
@@ -124,15 +120,15 @@ const ChatSocket = (props) => {
     const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);
     const [items, setItems] = useState([]);
+    const [,updateState] = useState();
+    const forceUpdate = useCallback(()=> updateState({}),[]);
 
        const onChangMsg = (e) => {
            setInputMsg(e.target.value)
        }
-
        const onEnterKey = (e) => {
            if(e.key === 'Enter') onClickMsgSend(e);
        }
-
        const onClickMsgSend = (e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
@@ -147,23 +143,18 @@ const ChatSocket = (props) => {
                 setInputMsg("");
               }
         }
-    const onClickMsgClose = () => {
-        ws.current.send(
-            JSON.stringify({
-            "type":"CLOSE",
-            "roomId": roomId,
-            "sender":sender,
-            "message":"종료 합니다."}));
-        ws.current.close();
-        alert("채팅을 종료합니다.")
-    }
-
-
-    const onMsgClose =async()=>{
-        window.localStorage.removeItem("chatRoomId");
-        const response = await ChatAxios.removeChatData(roomId);
-        setSocketClose(true);
-    }
+        const onClickMsgClose = async() => {
+            ws.current.send(
+                JSON.stringify({
+                "type":"CLOSE",
+                "roomId": roomId,
+                "sender":sender,
+                "message":"종료 합니다."}));
+            ws.current.close();
+            window.localStorage.removeItem("chatRoomId");
+            const response = await ChatAxios.removeChatData(roomId);
+            updateState("채팅을 종료합니다.");
+        }
 
    useEffect(() => {
            console.log("방번호 : " + roomId);
@@ -172,33 +163,23 @@ const ChatSocket = (props) => {
                ws.current.onopen = () => {
                    console.log("connected to " + webSocketUrl);
                    setSocketConnected(true);
-                   ws.current.send(
+               };
+           }
+           console.log(socketConnected);
+           if (socketConnected) {
+               ws.current.send(
                    JSON.stringify({
                    "type": "ENTER",
                    "roomId": roomId,
                    "sender": sender,
                    "message": "처음으로 접속 합니다."}));
-               };
            }
-           console.log(socketConnected);
-//           if (socketConnected) {
-//               ws.current.send(
-//                   JSON.stringify({
-//                   "type": "ENTER",
-//                   "roomId": roomId,
-//                   "sender": sender,
-//                   "message": "처음으로 접속 합니다."}));
-//           }
            ws.current.onmessage = (evt) => {
                const data = JSON.parse(evt.data);
                setRcvMsg(data.message);
                setItems((prevItems) => [...prevItems, data]);
          };
-       },[props]);
-        //새로고침 없이 랜더링이 일어남
-       useEffect(() => {
-        }, [items]);
-
+       },[socketConnected]);
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);
@@ -210,7 +191,7 @@ const ChatSocket = (props) => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <button className="chatClose" onClick={()=>{onClickMsgClose();onMsgClose();}}>chat close</button>
+                    <button className="chatClose" onClick={()=>{onClickMsgClose();}}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
                 </div>
                 <div className="chatContentArea">
