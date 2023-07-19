@@ -39,7 +39,7 @@ const ChatListData=styled.div`
     .lastMessage{
         margin-left: 20px;
         width: 480px;
-        font-size: 23px;
+        font-size: 21px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow:ellipsis;
