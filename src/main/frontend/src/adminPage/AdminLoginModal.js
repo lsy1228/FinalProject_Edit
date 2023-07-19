@@ -39,6 +39,9 @@ const Container = styled.div`
         align-items: center;
         /* 팝업이 열릴때 스르륵 열리는 효과 */
         animation: modal-bg-show 0.8s;
+        @media only screen and ( max-width: 390px){
+            left: 15%;
+        }
     }
     button {
         width: 100px;

@@ -24,10 +24,25 @@ const ChatListData=styled.div`
     border-bottom: 1px solid #CCC;
     border-left: 1px solid #CCC;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     &:hover{
         background-color: #CCC;
+    }
+    .userName{
+        margin-left: 20px;
+        width: 200px;
+        height: 20px;
+        font-size: 12px;
+    }
+    .lastMessage{
+        margin-left: 20px;
+        width: 480px;
+        font-size: 23px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow:ellipsis;
     }
 `
 //채팅UI
@@ -54,7 +69,12 @@ const ChatList=()=>{
           <ChatListView>
             {chatList && chatList.map((l,index)=>
                   <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
-                      {l.userId} / {l.lastMessage}
+                    <div className="userName">
+                        {l.userId}
+                    </div>
+                    <div className="lastMessage">
+                        {l.lastMessage}
+                    </div>
                   </ChatListData>)}
           </ChatListView>
 
