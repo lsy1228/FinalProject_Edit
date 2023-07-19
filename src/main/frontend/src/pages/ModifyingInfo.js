@@ -518,7 +518,7 @@ const ModifyingInfo = () => {
 
                 <InnerContainer >
                 <div className="info">기본정보</div>
-                    <div className="info2"><div style={{color:'red'}}>★</div>필수입력사항</div>
+                    <div className="info2"><div style={{color:'red'}}>*</div>필수입력사항</div>
                     <Body>
                     <div className="input">
                         <div className="item">
@@ -526,11 +526,11 @@ const ModifyingInfo = () => {
                             <input type="Email" value={user.userEmail}/>
                         </div>
                         <div className="item">
-                            <label >이름 <div style={{color:'red'}}>★</div></label>
+                            <label >이름 <div style={{color:'red'}}>*</div></label>
                             <input type="text" placeholder="Name" defaultValue={user.userName}  onChange={onChangeName} />
                         </div>
                         <div className="item">
-                            <label >비밀번호 <div style={{color:'red'}}>★</div></label>
+                            <label >비밀번호 <div style={{color:'red'}}>*</div></label>
                             <input type="password" defaultValue={user.userPwd} placeholder="PWD" onChange={onChangePw}/>
 
                         <div className="hint">
@@ -539,7 +539,7 @@ const ModifyingInfo = () => {
                         </div>
                         </div>
                         <div className="item">
-                            <label >비밀번호확인 <div style={{color:'red'}}>★</div></label>
+                            <label >비밀번호확인 <div style={{color:'red'}}>*</div></label>
                             <input type="password" defaultValue={user.userPwd} placeholder="PWD CHECK" onChange={onChangeConPw}/>
                         <div className="hint">
                             {userPwd.length > 0 && (
@@ -557,7 +557,7 @@ const ModifyingInfo = () => {
                             </div>
                         </div>
                         <div className="item">
-                            <label>휴대전화 <div style={{color:'red'}}>★</div></label>
+                            <label>휴대전화 <div style={{color:'red'}}>*</div></label>
                             <input type="phone" placeholder="Phone" defaultValue={user.userPhone}  onChange={onChangePhone} />
                             </div>
 
