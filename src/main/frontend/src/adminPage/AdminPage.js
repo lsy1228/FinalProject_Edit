@@ -314,6 +314,7 @@ const AdminPage=()=>{
         if(reloadPage === true) setReloadPage(e)
         else if(reloadPage === e) setReloadPage(true)
     };
+    //자식페이지에서 넘어오는 값을 받아 화면 랜더링 해준다.
     useEffect(()=>{
         onLoadChatList();
         onLoadOrderData();
