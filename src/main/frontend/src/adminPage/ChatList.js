@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
 import AdminChatSocket from "../chatPage/AdminChatSocket";
+import ChatAxios from "../api/ChatAxios.js";
 
 //전체 컨테이너 CSS
 const Container=styled.div`
@@ -32,9 +33,25 @@ const ChatListData=styled.div`
     }
     .userName{
         margin-left: 20px;
-        width: 200px;
+        width: 90%;
         height: 20px;
         font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .deleteChatRoom{
+        width: 15px;
+        height: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: #CCC;
+        border-radius: 50%;
+        color: white;
+        &:hover{
+            color: black;
+        }
     }
     .lastMessage{
         margin-left: 20px;
@@ -63,7 +80,10 @@ const ChatList=()=>{
         console.log(roomId);
         setOnRoomId(roomId);
     }
-
+    const onDeleteMessage= async(e)=>{
+        console.log(e)
+        const response = await ChatAxios.removeChatData(e);
+    }
     return(
         <Container> 
           <ChatListView>
@@ -71,6 +91,7 @@ const ChatList=()=>{
                   <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
                     <div className="userName">
                         {l.userId}
+                         <button className="deleteChatRoom" onClick={()=>onDeleteMessage(l.roomName)}>&times;</button>
                     </div>
                     <div className="lastMessage">
                         {l.lastMessage}
