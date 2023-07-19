@@ -165,8 +165,7 @@ const AdminPage=()=>{
             setIsLogin(false);
             setOnModal(true);
         }
-    },[isAdminLogin])
-    console.log(isAdminLogin);
+    },[isAdminLogin]);
 
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
@@ -309,6 +308,19 @@ const AdminPage=()=>{
         setOnModal(true);
         setIsLogin(false);
     }
+    //자식페이지 에서 받은 값 으로 부모 페이지 랜더링
+    const [reloadPage,setReloadPage] = useState(true);
+    const cPage = (e) => {
+        if(reloadPage === true) setReloadPage(e)
+        else if(reloadPage === e) setReloadPage(true)
+        console.log(reloadPage);
+    };
+    useEffect(()=>{
+
+
+    },[reloadPage])
+
+
 
     return(
         <Container > 
@@ -343,12 +355,12 @@ const AdminPage=()=>{
                 </div>
                 <div className="body">
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
-                    {changeMenu ==="orderCheck" &&<OrderCheck/>}
+                    {changeMenu ==="orderCheck" &&<OrderCheck dataReload={cPage}/>}
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
                     {changeMenu ==="inventory" &&<Inventory />}
-                    {changeMenu ==="qna" &&<Qna/>}                    
+                    {changeMenu ==="qna" &&<Qna dataReload={cPage}/>}
                     {changeMenu ==="customer Management" &&<CustomerMan />}      
-                    {changeMenu ==="chat list" &&<ChatList />}    
+                    {changeMenu ==="chat list" &&<ChatList dataReload={cPage}/>}
                 </div>
             </MainBody>
             </div>

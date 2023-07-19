@@ -69,7 +69,9 @@ const ChattingData=styled.div`
     border-bottom: 1px solid #CCC;
     border-right: 1px solid #CCC;
 `
-const ChatList=()=>{
+const ChatList=(props)=>{
+    console.log(props);
+    const {dataReload} = props;
     const context = useContext(UserContext);
     const {chatList} = context;
     console.log(chatList);
@@ -77,11 +79,9 @@ const ChatList=()=>{
     //방ID를 담을 useState
     const [onRoomId,setOnRoomId]=useState();
     const onFindRoomId=(roomId)=>{
-        console.log(roomId);
         setOnRoomId(roomId);
     }
     const onDeleteMessage= async(e)=>{
-        console.log(e)
         const response = await ChatAxios.removeChatData(e);
     }
     return(
@@ -91,7 +91,7 @@ const ChatList=()=>{
                   <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
                     <div className="userName">
                         {l.userId}
-                         <button className="deleteChatRoom" onClick={()=>onDeleteMessage(l.roomName)}>&times;</button>
+                         <button className="deleteChatRoom" onClick={()=>{onDeleteMessage(l.roomName);dataReload(false);}}>&times;</button>
                     </div>
                     <div className="lastMessage">
                         {l.lastMessage}
