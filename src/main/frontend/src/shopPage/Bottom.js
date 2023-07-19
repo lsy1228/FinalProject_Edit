@@ -43,7 +43,6 @@ const Article = styled.div`
 const Container_in = styled.div`
     height: 500px;
     width: 300px;
-    margin-left: 30px;
     margin-left: 70px;
     @media only screen and ( max-width: 390px){
         width: 193px;

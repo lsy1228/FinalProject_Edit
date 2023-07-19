@@ -347,10 +347,8 @@ const ModifyingInfo = () => {
     const [userName, setUserName] = useState("");
     const [userPwd, setUserPwd] = useState("");
     const [userPhone, setUserPhone] = useState("");
-    const [userEmail, setUserEmail] = useState("");
 
-
-    const [inputConPw, setInputConPw] = useState("");
+   const [inputConPw, setInputConPw] = useState("");
 
     // 오류 메세지
     const [conPwMessage, setConPwMessage] = useState("");
@@ -362,7 +360,7 @@ const ModifyingInfo = () => {
 
       //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
     const context = useContext(UserContext);
-    const {addr} = context;
+    const {addr, setAddr} = context;
 
     const userId = window.localStorage.getItem("userIdSuv");
     const nav = useNavigate();
@@ -411,7 +409,9 @@ const ModifyingInfo = () => {
     useEffect(()=> {
         const getUser = async() => {
             const rsp = await AxiosFinal.memberGet(userId);
-            if(rsp.status === 200) setUser(rsp.data);
+            if(rsp.status === 200)
+            setUser(rsp.data);
+            setAddr(rsp.data.userAddr);
             console.log(rsp.data);
         };
         getUser();
@@ -436,9 +436,14 @@ const ModifyingInfo = () => {
             modifiedUser = { ...modifiedUser, userPhone: userPhone };
         }
 
+         // 주소가 변경되었을 때만 수정 정보에 반영
+        if (addr) {
+            modifiedUser = { ...modifiedUser, userAddr: addr };
+        }
+
 
         console.log("확인");
-        const response = await AxiosFinal.saveUserInfo(userId, modifiedUser.userName, modifiedUser.userPwd, modifiedUser.userPhone);
+        const response = await AxiosFinal.saveUserInfo(userId, modifiedUser.userName, modifiedUser.userPwd, modifiedUser.userPhone, modifiedUser.userAddr);
         const result = response.data;
         console.log(result);
         if (result) {
@@ -460,8 +465,8 @@ const ModifyingInfo = () => {
         setUserPhone(e.target.value)
     }
 
-    const onclickInfoerror = () =>{
-        alert("필수 입력사항을 입력해주세요.")
+    const onChangeAddr = (e) =>{
+        setAddr(e.target.value)
     }
 
     const [imageURL,setImageURL] = useState();
@@ -548,7 +553,7 @@ const ModifyingInfo = () => {
                         </div>
                         <div className="item">
                             <label >주소 </label>
-                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} defaultValue={user.userAddr}/>
+                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
                             <button className="addrBtn" onClick={openPostCode}>주소찾기</button>
                             <div id='popupDom'>
                                 {isPopupOpen && (
