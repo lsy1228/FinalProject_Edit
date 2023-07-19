@@ -313,11 +313,11 @@ const AdminPage=()=>{
     const cPage = (e) => {
         if(reloadPage === true) setReloadPage(e)
         else if(reloadPage === e) setReloadPage(true)
-        console.log(reloadPage);
     };
     useEffect(()=>{
-
-
+        onLoadChatList();
+        onLoadOrderData();
+        onLoadQnaData();
     },[reloadPage])
 
 
