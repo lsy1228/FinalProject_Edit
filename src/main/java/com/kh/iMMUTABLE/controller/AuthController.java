@@ -97,9 +97,10 @@ public class AuthController {
         String userPwd = userData.get("userPwd");
         String userEmail = userData.get("userId");
         String userPhone = userData.get("userPhone");
+        String userAddr = userData.get("userAddr");
         System.out.println(userName);
         System.out.println(userPwd);
-        boolean result = userService.saveUserInfo(userEmail, userName, userPwd, userPhone);
+        boolean result = userService.saveUserInfo(userEmail, userName, userPwd, userPhone, userAddr);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

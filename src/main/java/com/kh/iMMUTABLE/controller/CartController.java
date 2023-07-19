@@ -67,6 +67,7 @@ public class CartController {
         CartItemDto result = new CartItemDto();
         result.setCount(cart.getCount());
         result.setProductPrice(cart.getCartPrice());
+        result.setCartItemId(cart.getCartItemId());
 
         return new ResponseEntity<CartItemDto>(result, HttpStatus.OK);
     }

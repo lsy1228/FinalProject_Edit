@@ -376,15 +376,16 @@ const AxiosFinal = {
     },
   
    // 회원 정보 수정 저장
-    saveUserInfo : async (userId, userName, userPwd, userPhone) =>{
-        const userInfo = {
-            userId : userId,
-            userName : userName,
-            userPwd : userPwd,
-            userPhone : userPhone
-        }
-        return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
-    },
+       saveUserInfo : async (userId, userName, userPwd, userPhone, userAddr) =>{
+           const userInfo = {
+               userId : userId,
+               userName : userName,
+               userPwd : userPwd,
+               userAddr : userAddr,
+               userPhone : userPhone
+           }
+           return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
+       },
     //회원 프로필사진 정보 수정 저장
     changeUserImg : async (userEmail, userImg) =>{
         const userImgInfo = {

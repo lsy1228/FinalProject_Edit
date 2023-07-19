@@ -101,7 +101,7 @@ public class UserService {
     }
 
     // 회원 정보 수정
-    public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone) {
+    public boolean saveUserInfo(String userEmail, String userName, String userPwd, String userPhone, String userAddr) {
         try {
             Users user = userRepository.findByUserEmail(userEmail);
             if(user == null) {
@@ -110,6 +110,7 @@ public class UserService {
             user.setUserPhone(userPhone);
             user.setUserName(userName);
             user.setUserPwd(userPwd);
+            user.setUserAddr(userAddr);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -135,6 +136,7 @@ public class UserService {
         userDto.setUserName(users.getUserName());
         userDto.setUserPwd(users.getUserPwd());
         userDto.setUserImg(users.getUserImg());
+        userDto.setUserAddr(users.getUserAddr());
         return userDto;
     }
 
