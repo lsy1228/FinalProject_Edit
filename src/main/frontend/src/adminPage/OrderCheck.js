@@ -134,7 +134,8 @@ const OrderInfo=styled.tr`
    
     
 `
-const  OrderCheck = () =>{
+const  OrderCheck = (props) =>{
+    const {dataReload}=props;
     const navigate = useNavigate();
     //orderdata를 가져옴
     const context = useContext(UserContext);
@@ -323,7 +324,7 @@ const  OrderCheck = () =>{
                 </div>          
                 <div className="submitBtn">
                     <button className="fixButton" onClick={()=>{onFixOrder(o)}}>fix</button>
-                    <button onClick={()=>{onSubmitOrder(o)}}>submit</button>
+                    <button onClick={()=>{onSubmitOrder(o);dataReload(false);}}>submit</button>
                 </div>
             </OrderInfo>)}
 

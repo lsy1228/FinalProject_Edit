@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
 import AdminChatSocket from "../chatPage/AdminChatSocket";
+import ChatAxios from "../api/ChatAxios.js";
 
 //전체 컨테이너 CSS
 const Container=styled.div`
@@ -24,10 +25,41 @@ const ChatListData=styled.div`
     border-bottom: 1px solid #CCC;
     border-left: 1px solid #CCC;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     &:hover{
         background-color: #CCC;
+    }
+    .userName{
+        margin-left: 20px;
+        width: 90%;
+        height: 20px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .deleteChatRoom{
+        width: 15px;
+        height: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: #CCC;
+        border-radius: 50%;
+        color: white;
+        &:hover{
+            color: black;
+        }
+    }
+    .lastMessage{
+        margin-left: 20px;
+        width: 480px;
+        font-size: 21px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow:ellipsis;
     }
 `
 //채팅UI
@@ -37,7 +69,9 @@ const ChattingData=styled.div`
     border-bottom: 1px solid #CCC;
     border-right: 1px solid #CCC;
 `
-const ChatList=()=>{
+const ChatList=(props)=>{
+    console.log(props);
+    const {dataReload} = props;
     const context = useContext(UserContext);
     const {chatList} = context;
     console.log(chatList);
@@ -45,16 +79,23 @@ const ChatList=()=>{
     //방ID를 담을 useState
     const [onRoomId,setOnRoomId]=useState();
     const onFindRoomId=(roomId)=>{
-        console.log(roomId);
         setOnRoomId(roomId);
     }
-
+    const onDeleteMessage= async(e)=>{
+        const response = await ChatAxios.removeChatData(e);
+    }
     return(
         <Container> 
           <ChatListView>
             {chatList && chatList.map((l,index)=>
                   <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
-                      {l.userId} / {l.lastMessage}
+                    <div className="userName">
+                        {l.userId}
+                         <button className="deleteChatRoom" onClick={()=>{onDeleteMessage(l.roomName);dataReload(false);}}>&times;</button>
+                    </div>
+                    <div className="lastMessage">
+                        {l.lastMessage}
+                    </div>
                   </ChatListData>)}
           </ChatListView>
 
