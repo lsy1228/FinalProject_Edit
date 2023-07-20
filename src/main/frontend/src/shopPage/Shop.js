@@ -44,7 +44,6 @@ const Article = styled.div`
 const Container_in = styled.div`
     height: 500px;
     width: 300px;
-    margin-left: 30px;
     margin-left: 70px;
     @media only screen and ( max-width: 390px){
         width: 193px;
@@ -144,14 +143,15 @@ const Shop = () => {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
+
     const {item, setItem} = useContext(UserContext);
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
     const id = window.localStorage.getItem("userIdSuv");
     console.log(id);
+
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);

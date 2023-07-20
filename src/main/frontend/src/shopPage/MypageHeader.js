@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
 
 
 const Container = styled.div`
@@ -202,12 +203,13 @@ const IsLoginFalse = [
 const MyPageHeader = () => {
     const [count, setCount] = useState([]);
     const[cartList, setCartList] = useState([]);
+    const {isLogin, setIsLogin} = useContext(UserContext);
 
 
      //카트 토글 여는 컴포넌트
      const [openCart, setOpenCart] = useState(false);
 
-    const isLogin = window.localStorage.getItem("isLoginSuv");
+    const isUserLogin = window.localStorage.getItem("isLoginSuv");
      const id = window.localStorage.getItem("userIdSuv");
 
     const navigate = useNavigate();
@@ -223,7 +225,8 @@ const MyPageHeader = () => {
         else if(e==="logout"){
             window.localStorage.setItem("isLoginSuv", "FALSE");
             window.localStorage.setItem("userIdSuv", "");
-            window.location.reload();
+            setIsLogin(false);
+            navigate("/");
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -345,12 +348,12 @@ console.log(" ::"  + cartItemId);
                      iMMUTABLE
                     </div></a>
                     <div className="nav3">
-                    {isLogin==="FALSE" && IsLoginFalse.map(s=> (
+                    {isLogin===false && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
+                          {isLogin===true && IsLoginTrue.map(s=> (
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>

@@ -111,7 +111,8 @@ const Container=styled.div`
 }
 `
 
-const ChatSocket = () => {
+const ChatSocket = (props) => {
+    const {changePage}=props;
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -124,15 +125,14 @@ const ChatSocket = () => {
        const onChangMsg = (e) => {
            setInputMsg(e.target.value)
        }
-
        const onEnterKey = (e) => {
            if(e.key === 'Enter') onClickMsgSend(e);
        }
-
-       const onClickMsgSend = (e) => {
+       const onClickMsgSend = async(e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
+            const response = await ChatAxios.updateChatData(roomId,inputMsg);
             e.preventDefault();
             ws.current.send(
                 JSON.stringify({
@@ -142,23 +142,19 @@ const ChatSocket = () => {
                 "message":inputMsg}));
                 setInputMsg("");
               }
+
         }
-    const onClickMsgClose = () => {
-        ws.current.send(
-            JSON.stringify({
-            "type":"CLOSE",
-            "roomId": roomId,
-            "sender":sender,
-            "message":"종료 합니다."}));
-        ws.current.close();
-        alert("채팅을 종료합니다.")
-    }
-
-
-    const onMsgClose =async()=>{
-        window.localStorage.removeItem("chatRoomId");
-        const response = await ChatAxios.removeChatData(roomId);
-    }
+        const onClickMsgClose = async() => {
+            ws.current.send(
+                JSON.stringify({
+                "type":"CLOSE",
+                "roomId": roomId,
+                "sender":sender,
+                "message":"종료 합니다."}));
+            ws.current.close();
+            window.localStorage.removeItem("chatRoomId");
+            const response = await ChatAxios.removeChatData(roomId);
+        }
 
    useEffect(() => {
            console.log("방번호 : " + roomId);
@@ -166,9 +162,10 @@ const ChatSocket = () => {
                ws.current = new WebSocket(webSocketUrl);
                ws.current.onopen = () => {
                    console.log("connected to " + webSocketUrl);
-               setSocketConnected(true);
+                   setSocketConnected(true);
                };
            }
+           console.log(socketConnected);
            if (socketConnected) {
                ws.current.send(
                    JSON.stringify({
@@ -179,16 +176,10 @@ const ChatSocket = () => {
            }
            ws.current.onmessage = (evt) => {
                const data = JSON.parse(evt.data);
-               console.log("evt:",evt);
-               console.log("evt.data:",evt.data);
-               console.log("data:",data);
-               console.log(data.message);
-               console.log(ws);
                setRcvMsg(data.message);
                setItems((prevItems) => [...prevItems, data]);
          };
-       }, [socketConnected]);
-
+       },[socketConnected]);
     // console.log(items);
     //메시지창 실행 시 항상 맨 아래로 오게한다!
     const messageEndRef = useRef(null);
@@ -200,7 +191,7 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <button className="chatClose" onClick={()=>{onClickMsgClose();onMsgClose();}}>chat close</button>
+                    <button className="chatClose" onClick={()=>{onClickMsgClose();changePage(false);}}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
                 </div>
                 <div className="chatContentArea">

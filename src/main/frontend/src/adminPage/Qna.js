@@ -125,7 +125,8 @@ const QnaInfo = styled.div`
 `
 
 
-const Qna = () =>{
+const Qna = (props) =>{
+    const {dataReload}=props;
     const navigate = useNavigate();
     //제목을 누르면 답변창(accodian)이 생성된다.
     //css에 active를 넘겨줄 값
@@ -222,7 +223,7 @@ const Qna = () =>{
                         {q.reply}
                      </div>
                     <input type="text" placeholder="answer" onChange={getValue} name ='qnaReply'/>
-                    <button onClick={()=>{onSubmitQna(q.qnaId)}}>submit</button>
+                    <button onClick={()=>{onSubmitQna(q.qnaId);dataReload(false);}}>submit</button>
                 </div>
             </QnaInfo>
             )}

@@ -213,16 +213,15 @@ const FindPwd = () => {
                 </div>
                 <div className="hint">
                     {resetPw.length > 0 && (
-                        <span className={`message ${isResetPw ? 'success' : 'error'}`}>{pwMessage}</span>)}
+                        <span className={`message ${isResetPw ? 'success' : 'error'}`} style={{ color: isResetPw ? 'blue' : 'red' }}>{pwMessage}</span>)}
                 </div>
                 <div className="item">
                     <input type="password" placeholder="PASSWORD CHECK" onChange={onChangeConPw}/>
                 </div>
                 <div className="hint">
                     {resetConPw.length > 0 && (
-                        <span className={`message ${isResetConPw ? 'success' : 'error'}`}>{setConPwMessage}</span>)}
+                        <span className={`message ${isResetConPw ? 'success' : 'error'}`} style={{ color: isResetConPw ? 'blue' : 'red' }}>{conPwMessage}</span>)}
                 </div>
-
                 <div className="changePwd">
                     <Link to="/Login">
                         <button className="changePwdBtn" onClick={onClickResetPwd}>CHANGE PASSWORD</button>

@@ -330,11 +330,11 @@ const CartOrder = () => {
                     <div className="productInfo">
                         <span className="productName">{order.productName}</span>
                         <span className="productSize">{order.sizeStatus}</span>
-                        <span className="price">{order.productPrice}</span>
+                        <span className="price">{order.productPrice.toLocaleString()}</span>
                     </div>
                 </ProductContainer>
             ))}
-            <div>TOTAL PRICE : {totalPrice}</div>
+            <div>TOTAL PRICE : {totalPrice.toLocaleString()}</div>
             <hr />
             <div className="item">BILLING ADDRESS</div>
             <hr />

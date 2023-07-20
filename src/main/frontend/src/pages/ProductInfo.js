@@ -159,11 +159,25 @@ const Review = styled.div`
         margin: 0 40px;
         height: 100%;
         margin-top: 20px;
-        .reviewBoard {
-            height: 20px;
-            padding-right: 20px;
+        .reviewSort {
+            display: flex;
             font-size: 14px;
-            font-weight: bold;
+            .reviewBoard {
+                height: 20px;
+                padding-right: 20px;
+                font-weight: bold;
+            }
+            .sortReview {
+                padding-right: 20px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .reverseSortReview {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
     }
     @media (max-width: 390px) {
@@ -210,9 +224,16 @@ const ReviewTable = styled.table`
     }
     .reviewContent {
         font-size: 14px;
+        text-align: left;
         background-color: whitesmoke;
         .content {
-            margin: 5px 60px;
+            margin: 0 60px;
+        }
+        img {
+            width: 500px;
+            height: auto;
+            margin: 10px 30px 0 30px;
+            padding: 10px 30px;
         }
     }
     .noReview {
@@ -232,6 +253,18 @@ const ReviewTable = styled.table`
             }
             .rate {
                 white-space: nowrap;
+            }
+        }
+        .reviewContent {
+            .content {
+                margin: 10px 10px;
+            }
+            img {
+                background-color: aliceblue;
+                width: 370px;
+                height: auto;
+                margin: 10px 10px;
+                padding: 0;
             }
         }
     }
@@ -311,14 +344,16 @@ const QnATable = styled.table`
         font-size: 14px;
         .content {
             margin: 0 60px;
-            margin-bottom: 15px;
+            text-align: left;
         }
     }
     .qnaReply {
-        background-color: #dbdbdb;
+        background-color: whitesmoke;
+        font-weight: bold;
         .reply {
-            margin: -10px 60px;
-            padding: 10px 0;
+            margin: 10px 30px 0 30px;
+            padding: 10px 40px;
+            text-align: left;
         }
     }
     .noQna {
@@ -440,7 +475,9 @@ const ProductInfo = () => {
         if(product.length > 0) {
             const reviewView = async() => {
                 const rsp = await AxiosFinal.viewReview(product[0].productName);
-                console.log(rsp.data); setReviewData(rsp.data);
+                console.log(rsp.data);
+                const sortReviewData = rsp.data.sort((a,b)=>new Date(b.reviewDate)-new Date(a.reviewDate));
+                setReviewData(sortReviewData);
             }
             reviewView();
         }
@@ -497,10 +534,21 @@ const ProductInfo = () => {
         return <div>{stars}</div>
     }
 
+    const sortHighRate = () => {
+        const sortedData = [...reviewData];
+        sortedData.sort((a,b)=>b.reviewRate - a.reviewRate);
+        setReviewData(sortedData);
+    }
+
+    const sortRowRate = () => {
+        const reverseData = [...reviewData];
+        reverseData.sort((a,b)=>a.reviewRate - b.reviewRate);
+        setReviewData(reverseData);
+    }
+
+
 
     const sortedQnaData = qnaData.slice().reverse();            // qnaData 역순으로 정렬(최근에 쓴 문의가 위로 오도록)
-    const sortedReviewData = reviewData.slice().reverse();      // reviewData 역순으로 정렬(최근에 쓴 리뷰가 위로 오도록)
-
 
     return (
         <Container>
@@ -545,7 +593,11 @@ const ProductInfo = () => {
                 </div>)}
                 <Review>
                     <div className="review">
-                        <div className="reviewBoard">Review</div>
+                        <div className="reviewSort">
+                            <div className="reviewBoard">Review</div>
+                            <div className="sortReview" onClick={sortHighRate}>별점 높은 순</div>
+                            <div className="reverseSortReview" onClick={sortRowRate}>별점 낮은 순</div>
+                        </div>
                         <hr />
                         <ReviewTable>
                             <thead>
@@ -558,8 +610,8 @@ const ProductInfo = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {sortedReviewData.length > 0 ?
-                                (sortedReviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
+                                {reviewData.length > 0 ?
+                                (reviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
                                 <React.Fragment key={index}>
                                 <tr>
                                     <td className="number">{reviewOffset+index+1}.</td>
@@ -573,7 +625,10 @@ const ProductInfo = () => {
                                 {rvExpanded.includes(index) && (
                                 <tr>
                                     <td colSpan={5} className="reviewContent">
-                                        <p className="content" style={{textAlign:"left"}}>{e.reviewContent}</p>
+                                        <p className="content" >{e.reviewContent}</p>
+                                        {e.reviewImg && (
+                                            <img src={e.reviewImg} alt=""  />
+                                        )}
                                     </td>
                                 </tr>
                                 )}
@@ -627,10 +682,10 @@ const ProductInfo = () => {
                                     {expanded.includes(index) && (
                                     <tr>
                                     <td colSpan={5} className="qnaContent">
-                                        <p className="content" style={{textAlign:"left"}}>{e.qnaContent}</p>
+                                        <p className="content">{e.qnaContent}</p>
                                         {e.reply &&
                                            <div className="qnaReply">
-                                            <p className="reply" style={{textAlign:"left"}}>{e.reply}</p>
+                                            <p className="reply">▶ {e.reply}</p>
                                            </div>
                                         }
                                     </td>

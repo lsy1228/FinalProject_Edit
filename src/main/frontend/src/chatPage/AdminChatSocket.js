@@ -111,7 +111,7 @@ const AdminChatSocket = (props) => {
     const [items, setItems] = useState([]);
     //채팅 입력 내용이 바뀌는 값
     const onChangMsg = (e) => {
-        setInputMsg(e.target.value)
+        setInputMsg(e.target.value);
     }
     //엔터를 누르면 메시지를 보냄
     const onEnterKey = (e) => {
@@ -119,10 +119,11 @@ const AdminChatSocket = (props) => {
     }
 
     // 메시지를 보냄
-    const onClickMsgSend = (e) => {
+    const onClickMsgSend = async(e) => {
         if(inputMsg===""){
         alert("empty contents!!!");
         }else{
+            const response = await ChatAxios.updateChatData(roomId,inputMsg);
             e.preventDefault();
             ws.current.send(
                 JSON.stringify({

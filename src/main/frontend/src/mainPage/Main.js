@@ -138,12 +138,11 @@ const ToggleButton = styled.button`
 `;
 
 const Body = styled.div`
-    width: 100%;
+    width: 900px;
     height: 100%;
     //이미지를 사용 하려면  ${0}양식 사용
     background-image:url(${bckimg});
-    background-size: contain;
-    background-repeat: none;
+    background-size: cover;
     animation: transX 15s linear; 
     //애니메이션 무한반복
     animation-iteration-count: infinite;
@@ -421,6 +420,7 @@ const Main= () =>{
             window.localStorage.setItem("chatRoomId", res.data);
             setOnChatOpen(true);
             const roomData = await ChatAxios.saveChatData(window.localStorage.getItem("chatRoomId"),window.localStorage.getItem("userIdSuv"));
+
         } catch(error) {
             console.log(error);
         }
@@ -488,6 +488,11 @@ const Main= () =>{
             const rsp = await AxiosFinal.deleteCartItem(id, cartItemId);
             setCartList(rsp.data);
         }
+
+    //자식 페이지에서 랜더링을 가져온다
+    const cPage = (e) => {
+      setOnChatOpen(e)
+    };
 
 
     return(
@@ -565,7 +570,7 @@ const Main= () =>{
                 </Body>
                 <ChatButton onClick={onChat}/>                
                     <Chat style={{height: `${openChat}px`}}>
-                            {onChatOpen === true && <ChatSocket />}
+                            {onChatOpen === true && <ChatSocket changePage={cPage}/>}
                             {onChatOpen === false && <button className="sendButton" onClick={chatTest}>채팅 시작하기</button>}
 
                     </Chat>

@@ -1,13 +1,6 @@
-import React, {useState, useRef, useContext, useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import ModifyingInfo from "./ModifyingInfo";
-import Secession from "./Secession";
-import Mypost from "./Mypost"
-import FAQ from "./FAQ"
-import Wishlist from "./Wishlist"
-import { UserContext } from "../context/UserInfo";
-import AxiosFinal from "../api/AxiosFinal";
 import MyPageHeader from "../shopPage/MypageHeader";
 
 

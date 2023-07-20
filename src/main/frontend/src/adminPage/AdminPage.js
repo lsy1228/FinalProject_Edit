@@ -115,12 +115,24 @@ const MainBody = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    
+        @media only screen and ( max-width: 390px ){
+        flex-direction:row;
+        height: 35px;
+        width: 100%;
+        }
     }
     .body{
         width: calc(100vw - 200px);
         height: 100%;
-        border-top: 1px solid #CCC;        
+        border-top: 1px solid #CCC;
+        @media only screen and ( max-width: 390px ){
+        width: 100%;
+        height: 100%;
+        }
+    }
+    @media only screen and ( max-width: 390px ){
+        flex-direction: column;
+        height: calc(100vh - 180px);;
     }
 `
 const SideBustton=styled.div`
@@ -153,8 +165,7 @@ const AdminPage=()=>{
             setIsLogin(false);
             setOnModal(true);
         }
-    },[isAdminLogin])
-    console.log(isAdminLogin);
+    },[isAdminLogin]);
 
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
@@ -297,6 +308,20 @@ const AdminPage=()=>{
         setOnModal(true);
         setIsLogin(false);
     }
+    //자식페이지 에서 받은 값 으로 부모 페이지 랜더링
+    const [reloadPage,setReloadPage] = useState(true);
+    const cPage = (e) => {
+        if(reloadPage === true) setReloadPage(e)
+        else if(reloadPage === e) setReloadPage(true)
+    };
+    //자식페이지에서 넘어오는 값을 받아 화면 랜더링 해준다.
+    useEffect(()=>{
+        onLoadChatList();
+        onLoadOrderData();
+        onLoadQnaData();
+    },[reloadPage])
+
+
 
     return(
         <Container > 
@@ -331,12 +356,12 @@ const AdminPage=()=>{
                 </div>
                 <div className="body">
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
-                    {changeMenu ==="orderCheck" &&<OrderCheck/>}
+                    {changeMenu ==="orderCheck" &&<OrderCheck dataReload={cPage}/>}
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
                     {changeMenu ==="inventory" &&<Inventory />}
-                    {changeMenu ==="qna" &&<Qna/>}                    
+                    {changeMenu ==="qna" &&<Qna dataReload={cPage}/>}
                     {changeMenu ==="customer Management" &&<CustomerMan />}      
-                    {changeMenu ==="chat list" &&<ChatList />}    
+                    {changeMenu ==="chat list" &&<ChatList dataReload={cPage}/>}
                 </div>
             </MainBody>
             </div>

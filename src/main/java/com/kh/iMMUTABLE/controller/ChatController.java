@@ -43,6 +43,14 @@ public class ChatController {
         boolean result = chatService.removeRoom(roomName);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    //채팅 업데이트
+    @PostMapping("/updateChatData")
+    public ResponseEntity<Boolean> updateRoom(@RequestBody Map<String, String> saveChatData) {
+        String roomName = saveChatData.get("roomName");
+        String lastMessage = saveChatData.get("lastMessage");
+        boolean result = chatService.saveLastMessage(roomName,lastMessage);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 

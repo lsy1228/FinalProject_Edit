@@ -12,7 +12,7 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    @media (max-width: 844px) {
+    @media (max-width: 390px) {
         width: 100%;
     }
 `
@@ -33,7 +33,6 @@ const Review = styled.div`
     padding-bottom: 20px;
     .review {
         margin: 0 40px;
-        /* height: 100%; */
         margin-top: 20px;
         .reviewBoard {
             height: 20px;
@@ -101,9 +100,16 @@ const ReviewTable = styled.table`
     }
     .reviewContent {
         font-size: 14px;
+        text-align: left;
         background-color: whitesmoke;
         .content {
-            margin: 5px 60px;
+            margin: 0 60px;
+        }
+        img {
+            width: 500px;
+            height: auto;
+            margin: 10px 30px 0 30px;
+            padding: 10px 30px;
         }
     }
     .noReview {
@@ -120,6 +126,12 @@ const ReviewTable = styled.table`
             }
             td {
                 padding: 5px;
+            }
+        }
+        .reviewContent {
+            img {
+                width: 370px;
+                height: auto;
             }
         }
         .product {
@@ -196,14 +208,16 @@ const QnATable = styled.table`
         background-color: whitesmoke;
         .content {
             margin: 0 60px;
-            margin-bottom: 15px;
+            text-align: left;
         }
     }
     .qnaReply {
-        background-color: #dbdbdb;
+        background-color: whitesmoke;
+        font-weight: bold;
         .reply {
-            margin: -10px 60px;
-            padding: 10px 0;
+            margin: 10px 30px 0 30px;
+            padding: 10px 40px;
+            text-align: left;
         }
     }
     .noQna {
@@ -354,6 +368,9 @@ const Mypost = () => {
                                     <tr>
                                         <td colSpan={6} className="reviewContent">
                                             <p className="content">{e.reviewContent}</p>
+                                            {e.reviewImg && (
+                                                <img src={e.reviewImg} alt="" />
+                                            )}
                                         </td>
                                     </tr>
                                     )}
@@ -411,10 +428,10 @@ const Mypost = () => {
                                 {expanded.includes(index) && (
                                 <tr>
                                     <td colSpan={6} className="qnaContent">
-                                        <p className="content">{e.qnaContent}</p>
+                                        <p className="content" >{e.qnaContent}</p>
                                         {e.reply &&
                                         <div className="qnaReply">
-                                            <p className="reply">{e.reply}</p>
+                                            <p className="reply">▶ {e.reply}</p>
                                         </div>
                                         }
                                     </td>

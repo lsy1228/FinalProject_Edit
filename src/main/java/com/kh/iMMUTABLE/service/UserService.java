@@ -107,10 +107,10 @@ public class UserService {
             if(user == null) {
                 return false;
             }
-            user.setUserAddr(userAddr);
             user.setUserPhone(userPhone);
             user.setUserName(userName);
             user.setUserPwd(userPwd);
+            user.setUserAddr(userAddr);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -136,6 +136,7 @@ public class UserService {
         userDto.setUserName(users.getUserName());
         userDto.setUserPwd(users.getUserPwd());
         userDto.setUserImg(users.getUserImg());
+        userDto.setUserAddr(users.getUserAddr());
         return userDto;
     }
 

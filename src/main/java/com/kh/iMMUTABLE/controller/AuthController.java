@@ -94,10 +94,10 @@ public class AuthController {
     @PostMapping("/saveInfo")
     public ResponseEntity<Boolean> saveInfo(@RequestBody Map<String, String> userData){
         String userName = userData.get("userName");
-        String userAddr = userData.get("userAddr");
         String userPwd = userData.get("userPwd");
         String userEmail = userData.get("userId");
         String userPhone = userData.get("userPhone");
+        String userAddr = userData.get("userAddr");
         System.out.println(userName);
         System.out.println(userPwd);
         boolean result = userService.saveUserInfo(userEmail, userName, userPwd, userPhone, userAddr);
@@ -135,6 +135,7 @@ public class AuthController {
         System.out.println(result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
     @PostMapping("/signupToken")
     public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto requestDto) {

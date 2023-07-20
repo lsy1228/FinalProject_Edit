@@ -380,17 +380,17 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `faq/getAdmin?userEmail=${userEmail}`);
     },
   
-    // 회원 정보 수정 저장
-    saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
-        const userInfo = {
-            userId : userId,
-            userName : userName,
-            userPwd : userPwd,
-            userAddr : userAddr, 
-            userPhone : userPhone
-        }
-        return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
-    },
+   // 회원 정보 수정 저장
+       saveUserInfo : async (userId, userName, userPwd, userPhone, userAddr) =>{
+           const userInfo = {
+               userId : userId,
+               userName : userName,
+               userPwd : userPwd,
+               userAddr : userAddr,
+               userPhone : userPhone
+           }
+           return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
+       },
     //회원 프로필사진 정보 수정 저장
     changeUserImg : async (userEmail, userImg) =>{
         const userImgInfo = {
@@ -572,18 +572,19 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/review/reviewProduct?productId=${productId}`);
     },
 
-     // 리뷰 작성하기
-    submitReview : async(rate, productId, title, content, userEmail, orderId) => {
-        const reviewData = {
-            rate : rate,
-            productId : productId,
-            title : title,
-            content : content,
-            userEmail : userEmail,
-            orderId : orderId
+      // 리뷰 작성하기
+    submitReview : async(rate, productId, title, content, userEmail, orderId, imgURL) => {
+     const reviewData = {
+         rate : rate,
+         productId : productId,
+         title : title,
+         content : content,
+         userEmail : userEmail,
+         orderId : orderId,
+         imgURL : imgURL
         }
         return await axios.post(Final_proj + "/review/writeReview", reviewData);
-    },
+     },
 
     // 제품 별 리뷰 불러오기
     viewReview : async(productName) => {

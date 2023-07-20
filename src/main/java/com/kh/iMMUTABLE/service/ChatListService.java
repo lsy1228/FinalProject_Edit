@@ -5,6 +5,7 @@ import com.kh.iMMUTABLE.entity.ChatList;
 import com.kh.iMMUTABLE.repository.ChatListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,7 +21,7 @@ public class ChatListService {
     private final ChatListRepository chatListRepository;
 
     public List<ChatListDto> getChatListAll() {
-        List<ChatList> chatList = chatListRepository.findAll();
+        List<ChatList> chatList = chatListRepository.findAll(Sort.by(Sort.Direction.DESC,"chatRoomId"));
         List<ChatListDto> chatListDtos = new ArrayList<>();
         for(ChatList chatListList : chatList){
             ChatListDto chatListDto = new ChatListDto();

@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import TOP from "./Top"
+
 
 const Conatainer = styled.div`
     right: 0px;

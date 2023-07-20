@@ -180,7 +180,7 @@ const Order = () => {
                                     </td>
                                     <td className="tdDate">{e.orderDate}</td>
                                     <td className="tdNum">{e.orderId}</td>
-                                    <td className="tdPrice">{e.productPrice}원</td>
+                                    <td className="tdPrice">{e.productPrice.toLocaleString()}원</td>
                                     {e.reviewed ? (
                                         <td className="tdStatus"><button className="reviewBtn">작성완료</button></td>
                                     ) : (
