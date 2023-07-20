@@ -21,9 +21,10 @@ const MainBody = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
+
      @media only screen and ( max-width: 390px){
             width: 390px;
-          }
+     }
 
 `
 
@@ -42,15 +43,14 @@ const Body = styled.div`
     display: flex;
     width: 1010px;
     flex-wrap: wrap;
+
      @media only screen and ( max-width: 390px){
             width: 390px;
-          }
+     }
 
     a{
-
         text-decoration: none;
         color: black;
-        /* border: 1px solid black; */
     }
 
     .box{
@@ -72,14 +72,12 @@ const Body = styled.div`
             font-weight: bolder;
             align-items: center;
             justify-content: center;
-            /* border: 1px solid black; */
         }
 
         .tt1{
             color: #656165;
             font-size: 11px;
             margin-left: 20px;
-
         }
 
         .tt2{
@@ -88,14 +86,13 @@ const Body = styled.div`
             justify-content: center;
             color: #a19aa2;
             font-size: 10px;
-            /* border: 1px solid black; */
         }
     }
 
     @media only screen and (max-width: 1000px) {
-            .box{
-                height: 100px;
-            }
+        .box{
+            height: 100px;
+        }
     }
 
 `
@@ -134,19 +131,14 @@ const Footer = styled.div`
 
 const Mypage = () =>{
     const nav = useNavigate();
-       // const {isLogin, setIsLogin} = useContext(UserContext);
 
        const isLogin = window.localStorage.getItem("isLoginSuv");
        const id = window.localStorage.getItem("userIdSuv");
        console.log(id);
 
-
        const clickOrder = () => {
            nav("/Order");
        }
-
-
-
 
     return(
         <Container>
@@ -203,8 +195,6 @@ const Mypage = () =>{
                             </div>
                         </Link>
                     </div>
-                   
-                    
                     <div className="box">
                         <Link to="/Secession">
                             <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
@@ -213,7 +203,6 @@ const Mypage = () =>{
                             </div>   
                        </Link>
                     </div>
-                
                 </Body>
             </InnerContainer>
             <Footer>
