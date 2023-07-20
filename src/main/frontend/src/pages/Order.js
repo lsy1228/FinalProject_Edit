@@ -15,7 +15,7 @@ const Container = styled.div`
 const InnerContainer = styled.div`
     width: 100%;
     height: 80%;
-    margin-top: 50px;
+    margin-top: 30px;
     .header {
         margin: 0 40px;
         font-size: 25px;
@@ -33,8 +33,7 @@ const InnerContainer = styled.div`
 
 const OrderTable = styled.div`
     width: 100%;
-    margin-bottom: 50px;
-    height: auto;
+    height: fit-content;
     .wrapper {
         margin: 0 40px;
         .orderTable {
@@ -44,11 +43,18 @@ const OrderTable = styled.div`
             }
             td {
                 text-align: center;
+                a {
+                    text-decoration: none;
+                    color: black;
+                    &:hover {
+                        color: gray;
+                    }
+                }
             }
             .Info {
-                width: 40%;
+                width: 25%;
             }
-            .Date, .Num, .Price, .Review{
+            .Date, .Num, .Price, .Review, .Status{
                 width: 15%;
             }
             .tdInfo {
@@ -57,7 +63,7 @@ const OrderTable = styled.div`
                 img {
                     width: 100px;
                     height: 100px;
-                    object-fit: contain;
+                    object-fit: cover;
                 }
                 .name {
                     display: flex;
@@ -150,6 +156,17 @@ const Order = () => {
         orderView();
     }, []);
 
+    const orderStatusMap = {
+        CHECK : "주문확인",
+        READY : "상품 준비중",
+        SHIP : "배송중",
+        DONE : "배송 완료"
+    }
+
+    const setOrderStatus = (orderStatus) => {
+        return orderStatusMap[orderStatus] || '';
+    }
+
     const sortedOrderList = orderList.slice().reverse();
 
 
@@ -163,13 +180,16 @@ const Order = () => {
                 <OrderTable>
                     <div className="wrapper">
                         <table className="orderTable">
-                            <tr>
+                            <thead>
+                                <tr>
                                 <th className="Info">상품정보</th>
                                 <th className="Date">주문일자</th>
                                 <th className="Num">주문번호</th>
                                 <th className="Price">주문금액</th>
+                                <th className="Status">주문상태</th>
                                 <th className="Review">리뷰작성</th>
-                            </tr>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {sortedOrderList.length > 0 ? (sortedOrderList.slice(offset, offset+limit).map((e) => (
                                 <tr key={e.orderId}>
@@ -181,15 +201,31 @@ const Order = () => {
                                     <td className="tdDate">{e.orderDate}</td>
                                     <td className="tdNum">{e.orderId}</td>
                                     <td className="tdPrice">{e.productPrice.toLocaleString()}원</td>
-                                    {e.reviewed ? (
-                                        <td className="tdStatus"><button className="reviewBtn">작성완료</button></td>
+                                        <td className="tdStatus">
+                                            {e.orderStatus === 'SHIP' ? (
+                                                <>
+                                                {e.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno='+ e.shipCode} target="blank">배송조회</a>}
+                                                {e.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo='+ e.shipCode} target="blank">배송조회</a>}
+                                                {e.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ e.shipCode} target="blank">배송조회회</a>}
+                                                </>
+                                                ) : (
+                                            setOrderStatus(e.orderStatus)
+                                        )}
+                                        </td>
+                                    {e.orderStatus === 'DONE' ? (
+                                        e.reviewed ? (
+                                        <td className="tdReview"><button className="reviewBtn">작성완료</button></td>)
+                                        : (
+                                        <td className="tdReview"><button className="reviewWrite" onClick={() => onClick(e.productId, e.orderId)}>리뷰작성</button></td>
+                                        )
                                     ) : (
-                                    <td className="tdStatus"><button className="reviewWrite" onClick={()=>onClick(e.productId, e.orderId)}>리뷰작성</button></td>
+                                        <td className="tdReview"></td>
                                     )}
-                                </tr>
-                                ))) : (
+                                    </tr>
+                                ))) :
+                                (
                                     <tr>
-                                        <td colSpan={5} className="noOrder"> 주문 내역이 없습니다. </td>
+                                        <td colSpan={6} className="noOrder"> 주문 내역이 없습니다. </td>
                                     </tr>
                                 )}
                             </tbody>

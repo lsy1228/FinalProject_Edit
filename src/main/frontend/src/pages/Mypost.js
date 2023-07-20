@@ -29,7 +29,7 @@ const Review = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: auto;
+    height: 50%;
     padding-bottom: 20px;
     .review {
         margin: 0 40px;
@@ -53,7 +53,6 @@ const Review = styled.div`
 const ReviewTable = styled.table`
     width: 100%;
     height: fit-content;
-    margin-bottom: 50px;
     tr {
         width: 100%;
         .Num {
@@ -143,7 +142,7 @@ const ReviewTable = styled.table`
 
 const QnA = styled.div`
     width: 100%;
-    height: auto;
+    height: 50%;
     padding-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -167,7 +166,6 @@ const QnA = styled.div`
 const QnATable = styled.table`
     width: 100%;
     height: fit-content;
-    margin-bottom: 50px;
     tr {
         width: 100%;
         th {

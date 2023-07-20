@@ -27,7 +27,7 @@ public class OrderDto {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private String shipCompany;
-    private int shipCode;
+    private long shipCode;
     private String userName;
     private String userEmail;
     private String userAddr;
