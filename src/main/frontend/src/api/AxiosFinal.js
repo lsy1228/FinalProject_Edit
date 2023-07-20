@@ -25,17 +25,17 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/adminLogin", adminLogin);
     },
-      // 어드민 토큰로그인
-      adminTokenLogin: async(email, pw) => {    
-        const adminTokenLogin = {
-            userEmail : email,
-            userPwd : pw
-        };
-        try{
-            return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
-            }catch (error){
-                return error.response.status;
-            }
+    // 어드민 토큰로그인
+    adminTokenLogin: async(email, pw) => {
+    const adminTokenLogin = {
+        userEmail : email,
+        userPwd : pw
+    };
+    try{
+        return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
+        }catch (error){
+            return error.response.status;
+        }
     },
     //로그인시 로그인 유저 정보 저장
     orderMemberData: async(email) =>{
@@ -373,6 +373,11 @@ const AxiosFinal = {
             faqContent : faqContent
         }
         return await axios.post(Final_proj + `/faq/editFaq`, editFaq);
+    },
+
+    // faq admin 확인
+    faqIsAdmin : async(userEmail) => {
+        return await axios.get(Final_proj + `faq/getAdmin?userEmail=${userEmail}`);
     },
   
    // 회원 정보 수정 저장

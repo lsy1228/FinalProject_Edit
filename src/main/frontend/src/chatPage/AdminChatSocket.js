@@ -104,7 +104,7 @@ const AdminChatSocket = (props) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://localhost:8111/ws/chat`;
+    const webSocketUrl = `ws://proj-immutable.store:8111/ws/chat`;
     const roomId = props.setRoomId;
     const sender = "iMMUTABLE_관리자";
     let ws = useRef(null);

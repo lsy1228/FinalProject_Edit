@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import AxiosFinal from "../api/AxiosFinal";
 import MyPageHeader from "../shopPage/MypageHeader";
+import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
     height: 100vh;
@@ -106,6 +107,8 @@ const FAQ = () => {
 
     const navigate = useNavigate();
     const [faqList, setFaqList] = useState(""); // faq 전체를 불러와서 제목과 내용만 추출
+    const context = useContext(UserContext);
+    const {userEmail, setUserEmail} = context;
 
     const onClickAddFaq = () => {
         navigate(`/Board/0`); // 수정하는 버튼이랑 차별을 주기 위해 0 넣음
@@ -138,6 +141,24 @@ const FAQ = () => {
         getList();
    }, []);
 
+    const [admin, setAdmin] = useState(false);
+
+    const adminAccount = window.localStorage.getItem("userIdSuv");
+    console.log(adminAccount);
+
+    // admin 확인
+    useEffect(() => {
+        const isAdmin = async() => {
+            const response = await AxiosFinal.faqIsAdmin(adminAccount);
+            console.log("안녕낭" + response.data);
+            if (response.data === true) {
+                console.log("어드민 로그인이면 이쪽으로 와^^")
+                setAdmin(true);
+            }
+        };
+        isAdmin();
+    },[]);
+
     return (
         <Container>
          <MyPageHeader />
@@ -151,14 +172,14 @@ const FAQ = () => {
                                 <AccordionItem key={faq.faqId} header={`Q. ${faq.faqTitle}`}> 
                                     <hr />
                                     <p>A.{faq.faqContent}</p>
-                                    <button className="deleteBtn" onClick={() => onClickEdit(faq.faqId)}>수정</button>
-                                    <button className="deleteBtn" onClick={() => onClickDelete(faq.faqId)}> 삭제</button>
+                                    {admin && <button className="deleteBtn" onClick={() => onClickEdit(faq.faqId)}>수정</button>}
+                                    {admin && <button className="deleteBtn" onClick={() => onClickDelete(faq.faqId)}> 삭제</button>}
                                 </AccordionItem>
                              ))}
                         </Accordion>
                     </div>
                     <Button>
-                        <button onClick={onClickAddFaq}>FAQ 추가</button>
+                        {admin && <button className="faq-button" onClick={onClickAddFaq}>FAQ 추가</button>}
                     </Button>
                     </Body>
                 </InnerContainer>

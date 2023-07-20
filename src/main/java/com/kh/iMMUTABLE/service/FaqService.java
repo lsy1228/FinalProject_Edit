@@ -1,12 +1,14 @@
 package com.kh.iMMUTABLE.service;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.dto.FaqDto;
 import com.kh.iMMUTABLE.entity.Faq;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.FaqRepository;
+import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -20,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FaqService {
     private final FaqRepository faqRepository;
+    private final UserRepository userRepository;
 
     // faq 업로드
     public boolean faqUpload(String faqTitle, String faqContent, LocalDateTime faqDate){
@@ -80,5 +83,15 @@ public class FaqService {
         faqDto.setContent(faqIdList.getFaqContent());
         faqDto.setFaqDate(faqIdList.getFaqDate());
         return faqDto;
+    }
+
+    //role_admin일때 글쓰기/수정 가능
+    public boolean isAdmin(String userEmail) {
+        Users users = userRepository.findByUserEmail(userEmail);
+        if (users != null) {
+            log.info(String.valueOf(users.getAuthority()));
+            return users.getAuthority().equals(Authority.ROLE_ADMIN);
+        }
+        return false;
     }
 }

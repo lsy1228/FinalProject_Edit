@@ -1,7 +1,10 @@
 package com.kh.iMMUTABLE.controller;
 
+import com.kh.iMMUTABLE.constant.Authority;
 import com.kh.iMMUTABLE.dto.FaqDto;
+import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.Faq;
+import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.service.FaqService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +67,14 @@ public class FaqController {
     public ResponseEntity<FaqDto> listFaq (@RequestParam String faqId) {
         FaqDto result = faqService.faqIdList(Long.valueOf(faqId));
         System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // admin list 가져오기
+    @GetMapping("/getAdmin")
+    public ResponseEntity<Boolean> isAdmin(String userEmail) {
+        boolean result = faqService.isAdmin(userEmail);
+        log.info(String.valueOf(result));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

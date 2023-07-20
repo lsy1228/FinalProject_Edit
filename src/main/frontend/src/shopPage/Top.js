@@ -55,6 +55,8 @@ const Container_in = styled.div`
 
     img{
         height: 400px;
+        width: 300px;
+
         @media only screen and ( max-width: 390px){
         margin-left: 0px;
         height: 240px;
