@@ -169,14 +169,6 @@ const Review = styled.div`
             }
             .sortReview {
                 padding-right: 20px;
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-            .reverseSortReview {
-                &:hover {
-                    cursor: pointer;
-                }
             }
         }
     }

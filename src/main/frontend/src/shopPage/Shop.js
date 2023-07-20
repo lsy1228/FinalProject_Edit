@@ -14,19 +14,19 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-      @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 390px){
         width: 380px;
     }
 
 `
 
-const Mainboby=styled.div`
+const Mainboby = styled.div`
 
     @media only screen and ( max-width: 390px){
         width: 380px;
         height: 100vh;
     }
-    `
+`
 
 
 const Article = styled.div`
@@ -36,8 +36,7 @@ const Article = styled.div`
     @media only screen and ( max-width: 390px){
         display: flex;
         width: 390px;
-      }
-
+    }
 `
 
 
@@ -49,7 +48,7 @@ const Container_in = styled.div`
         width: 193px;
         height: 300px;
         margin-left: 0px;
-      }
+    }
 
 
     .blur {
@@ -58,22 +57,20 @@ const Container_in = styled.div`
 
     img{
         height: 400px;
+        width: 300px;
+
         @media only screen and ( max-width: 390px){
-        margin-left: 0px;
-        height: 240px;
-        width: 190px;
-
-      }
-
+            margin-left: 0px;
+            height: 240px;
+            width: 190px;
+        }
     }
 
     .info{
         @media only screen and ( max-width: 390px){
-        margin-left: 0px;
-        font-size: 12px;
-
-
-      }
+            margin-left: 0px;
+            font-size: 12px;
+        }
     }
 
     .logo{
@@ -84,17 +81,16 @@ const Container_in = styled.div`
             margin-left: 0px;
             width: 100px;
             font-size: 13px;
-      }
+        }
     }
 
     .price{
         width: 200px;
         font-size: 10px;
         @media only screen and ( max-width: 390px){
-        margin-left: 0px;
-        width: 100px;
-
-      }
+            margin-left: 0px;
+            width: 100px;
+        }
     }
 `;
 
@@ -133,16 +129,10 @@ const Filter = styled.div`
 `
 
 
-
-
-
 const Shop = () => {
-
-
-
-    const [limit, setLimit] = useState(10);
-    const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
+    const [limit, setLimit] = useState(10);             // 페이지에 보여줄 아이템 수
+    const [page, setPage] = useState(1);                // 현재 페이지 번호
+    const offset = (page - 1) * limit;                  // 시작 인덱스
 
     const {item, setItem} = useContext(UserContext);
     const [isBlurred, setIsBlurred] = useState(false);
@@ -159,12 +149,12 @@ const Shop = () => {
 
     useEffect(() => {
         const getProduct = async() => {
-           const rsp = await AxiosFinal.sellitems();
-           if(rsp.status === 200) setProduct(rsp.data);
-           console.log(rsp.data);
-       };
+               const rsp = await AxiosFinal.sellitems();
+               if(rsp.status === 200) setProduct(rsp.data);
+               console.log(rsp.data);
+        };
        getProduct();
-      }, []);
+    }, []);
 
 
     const mergeProduct = {};
