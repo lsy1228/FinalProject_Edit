@@ -116,7 +116,7 @@ const ChatSocket = (props) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
-    const webSocketUrl = `ws://localhost:8111/ws/chat`;
+    const webSocketUrl = `ws://proj-immutable.store:8111/ws/chat`;
     const roomId = window.localStorage.getItem("chatRoomId");
     const sender = window.localStorage.getItem("userIdSuv");
     let ws = useRef(null);

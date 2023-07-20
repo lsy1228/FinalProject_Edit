@@ -143,10 +143,13 @@ const FAQ = () => {
 
     const [admin, setAdmin] = useState(false);
 
+    const adminAccount = window.localStorage.getItem("userIdSuv");
+    console.log(adminAccount);
+
     // admin 확인
     useEffect(() => {
         const isAdmin = async() => {
-            const response = await AxiosFinal.faqIsAdmin(userEmail);
+            const response = await AxiosFinal.faqIsAdmin(adminAccount);
             console.log("안녕낭" + response.data);
             if (response.data === true) {
                 console.log("어드민 로그인이면 이쪽으로 와^^")
@@ -169,8 +172,8 @@ const FAQ = () => {
                                 <AccordionItem key={faq.faqId} header={`Q. ${faq.faqTitle}`}> 
                                     <hr />
                                     <p>A.{faq.faqContent}</p>
-                                    <button className="deleteBtn" onClick={() => onClickEdit(faq.faqId)}>수정</button>
-                                    <button className="deleteBtn" onClick={() => onClickDelete(faq.faqId)}> 삭제</button>
+                                    {admin && <button className="deleteBtn" onClick={() => onClickEdit(faq.faqId)}>수정</button>}
+                                    {admin && <button className="deleteBtn" onClick={() => onClickDelete(faq.faqId)}> 삭제</button>}
                                 </AccordionItem>
                              ))}
                         </Accordion>
