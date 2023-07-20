@@ -218,7 +218,7 @@ const EditQnaModal = (props) => {
                             <img src={product.productImgFst}/>
                             <div className="productInfo">
                                 <div className="productName">{product.productName}</div>
-                                <div className="productPrice">{product.productPrice}</div>
+                                <div className="productPrice">{product.productPrice.toLocaleString()}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
