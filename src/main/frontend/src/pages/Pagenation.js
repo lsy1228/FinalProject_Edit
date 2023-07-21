@@ -6,15 +6,16 @@ const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     gap: 4px;
-    margin: 0px;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+//    margin: 0px;
+    margin: 16px;
+//    left: 0;
+//    bottom: 0;
+//    width: 100%;
 `;
 
 const Button = styled.button`
   border: none;
-  border-radius: 8px;
+//  border-radius: 8px;
   padding: 8px;
   margin: 0;
   background: black;

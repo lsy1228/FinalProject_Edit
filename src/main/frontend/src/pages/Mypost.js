@@ -28,9 +28,9 @@ const InnerContainer = styled.div`
 const Review = styled.div`
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
     width: 100%;
-    height: 50%;
-    padding-bottom: 20px;
+    height: auto;
     .review {
         margin: 0 40px;
         margin-top: 20px;
@@ -94,7 +94,7 @@ const ReviewTable = styled.table`
         img {
             width: 50px;
             height: 50px;
-            object-fit: contain;
+            object-fit: cover;
         }
     }
     .reviewContent {
@@ -142,8 +142,7 @@ const ReviewTable = styled.table`
 
 const QnA = styled.div`
     width: 100%;
-    height: 50%;
-    padding-bottom: 20px;
+    height: auto;
     display: flex;
     flex-direction: column;
     .qna {
@@ -383,13 +382,13 @@ const Mypost = () => {
                                 </tbody>
                             </ReviewTable>
                        </div>
-                    </Review>
-                    <ReviewPagenation
+                       <ReviewPagenation
                         total={reviewData.length}
                         limit={reviewLimit}
                         page={reviewPage}
                         setPage={setReviewPage}
                         />
+                    </Review>
                     <QnA>
                         <div className="qna">
                             <div className="qnaBoard">QnA</div>
@@ -448,15 +447,14 @@ const Mypost = () => {
                             )}
                             </QnATable>
                         </div>
-                    </QnA>
-                    <Pagenation
+                        <Pagenation
                         total={qnaData.length} // 전체 아이템 수
                         limit={limit}          // 페이지 당 아이템 수
                         page={page}            // 현재 페이지 번호
                         setPage={setPage}      // 페이지 번호를 변경
                             />
+                    </QnA>
                 </InnerContainer>
-
         </Container>
     )
 }
