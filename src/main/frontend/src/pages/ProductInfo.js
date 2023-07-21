@@ -9,7 +9,7 @@ import AxiosFinal from "../api/AxiosFinal";
 import Pagenation from "./Pagenation";
 import ReviewPagenation from "./Pagenation";
 import { FaStar } from 'react-icons/fa';
-
+import ModalEmail from "./ModalEmail";
 
 
 const Container = styled.div`
@@ -384,7 +384,6 @@ const ProductInfo = () => {
     const nav = useNavigate();
 
     const [click, setClick] = useState(false);
-    const [modalOpen, setModalOpen] = useState(false);
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState();   // 사이즈에 따른 상품 아이디
     const [product, setProduct] = useState([]);
@@ -403,9 +402,14 @@ const ProductInfo = () => {
     const [reviewPage, setReviewPage] = useState(1);
     const reviewOffset = (reviewPage - 1) * reviewLimit;
 
+    // 팝업
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModelText] = useState("");
+
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
+
 
     const handleSelect = (e) => {
         const productId = e.target.value;
@@ -506,14 +510,14 @@ const ProductInfo = () => {
 
     const clickCart = async(id, productId) => {
         if(!productId) {
-            alert("사이즈를 선택해주세요.");
+            alert("사이즈를 선택해주세요");
             return;
         }
         try {
             const params = await AxiosFinal.addCartItem(id, productId);
             console.log(params.data);
             if (params) {
-                  alert("장바구니에 상품이 담겼습니다.")
+                  alert("장바구니에 상품이 담겼습니다.");
                 }
             } catch (error) {
                 console.error("상품 추가 중 에러 발생 : ", error);
@@ -579,6 +583,7 @@ const ProductInfo = () => {
                             </div>
                             <div className="addBtn">
                                {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
+                                <ModalEmail open={modalOpen} close={closeModal}>{modalText}</ModalEmail>
                                 <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
                             </div>
                             <div className="detailWrapper">
