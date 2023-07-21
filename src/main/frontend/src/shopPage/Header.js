@@ -148,7 +148,6 @@ const Header = ({ onClick }) => {
             window.localStorage.setItem("isLoginSuv", "FALSE");
             window.localStorage.setItem("userIdSuv", "");
             window.location.reload();
-            navigate("/");
         }
         else if(e==="SHOP"){
             navigate("/Shop");

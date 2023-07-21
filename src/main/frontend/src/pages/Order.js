@@ -169,7 +169,6 @@ const Order = () => {
 
     const sortedOrderList = orderList.slice().reverse();
 
-
     return (
         <Container>
             <MyPageHeader />

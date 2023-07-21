@@ -167,9 +167,17 @@ const Review = styled.div`
                 padding-right: 20px;
                 font-weight: bold;
             }
-            .sortReview {
-                padding-right: 20px;
-            }
+           .sortReview {
+               padding-right: 20px;
+               &:hover {
+                   cursor: pointer;
+               }
+           }
+           .reverseSortReview {
+               &:hover {
+                   cursor: pointer;
+               }
+           }
         }
     }
     @media (max-width: 390px) {

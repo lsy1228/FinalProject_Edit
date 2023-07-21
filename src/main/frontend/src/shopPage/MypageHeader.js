@@ -348,12 +348,12 @@ console.log(" ::"  + cartItemId);
                      iMMUTABLE
                     </div></a>
                     <div className="nav3">
-                    {isLogin===false && IsLoginFalse.map(s=> (
+                    {isUserLogin==="FALSE" && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin===true && IsLoginTrue.map(s=> (
+                          {isUserLogin==="TRUE" && IsLoginTrue.map(s=> (
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
