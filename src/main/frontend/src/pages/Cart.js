@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 
-
 const Container=styled.div`
     width: 100%;
     height: 100vh;

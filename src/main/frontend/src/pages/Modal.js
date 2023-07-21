@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import ModalEmail from "./ModalEmail";
 
 const Container = styled.div`
     .modal {
@@ -172,8 +173,17 @@ const Modal = (props) => {
     const [inputContent, setInputContent] = useState('');
     const [product, setProduct] = useState([]);
 
+    // 팝업
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModelText] = useState("");
+
     const productId = window.localStorage.getItem("heartProductId");
     const userEmail = window.localStorage.getItem("userIdSuv");
+
+    //모달 창 닫기
+    const closeModal = () =>{
+        setModalOpen(false);
+    };
 
     const handelTitle = (e) => {
         setInputTitle(e.target.value);
@@ -185,15 +195,18 @@ const Modal = (props) => {
     
     const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
         if(inputTitle === "" || inputContent === "") {
-            alert("제목과 내용 모두 입력해주세요");
+            setModalOpen(true);
+            setModelText("제목과 내용 모두 입력해주세요");
             return;
         } else {
             const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
             if(response.data) {
-                alert("QnA 작성이 완료되었습니다");
-                close();
+                setModalOpen(true);
+                setModelText("QnA 작성이 완료되었습니다");
+
             } else {
-                alert("QnA 작성에 실패하였습니다");
+                setModalOpen(true);
+                setModelText("QnA 작성에 실패했습니다.");
             }
         }
         setInputTitle("");
@@ -233,6 +246,7 @@ const Modal = (props) => {
                             <div className="content">내용</div> <textarea onChange={handleContent} placeholder="내용 입력" />
                         </div>
                         <div className="Btn">
+                            <ModalEmail open={modalOpen} close={closeModal}>{modalText}</ModalEmail>
                             <button className="cancle" onClick={close}>취소</button>
                             <button type="submit" className="write" onClick={()=>onClickUpdate(productId, userEmail, inputTitle, inputContent)}>작성하기</button>
                         </div>

@@ -7,6 +7,7 @@ import AxiosFinal from "../api/AxiosFinal";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { UserContext } from "../context/UserInfo";
 import { storage } from "../adminPage/FireBase";
+import ModalEmail from "./ModalEmail";
 
 
 const Container = styled.div`
@@ -236,6 +237,7 @@ const Review = () => {
                                 <textarea placeholder="내용을 입력하세요" value={content} onChange={writeContent}/>
                             </div>
                             <div className="Btn">
+                                {/*<ModalEmail open={modalOpen} close={closeModal}>{modalText}</ModalEmail>*/}
                                 <button onClick={writeReview}>등록하기</button>
                             </div>
                         </div>
