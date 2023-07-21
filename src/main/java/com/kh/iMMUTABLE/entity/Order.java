@@ -43,7 +43,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus=OrderStatus.CHECK;
     private String shipCompany;
-    private int shipCode;
+    private long shipCode;
     private int count;
     private int productPrice;
     private String orderName;

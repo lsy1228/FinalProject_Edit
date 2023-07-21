@@ -68,7 +68,8 @@ public class AdminController {
     public ResponseEntity<Boolean> orderUpload(@RequestBody Map<String, String> qnaData) {
         int orderId = Integer.parseInt(qnaData.get("orderId"));
         String orderStatue = qnaData.get("orderStatue");
-        int shipCode = Integer.parseInt(qnaData.get("orderShipCode"));
+//        int shipCode = Integer.parseInt(qnaData.get("orderShipCode"));
+        long shipCode = Long.parseLong((qnaData.get("orderShipCode")));
         String shipCompany = qnaData.get("orderShipCompany");
         System.out.println(orderId);
         System.out.println("컨트롤러 : " + shipCode);

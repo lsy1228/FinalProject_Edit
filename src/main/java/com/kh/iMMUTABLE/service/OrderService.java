@@ -42,7 +42,7 @@ public class OrderService {
         return orderDtos;
     }
     //주문상태 업로드하기
-    public boolean upLoadData(int orderId,String orderStatue,int shipCode, String orderShipCompany) {
+    public boolean upLoadData(int orderId,String orderStatue,long shipCode, String orderShipCompany) {
         System.out.println("서비스 : " +  orderId);
         System.out.println("서비스 : " +  orderStatue);
         Order order = orderRepository.findByOrderId(orderId);

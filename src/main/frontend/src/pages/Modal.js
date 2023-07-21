@@ -236,7 +236,7 @@ const Modal = (props) => {
                             <img src={product[0].productImgFst}/>
                             <div className="productInfo">
                                 <div className="productName">{product[0].productName}</div>
-                                <div className="productPrice">{(product[0].productPrice).toLocaleString()}</div>
+                                <div className="productPrice">{product[0].productPrice.toLocaleString()}원</div>
                             </div>
                         </div>
                         <div className="mainTitle">
