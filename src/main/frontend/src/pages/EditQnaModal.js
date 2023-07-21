@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
-import {useNavigate} from 'react-router-dom';
 
 const Container = styled.div`
     .modal {
@@ -17,15 +16,16 @@ const Container = styled.div`
         background-color: white;
         border-radius: 10px;
  }
+
     @media (max-width: 390px) {
-            .modal {
-                display: none;
-                position: fixed;
-                width: 390px;
-                height: 600px;
-                left: 0;
-            }
+        .modal {
+            display: none;
+            position: fixed;
+            width: 390px;
+            height: 600px;
+            left: 0;
         }
+    }
 
     .openModal {
         display: flex; // 모달이 보이도록 함
@@ -131,7 +131,7 @@ const Container = styled.div`
                 .write {
                     background-color: black;
                     color: white;
-                    
+
                 }
             }
         }
@@ -164,13 +164,14 @@ const EditQnaModal = (props) => {
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
     const [product, setProduct] = useState([]);
-
-    const nav = useNavigate();
+    const [formatPrice, setFormatPrice] = useState('');
 
     useEffect(()=> {
         const editProductInfo = async(productId) => {
             const response = await AxiosFinal.myQnaProductInfo(productId);
             setProduct(response.data);
+            const formattedPrice = response.data.productPrice.toLocaleString();
+            setFormatPrice(formattedPrice);
         }
         editProductInfo(productId);
 
@@ -181,10 +182,11 @@ const EditQnaModal = (props) => {
         }
         getMyQna(qnaId);
 
-
     }, [productId, qnaId]);
 
+
     const editTitle = (e) => {
+        console.log(e.target.value);
         setInputTitle(e.target.value);
     }
 
@@ -218,7 +220,7 @@ const EditQnaModal = (props) => {
                             <img src={product.productImgFst}/>
                             <div className="productInfo">
                                 <div className="productName">{product.productName}</div>
-                                <div className="productPrice">{product.productPrice}</div>
+                                <div className="productPrice">{formatPrice}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
