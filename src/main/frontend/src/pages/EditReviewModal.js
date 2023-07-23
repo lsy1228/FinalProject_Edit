@@ -99,12 +99,15 @@ const Container = styled.div`
                             width: 45%;
                             border: 1px solid black;
                             cursor: pointer;
-                            font-size: 14px;
+                            /* padding: 4px 10px; */
+                            font-size: 13px;
                         }
                         .deleteImg {
                             width: 45%;
+                            padding: 4px 10px;
                             background-color: white;
                             border: 1px solid black;
+                            font-size: 13px;
                             margin: 0;
                             cursor: pointer;
                         }
@@ -316,7 +319,7 @@ const EditReviewModal = (props) => {
                                         <div className="btns">
                                             <button className="deleteImg" onClick={deleteImg}>이미지 삭제</button>
                                             <label className="input-file-button" htmlFor="input-file">
-                                                사진 업로드
+                                                이미지 업로드
                                             <input type="file" id="input-file" style={{ display: "none" }} onChange={(e)=>selectReviewImg(e)} />
                                             </label>
                                         </div>
@@ -324,7 +327,7 @@ const EditReviewModal = (props) => {
                                 ) : (
                                     <div className="noImgInput">
                                         <div className="noImg">업로드한 이미지가 없습니다.</div>
-                                        <label className="input-file" htmlFor="input-file">사진 업로드</label>
+                                        <label className="input-file" htmlFor="input-file">이미지 업로드</label>
                                         <input type="file" id="input-file" style={{ display: "none" }} onChange={selectReviewImg} />
                                     </div>
                                 )}
