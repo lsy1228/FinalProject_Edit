@@ -168,6 +168,10 @@ const Review = () => {
             alert("제목, 내용을 모두 입력해주세요");
             return;
         }
+        if(score === 0) {
+            alert("별점을 선택해주세요");
+            return;
+        }
         const reviewWrite = async() => {
             const rsp = await AxiosFinal.submitReview(score, productId, title, content, id, orderId, imgURL);
             console.log(rsp.data);
@@ -223,7 +227,6 @@ const Review = () => {
                                     />
                                 ))}</span>
                                 <div className="reviewImg">
-                                    {/* <input type="file" className="imgBtn" onChange={(e)=> {selectReviewImg(e)}} /> */}
                                     <label className="input-file-button" for="input-file">사진 업로드</label>
                                     <input type="file" id="input-file" style={{display:"none"}} onChange={(e)=> {selectReviewImg(e)}}/>
                                 </div>
@@ -237,7 +240,6 @@ const Review = () => {
                                 <textarea placeholder="내용을 입력하세요" value={content} onChange={writeContent}/>
                             </div>
                             <div className="Btn">
-                                {/*<ModalEmail open={modalOpen} close={closeModal}>{modalText}</ModalEmail>*/}
                                 <button onClick={writeReview}>등록하기</button>
                             </div>
                         </div>

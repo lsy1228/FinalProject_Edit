@@ -4,6 +4,15 @@ import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left : 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 98;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
     .modal {
         display: none;  // 숨겨진 상태로 시작
         position: fixed;
@@ -32,14 +41,6 @@ const Container = styled.div`
         align-items: center;
         /* 팝업이 열릴때 스르륵 열리는 효과 */
         animation: modal-bg-show 0.8s;
-    }
-    button {
-        width: 100px;
-        height: 30px;
-        outline: none;
-        cursor: pointer;
-        margin-right: 20px;
-        border: 0;
     }
 
     .form {
@@ -128,6 +129,13 @@ const Container = styled.div`
             .Btn {
                 display: flex;
                 justify-content: center;
+                button {
+                    width: 100px;
+                    height: 30px;
+                    cursor: pointer;
+                    margin-right: 20px;
+                    border: 1px solid black;
+                }
                 .write {
                     background-color: black;
                     color: white;
@@ -207,6 +215,7 @@ const EditQnaModal = (props) => {
 
     return (
         <Container>
+            {open && <div className="backdrop" />}
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
                <div className="form">

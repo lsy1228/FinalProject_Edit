@@ -602,6 +602,23 @@ const AxiosFinal = {
             reviewId : reviewId
         }
         return await axios.post(Final_proj + "/review/deleteReview", deleteReview);
+    },
+
+    // 리뷰 수정 가져오기
+    editMyReviewInfo : async(reviewId) => {
+        return await axios.get(Final_proj + `/review/editReviewInfo?reviewId=${reviewId}`);
+    },
+
+    // 리뷰 수정하기
+    editMyReview : async(reviewId, inputTitle, inputContent, userRate, imgUrl) => {
+        const editData = {
+            reviewId : reviewId,
+            title : inputTitle,
+            content : inputContent,
+            userRate : userRate,
+            imgUrl : imgUrl
+        }
+        return await axios.post(Final_proj + "/review/editMyReview", editData);
     }
     
 };

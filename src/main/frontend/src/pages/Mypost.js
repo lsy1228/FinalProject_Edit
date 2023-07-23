@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MyPageHeader from "../shopPage/MypageHeader";
-import { Axios, AxiosError } from "axios";
 import AxiosFinal from "../api/AxiosFinal";
 import EditQnaModal from "./EditQnaModal";
 import Pagenation from "./Pagenation";
 import ReviewPagenation from "./Pagenation";
+import EditReviewModal from "./EditReviewModal";
+import { FaStar } from 'react-icons/fa';
 
 const Container = styled.div`
     width: 100%;
@@ -62,9 +63,9 @@ const ReviewTable = styled.table`
             width: 30%;
         }
         .Title {
-            width: 35%;
+            width: 25%;
         }
-        .User, .Date, .Delete {
+        .Rate, .Date, .Delete, .Edit {
             width: 10%;
         }
         td {
@@ -117,7 +118,7 @@ const ReviewTable = styled.table`
     @media (max-width: 390px) {
         height: fit-content;
         tr {
-            .Num, .num, .User, .user{
+            .Num, .num {
                 display: none;
             }
             .Product, .Title, .Date, .Delete {
@@ -176,7 +177,7 @@ const QnATable = styled.table`
         .Title {
             width: 55%;
         }
-        .User, .Status, .Edit, .Delete {
+        .Date, .Status, .Edit, .Delete {
             width: 10%;
         }
         td {
@@ -223,7 +224,7 @@ const QnATable = styled.table`
     @media (max-width: 390px) {
         height: fit-content;
         tr {
-            .Num, .num, .User, .user{
+            .Num, .num {
                 display: none;
             }
             .Title {
@@ -251,6 +252,8 @@ const Mypost = () => {
     const [qnaId, setQnaId] = useState("");
     const [deleteCount, setDeleteCount] = useState([]);
     const [reviewData, setReviewData] = useState([]);
+    const [reviewId, setReviewId] = useState("");
+    const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
     // qna pagenation
     const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
@@ -277,7 +280,7 @@ const Mypost = () => {
         }
         viewMyReview();
 
-    }, [deleteCount, modalOpen]);
+    }, [deleteCount, modalOpen, reviewModalOpen]);
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {
@@ -295,6 +298,7 @@ const Mypost = () => {
 
     const closeModal = () => {
         setModalOpen(false);
+        setReviewModalOpen(false);
     }
 
     const deleteQna = async(qnaId) => {
@@ -321,6 +325,25 @@ const Mypost = () => {
         }
     }
 
+    const editReview = (reviewId) => {
+        setReviewModalOpen(true);
+        setReviewId(reviewId);
+    }
+
+    const StarRating = ({rating}) => {
+        const stars = [];
+        for(let i = 0; i < 5; i++) {
+            stars.push(
+                <FaStar
+                icon = {FaStar}
+                key={i}
+                style={{color: i < rating ? 'black' : 'lightgray'}}
+                />
+            );
+        }
+        return <div>{stars}</div>
+    }
+
     const sortedQnaData = qnaData.slice().reverse();
     const sortedReviewData = reviewData.slice().reverse();
 
@@ -338,10 +361,11 @@ const Mypost = () => {
                                 <thead>
                                     <tr>
                                         <th className="Num">NUM</th>
+                                        <th className="Rate">Rate</th>
                                         <th className="Product">PRODUCT</th>
                                         <th className="Title">TITLE</th>
-                                        <th className="User">USER</th>
                                         <th className="Date">DATE</th>
+                                        <th className="Edit">EDIT</th>
                                         <th className="Delete">DELETE</th>
                                     </tr>
                                 </thead>
@@ -351,19 +375,22 @@ const Mypost = () => {
                                     <React.Fragment key={index}>
                                     <tr>
                                         <td className="num">{reviewOffset+index+1}.</td>
+                                        <td className="rate">
+                                            <StarRating rating = {e.reviewRate} />
+                                        </td>
                                         <td className="product">
                                             <img src={e.productImgFst} alt="" />
                                             <p>{e.productName}</p>
                                             <p>{e.productSize}</p>
                                         </td>
                                         <td className="title" onClick={()=>handleReview(index)}>{e.reviewTitle}</td>
-                                        <td className="user">{e.userName}</td>
                                         <td className="date">{e.reviewDate}</td>
+                                        <td className="btn"><button onClick={()=>editReview(e.reviewId)}>수정</button></td>
                                         <td className="btn"><button onClick={()=>deleteReview(e.reviewId)}>삭제</button></td>
                                     </tr>
                                     {rvExpanded.includes(index) && (
                                     <tr>
-                                        <td colSpan={6} className="reviewContent">
+                                        <td colSpan={7} className="reviewContent">
                                             <p className="content">{e.reviewContent}</p>
                                             {e.reviewImg && (
                                                 <img src={e.reviewImg} alt="" />
@@ -375,7 +402,7 @@ const Mypost = () => {
                                     ))
                                     ) : (
                                         <tr>
-                                            <td className="noReview" colSpan={6}>리뷰 내역이 없습니다.</td>
+                                            <td className="noReview" colSpan={7}>리뷰 내역이 없습니다.</td>
                                         </tr>
                                     )
                                     }
@@ -398,8 +425,8 @@ const Mypost = () => {
                                     <tr>
                                         <th className="Num">NUM</th>
                                         <th className="Title">TITLE</th>
-                                        <th className="User">USER</th>
                                         <th className="Status">STATUS</th>
+                                        <th className="Date">DATE</th>
                                         <th className="Edit">EDIT</th>
                                         <th className="Delete">DELETE</th>
                                     </tr>
@@ -411,8 +438,8 @@ const Mypost = () => {
                                 <tr >
                                     <td className="num">{offset + index + 1}.</td>
                                     <td className="title" onClick={()=>handleQna(index)}>{e.qnaTitle}</td>
-                                    <td className="user">{e.userName}</td>
                                     <td className="status" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
+                                    <td className="date">{e.qnaDate}</td>
                                     <td className="btn">
                                     {e.qnaStatus === "HOLD" ?
                                         (<button onClick={() => editQna(e.productId, e.qnaId)}>수정</button>
@@ -442,6 +469,9 @@ const Mypost = () => {
                                     </tr>
                                 )}
                             </tbody>
+                            {reviewModalOpen && (
+                                <EditReviewModal open={reviewModalOpen} close={closeModal} reviewId={reviewId} />
+                            )}
                             {modalOpen && (
                                 <EditQnaModal open={modalOpen} close={closeModal} productId={productId} qnaId={qnaId} />
                             )}

@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -118,5 +115,40 @@ public class ReviewService {
         long id = Long.parseLong(reviewId);
         reviewRepository.deleteById(id);
         return true;
+    }
+
+    // 리뷰 수정 가져오기
+    public ReviewDto editReviewInfo (long reviewId) {
+        Optional<Review> review = reviewRepository.findById(reviewId);
+        ReviewDto reviewDto = new ReviewDto();
+        if(review.get().getReview_img() != null) {
+            reviewDto.setReviewImg(review.get().getReview_img());
+        }
+        reviewDto.setReviewRate(review.get().getReview_rate());
+        reviewDto.setReviewTitle(review.get().getReview_title());
+        reviewDto.setReviewContent(review.get().getReview_content());
+        return reviewDto;
+    }
+
+    // 리뷰 수정하기
+    public boolean editMyReview (String reviewId, String title, String content, String userRate, String imgUrl) {
+        long id = Long.parseLong(reviewId);
+        int rate = Integer.parseInt(userRate);
+        Optional<Review> reviewOptional = reviewRepository.findById(id);
+        if(reviewOptional.isPresent()) {
+            Review review = reviewOptional.get();
+            review.setReview_title(title);
+            review.setReview_content(content);
+            review.setReview_date(LocalDate.now());
+            review.setReview_rate(rate);
+            if(imgUrl == null) {
+                review.setReview_img(null);
+            } else {
+                review.setReview_img(imgUrl);
+            }
+            reviewRepository.save(review);
+            return true;
+        }
+        return false;
     }
 }

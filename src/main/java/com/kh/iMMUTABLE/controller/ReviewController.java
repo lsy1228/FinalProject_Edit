@@ -70,5 +70,24 @@ public class ReviewController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // 리뷰 수정 가져오기
+    @GetMapping("/editReviewInfo")
+    public ResponseEntity<ReviewDto> editReviewInfo (@RequestParam long reviewId) {
+        ReviewDto result = reviewService.editReviewInfo(reviewId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 리뷰 수정하기
+    @PostMapping("/editMyReview")
+    public ResponseEntity<Boolean> editMyReview (@RequestBody Map<String, String> editData) {
+        String reviewId = editData.get("reviewId");
+        String title = editData.get("title");
+        String content = editData.get("content");
+        String userRate = editData.get("userRate");
+        String imgUrl = editData.get("imgUrl");
+        boolean result = reviewService.editMyReview(reviewId, title, content, userRate, imgUrl);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }
