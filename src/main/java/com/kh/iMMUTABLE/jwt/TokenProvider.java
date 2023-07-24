@@ -23,7 +23,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer"; // 기본적인 문자열
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30; // 토큰 유효시간
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 5; // 토큰 유효시간
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 7L * 24 * 60 * 60 * 1000; // 리프레시 토큰 유효시간
     private final Key key; // 해독하는 키값을 받아내는 부분
 
