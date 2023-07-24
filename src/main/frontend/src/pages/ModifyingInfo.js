@@ -174,6 +174,7 @@ const InnerContainer = styled.div`
     width: 1000px;
     height: 100%;
     margin-top: 30px;
+  margin-left: 10%;
     @media only screen and ( max-width: 430px){
         width: 390px;
       }
