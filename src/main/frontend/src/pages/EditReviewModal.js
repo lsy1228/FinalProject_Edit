@@ -188,14 +188,11 @@ const Container = styled.div`
     }
 
     @media (max-width: 430px) {
-        background-color: #999;
-        overflow-y: auto;
             .modal {
                 position: fixed;
                 width: 90%;
                 height: 77%;
                 left: 20px;
-                overflow-y: auto;
             }
             .form {
                 .main {
