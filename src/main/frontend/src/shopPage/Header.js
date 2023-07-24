@@ -7,7 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 const Container = styled.div`
     width: 100%;
     display: flex;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 380px;
     }
 `
@@ -15,7 +15,7 @@ const Container = styled.div`
 const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         margin: 0;
         width: 380px;
     }
@@ -64,7 +64,7 @@ const Head = styled.div`
         &:hover{
             color: rgba(0,0,0,0.5);
         }
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             margin-top: 30px;
 
     }
@@ -78,7 +78,7 @@ const Head = styled.div`
         align-items: center;
         font-weight: bolder;
         font-size: 50px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         margin-left: 10%;
         font-size: 28px;
         width: 160px;
@@ -94,7 +94,7 @@ const Head = styled.div`
         div{
             margin-left: 20px;
         }
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             width: 60px;
             flex-direction: column;
         }

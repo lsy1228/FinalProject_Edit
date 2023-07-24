@@ -115,7 +115,7 @@ const MainBody = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        @media only screen and ( max-width: 390px ){
+        @media only screen and ( max-width: 430px ){
         flex-direction:row;
         height: 35px;
         width: 100%;
@@ -125,12 +125,12 @@ const MainBody = styled.div`
         width: calc(100vw - 200px);
         height: 100%;
         border-top: 1px solid #CCC;
-        @media only screen and ( max-width: 390px ){
+        @media only screen and ( max-width: 430px ){
         width: 100%;
         height: 100%;
         }
     }
-    @media only screen and ( max-width: 390px ){
+    @media only screen and ( max-width: 430px ){
         flex-direction: column;
         height: calc(100vh - 180px);;
     }

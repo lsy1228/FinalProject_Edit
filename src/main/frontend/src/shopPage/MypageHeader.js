@@ -8,7 +8,7 @@ import { UserContext } from "../context/UserInfo";
 const Container = styled.div`
     width: 100%;
     display: flex;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
     }
 
@@ -17,7 +17,7 @@ const Container = styled.div`
 const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         margin: 0;
     }
 
@@ -36,7 +36,7 @@ const Head = styled.div`
     height: 70px;
     display: flex;
 
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         align-items: center;
 
 }
@@ -50,7 +50,7 @@ const Head = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -64,7 +64,7 @@ const Head = styled.div`
         align-items: center;
         font-weight: bolder;
         font-size: 50px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         margin-left: 5%;
         font-size: 40px;
         width: 180px;
@@ -81,7 +81,7 @@ const Head = styled.div`
         div{
             margin-left: 20px;
         }
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             width: 390px;
             height: 30px;
       }

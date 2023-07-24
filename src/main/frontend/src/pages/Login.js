@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserInfo";
 import LoginFailModal from "./LoginFailModal";
 
 const Container =styled.div`
-    width: 100%;
+    //width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@ const Container =styled.div`
 `
 const Body = styled.div`
     font-size: 12px;
-    width: 500px;
+    width: 400px;
     height: 380px;
     display: flex;
     flex-direction: column;
@@ -44,7 +44,7 @@ const Body = styled.div`
       }
     }
     button{
-        width: 500px;
+        width: 100%;
         margin: 20px 0 0 0;
         height: 40px;
         font-size: 10px;

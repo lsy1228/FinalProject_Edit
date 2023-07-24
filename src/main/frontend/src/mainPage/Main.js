@@ -103,7 +103,7 @@ const Head = styled.div`
         padding: 0 20px 0 10px;
         display: flex;
         justify-content: space-between;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
            flex-direction: column;
         }
     }
@@ -138,25 +138,25 @@ const ToggleButton = styled.button`
 `;
 
 const Body = styled.div`
-    width: 900px;
+    width: 100%;
     height: 100%;
     //이미지를 사용 하려면  ${0}양식 사용
     background-image:url(${bckimg});
-    background-size: cover;
-    animation: transX 15s linear; 
-    //애니메이션 무한반복
-    animation-iteration-count: infinite;
-    @keyframes transX {
-        0% {
-          transform: translateX(800px); // 이 top 기준으로 400px 내려간 곳에서 시작
-        }
-        100% {
-          transform: translateX(-800px);   // 그리고 도착지는 원래 지점
-        }
-      } 
-    overflow:scroll;
-    ::-webkit-scrollbar {
-	display:none /* Chrome , Safari , Opera */
+    background-size: contain;
+    //animation: transX 15s linear; 
+    ////애니메이션 무한반복
+    //animation-iteration-count: infinite;
+    //@keyframes transX {
+    //    0% {
+    //      transform: translateX(800px); // 이 top 기준으로 400px 내려간 곳에서 시작
+    //    }
+    //    100% {
+    //      transform: translateX(-800px);   // 그리고 도착지는 원래 지점
+    //    }
+    //  } 
+    //overflow:scroll;
+    //::-webkit-scrollbar {
+	//display:none /* Chrome , Safari , Opera */
 }
 `
 

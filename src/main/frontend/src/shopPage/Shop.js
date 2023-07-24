@@ -172,7 +172,6 @@ const Shop = () => {
             productImgFst: e.productImgFst,
             productImgSnd: e.productImgSnd,
             productImgDetail: e.productImgDetail,
-            productPrice: e.productPrice,
             productContent : e.productContent,
         };
     }

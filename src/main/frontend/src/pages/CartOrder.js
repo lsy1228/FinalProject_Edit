@@ -290,9 +290,9 @@ const CartOrder = () => {
                 quantity: 1,
                 total_amount: totalPrice, // 결제 금액
                 tax_free_amount: 0,
-                approval_url: 'http://proj-immutable.store:8111/OrderComplete', // 결제 성공 시 리다이렉트할 URL
-                cancel_url: 'http://proj-immutable.store:8111/CartOrder', // 결제 취소 시 리다이렉트할 URL
-                fail_url: 'http://proj-immutable.store:8111/CartOrder', // 결제 실패 시 리다이렉트할 URL
+                approval_url: 'http://proj-immutable.store/OrderComplete', // 결제 성공 시 리다이렉트할 URL
+                cancel_url: 'http://proj-immutable.store/CartOrder', // 결제 취소 시 리다이렉트할 URL
+                fail_url: 'http://proj-immutable.store/CartOrder', // 결제 실패 시 리다이렉트할 URL
               },
               {
                 headers: {

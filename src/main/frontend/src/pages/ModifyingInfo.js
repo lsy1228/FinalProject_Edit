@@ -10,7 +10,7 @@ import { storage } from "../adminPage/FireBase";
 const Container = styled.div`
     width: 100%;
     display: flex;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
         height: 100vh;
       }
@@ -22,7 +22,7 @@ const MainBody = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
         height: 100vh;
       }
@@ -43,7 +43,7 @@ const Logo = styled.div`
         height: 70px;
         font-weight: bolder;
         font-size: 50px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             font-size: 30px;
         }
     }
@@ -52,7 +52,7 @@ const Logo = styled.div`
 const Title = styled.div`
     width: 100%;
     margin-top: 50px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
         margin-top: 0%;
       }
@@ -73,7 +73,7 @@ const Info = styled.div`
     width: 1000px;
     height: 120px;
     border: 1px solid #ccc;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
       }
 
@@ -86,7 +86,7 @@ const Info = styled.div`
         justify-content: center;
         align-items: center;
         display: flex;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             display: flex;
             width: 390px;
 
@@ -100,7 +100,7 @@ const Info = styled.div`
         display: flex;
         width: 60px;
         height: 60px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         width: 80px;
         height: 80px;
       }
@@ -110,7 +110,7 @@ const Info = styled.div`
         margin: 0px 10px 0px 10px;
         border-left: 1px solid #ccc;
         height: 60px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             margin: 0;
             border: none;
       }
@@ -118,7 +118,7 @@ const Info = styled.div`
     .content{
         display: flex;
         font-size: 12px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             display: flex;
             margin-top: auto;
             width: 300px;
@@ -132,7 +132,7 @@ const Info = styled.div`
         background-color: white;
         font-size: 11px;
         width: 100px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             width: 100px;
             margin: 0px 40px 30px 200px;
             position: absolute;
@@ -147,7 +147,7 @@ const Info = styled.div`
     input{
       width: 110px;
       margin-right: 10px;
-      @media only screen and ( max-width: 390px){
+      @media only screen and ( max-width: 430px){
             width: 80px;
             margin: 0px 80px 30px 40px;
             position: absolute;
@@ -159,7 +159,7 @@ const Info = styled.div`
       background: #fff;
       border: 1px solid black;
       font-size: 11px;
-      @media only screen and ( max-width: 390px){
+      @media only screen and ( max-width: 430px){
             width: 70px;
         }
       &:hover{
@@ -174,7 +174,7 @@ const InnerContainer = styled.div`
     width: 1000px;
     height: 100%;
     margin-top: 30px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
       }
 
@@ -208,7 +208,7 @@ const InnerContainer = styled.div`
         :hover{
             color: #646166;
         }
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         width: 100px;
       }
     }
@@ -224,7 +224,7 @@ const InnerContainer = styled.div`
         :hover{
             color: #646166;
         }
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         width: 100px;
 
       }
@@ -234,7 +234,7 @@ const InnerContainer = styled.div`
 const Body = styled.div`
     display: flex;
     width: 1000px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         width: 390px;
       }
     .input{
@@ -243,7 +243,7 @@ const Body = styled.div`
         border-top: 2px solid #ccc;
         display: flex;
         width: 1000px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         width: 390px;
         }
 
@@ -261,7 +261,7 @@ const Body = styled.div`
         display: flex;
         height: 20px;
         width: 1000px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         width: 390px;
         }
     }
@@ -270,7 +270,7 @@ const Body = styled.div`
         font-size: 11px;
         width: 150px;
         display: flex;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             width: 140px;
 
         }
@@ -281,7 +281,7 @@ const Body = styled.div`
         width: 250px;
         margin-top: auto;
         margin-left: 10px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             position: absolute;
             margin: 20px 0px 0px 160px;
             width: 220px;
@@ -307,7 +307,7 @@ const Footer = styled.div`
     align-items: center;
     justify-content: center;
     height: 50px;
-    @media only screen and ( max-width: 390px){
+    @media only screen and ( max-width: 430px){
         margin-bottom: 100px;
       }
 
@@ -319,7 +319,7 @@ const Footer = styled.div`
         color: #8b9192;
         font-size: 13px;
         font-weight: 600;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
         font-size: 15px;
 
       }
@@ -333,7 +333,7 @@ const Footer = styled.div`
         justify-content: center;
         color: #c1c2c8;
         font-size: 10px;
-        @media only screen and ( max-width: 390px){
+        @media only screen and ( max-width: 430px){
             font-size: 12px;
       }
 

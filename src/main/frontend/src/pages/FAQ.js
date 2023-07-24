@@ -16,7 +16,9 @@ const Container = styled.div`
 
 const Body = styled.div`
      width: 100%;
-
+      @media only screen and ( max-width: 430px){
+        width: 380px;
+      }
     
     h1 {
         display: flex;

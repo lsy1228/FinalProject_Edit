@@ -26,12 +26,12 @@ const Container = styled.div`
         border-radius: 10px;
  }
 
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         .modal {
             position: fixed;
-            width: 390px;
+            width: 90%;
             height: 600px;
-            left: 0;
+            left: 20px;
         }
         .form {
             .main {

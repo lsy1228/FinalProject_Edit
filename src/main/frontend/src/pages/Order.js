@@ -96,7 +96,7 @@ const OrderTable = styled.div`
                 cursor: default;
             }
         }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         margin: 0;
         .orderTable{
             .Info {
@@ -111,7 +111,7 @@ const OrderTable = styled.div`
             .tdInfo {
                 display: block;
             }
-            th {
+            th, td {
                 font-size: 13px;
                 white-space: nowrap;
             }

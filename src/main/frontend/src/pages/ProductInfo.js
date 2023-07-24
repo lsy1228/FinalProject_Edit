@@ -126,7 +126,7 @@ const InnerContainer = styled.div`
             }
         }
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         .product {
             margin: 0;
             width: 100%;
@@ -141,7 +141,7 @@ const InnerContainer = styled.div`
                 }
             }
             .wholeDesc {
-            width: 100%;
+            width: 85%;
             padding: 20px 30px;
         }
         }
@@ -180,7 +180,7 @@ const Review = styled.div`
             }
         }
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         padding-bottom: 0;
         .review {
@@ -239,7 +239,7 @@ const ReviewTable = styled.table`
     .noReview {
         padding: 50px 0;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         tr {
             .Rate, .User {
@@ -293,7 +293,7 @@ const QnA = styled.div`
             }
         }
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         padding-bottom: 0;
         .qna {
@@ -358,7 +358,7 @@ const QnATable = styled.table`
     .noQna {
         padding: 50px 0;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         tr {
             .Num, .number {
