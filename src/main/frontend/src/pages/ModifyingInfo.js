@@ -11,7 +11,6 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     @media only screen and ( max-width: 430px){
-        width: 390px;
         height: 100vh;
       }
 `
@@ -23,7 +22,6 @@ const MainBody = styled.div`
     justify-content: center;
     align-items: center;
     @media only screen and ( max-width: 430px){
-        width: 390px;
         height: 100vh;
       }
 `
@@ -53,7 +51,6 @@ const Title = styled.div`
     width: 100%;
     margin-top: 50px;
     @media only screen and ( max-width: 430px){
-        width: 390px;
         margin-top: 0%;
       }
 
@@ -74,7 +71,7 @@ const Info = styled.div`
     height: 120px;
     border: 1px solid #ccc;
     @media only screen and ( max-width: 430px){
-        width: 390px;
+        width: 430px;
       }
 
     input::placeholder{
@@ -86,11 +83,6 @@ const Info = styled.div`
         justify-content: center;
         align-items: center;
         display: flex;
-        @media only screen and ( max-width: 430px){
-            display: flex;
-            width: 390px;
-
-        }
     }
 
 
@@ -245,7 +237,7 @@ const Body = styled.div`
         display: flex;
         width: 1000px;
         @media only screen and ( max-width: 430px){
-        width: 390px;
+        width: 430px;
         }
 
         input::placeholder{
@@ -263,7 +255,7 @@ const Body = styled.div`
         height: 20px;
         width: 1000px;
         @media only screen and ( max-width: 430px){
-        width: 390px;
+        width: 430px;
         }
     }
 

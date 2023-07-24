@@ -28,16 +28,6 @@ const Container = styled.div`
         border-radius: 10px;
  }
 
-    @media (max-width: 390px) {
-        .modal {
-            display: none;
-            position: fixed;
-            width: 390px;
-            height: 600px;
-            left: 0;
-        }
-    }
-
     .openModal {
         display: flex; // 모달이 보이도록 함
         align-items: center;
@@ -99,7 +89,6 @@ const Container = styled.div`
                             width: 45%;
                             border: 1px solid black;
                             cursor: pointer;
-                            /* padding: 4px 10px; */
                             font-size: 13px;
                         }
                         .deleteImg {
@@ -198,6 +187,49 @@ const Container = styled.div`
         }
     }
 
+    @media (max-width: 430px) {
+        background-color: #999;
+        overflow-y: auto;
+            .modal {
+                position: fixed;
+                width: 90%;
+                height: 77%;
+                left: 20px;
+                overflow-y: auto;
+            }
+            .form {
+                .main {
+                    .rate {
+                        padding-left: 25px;
+                    }
+                   .innerContainer {
+                        display: flex;
+                        flex-direction: column;
+                        .product {
+                            margin: 10px 0px 10px 0px;
+                            .reviewImgContainer {
+                                img {
+                                    width: 310px;
+                                    height: 150px;
+                                    object-fit: contain;
+                                }
+                            }
+                            .noImgInput {
+                                .noImg {
+                                    width: 310px;
+                                    height: 150px;
+                                }
+                            }
+                        }
+                        .inputBox {
+                            .mainCon {
+                                height: 110px;
+                            }
+                        }
+                   }
+                }
+            }
+        }
 
     @keyframes modal-show {
         from {

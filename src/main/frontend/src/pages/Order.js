@@ -16,17 +16,23 @@ const InnerContainer = styled.div`
     width: 100%;
     height: 80%;
     margin-top: 30px;
-    .header {
+    .headerWrapper {
         margin: 0 40px;
-        font-size: 25px;
-        font-weight: bold;
-        margin-bottom: 20px;
+        .header {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
     }
-    @media (max-width: 390px) {
+
+    @media (max-width: 430px) {
         width: 100%;
         height: 100%;
-        .header {
+        .headerWrapper {
             margin: 0;
+            .header {
+                padding-left: 15px;
+            }
         }
     }
 `;
@@ -52,10 +58,13 @@ const OrderTable = styled.div`
                 }
             }
             .Info {
-                width: 25%;
+                width: 40%;
             }
-            .Date, .Num, .Price, .Review, .Status{
+            .Date, .Price {
                 width: 15%;
+            }
+            .Num, .Status, .Review {
+                width: 10%;
             }
             .tdInfo {
                 display: flex;
@@ -79,6 +88,7 @@ const OrderTable = styled.div`
                 }
             }
             .reviewWrite {
+                border: 1px solid black;
                 width: 100px;
                 height: 30px;
                 background-color: black;
@@ -86,6 +96,7 @@ const OrderTable = styled.div`
                 cursor: pointer;
             }
             .reviewBtn {
+                border: 1px solid black;
                 width: 100px;
                 height: 30px;
                 background-color: white;
@@ -116,12 +127,14 @@ const OrderTable = styled.div`
                 white-space: nowrap;
             }
             .reviewBtn {
+                border: 1px solid black;
                 width: 60px;
-                font-size: 10px;
+                font-size: 11px;
             }
             .reviewWrite {
+                border: 1px solid black;
                 width: 60px;
-                font-size: 10px;
+                font-size: 11px;
             }
         }
     }
@@ -158,9 +171,9 @@ const Order = () => {
 
     const orderStatusMap = {
         CHECK : "주문확인",
-        READY : "상품 준비중",
+        READY : "상품준비중",
         SHIP : "배송중",
-        DONE : "배송 완료"
+        DONE : "배송완료"
     }
 
     const setOrderStatus = (orderStatus) => {
@@ -173,8 +186,9 @@ const Order = () => {
         <Container>
             <MyPageHeader />
             <InnerContainer>
-                <div className="header">주문내역 조회
-                <hr />
+                <div className="headerWrapper">
+                    <div className="header">주문내역 조회</div>
+                    <hr />
                 </div>
                 <OrderTable>
                     <div className="wrapper">
@@ -182,10 +196,10 @@ const Order = () => {
                             <thead>
                                 <tr>
                                 <th className="Info">상품정보</th>
-                                <th className="Date">주문일자</th>
                                 <th className="Num">주문번호</th>
                                 <th className="Price">주문금액</th>
                                 <th className="Status">주문상태</th>
+                                <th className="Date">주문일자</th>
                                 <th className="Review">리뷰작성</th>
                                 </tr>
                             </thead>
@@ -197,7 +211,6 @@ const Order = () => {
                                         <div className="name">{e.productName}</div>
                                         <div className="size"><div>{e.productSize}</div></div>
                                     </td>
-                                    <td className="tdDate">{e.orderDate}</td>
                                     <td className="tdNum">{e.orderId}</td>
                                     <td className="tdPrice">{e.productPrice.toLocaleString()}원</td>
                                         <td className="tdStatus">
@@ -211,6 +224,7 @@ const Order = () => {
                                             setOrderStatus(e.orderStatus)
                                         )}
                                         </td>
+                                    <td className="tdDate">{e.orderDate}</td>
                                     {e.orderStatus === 'DONE' ? (
                                         e.reviewed ? (
                                         <td className="tdReview"><button className="reviewBtn">작성완료</button></td>)

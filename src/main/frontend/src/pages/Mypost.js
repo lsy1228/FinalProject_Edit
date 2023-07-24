@@ -13,7 +13,7 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         width: 100%;
     }
 `
@@ -41,11 +41,14 @@ const Review = styled.div`
             font-weight: bold;
         }
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         padding-bottom: 0;
         .review {
             margin: 0;
+            .reviewBoard {
+                padding-left: 15px;
+            }
         }
     }
 `;
@@ -115,13 +118,13 @@ const ReviewTable = styled.table`
     .noReview {
         padding: 50px 0;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         tr {
-            .Num, .num {
+            .Num, .num, .Date, .date, .Rate ,.rate {
                 display: none;
             }
-            .Product, .Title, .Date, .Delete {
+            .Product, .Title, .Delete, .Edit {
                 width: 25%;
             }
             td {
@@ -129,9 +132,15 @@ const ReviewTable = styled.table`
             }
         }
         .reviewContent {
+            .content {
+                margin: 0 10px;
+            }
             img {
-                width: 370px;
+                margin: 0;
+                padding: 10px 10px 0 10px;
+                width: 400px;
                 height: auto;
+                object-fit: cover;
             }
         }
         .product {
@@ -154,11 +163,14 @@ const QnA = styled.div`
             font-weight: bold;
         }
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         padding-bottom: 0;
         .qna {
             margin: 0;
+            .qnaBoard {
+                padding-left: 15px;
+            }
         }
     }
 `;
@@ -221,20 +233,36 @@ const QnATable = styled.table`
     .noQna {
         padding: 50px 0;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 430px) {
         height: fit-content;
         tr {
-            .Num, .num {
+            .Num, .num, .Date, .date {
                 display: none;
             }
             .Title {
-                width: 35%;
+                width: 50%;
             }
-            .edit {
+            .Status {
+                width: 10%;
+            }
+            .Edit, .Delete {
+                width: 20%;
+            }
+            .edit, .status {
                 white-space: nowrap;
             }
             td {
                 padding: 5px;
+            }
+        }
+        .qnaContent {
+            .content {
+                margin: 0px 30px;
+            }
+        }
+        .qnaReply {
+            .reply {
+                margin: 0;
             }
         }
     }
@@ -361,7 +389,7 @@ const Mypost = () => {
                                 <thead>
                                     <tr>
                                         <th className="Num">NUM</th>
-                                        <th className="Rate">Rate</th>
+                                        <th className="Rate">RATE</th>
                                         <th className="Product">PRODUCT</th>
                                         <th className="Title">TITLE</th>
                                         <th className="Date">DATE</th>
