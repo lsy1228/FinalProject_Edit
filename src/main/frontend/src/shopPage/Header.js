@@ -36,13 +36,14 @@ const Head = styled.div`
     height: 70px;
     display: flex;
     flex-direction: column;
+    @media only screen and ( max-width: 430px){
+         flex-direction: column;
+
+    }
 
     a{
         text-decoration: none;
         color: black;
-
-
-
     }
 
 
@@ -64,10 +65,7 @@ const Head = styled.div`
         &:hover{
             color: rgba(0,0,0,0.5);
         }
-        @media only screen and ( max-width: 430px){
-            margin-top: 30px;
 
-    }
     }
 
     .nav2{
@@ -79,8 +77,7 @@ const Head = styled.div`
         font-weight: bolder;
         font-size: 50px;
         @media only screen and ( max-width: 430px){
-        margin-left: 10%;
-        font-size: 28px;
+        font-size: 30px;
         width: 160px;
       }
     }
@@ -95,13 +92,12 @@ const Head = styled.div`
             margin-left: 20px;
         }
         @media only screen and ( max-width: 430px){
-            width: 60px;
-            flex-direction: column;
-        }
+            margin-top: 10%;
+
+    }
     }
 
 `
-
 
 
 
