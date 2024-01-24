@@ -63,6 +63,19 @@ const AxiosFinal = {
 //        return await axios.post(Final_proj + "/auth/login", login);
 //    },
 
+     // 상품 좋아요 표시
+    viewHeart : async(heartProductId) => {
+        const heart = {
+            productId : heartProductId
+        };
+        try {
+            return await axiosWithToken.post('/like/Heart', heart);
+        } catch(error) {
+            return error.response.status;
+        }
+
+    },
+
      // 카트 아이템 삭제
     deleteCartItem : async(cartItemId) => {
         const deleteItem = {
@@ -578,16 +591,6 @@ const AxiosFinal = {
     // SELL 상품
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);
-    },
-
-
-    // 상품 좋아요 표시
-    viewHeart : async(id, heartProductId) => {
-        const heart = {
-            id : id,
-            productId : heartProductId
-        }
-        return await axios.post(Final_proj + "/like/Heart", heart)
     },
 
 

@@ -77,8 +77,8 @@ public class LikeService {
         return false;
     }
 
-    public boolean likeView (String id, long productId) {
-        Users user = userRepository.findByUserEmail(id);
+    public boolean likeView (long id, long productId) {
+        Users user = userRepository.findByUserId(id);
         if(user == null) {
             return false;
         }

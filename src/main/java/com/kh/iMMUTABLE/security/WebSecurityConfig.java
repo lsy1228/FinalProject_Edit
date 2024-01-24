@@ -40,7 +40,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/favicon.ico","/static/**","/auth/**", "/faq/**","/product/**", "/email/**", "/verify/**", "/like/Heart", "/qna/qnaList","/cart/updateCount", "/order/**","/AdminSignUp/**","/AdminPage/**", "/Wishlist/**","/ChatSocket/**","/chat/**","/ws/chat", "/review/viewReview","/review/reviewProduct" ,"/OrderComplete/**","/kapi/**","/Shop/**","/Top/**","/Bottom/**","/Mypage/**","/ModifyingInfo/**", "/ProductInfo/**", "/Order/**").permitAll()
+                .antMatchers("/","/favicon.ico","/static/**","/auth/**", "/faq/**","/product/**", "/email/**", "/verify/**", "/qna/qnaList","/cart/updateCount", "/order/**","/AdminSignUp/**","/AdminPage/**", "/Wishlist/**","/ChatSocket/**","/chat/**","/ws/chat", "/review/viewReview","/review/reviewProduct" ,"/OrderComplete/**","/kapi/**","/Shop/**","/Top/**","/Bottom/**","/Mypage/**","/ModifyingInfo/**", "/ProductInfo/**", "/Order/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 .anyRequest().authenticated()
 

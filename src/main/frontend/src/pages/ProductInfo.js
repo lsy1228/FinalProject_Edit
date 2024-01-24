@@ -459,7 +459,7 @@ const ProductInfo = () => {
 
     useEffect(()=> {
         const heartView = async() => {
-            const rsp = await AxiosFinal.viewHeart(id, heartProductId);
+            const rsp = await AxiosFinal.viewHeart(heartProductId);
             if(rsp.data) {
                 setlikeClick(true);
             } else {
@@ -474,7 +474,7 @@ const ProductInfo = () => {
 
 
         if (heartProductId) {
-            heartView(id, heartProductId);
+            heartView(heartProductId);
             qnaView(heartProductId);
           }
     }, [modalOpen]);
