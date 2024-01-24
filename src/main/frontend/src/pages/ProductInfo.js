@@ -405,6 +405,7 @@ const ProductInfo = () => {
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
+    const userToken = window.localStorage.getItem("userToken");
 
     const handleSelect = (e) => {
         const productId = e.target.value;
@@ -415,17 +416,25 @@ const ProductInfo = () => {
         setClick(!click);
     }
 
-    const clickLike = async(id, heartProductId) => {
-        if(isLogin === "FALSE") {
-            nav("/Login");
-        } else {
-        await AxiosFinal.likeProduct(id, heartProductId);
-        setlikeClick(true);
-        }
-    }
 
-    const clickLikeDelete = async(id, heartProductId) => {
-        await AxiosFinal.deleteLikeProduct(id, heartProductId);
+    const clickLike = async(heartProductId) => {
+        try {
+            if (isLogin === "FALSE") {
+                nav("/Login");
+            } else {
+                await AxiosFinal.likeProduct(heartProductId);
+                setlikeClick(true);
+            }
+        } catch (error) {
+            console.error('clickLike 함수에서 에러 발생:', error);
+            alert("다시 로그인 해주세요");
+            nav("/Login");
+        }
+    };
+
+
+    const clickLikeDelete = async(heartProductId) => {
+        const response = await AxiosFinal.deleteLikeProduct(heartProductId);
         setlikeClick(false);
     }
 
@@ -449,7 +458,7 @@ const ProductInfo = () => {
     }, []);
 
     useEffect(()=> {
-        const heartView = async(id, heartProductId) => {
+        const heartView = async() => {
             const rsp = await AxiosFinal.viewHeart(id, heartProductId);
             if(rsp.data) {
                 setlikeClick(true);
@@ -503,13 +512,13 @@ const ProductInfo = () => {
         setModalOpen(false);
     }
 
-    const clickCart = async(id, productId) => {
+    const clickCart = async(productId) => {
         if(!productId) {
             alert("사이즈를 선택해주세요.");
             return;
         }
         try {
-            const params = await AxiosFinal.addCartItem(id, productId);
+            const params = await AxiosFinal.addCartItem(productId);
             console.log(params.data);
             if (params) {
                   alert("장바구니에 상품이 담겼습니다.")
@@ -577,8 +586,8 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="addBtn">
-                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
-                                <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(heartProductId)}><FaRegHeart/></button>}
+                                <button className="cart" onClick={()=>clickCart(productId)}>ADD TO CART</button>
                             </div>
                             <div className="detailWrapper">
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>

@@ -57,21 +57,20 @@ const Wishlist = () => {
     const navigate = useNavigate();
 
     const id = window.localStorage.getItem("userIdSuv");
-    console.log(id);
     useEffect(()=> {
         const wishItem = async() => {
             if(!id) {
                 return;
             }
-            const rsp = await AxiosFinal.wishItem(id);
+            const rsp = await AxiosFinal.wishItem();
             if(rsp.status === 200) setProduct(rsp.data);
             console.log(rsp.data);
         };
         wishItem();
     }, [wish]);
 
-    const deleteWish = async(id, productId) => {
-        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, productId);
+    const deleteWish = async(productId) => {
+        const productLikeDelete = await AxiosFinal.deleteLikeProduct(productId);
         setWish(!wish);
     }
 
@@ -92,7 +91,7 @@ const Wishlist = () => {
                                 <div className="name">{e.productName}</div>
                                 <div className="price">{e.productPrice.toLocaleString()}</div>
                             </div>
-                            <button onClick={()=>deleteWish(id, e.productId)}>X</button>
+                            <button onClick={()=>deleteWish(e.productId)}>X</button>
                             </div>
                         </div>
                        ))}

@@ -1,28 +1,179 @@
 import axios from "axios";
 const Final_proj = "";
 
-// 토큰 읽어오는 함수
-const getUserToken = () => {
-    return window.localStorage.getItem("userToken");
-}
-
-const axiosWithToken = axios.create ({
+const axiosWithToken = axios.create({
     baseURL: Final_proj,
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + getUserToken(),
-    },
 });
+
+// 요청 인터셉터
+axiosWithToken.interceptors.request.use(
+    (config) => {
+        const accessToken = localStorage.getItem('userToken');
+        if(accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+)
+
+// 응답 인터셉터
+axiosWithToken.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    // 에러 처리
+    async (error) => {
+        // 에러가 발생한 원래 요청
+        const originalRequest = error.config;
+        if(error.response.status === 401 && !originalRequest._retry) {
+            // 재시도가 처음이면 플래그 설정해서 무한 루프 방지
+            originalRequest._retry = true;
+
+            try {
+                const refreshToken = localStorage.getItem('userRefreshToken');
+                // 새로운 액세스 토큰 발급 요청
+                const response = await axiosWithToken.post(`/auth/reissue`, {
+                    refreshToken: refreshToken,
+                });
+                if(response.data.accessToken) {
+                    // 새로 발급 받은 액세스 토큰 저장
+                    localStorage.setItem('userToken', response.data.accessToken);
+                    localStorage.setItem('userRefreshToken', response.data.refreshToken);
+                    // 원래 요청 다시 시도
+                    return axiosWithToken(originalRequest);
+                }
+            } catch (refreshError) {
+                console.error('재발급 실패', refreshError);
+                return Promise.reject(refreshError);
+            }
+        }
+    }
+);
 
 const AxiosFinal = {
      // 로그인
-     memberLogin: async(email, pw) => {    
-        const login = {
-            email : email,
-            pwd : pw 
+//     memberLogin: async(email, pw) => {
+//        const login = {
+//            email : email,
+//            pwd : pw
+//        };
+//        return await axios.post(Final_proj + "/auth/login", login);
+//    },
+
+     // 카트 아이템 삭제
+    deleteCartItem : async(cartItemId) => {
+        const deleteItem = {
+            cartItemId : cartItemId
         };
-        return await axios.post(Final_proj + "/auth/login", login);
+        try {
+            return await axiosWithToken.post('/cart/deleteItem', deleteItem);
+        } catch(error) {
+            return error.response.status;
+        }
+     },
+
+
+    // 장바구니 상품
+    cartItemList : async() => {
+        try {
+            return await axiosWithToken.get('/cart/cartItemList');
+        } catch(error) {
+            return error.response.status;
+        }
+
     },
+
+     // 장바구니 담기
+     addCartItem : async(productId) =>{
+        const params = {
+            productId: productId
+        };
+        try {
+            return await axiosWithToken.post('/cart/addCartItem', params);
+        } catch(error) {
+            return error.response.status;
+        }
+
+    },
+
+     // 좋아요 Insert
+     likeProduct : async(heartProductId) => {
+        const like = {
+            productId : heartProductId
+        };
+        try {
+            return await axiosWithToken.post('/like/likeInsert', like);
+        } catch(error) {
+            return error.response.status;
+        }
+
+    },
+
+     // 좋아요 삭제
+    deleteLikeProduct : async(heartProductId) => {
+        const dislike = {
+            productId : heartProductId
+        };
+        try {
+            return await axiosWithToken.post('/like/likeDelete', dislike);
+        } catch(error) {
+            return error.response.status;
+        }
+    },
+
+    // 좋아요 불러오기
+    wishItem : async() => {
+        try {
+            return await axiosWithToken.get('/like/likeList');
+        } catch(error) {
+            return error.response.status;
+        }
+
+    },
+
+     // 내가 쓴 Qna 삭제
+     deleteMyQna : async(qnaId) => {
+        const deleteQna = {
+            qnaId : qnaId
+        };
+        try {
+            return await axiosWithToken.post(`/qna/deleteMyQna`, deleteQna);
+        } catch(error) {
+           return error.response.status;
+        }
+    },
+
+     //qna 추가
+     qnaUpdate : async(productId, qnaTitle, qnaContent) => {
+        const qna = {
+            productId : productId,
+            qnaTitle : qnaTitle,
+            qnaContent : qnaContent
+        };
+        try {
+            return await axiosWithToken.post(`/qna/uploadQna`, qna);
+        } catch(error) {
+            return error.response.status;
+        }
+    },
+
+     // 내가 쓴 Qna 수정
+     editMyQna : async(qnaId, title, content) => {
+        const editData = {
+            qnaId : qnaId,
+            title : title,
+            content : content
+        };
+        try {
+            return await axiosWithToken.post(`/qna/editMyQna`, editData);
+        } catch(error) {
+            return error.response.status;
+        }
+    },
+
     // 사용자 토큰 로그인
     tokenLogin: async(email, pw) => {
         const login = {
@@ -429,29 +580,6 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/product/sellitems`);
     },
 
-    // 좋아요 Insert
-    likeProduct : async(id, heartProductId) => {
-        const like = {
-            id : id,
-            productId : heartProductId
-        }
-        return await axios.post(Final_proj + "/like/likeInsert", like);
-    },
-
-
-    // 좋아요 불러오기
-    wishItem : async(id) => {
-        return await axios.get(Final_proj + `/like/likeList?id=${id}`);
-    },
-
-    // 좋아요 삭제
-    deleteLikeProduct : async(id, heartProductId) => {
-        const dislike = {
-            id : id,
-            productId : heartProductId
-        }
-        return await axios.post(Final_proj + "/like/likeDelete", dislike)
-    },
 
     // 상품 좋아요 표시
     viewHeart : async(id, heartProductId) => {
@@ -462,20 +590,6 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/like/Heart", heart)
     },
 
-    // 장바구니 담기
-     addCartItem : async(id, productId) =>{
-        const params = {
-            id : id,
-            productId: productId 
-        }
-        return await axios.post(Final_proj + "/cart/addCartItem", params)
-    },
-        
-    
-    // 장바구니 상품
-    cartItemList : async(id) => {
-        return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
-    },
 
     // 카트 아이템 수량
     updateCount : async(count, cartList, idx) => {
@@ -487,19 +601,6 @@ const AxiosFinal = {
             return await axios.post(Final_proj + "/cart/updateCount", updateCount);
         },
 
-    // qna 추가
-        qnaUpdate : async(productId, qnaTitle, qnaContent) => {
-            const qna = {
-                productId : productId,
-                qnaTitle : qnaTitle,
-                qnaContent : qnaContent
-            }; try {
-                return await axiosWithToken.post("/qna/uploadQna", qna, {
-                });
-            } catch(error) {
-                return error.response.status;
-            }
-        },
 
     // user QnA 가져오기
     memQnaList : async() => {
@@ -544,30 +645,6 @@ const AxiosFinal = {
        }
    },
 
-   // 내가 쓴 Qna 수정
-   editMyQna : async(qnaId, title, content) => {
-       const editData = {
-           qnaId : qnaId,
-           title : title,
-           content : content
-       }; try {
-           return await axiosWithToken.post(`/qna/editMyQna`, editData);
-       } catch(error) {
-           return error.response.status;
-       }
-   },
-
-   // 내가 쓴 Qna 삭제
-   deleteMyQna : async(qnaId) => {
-       const deleteQna = {
-           qnaId : qnaId
-       }; try {
-           return await axiosWithToken.post(`/qna/deleteMyQna`, deleteQna);
-       } catch(error) {
-           return error.response.data;
-       }
-
-   },
 
     // 오더페이지에서 카트 목록 가져오기
     realOrderList : async(cartId) => {
@@ -595,15 +672,6 @@ const AxiosFinal = {
     getCartList : async(cartId) => {
         return await axios.get(Final_proj + `/order/cartOrder?cartId=${cartId}`);
     },
-
-    // 카트 아이템 삭제
-    deleteCartItem : async(id, cartItemId) => {
-        const deleteItem = {
-            id : id,
-            cartItemId : cartItemId
-            }
-        return await axios.post(Final_proj + "/cart/deleteItem", deleteItem);
-     },
 
     // totalPrice 가져오기
      getTotalPrice : async(cartId) => {

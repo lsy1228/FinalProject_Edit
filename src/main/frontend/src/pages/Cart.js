@@ -1,104 +1,103 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import PopupPostCode from "../api/PopupPostCode";
 import AxiosFinal from "../api/AxiosFinal";
+import { isCompositeComponent } from "react-dom/test-utils";
+import Shop from "../shopPage/Shop";
+
 
 const Container=styled.div`
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .contTop{
+    width: 80%;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+  }
+  .shop{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .chkAll,.chkDel{
+    margin-right: 5px;
+    height: 25px;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+    font-size: 11px;
+    color: rgb(50,50,50);
+    background-color: white;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+  a{
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    flex-direction: column;
-
-    .contTop{
-        width: 80%;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .shop{
-        width: 100%;
-        height: 30px;
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .chkAll,.chkDel{
-        margin-right: 5px;
-        height: 25px;
-        border-radius: 2px;
-        border: 1px solid #CCC;
-        font-size: 11px;
-        color: rgb(50,50,50);
-        background-color: white;
-
-        &:hover{
-          background-color: black;
-          color: white;
-        }
-    }
-
-    a{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        text-decoration: none;
-        color:rgb(50,50,50);
-        font-size: 12px;
-    }
+    text-decoration: none;
+    color:rgb(50,50,50);
+    font-size: 12px;
+  }
 `
 const MainBody=styled.div`
-    border-top: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 80%;
-    height: 90%;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  height: 90%;
 
     @media only screen and ( max-width: 390px){
           width: 90%;
+      }
+
+
+  .paymentBtn{
+    margin: 10px 0 0 0;
+    width: 100%;
+    height: 70px;
+    font-size: 12px;
+    color: rgb(50,50,50);
+    border: 1px solid #CCC;
+    background-color: white;
+    &:hover{
+      background-color: black;
+      color: white;
     }
-
-
-    .paymentBtn{
-        margin: 10px 0 0 0;
-        width: 100%;
-        height: 70px;
-        font-size: 12px;
-        color: rgb(50,50,50);
-        border: 1px solid #CCC;
-        background-color: white;
-
-        &:hover{
-          background-color: black;
-          color: white;
-        }
-    }
+  }
 `
 const Products = styled.div`
-    width: 100%;
-    height: 100%;
-    overflow-y:scroll;
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
+  width: 100%;
+  height: 100%;
+  overflow-y:scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
 `
 const Products_in=styled.div`
-    width: 100%;
-    height: 110px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
 
-    &:hover{
-        background-color: rgba(0,0,0,0.1);
-    }
+  width: 100%;
+  height: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  &:hover{
+    background-color: rgba(0,0,0,0.1);
+  }
 
-    .delete_item{
+   .delete_item{
           background-color:white;
           border: none;
           cursor : pointer;
@@ -108,85 +107,119 @@ const Products_in=styled.div`
           justify-content: center;
           align-items: center;
           margin-left: 10px;
-    }
+      }
 
-    .product_image{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100px;
-        height: 100%;
+  .product_image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100%;
+  }
+  .itemName{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    padding: 0 0 0 5px;
+    font-size: 12px;
+  }
+  .count{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+  }
+  input{
+    width: 20px;
+    height: 20px;
+  }
+  .countbutton{
+    display: flex;
+    flex-direction: column;
+  }
+  .plus,.minus{
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: white;
+    &:hover{
+      background-color: black;
+      color: white;
     }
+  }
+  .price{
+    width: 120px;
+    font-size: 12px;
+  }
+  img{
+    width: 80px;
+  }
 
-    .itemName{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 40%;
-        height: 100%;
-        padding: 0 0 0 5px;
-        font-size: 12px;
-    }
+  .total{
 
-    .count{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-    }
-
-    input{
-        width: 20px;
-        height: 20px;
-    }
-
-    .countbutton{
-        display: flex;
-        flex-direction: column;
-    }
-    .plus,.minus{
-        width: 15px;
-        height: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        background-color: white;
-        &:hover{
-          background-color: black;
-          color: white;
-        }
-    }
-
-    .price{
-        width: 120px;
-        font-size: 12px;
-    }
-
-    img{
-        width: 80px;
-    }
-
-    .total{
-        display: flex;
-        position: reltive;
-    }
+    display: flex;
+    position: reltive;
+  }
 `
 const Total=styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    height: 80px;
-    font-size: 12px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  height: 80px;
+  font-size: 12px;
 `
 
+const OrderInfo=styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  border-bottom: 1px solid #ccc;
+  color:rgba(80,80,80);
+  font-size: 12px;
+  .shippingInfo{
+    padding: 0 0 0 10px;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    .name{
+      margin: 20px 0 0 0;
+    }
+    .addr{
+      margin: 10px 0 10px 0;
+    }
+  }
+  .addrChange{
+    font-size: 12px;
+    color: rgb(50,50,50);
+    background-color: white;
+    border: 1px solid #CCC;
+    width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+`
 
 
 const Cart=()=>{
     const [count, setCount] = useState([]);
+
     const navigate = useNavigate();
 
     const[cartList, setCartList] = useState([]);
@@ -202,6 +235,18 @@ const Cart=()=>{
         navigate('/Shop');
     }
 
+
+    //주소찾기 영역
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    // 팝업창 열기
+    const openPostCode = () => {
+        setIsPopupOpen(true);
+    }
+    // 팝업창 닫기
+    const closePostCode = (e) => {
+        setIsPopupOpen(false);
+    }
+
     const id = window.localStorage.getItem("userIdSuv");
 
 
@@ -210,7 +255,7 @@ const Cart=()=>{
             if(!id) {
                 return;
             }
-            const rsp = await AxiosFinal.cartItemList(id);
+            const rsp = await AxiosFinal.cartItemList();
             if(rsp.status === 200) {
                 const copyCnt = rsp.data.map(e => e.count);
                 setCartList(rsp.data);
@@ -231,9 +276,10 @@ const Cart=()=>{
             console.log("total" + totalPrice)
         }
         return totalPrice.toLocaleString();
+
     }
 
-    // 수량업데이트
+
     const updateCount = async (count, cartList, idx) => {
         const response = await AxiosFinal.updateCount( count, cartList, idx);
         const result = response.data;
@@ -266,14 +312,15 @@ const Cart=()=>{
         });
     };
 
-
+    console.log(cartList)
 
     // 카트 아이템 삭제
-    const deleteCartItem = async(id, index) => {
+    const deleteCartItem = async(index) => {
         console.log(index);
         console.log("삭제");
         const cartItemId =  cartList[index].cartItemId;
-        const rsp = await AxiosFinal.deleteCartItem(id, cartItemId);
+console.log(" ::"  + cartItemId);
+        const rsp = await AxiosFinal.deleteCartItem(cartItemId);
         setCartList(rsp.data);
     }
 
@@ -287,9 +334,10 @@ const Cart=()=>{
                             <Link to="/">home</Link>
                         </div>
             <MainBody>
-                <Products>
-                  {cartList && cartList.map((e, index)=>(
-                    <Products_in key={e.cartItemId}>
+
+ <Products>
+                {cartList && cartList.map((e, index)=>(
+                <Products_in key={e.cartItemId}>
                         <div className="product_image">
                             <img src ={e.productImgFst} /></div>
                         <div className="itemName">{e.productName}</div>
@@ -302,9 +350,9 @@ const Cart=()=>{
                                             </div>
                                         </div>
                         <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
-                        <button className="delete_item" onClick={() => deleteCartItem(id, index)}>x</button>
+                        <button className="delete_item" onClick={() => deleteCartItem(index)}>x</button>
                     </Products_in>
-                  ))}
+                             ))}
                 </Products>
 
 

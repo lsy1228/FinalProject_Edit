@@ -193,26 +193,29 @@ const Modal = (props) => {
         setInputContent(e.target.value);
     }
 
-    const onClickUpdate = async() => {
-        if(inputTitle === "" || inputContent === "") {
-            alert("제목과 내용 모두 입력해주세요");
-            return;
-        } else {
-            const response = await AxiosFinal.qnaUpdate(productId, inputTitle, inputContent);
-            if(response.data) {
-                alert("QnA 작성이 완료되었습니다");
-                close();
-            } else if(response === 401){
-                alert("다시 로그인 해주세요");
-                window.localStorage.removeItem("userToken");
-                nav("/Login");
+    const onClickUpdate = async () => {
+        try {
+            if (inputTitle === "" || inputContent === "") {
+                alert("제목과 내용 모두 입력해주세요");
+                return;
             } else {
-                alert("QnA 작성에 실패하였습니다");
+                const response = await AxiosFinal.qnaUpdate(productId, inputTitle, inputContent);
+                if (response) {
+                    alert("QnA 작성이 완료되었습니다");
+                    close();
+                } else {
+                    alert("QnA 작성에 실패하였습니다");
+                }
             }
+        } catch (error) {
+            alert("다시 로그인 해주세요");
+            nav("/Login");
+        } finally {
+            setInputTitle("");
+            setInputContent("");
         }
-        setInputTitle("");
-        setInputContent("");
-    }
+    };
+
 
     useEffect(()=> {
         const storedData = window.localStorage.getItem("productData");
