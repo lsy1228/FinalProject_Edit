@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     .backdrop {
@@ -8,7 +9,7 @@ const Container = styled.div`
         top: 0;
         left : 0;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         z-index: 98;
         background-color: rgba(0, 0, 0, 0.5);
     }
@@ -182,8 +183,8 @@ const Modal = (props) => {
     const [product, setProduct] = useState([]);
 
     const productId = window.localStorage.getItem("heartProductId");
-    const userEmail = window.localStorage.getItem("userIdSuv");
-
+    // const userToken = window.localStorage.getItem("userToken");
+    const nav = useNavigate();
     const handelTitle = (e) => {
         setInputTitle(e.target.value);
     }
@@ -192,15 +193,19 @@ const Modal = (props) => {
         setInputContent(e.target.value);
     }
 
-    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
+    const onClickUpdate = async() => {
         if(inputTitle === "" || inputContent === "") {
             alert("제목과 내용 모두 입력해주세요");
             return;
         } else {
-            const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
+            const response = await AxiosFinal.qnaUpdate(productId, inputTitle, inputContent);
             if(response.data) {
                 alert("QnA 작성이 완료되었습니다");
                 close();
+            } else if(response === 401){
+                alert("다시 로그인 해주세요");
+                window.localStorage.removeItem("userToken");
+                nav("/Login");
             } else {
                 alert("QnA 작성에 실패하였습니다");
             }
@@ -244,7 +249,7 @@ const Modal = (props) => {
                         </div>
                         <div className="Btn">
                             <button className="cancle" onClick={close}>취소</button>
-                            <button type="submit" className="write" onClick={()=>onClickUpdate(productId, userEmail, inputTitle, inputContent)}>작성하기</button>
+                            <button type="submit" className="write" onClick={()=>onClickUpdate(productId, inputTitle, inputContent)}>작성하기</button>
                         </div>
                     </div>
                 </div>

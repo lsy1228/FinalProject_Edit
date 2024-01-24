@@ -23,13 +23,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer"; // 기본적인 문자열
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 5; // 토큰 유효시간
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60; // 토큰 유효시간(1시간)
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 7L * 24 * 60 * 60 * 1000; // 리프레시 토큰 유효시간
     private final Key key; // 해독하는 키값을 받아내는 부분
 
     // 주의점: 여기서 @Value는 `springframework.beans.factory.annotation.Value`소속이다! lombok의 @Value와 착각하지 말것!
     public TokenProvider(@Value("${springboot.jwt.secret}") String secretKey) { // spring value 로 가져오기
-        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
     // 토큰 생성
     public TokenDto generateTokenDto(Authentication authentication) {
@@ -49,14 +49,14 @@ public class TokenProvider {
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .setExpiration(tokenExpiresIn)
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .setExpiration(refreshTokenExpiresIn)
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         return TokenDto.builder()

@@ -7,6 +7,7 @@ import Pagenation from "./Pagenation";
 import ReviewPagenation from "./Pagenation";
 import EditReviewModal from "./EditReviewModal";
 import { FaStar } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
@@ -271,7 +272,6 @@ const QnATable = styled.table`
 
 const Mypost = () => {
 
-    const id = window.localStorage.getItem("userIdSuv");
     const [qnaData, setQnaData] = useState([]);
     const [expanded, setExpanded] = useState([]);
     const [rvExpanded, setRvExpanded] = useState([]);
@@ -293,16 +293,21 @@ const Mypost = () => {
     const [reviewPage, setReviewPage] = useState(1);
     const reviewOffset = (reviewPage - 1) * reviewLimit;
 
+    const nav = useNavigate();
+
     useEffect(()=> {
         const viewMyQna = async() => {
-            const rsp = await AxiosFinal.myQna(id);
-            console.log(rsp.data);
+            const rsp = await AxiosFinal.myQna();
+            if(rsp === 401) {
+               alert("다시 로그인 해주세요");
+               nav("/Login");
+                       }
             setQnaData(rsp.data);
         }
         viewMyQna();
 
         const viewMyReview = async() => {
-            const rsp = await AxiosFinal.myReview(id);
+            const rsp = await AxiosFinal.myReview();
             console.log(rsp.data);
             setReviewData(rsp.data);
         }

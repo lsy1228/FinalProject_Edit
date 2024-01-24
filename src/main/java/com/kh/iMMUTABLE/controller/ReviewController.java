@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -33,16 +35,16 @@ public class ReviewController {
     // 리뷰 작성하기
     @PostMapping("/writeReview")
     public ResponseEntity<Boolean> writeReview (@RequestBody Map<String, String> reviewData) {
-        int rate = Integer.parseInt(reviewData.get("rate"));
-        long productId = Long.parseLong(reviewData.get("productId"));
-        String title = reviewData.get("title");
-        String content = reviewData.get("content");
-        String userEmail = reviewData.get("userEmail");
+        int rate = Integer.parseInt(reviewData.get("rate"));            // 별점
+        long productId = Long.parseLong(reviewData.get("productId"));   // 제품 번호
+        String title = reviewData.get("title");                         // 리뷰 제목
+        String content = reviewData.get("content");                     // 리뷰 내용
+        String userEmail = reviewData.get("userEmail");                 // 사용자 메일
         LocalDate nowDate = LocalDate.now();
         String reviewDateString = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate reviewDate = LocalDate.parse(reviewDateString);
-        long orderId = Long.parseLong(reviewData.get("orderId"));
-        String reviewImg = reviewData.get("imgURL");
+        long orderId = Long.parseLong(reviewData.get("orderId"));       // 주문 번호
+        String reviewImg = reviewData.get("imgURL");                    // 리뷰 이미지
 
         boolean result = reviewService.writeReview(rate, productId, title, content, userEmail, reviewDate, orderId, reviewImg);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -57,8 +59,10 @@ public class ReviewController {
 
     // 내가 쓴 리뷰 불러오기
     @GetMapping("/myReview")
-    public ResponseEntity<List<ReviewDto>> myReview (@RequestParam String id) {
-        List<ReviewDto> result = reviewService.myReview(id);
+    public ResponseEntity<List<ReviewDto>> myReview () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+        List<ReviewDto> result = reviewService.myReview(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

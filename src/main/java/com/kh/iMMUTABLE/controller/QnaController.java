@@ -2,11 +2,14 @@ package com.kh.iMMUTABLE.controller;
 
 import com.kh.iMMUTABLE.dto.ProductDto;
 import com.kh.iMMUTABLE.dto.QnaDto;
+import com.kh.iMMUTABLE.jwt.TokenProvider;
 import com.kh.iMMUTABLE.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -25,30 +28,31 @@ public class QnaController {
     // QnA 작성
     @PostMapping("/uploadQna")
     public ResponseEntity<Boolean> updateQna (@RequestBody Map<String, String> qnaData) {
-        String userEmail = qnaData.get("userEmail");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
         String productId = qnaData.get("productId");
         String qnaTitle = qnaData.get("qnaTitle");
         String qnaContent = qnaData.get("qnaContent");
         LocalDate nowDate = LocalDate.now();
         String qnaDateString = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate qnaDate = LocalDate.parse(qnaDateString);
-        boolean result = qnaService.qnaUpload(userEmail ,productId, qnaTitle, qnaContent, qnaDate);
+        boolean result = qnaService.qnaUpload(userId ,productId, qnaTitle, qnaContent, qnaDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 제품 Qna
     @GetMapping("/qnaList")
     public ResponseEntity<List<QnaDto>> qnaList (@RequestParam String heartProductId) {
-        System.out.println("확인 : " + heartProductId);
         List<QnaDto> qnaDtos = qnaService.getQna(heartProductId);
         return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
     }
 
     // 나의 Qna
     @GetMapping("/myQnaList")
-    public ResponseEntity<List<QnaDto>> myQnaList (@RequestParam String id) {
-        System.out.println("마이qna : " + id);
-        List<QnaDto> qnaDtos = qnaService.getMyQna(id);
+    public ResponseEntity<List<QnaDto>> myQnaList () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+        List<QnaDto> qnaDtos = qnaService.getMyQna(userId);
         return new ResponseEntity<>(qnaDtos, HttpStatus.OK);
     }
 

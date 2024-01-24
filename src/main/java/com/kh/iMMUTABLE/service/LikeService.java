@@ -26,9 +26,15 @@ public class LikeService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    public boolean likeInsert(String id, long productId) {
-        Users user = userRepository.findByUserEmail(id);
+    public boolean addLike(long id, long productId) {
+        Users user = userRepository.findByUserId(id);
         Product product = productRepository.findByProductId(productId);
+
+        // 사용자 또는 제품이 없는 경우 처리
+        if (user == null || product == null) {
+            return false;
+        }
+        // 이미 좋아요를 한 경우 처리
         boolean isLiked = likeRepository.existsByUserUserIdAndProductProductId(user.getUserId(), productId);
         if (isLiked) {
             return false;
@@ -36,14 +42,13 @@ public class LikeService {
             Like like = new Like();
             like.setUser(user);
             like.setProduct(product);
-            Like saveLike = likeRepository.save(like);
+            likeRepository.save(like);
             return true;
         }
     }
 
-    public List<LikeDto> likeList(String id) {
-        System.out.println("서비스좋아요아이디 : " + id);
-        Users user = userRepository.findByUserEmail(id);
+    public List<LikeDto> likeList(long id) {
+        Users user = userRepository.findByUserId(id);
         List<Like> likeList = user.getLikes();
 
         List<LikeDto> likeDtoList = new ArrayList<>();
@@ -62,8 +67,8 @@ public class LikeService {
         return likeDtoList;
     }
 
-    public boolean likeDelete (String id, long productId) {
-        Users user = userRepository.findByUserEmail(id);
+    public boolean likeDelete (long id, long productId) {
+        Users user = userRepository.findByUserId(id);
         Like like = likeRepository.findByUserUserIdAndProductProductId(user.getUserId() , productId);
         if(like!= null) {
             likeRepository.delete(like);

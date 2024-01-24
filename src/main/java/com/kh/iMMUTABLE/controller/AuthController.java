@@ -1,10 +1,7 @@
 package com.kh.iMMUTABLE.controller;
 
 
-import com.kh.iMMUTABLE.dto.TokenDto;
-import com.kh.iMMUTABLE.dto.UserDto;
-import com.kh.iMMUTABLE.dto.UserRequestDto;
-import com.kh.iMMUTABLE.dto.UserResponseDto;
+import com.kh.iMMUTABLE.dto.*;
 import com.kh.iMMUTABLE.service.AuthService;
 import com.kh.iMMUTABLE.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +29,14 @@ public class AuthController {
         boolean result = userService.getUserList(userEmail,userPwd);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    // 일반 유저 로그인
+//    @PostMapping("/login")
+//    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto requestDto) {
+//        return ResponseEntity.ok(authService.login(requestDto));
+//    }
+
+
     @PostMapping("/adminLogin")
     public ResponseEntity<Boolean>  adminList(@RequestBody Map<String, String> loginData) {
         String userEmail = loginData.get("email"); // userEmail?
@@ -55,8 +60,6 @@ public class AuthController {
         String userPwd = loginData.get("userPwd");
         String userAddr = loginData.get("userAddr");
         String userPhone = loginData.get("userPhone");
-        System.out.println("user Email :  " + userEmail);
-        System.out.println("user Password :  " + userPwd);
         boolean result = userService.signUpUser(userName,userEmail,userPwd,userAddr,userPhone);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -145,5 +148,20 @@ public class AuthController {
     public ResponseEntity<TokenDto> loginToken(@RequestBody UserRequestDto requestDto) {
         System.out.println("컨트롤러 접속 완료 : " + requestDto);
         return ResponseEntity.ok(authService.login(requestDto));
+    }
+
+    @PostMapping("/userSignUp")
+    public ResponseEntity<UserResponseDto> userSignUp(@RequestBody UserRequestDto requestDto) {
+        return ResponseEntity.ok(authService.userSignUp(requestDto));
+    }
+
+    @PostMapping("/userLoginToken")
+    public ResponseEntity<TokenDto> userLoginToken(@RequestBody UserRequestDto requestDto) {
+        return ResponseEntity.ok(authService.userLogin(requestDto));
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenDto> reissue (@RequestBody TokenRequestDto tokenRequestDto) {
+        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 }

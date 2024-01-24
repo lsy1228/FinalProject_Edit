@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,21 +62,41 @@ public class QnaService {
         return true;
     }
 
-    // AdminQnA 업로드
-    public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDate qnaDate){
-        System.out.println(userEmail + productId + qnaTitle + qnaContent + qnaDate);
-        Qna qna = new Qna();
-        Users user = userRepository.findByUserEmail(userEmail);
+    // QnA 업로드
+//    public boolean qnaUpload(String userEmail , String productId, String qnaTitle, String qnaContent, LocalDate qnaDate){
+//        Qna qna = new Qna();
+//        Users user = userRepository.findByUserEmail(userEmail);
+//        Product product = productRepository.findByProductId(Long.parseLong(productId));
+//        qna.setUser(user);
+//        qna.setQnaStatus(QnaStatus.HOLD);           // QnA 답변 상태는 기본적으로 답변대기중으로 설정
+//        qna.setProduct(product);
+//        qna.setQnaTitle(qnaTitle);
+//        qna.setQnaContent(qnaContent);
+//        qna.setQnaDate(qnaDate);
+//        Qna uploadQna = qnaRepository.save(qna);
+//        return true;
+//    }
+
+    // QnA 업로드
+    public boolean qnaUpload(String userId, String productId, String qnaTitle, String qnaContent, LocalDate qnaDate) {
+        Users user = userRepository.findByUserId(Long.parseLong(userId));
         Product product = productRepository.findByProductId(Long.parseLong(productId));
+        // 사용자 또는 제품을 찾을 수 없는 경우 처리
+        if (user == null || product == null) {
+            return false;
+        }
+        // QnA 객체 생성 및 저장
+        Qna qna = new Qna();
         qna.setUser(user);
-        qna.setQnaStatus(QnaStatus.HOLD);
+        qna.setQnaStatus(QnaStatus.HOLD);       // QnA 답변상태는 기본적으로 답변대기중으로 설정
         qna.setProduct(product);
         qna.setQnaTitle(qnaTitle);
         qna.setQnaContent(qnaContent);
         qna.setQnaDate(qnaDate);
-        Qna uploadQna = qnaRepository.save(qna);
+        qnaRepository.save(qna);
         return true;
     }
+
 
     // admin qna 목록 가져오기
     public List<QnaDto> getStatusQnaList(String qnaStatus){
@@ -92,7 +113,6 @@ public class QnaService {
     public List<QnaDto> getQna(String productId) {
         Product product = productRepository.findByProductId(Long.parseLong(productId));
         List<Qna> qnas = product.getQnaList();
-
         List<QnaDto> qnaDtos = new ArrayList<>();
         for(Qna qna : qnas) {
             QnaDto qnaDto = new QnaDto();
@@ -111,8 +131,9 @@ public class QnaService {
     }
 
     // 나의 Qna 가져오기
-    public List<QnaDto> getMyQna(String id) {
-        Users user = userRepository.findByUserEmail(id);
+    public List<QnaDto> getMyQna(String userId) {
+        long id = Long.parseLong(userId);
+        Users user = userRepository.findByUserId(id);
         List<Qna> qnas = user.getQnas();
 
         List<QnaDto> qnaDtos = new ArrayList<>();

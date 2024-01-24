@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,25 +23,25 @@ public class LikeController {
 
     @PostMapping("/likeInsert")
     public ResponseEntity<Boolean> likeProduct (@RequestBody Map<String, String> likeData) {
-        String id = likeData.get("id");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long id = Long.parseLong(authentication.getName());
         long productId = Long.parseLong(likeData.get("productId"));
-        System.out.println("컨트롤러 아이디" + id);
-        System.out.println("컨트롤러 상품 아이디 : " + productId);
-        boolean result = likeService.likeInsert(id, productId);
+        boolean result = likeService.addLike(id, productId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/likeList")
-    public ResponseEntity<List<LikeDto>> likeList (@RequestParam String id) {
-        String userEmail = id;
-        System.out.println(userEmail);
-        List<LikeDto> result = likeService.likeList(userEmail);
+    public ResponseEntity<List<LikeDto>> likeList () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long id = Long.parseLong(authentication.getName());
+        List<LikeDto> result = likeService.likeList(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/likeDelete")
     public ResponseEntity<Boolean> dislikeProduct (@RequestBody Map<String, String> dislikeData) {
-        String id = dislikeData.get("id");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long id = Long.parseLong(authentication.getName());
         long productId = Long.parseLong(dislikeData.get("productId"));
         boolean result = likeService.likeDelete(id, productId);
         return new ResponseEntity<>(result, HttpStatus.OK);

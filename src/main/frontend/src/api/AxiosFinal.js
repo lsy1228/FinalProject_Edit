@@ -1,6 +1,19 @@
 import axios from "axios";
 const Final_proj = "";
 
+// 토큰 읽어오는 함수
+const getUserToken = () => {
+    return window.localStorage.getItem("userToken");
+}
+
+const axiosWithToken = axios.create ({
+    baseURL: Final_proj,
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getUserToken(),
+    },
+});
+
 const AxiosFinal = {
      // 로그인
      memberLogin: async(email, pw) => {    
@@ -10,6 +23,18 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+    // 사용자 토큰 로그인
+    tokenLogin: async(email, pw) => {
+        const login = {
+            userEmail : email,
+            userPwd : pw
+        };
+        try{
+            return await axios.post(Final_proj + "/auth/userLoginToken", login);
+            }catch (error){
+                return error.response.status;
+            }
+        },
     adminSignUp: async(email, pw) => {    
         const signUpToken = {
             userEmail : email,
@@ -463,15 +488,18 @@ const AxiosFinal = {
         },
 
     // qna 추가
-    qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
-        const qna = {
-            productId : productId,
-            userEmail : userEmail,
-            qnaTitle : qnaTitle,
-            qnaContent : qnaContent
-        }
-        return await axios.post(Final_proj + "/qna/uploadQna", qna);
-    },
+        qnaUpdate : async(productId, qnaTitle, qnaContent) => {
+            const qna = {
+                productId : productId,
+                qnaTitle : qnaTitle,
+                qnaContent : qnaContent
+            }; try {
+                return await axiosWithToken.post("/qna/uploadQna", qna, {
+                });
+            } catch(error) {
+                return error.response.status;
+            }
+        },
 
     // user QnA 가져오기
     memQnaList : async() => {
@@ -489,37 +517,57 @@ const AxiosFinal = {
     },
 
     // 나의 Qna 불러오기
-    myQna : async(id) => {
-        return await axios.get(Final_proj + `/qna/myQnaList?id=${id}`);
+    myQna : async() => {
+     try {
+                return await axiosWithToken.get(`/qna/myQnaList`);
+            } catch(error) {
+                return error.response.status;
+            }
     },
 
     // 나의 Qna 수정에서 제품정보 불러오기
-    myQnaProductInfo : async(productId) => {
-        return await axios.get(Final_proj + `/qna/myQnaProductInfo?productId=${productId}`);
-    },
+   myQnaProductInfo : async(productId) => {
+       try {
+           return await axiosWithToken.get(`/qna/myQnaProductInfo?productId=${productId}`);
 
-    // 나의 Qna 수정에서 내가 쓴 내용 가져오기
-    editViewMyQna : async(qnaId) => {
-        return await axios.get(Final_proj + `/qna/editViewMyQna?qnaId=${qnaId}`);
-    },
+       } catch(error) {
+           return error.response.status;
+       }
+   },
 
-    // 내가 쓴 Qna 수정
-    editMyQna : async(qnaId, title, content) => {
-        const editData = {
-            qnaId : qnaId,
-            title : title,
-            content : content
-        }
-        return await axios.post(Final_proj + "/qna/editMyQna", editData);
-    },
+       // 나의 Qna 수정에서 내가 쓴 내용 가져오기
+   editViewMyQna : async(qnaId) => {
+       try {
+           return await axiosWithToken.get(`/qna/editViewMyQna?qnaId=${qnaId}`);
+       } catch(error) {
+           return error.response.status;
+       }
+   },
 
-    // 내가 쓴 Qna 삭제
-    deleteMyQna : async(qnaId) => {
-        const deleteQna = {
-            qnaId : qnaId
-        }
-        return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
-    },
+   // 내가 쓴 Qna 수정
+   editMyQna : async(qnaId, title, content) => {
+       const editData = {
+           qnaId : qnaId,
+           title : title,
+           content : content
+       }; try {
+           return await axiosWithToken.post(`/qna/editMyQna`, editData);
+       } catch(error) {
+           return error.response.status;
+       }
+   },
+
+   // 내가 쓴 Qna 삭제
+   deleteMyQna : async(qnaId) => {
+       const deleteQna = {
+           qnaId : qnaId
+       }; try {
+           return await axiosWithToken.post(`/qna/deleteMyQna`, deleteQna);
+       } catch(error) {
+           return error.response.data;
+       }
+
+   },
 
     // 오더페이지에서 카트 목록 가져오기
     realOrderList : async(cartId) => {
@@ -592,8 +640,12 @@ const AxiosFinal = {
     },
 
      // 내가 쓴 리뷰 보기
-    myReview : async(id) => {
-        return await axios.get(Final_proj + `/review/myReview?id=${id}`);
+    myReview : async() => {
+        try {
+           return await axiosWithToken.get(`/review/myReview`);
+           } catch(error) {
+               return error.response.status;
+           }
     },
 
     // 내가 쓴 리뷰 삭제

@@ -28,19 +28,14 @@ public class CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final ProductService productService;
 
     // 상품 추가
-    public boolean addCartItem(String email, long productId) {
-            System.out.println(" email : " + email);
-            System.out.println("productId : " + productId);
+    public boolean addCartItem(long id, long productId) {
+        Users users = userRepository.findByUserId(id);            // 해당하는 유저 찾기
+        Product product = productRepository.findByProductId(productId); // 해당하는 제품 찾기
+        Cart cart = cartRepository.findByUserUserId(id);                // 해당 회원 카트 있는지 찾기
 
-            Users users = userRepository.findByUserEmail(email);            // 해당하는 유저 찾기
-            long id = users.getUserId();                                    // 회원 번호 찾기
-            Product product = productRepository.findByProductId(productId); // 해당하는 제품 찾기
-            Cart cart = cartRepository.findByUserUserId(id);                // 해당 회원 카트 있는지 찾기
-
-            if(cart==null) {                        // 카트가 없다면
+        if(cart==null) {                        // 카트가 없다면
             cart = new Cart();                      // 새로운 카트 생성
             cart.setUser(users);                    // 카트에 회원 정보 저장
             cart = cartRepository.save(cart);       // 카트 저장
@@ -65,10 +60,10 @@ public class CartService {
 
 
     // 상품 List 조회
-    public List<CartItemDto> getCartItemList(String email) {
+    public List<CartItemDto> getCartItemList(long id) {
             int totalPrice = 0;
             // userEmail로 user_id 가져오기
-            Users user = userRepository.findByUserEmail(email);
+            Users user = userRepository.findByUserId(id);
             long user_id = user.getUserId();
             // userId로 카드 정보 조회
             Cart cart = cartRepository.findByUserUserId(user_id);
@@ -129,8 +124,8 @@ public class CartService {
     }
 
     // 상품 삭제
-    public List<CartItemDto> deleteItem (String id, long cartItemId){
-        Users users = userRepository.findByUserEmail(id);
+    public List<CartItemDto> deleteItem (long id, long cartItemId){
+        Users users = userRepository.findByUserId(id);
         CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
         if(cartItem.getCartItemId() > 0 ) {                             // cartItem이 존재하는 경우

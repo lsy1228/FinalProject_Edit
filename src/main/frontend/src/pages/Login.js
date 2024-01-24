@@ -93,24 +93,42 @@ const Login =()=>{
         setInputPw(e.target.value)
     };
     //로그인 비동기통신
-    const onClickLogin=  async() =>{ 
-        const response = await AxiosFinal.memberLogin(inputId,inputPw);
-        console.log(response);
-        if(response.data===true){
-            //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
-            window.localStorage.setItem("isLoginSuv", "TRUE");
-            window.localStorage.setItem("userIdSuv", inputId);
-            setIsLogin(true);
-            //로그인 성공시 home화면으로 돌아간다.
-            navigate ("/");
-            const orderMemberData = await AxiosFinal.orderMemberData(inputId);
-            console.log(orderMemberData.data);
-            setOrderUserData(orderMemberData.data); 
-        } else {
-            setOnModal(true);
-            setOnBlur(true);
-        }  
-       
+//    const onClickLogin=  async() =>{
+//        const response = await AxiosFinal.memberLogin(inputId,inputPw);
+//        console.log(response);
+//        if(response.data===true){
+//            //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
+//            window.localStorage.setItem("isLoginSuv", "TRUE");
+//            window.localStorage.setItem("userIdSuv", inputId);
+//            setIsLogin(true);
+//            //로그인 성공시 home화면으로 돌아간다.
+//            navigate ("/");
+//            const orderMemberData = await AxiosFinal.orderMemberData(inputId);
+//            console.log(orderMemberData.data);
+//            setOrderUserData(orderMemberData.data);
+//        } else {
+//            setOnModal(true);
+//            setOnBlur(true);
+//        }
+    const onClickLogin=  async() =>{
+           const responseToken = await AxiosFinal.tokenLogin(inputId,inputPw);
+           if(responseToken === 401) {
+               setOnModal(true);
+               setOnBlur(true);
+           }
+           else if(responseToken.data !== null){
+               //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
+               window.localStorage.setItem("isLoginSuv", "TRUE");
+               window.localStorage.setItem("userIdSuv", inputId);
+               window.localStorage.setItem("userToken", responseToken.data.accessToken);
+               console.log(responseToken.data.accessToken);
+               setIsLogin(true);
+               //로그인 성공시 home화면으로 돌아간다.
+               navigate ("/");
+                const orderMemberData = await AxiosFinal.orderMemberData(inputId);
+                console.log(orderMemberData.data);
+                setOrderUserData(orderMemberData.data);
+           }
 
 
     }

@@ -130,24 +130,24 @@ public class CartOrderService {
     }
 
     // 주문내역
-    public List<OrderDto> orderHistory(String userEmil) {
-        Users users = userRepository.findByUserEmail(userEmil);
+    public List<OrderDto> orderHistory(String userEmail) {
+        Users users = userRepository.findByUserEmail(userEmail);
         List<Order> orderList = orderRepository.findByUserUserId(users.getUserId());
         List<OrderDto> orderDtos = new ArrayList<>();
 
         for(Order order : orderList) {
             OrderDto orderDto = new OrderDto();
-            orderDto.setProductName(order.getProductName());
-            orderDto.setProductImgFst(order.getProduct().getProductImgFst());
-            orderDto.setProductSize(order.getSizeStatus().toString());
-            orderDto.setOrderId(order.getOrderId());
-            orderDto.setProductId(order.getProduct().getProductId());
-            orderDto.setProductPrice(order.getProductPrice());
-            orderDto.setOrderDate(order.getOrderDate());
-            orderDto.setReviewed(order.isReviewed());
-            orderDto.setOrderStatus(order.getOrderStatus());
-            orderDto.setShipCode(order.getShipCode());
-            orderDto.setShipCompany(order.getShipCompany());
+            orderDto.setProductName(order.getProductName());                    // 주문 제품 이름
+            orderDto.setProductImgFst(order.getProduct().getProductImgFst());   // 주문 제품 이미지
+            orderDto.setProductSize(order.getSizeStatus().toString());          // 주문 제품 사이즈
+            orderDto.setOrderId(order.getOrderId());                            // 주문 번호
+            orderDto.setProductId(order.getProduct().getProductId());           // 주문 제품 번호
+            orderDto.setProductPrice(order.getProductPrice());                  // 주문 제품 가격
+            orderDto.setOrderDate(order.getOrderDate());                        // 주문 날짜
+            orderDto.setReviewed(order.isReviewed());                           // 리뷰 작성 여부
+            orderDto.setOrderStatus(order.getOrderStatus());                    // 주문 상태
+            orderDto.setShipCode(order.getShipCode());                          // 배송 번호
+            orderDto.setShipCompany(order.getShipCompany());                    // 배송 회사
             orderDtos.add(orderDto);
         }
         return orderDtos;

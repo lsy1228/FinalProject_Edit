@@ -6,6 +6,7 @@ import com.kh.iMMUTABLE.entity.Users;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     //고객 로그인 체크 값이 없으면 false를 리턴한다.
     public boolean getUserList(String userEmail, String userPassword){
         List<Users> userList = userRepository.findByUserEmailAndUserPwd(userEmail,userPassword);
@@ -26,11 +28,15 @@ public class UserService {
         for(Users user : userList){
             UserDto userDto = new UserDto();
             userDto.setUserEmail(user.getUserEmail());
-            userDto.setUserPwd(user.getUserPwd());
+            userDto.setUserPwd(passwordEncoder.encode(userPassword));
             userDtos.add(userDto);
         }
-        if(userDtos.isEmpty())return false;
-        else return true;
+        if(userDtos.isEmpty())
+            return false;
+        else if (userDtos.get(0).getAuthority() == Authority.valueOf("ROLE_USER"))
+            return true;
+        else
+            return true;
     }
 
     public boolean getAdminList(String userEmail, String userPassword){
@@ -59,6 +65,9 @@ public class UserService {
 
     //고객 회원가입
     public boolean signUpUser(String userName, String userEmail, String userPwd, String userAddr,String userPhone){
+        if(userRepository.existsByUserEmail(userEmail)) {
+            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        }
         Users user = new Users();
         user.setUserName(userName);
         user.setUserEmail(userEmail);

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +33,13 @@ public class CartController {
     @PostMapping("/addCartItem")
     public ResponseEntity<Boolean> addCartItem(@RequestBody Map<String, String> cartData) {
         try {
-                String tempEmail = cartData.get("id"); //id로 찍히지만 실제로 넘어오는건 Email
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                long id = Long.parseLong(authentication.getName());
                 String tempProductId = cartData.get("productId");
 
                 long productId = Long.parseLong(tempProductId);
 
-                boolean result = cartService.addCartItem(tempEmail, productId);
+                boolean result = cartService.addCartItem(id, productId);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } catch (UsernameNotFoundException e) {
@@ -45,7 +48,9 @@ public class CartController {
     }
     // 장바구니 리스트 불러오기
     @GetMapping("/cartItemList")
-    public ResponseEntity<List<CartItemDto>> getCartItemList(@RequestParam String id) {
+    public ResponseEntity<List<CartItemDto>> getCartItemList() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long id = Long.parseLong(authentication.getName());
         List<CartItemDto> result = cartService.getCartItemList(id);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -76,7 +81,8 @@ public class CartController {
     // 상품 삭제
     @PostMapping("/deleteItem")
     public ResponseEntity<List<CartItemDto>> deleteItem(@RequestBody Map<String, String> cartData) {
-        String id = (String) cartData.get("id");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long id = Long.parseLong(authentication.getName());
         long cartItemId = Long.parseLong(cartData.get("cartItemId"));
         List<CartItemDto> cartItemDtoList = cartService.deleteItem(id, cartItemId);
         return new ResponseEntity<>(cartItemDtoList, HttpStatus.OK);
