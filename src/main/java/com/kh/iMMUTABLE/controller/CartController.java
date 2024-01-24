@@ -38,7 +38,6 @@ public class CartController {
                 String tempProductId = cartData.get("productId");
 
                 long productId = Long.parseLong(tempProductId);
-
                 boolean result = cartService.addCartItem(id, productId);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);
