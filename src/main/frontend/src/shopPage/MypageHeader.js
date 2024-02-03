@@ -223,10 +223,7 @@ const MyPageHeader = () => {
             navigate("/FAQ")
         }
         else if(e==="logout"){
-            window.localStorage.setItem("isLoginSuv", "FALSE");
-            window.localStorage.setItem("userIdSuv", "");
-            setIsLogin(false);
-            navigate("/");
+            handleLogout();
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -237,6 +234,22 @@ const MyPageHeader = () => {
         }
     }
 
+    const handleLogout = async() => {
+        try {
+            const response = await AxiosFinal.logout();
+            console.log(response);
+            if(response.status === 200) {
+                window.localStorage.removeItem("userToken");
+                window.localStorage.setItem("isLoginSuv", "FALSE");
+                window.localStorage.setItem("userIdSuv", "");
+                navigate("/Login");
+            } else {
+                alert("로그아웃 실패");
+            }
+        } catch (error) {
+            alert("로그아웃 에러 발생");
+        }
+    }
 
 
 

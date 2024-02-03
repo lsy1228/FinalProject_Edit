@@ -71,7 +71,13 @@ const Wishlist = () => {
 
     const deleteWish = async(productId) => {
         const productLikeDelete = await AxiosFinal.deleteLikeProduct(productId);
-        setWish(!wish);
+        if(productLikeDelete) {
+            setWish(!wish);
+        }
+    }
+
+    const handleClick = (productName) => {
+        navigate(`/ProductInfo/${productName}`);
     }
 
 
@@ -85,7 +91,7 @@ const Wishlist = () => {
                 <div className="wrapper">
                     {product && product.map((e)=> (
                     <div className="product" key={e.productId}>
-                        <img src={e.productImgFst} alt="" />
+                        <img src={e.productImgFst} alt=""  onClick={()=>handleClick(e.productName)}/>
                         <div className="wrapProduct">
                             <div className="productInfo">
                                 <div className="name">{e.productName}</div>

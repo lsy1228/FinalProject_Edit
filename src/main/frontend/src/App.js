@@ -47,7 +47,7 @@ function App() {
           <Route path="/AdminPage" element={<AdminPage/>}/>
           <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/>
           <Route path="/Secession" element={<Secession/>}/>
-          <Route path="/ProductInfo" element={<ProductInfo/>}/>
+          <Route path="/ProductInfo/:productName" element={<ProductInfo/>}/>
           <Route path="/Order" element={<Order/>} />
           <Route path="/Mypost" element={<Mypost/>} />
           <Route path="/Review/:productId" element={<Review/>} />

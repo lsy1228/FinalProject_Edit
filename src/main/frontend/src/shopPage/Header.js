@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -141,9 +142,7 @@ const Header = ({ onClick }) => {
             navigate("/FAQ")
         }
         else if(e==="logout"){
-            window.localStorage.setItem("isLoginSuv", "FALSE");
-            window.localStorage.setItem("userIdSuv", "");
-            window.location.reload();
+            handleLogout();
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -151,6 +150,23 @@ const Header = ({ onClick }) => {
         }
         else if(e==="mypage"){
             navigate("/Mypage")
+        }
+    }
+
+    const handleLogout = async() => {
+        try {
+            const response = await AxiosFinal.logout();
+            console.log(response);
+            if(response.status === 200) {
+                window.localStorage.removeItem("userToken");
+                window.localStorage.setItem("isLoginSuv", "FALSE");
+                window.localStorage.setItem("userIdSuv", "");
+                navigate("/Login");
+            } else {
+                alert("로그아웃 실패");
+            }
+        } catch (error) {
+            alert("로그아웃 에러 발생");
         }
     }
 
@@ -177,15 +193,15 @@ const Header = ({ onClick }) => {
     return(
       <Container>
         <Mainbody>
-       
+
             <Head>
                 <div className="nav">
                     <div className="nav1"   onClick={onClick}>
                         {MenuList.map(v=>(
                             <div key={v.name}
-                            onClick={() => handleMenuClick(v.name)} 
-                            className={selectedMenu === v.name ? "active" : ""}>        
-                            {v.name} 
+                            onClick={() => handleMenuClick(v.name)}
+                            className={selectedMenu === v.name ? "active" : ""}>
+                            {v.name}
                           </div>
                         ))}
                     </div>
@@ -198,12 +214,11 @@ const Header = ({ onClick }) => {
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
+                          {isLogin==="TRUE" && IsLoginTrue.map(s=> (
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
                                     ))}
-                            
                     </div>
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu  />} 

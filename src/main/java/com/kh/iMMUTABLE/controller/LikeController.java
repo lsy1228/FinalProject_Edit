@@ -50,6 +50,10 @@ public class LikeController {
     @PostMapping("/Heart")
     public ResponseEntity<Boolean> viewHeart (@RequestBody Map<String, String> heartData) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+        if(authentication == null || authentication.getName() == null) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
         long id = Long.parseLong(authentication.getName());
         long productId = Long.parseLong(heartData.get("productId"));
         boolean result = likeService.likeView(id, productId);

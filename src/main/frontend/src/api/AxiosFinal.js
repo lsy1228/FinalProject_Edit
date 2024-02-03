@@ -9,7 +9,7 @@ const axiosWithToken = axios.create({
 axiosWithToken.interceptors.request.use(
     (config) => {
         const accessToken = localStorage.getItem('userToken');
-        if(accessToken) {
+        if(accessToken !== null) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
@@ -62,6 +62,15 @@ const AxiosFinal = {
 //        };
 //        return await axios.post(Final_proj + "/auth/login", login);
 //    },
+
+     // 로그아웃
+    logout : async() => {
+        try {
+            return await axiosWithToken.get('/auth/logout');
+        } catch(error) {
+            return error.response.status;
+        }
+    },
 
      // 상품 좋아요 표시
     viewHeart : async(heartProductId) => {

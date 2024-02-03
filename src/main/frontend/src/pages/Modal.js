@@ -177,13 +177,11 @@ const Container = styled.div`
 `;
 
 const Modal = (props) => {
-    const {open, close} = props;
+    const {open, close, productId} = props;
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
     const [product, setProduct] = useState([]);
 
-    const productId = window.localStorage.getItem("heartProductId");
-    // const userToken = window.localStorage.getItem("userToken");
     const nav = useNavigate();
     const handelTitle = (e) => {
         setInputTitle(e.target.value);

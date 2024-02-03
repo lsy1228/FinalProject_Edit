@@ -4,7 +4,7 @@ import Header from "../shopPage/Header";
 import Modal from "./Modal";
 import {FaRegHeart, FaHeart, FaFontAwesome} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import Pagenation from "./Pagenation";
 import ReviewPagenation from "./Pagenation";
@@ -391,6 +391,7 @@ const ProductInfo = () => {
     const [expanded, setExpanded] = useState([]);       // qna
     const [rvExpanded, setRvExpanded] = useState([]);   // review
     const [reviewData, setReviewData] = useState([]);
+    const [modalId, setModalId] = useState();
 
     // qna pagenation
     const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
@@ -404,8 +405,9 @@ const ProductInfo = () => {
 
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
-    const heartProductId = window.localStorage.getItem("heartProductId");
     const userToken = window.localStorage.getItem("userToken");
+
+    const {productName} = useParams();
 
     const handleSelect = (e) => {
         const productId = e.target.value;
@@ -435,7 +437,9 @@ const ProductInfo = () => {
 
     const clickLikeDelete = async(heartProductId) => {
         const response = await AxiosFinal.deleteLikeProduct(heartProductId);
-        setlikeClick(false);
+        if(response.data) {
+            setlikeClick(false);
+        }
     }
 
 
@@ -451,33 +455,49 @@ const ProductInfo = () => {
 
 
     useEffect(()=> {
-        const storedData = window.localStorage.getItem("productData");
-         if (storedData) {
-            setProduct(JSON.parse(storedData));
-        }
-    }, []);
-
-    useEffect(()=> {
-        const heartView = async() => {
-            const rsp = await AxiosFinal.viewHeart(heartProductId);
-            if(rsp.data) {
-                setlikeClick(true);
-            } else {
-                setlikeClick(false);
+        const fetchProductData = async () => {
+            try {
+                const decodedProductName = decodeURIComponent(productName);
+                const rsp = await AxiosFinal.dataProduct(decodedProductName);
+                console.log(rsp.data[0]);
+                setProduct(rsp.data);
+                setModalId(rsp.data[0].productId);
+                heartView(rsp.data[0].productId);
+                qnaView(rsp.data[0].productId);
+            } catch (error) {
+                console.error('Error fetching product information:', error);
             }
+    };
+
+
+    const heartView = async (productId) => {
+        if (userToken) {
+            try {
+                const rsp = await AxiosFinal.viewHeart(productId);
+                if (rsp.data) {
+                    setlikeClick(true);
+                } else {
+                    setlikeClick(false);
+                }
+            } catch (error) {
+                alert("다시 로그인 해주세요");
+                nav("/Login");
+            }
+        } else {
+           setlikeClick(false);
         }
-
-        const qnaView = async(heartProductId) => {
-            const rsp = await AxiosFinal.viewQna(heartProductId);
-            setQnaData(rsp.data);
-        }
+    };
 
 
-        if (heartProductId) {
-            heartView(heartProductId);
-            qnaView(heartProductId);
-          }
+    const qnaView = async(productId) => {
+        const rsp = await AxiosFinal.viewQna(productId);
+        setQnaData(rsp.data);
+    };
+
+    fetchProductData();
+
     }, [modalOpen]);
+
 
     useEffect(()=> {
         if(product.length > 0) {
@@ -489,7 +509,7 @@ const ProductInfo = () => {
             }
             reviewView();
         }
-    }, [product]);
+    }, [product, likeClick]);
 
 
     const handleQna = (index) => {
@@ -513,6 +533,11 @@ const ProductInfo = () => {
     }
 
     const clickCart = async(productId) => {
+        if(isLogin === "FALSE") {
+            alert("로그인 해주세요");
+            nav("/Login");
+            return;
+        }
         if(!productId) {
             alert("사이즈를 선택해주세요.");
             return;
@@ -524,7 +549,8 @@ const ProductInfo = () => {
                   alert("장바구니에 상품이 담겼습니다.")
                 }
             } catch (error) {
-                console.error("상품 추가 중 에러 발생 : ", error);
+               alert("다시 로그인 해주세요");
+               nav("/Login");
             }
     }
 
@@ -586,7 +612,7 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="addBtn">
-                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(heartProductId)}><FaRegHeart/></button>}
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(product[0].productId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(product[0].productId)}><FaRegHeart/></button>}
                                 <button className="cart" onClick={()=>clickCart(productId)}>ADD TO CART</button>
                             </div>
                             <div className="detailWrapper">
@@ -665,7 +691,7 @@ const ProductInfo = () => {
                             <div className="qnaWrite" onClick={writeQna}>문의 작성</div>
                         </div>
                         <hr />
-                        <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
+                        <Modal open={modalOpen} close={closeModal} header="문의 작성" productId={modalId}/>
                         <QnATable>
                             <thead>
                                 <tr>

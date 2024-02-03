@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
-import DropFiter from "./DropFiter";
 import AxiosFinal from "../api/AxiosFinal";
 import Pagenation from "../pages/Pagenation";
 import { UserContext } from "../context/UserInfo";
@@ -164,15 +163,9 @@ const Shop = () => {
 
     if (!mergeProduct[productName]) {
         mergeProduct[productName] = {
-            productId : e.productId,
             productName: e.productName,
-            productMainImg: e.productMainImg,
             productPrice: e.productPrice,
-            productDetail : e.productDetail,
             productImgFst: e.productImgFst,
-            productImgSnd: e.productImgSnd,
-            productImgDetail: e.productImgDetail,
-            productContent : e.productContent,
         };
     }
     });
@@ -198,12 +191,7 @@ const Shop = () => {
 
     const onclick = async(e) => {
         const productName = e.productName;
-        const rsp = await AxiosFinal.dataProduct(productName);
-        const result = rsp.data;
-        setItem(result);
-        window.localStorage.setItem("heartProductId",result[0].productId);
-        window.localStorage.setItem("productData", JSON.stringify(rsp.data));
-        nav("/ProductInfo");
+        nav(`/ProductInfo/${productName}`);
     };
 
 
