@@ -39,8 +39,8 @@ public class ReviewService {
     }
 
     // 리뷰 작성하기
-    public boolean writeReview(int rate, long productId, String title, String content, String userEmail, LocalDate reviewDate, long orderId, String reviewImg) {
-        Users users = userRepository.findByUserEmail(userEmail);
+    public boolean writeReview(int rate, long productId, String title, String content, String userId, LocalDate reviewDate, long orderId, String reviewImg) {
+        Users users = userRepository.findByUserId(Long.parseLong(userId));
         Product product = productRepository.findByProductId(productId);
         Order order = orderRepository.findByOrderId(orderId);
 

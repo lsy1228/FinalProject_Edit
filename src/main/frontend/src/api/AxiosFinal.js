@@ -63,6 +63,23 @@ const AxiosFinal = {
 //        return await axios.post(Final_proj + "/auth/login", login);
 //    },
 
+    // 리뷰 작성하기
+     submitReview : async(rate, productId, title, content, orderId, imgURL) => {
+        const reviewData = {
+            rate : rate,
+            productId : productId,
+            title : title,
+            content : content,
+            orderId : orderId,
+            imgURL : imgURL
+        };
+        try {
+            return await axiosWithToken.post('/review/writeReview', reviewData);
+        } catch(error) {
+            return error.response.status;
+        }
+    },
+
      // 로그아웃
     logout : async() => {
         try {
@@ -700,19 +717,6 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/review/reviewProduct?productId=${productId}`);
     },
 
-      // 리뷰 작성하기
-    submitReview : async(rate, productId, title, content, userEmail, orderId, imgURL) => {
-     const reviewData = {
-         rate : rate,
-         productId : productId,
-         title : title,
-         content : content,
-         userEmail : userEmail,
-         orderId : orderId,
-         imgURL : imgURL
-        }
-        return await axios.post(Final_proj + "/review/writeReview", reviewData);
-     },
 
     // 제품 별 리뷰 불러오기
     viewReview : async(productName) => {
@@ -728,30 +732,42 @@ const AxiosFinal = {
            }
     },
 
-    // 내가 쓴 리뷰 삭제
+     // 내가 쓴 리뷰 삭제
     deleteMyReview : async(reviewId) => {
         const deleteReview = {
             reviewId : reviewId
+        };
+        try {
+            return await axiosWithToken.post("/review/deleteReview", deleteReview);
+        } catch(error) {
+            return error.response.status;
         }
-        return await axios.post(Final_proj + "/review/deleteReview", deleteReview);
     },
 
     // 리뷰 수정 가져오기
     editMyReviewInfo : async(reviewId) => {
-        return await axios.get(Final_proj + `/review/editReviewInfo?reviewId=${reviewId}`);
-    },
+       try {
+           return await axiosWithToken.get(`/review/editReviewInfo?reviewId=${reviewId}`);
+       } catch(error) {
+           return error.response.status;
+       }
+},
 
     // 리뷰 수정하기
-    editMyReview : async(reviewId, inputTitle, inputContent, userRate, imgUrl) => {
-        const editData = {
-            reviewId : reviewId,
-            title : inputTitle,
-            content : inputContent,
-            userRate : userRate,
-            imgUrl : imgUrl
-        }
-        return await axios.post(Final_proj + "/review/editMyReview", editData);
-    }
+   editMyReview : async(reviewId, inputTitle, inputContent, userRate, imgUrl) => {
+       const editData = {
+           reviewId : reviewId,
+           title : inputTitle,
+           content : inputContent,
+           userRate : userRate,
+           imgUrl : imgUrl
+       };
+       try {
+           return await axiosWithToken.post("/review/editMyReview", editData);
+       } catch(error) {
+           return error.response.status;
+       }
+   },
     
 };
 

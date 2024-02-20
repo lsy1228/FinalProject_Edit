@@ -39,14 +39,15 @@ public class ReviewController {
         long productId = Long.parseLong(reviewData.get("productId"));   // 제품 번호
         String title = reviewData.get("title");                         // 리뷰 제목
         String content = reviewData.get("content");                     // 리뷰 내용
-        String userEmail = reviewData.get("userEmail");                 // 사용자 메일
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
         LocalDate nowDate = LocalDate.now();
         String reviewDateString = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate reviewDate = LocalDate.parse(reviewDateString);
         long orderId = Long.parseLong(reviewData.get("orderId"));       // 주문 번호
         String reviewImg = reviewData.get("imgURL");                    // 리뷰 이미지
 
-        boolean result = reviewService.writeReview(rate, productId, title, content, userEmail, reviewDate, orderId, reviewImg);
+        boolean result = reviewService.writeReview(rate, productId, title, content, userId, reviewDate, orderId, reviewImg);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -19,11 +19,23 @@ const Container = styled.div`
 const InnerContainer = styled.div`
     width: 100%;
     margin-top: 50px;
-    .header {
+    .headerWrapper {
         margin: 0 40px;
-        font-size: 25px;
-        font-weight: bold;
-        margin-bottom: 20px;
+        .header {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+    }
+    @media (max-width: 430px) {
+        width: 100%;
+        margin-top: 20px;
+        .headerWrapper {
+            margin: 0;
+            .header {
+                padding-left: 15px;
+            }
+        }
     }
 `;
 
@@ -120,6 +132,43 @@ const Product = styled.div`
             }
         }
     }
+    @media (max-width: 430px) {
+        width: 100%;
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+            justify-content: center;
+            align-items: center;
+            .product {
+                width: 100%;
+                margin-bottom: 10px;
+                .imgName {
+                    img {
+                        width: 350px;
+                        height: 300px;
+                        object-fit: cover;
+                    }
+                    .Name {
+                        margin-top: 15px;
+                    }
+                }
+            }
+            .content {
+                width: 100%;
+                .starReview {
+                    display: flex;
+                    justify-content: space-around;
+                }
+                .rvCon {
+                    textarea {
+                        height: 150px;
+                    }
+                }
+            }
+
+        }
+    }
 `;
 
 const Review = () => {
@@ -131,7 +180,6 @@ const Review = () => {
     const [imgURL, setImageURL] = useState();
 
     const {orderId} = useContext(UserContext);
-    const id = window.localStorage.getItem("userIdSuv");
 
     const [clicked, setClicked] = useState([false, false, false, false, false]);
     const array = [0, 1, 2, 3, 4];
@@ -162,8 +210,7 @@ const Review = () => {
         setContent(e.target.value);
     }
 
-    const writeReview = () => {
-        console.log(imgURL);
+    const writeReview = async() => {
         if (title === "" || content === "") {
             alert("제목, 내용을 모두 입력해주세요");
             return;
@@ -172,17 +219,19 @@ const Review = () => {
             alert("별점을 선택해주세요");
             return;
         }
-        const reviewWrite = async() => {
-            const rsp = await AxiosFinal.submitReview(score, productId, title, content, id, orderId, imgURL);
-            console.log(rsp.data);
-            if(rsp.data) {
-                alert("리뷰가 작성되었습니다.");
-                navigate("/Order");
-            } else {
-                alert("리뷰 작성에 실패하였습니다.");
-            }
+        try {
+            const rsp = await AxiosFinal.submitReview(score, productId, title, content, orderId, imgURL);
+        if(rsp.data) {
+            alert("리뷰가 작성되었습니다.");
+            navigate("/Order");
+        } else {
+            alert("리뷰 작성에 실패하였습니다.");
         }
-        reviewWrite();
+        } catch(error) {
+            alert("다시 로그인 해주세요.");
+            navigate("/Login");
+        }
+
     }
 
     const selectReviewImg = (e) => {
@@ -206,8 +255,9 @@ const Review = () => {
         <Container>
             <MyPageHeader />
             <InnerContainer>
-                <div className="header">후기 작성
-                <hr />
+                <div className="headerWrapper">
+                    <div className="header">후기 작성</div>
+                    <hr />
                 </div>
                 <Product>
                     <div className="wrapper">

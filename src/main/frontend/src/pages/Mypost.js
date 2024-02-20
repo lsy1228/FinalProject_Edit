@@ -299,9 +299,10 @@ const Mypost = () => {
         const viewMyQna = async() => {
             const rsp = await AxiosFinal.myQna();
             if(rsp === 401) {
-               alert("다시 로그인 해주세요");
-               nav("/Login");
-                       }
+                alert("다시 로그인 해주세요");
+                nav("/Login");
+            }
+            console.log(rsp.data);
             setQnaData(rsp.data);
         }
         viewMyQna();
@@ -335,19 +336,34 @@ const Mypost = () => {
     }
 
     const deleteQna = async(qnaId) => {
-        const response = await AxiosFinal.deleteMyQna(qnaId);
+        try {
+            const response = await AxiosFinal.deleteMyQna(qnaId);
         if(response.data) {
             alert("문의가 삭제되었습니다");
             setDeleteCount(preCount => preCount + 1);
+        } else {
+           alert("문의 삭제에 실패하였습니다");
         }
-    }
+        } catch(error) {
+            alert("다시 로그인 해주세요");
+            nav("/Login");
+        }
+        };
 
     const deleteReview = async(reviewId) => {
-        const response = await AxiosFinal.deleteMyReview(reviewId);
+        try {
+            const response = await AxiosFinal.deleteMyReview(reviewId);
         if(response.data) {
             alert("리뷰가 삭제되었습니다");
             setDeleteCount(preCount => preCount + 1);
+        } else {
+            alert("리뷰 삭제에 실패하였습니다");
         }
+        } catch(error) {
+            alert("다시 로그인 해주세요");
+            nav("/Login");
+        }
+
     }
 
     const handleReview = async(index) => {

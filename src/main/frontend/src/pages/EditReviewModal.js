@@ -257,18 +257,21 @@ const EditReviewModal = (props) => {
     const [userRate, setUserRate] = useState('');
     const [imgUrl, setImgUrl] = useState('');
 
-    useEffect(()=> {
-       const getMyReview = async() => {
-        const response = await AxiosFinal.editMyReviewInfo(reviewId);
-        setReviewInfo(response.data);
-        setInputTitle(response.data.reviewTitle);
-        setInputContent(response.data.reviewContent);
-        setUserRate(response.data.reviewRate);
-        setImgUrl(response.data.reviewImg);
-       }
-       getMyReview(reviewId);
-
-    }, [reviewId]);
+     useEffect(()=> {
+           const getMyReview = async() => {
+            try {
+                const response = await AxiosFinal.editMyReviewInfo(reviewId);
+                setReviewInfo(response.data);
+                setInputTitle(response.data.reviewTitle);
+                setInputContent(response.data.reviewContent);
+                setUserRate(response.data.reviewRate);
+                setImgUrl(response.data.reviewImg);
+            } catch(error) {
+                alert("리뷰 내용을 가져올 수 없습니다.");
+            }
+           }
+           getMyReview();
+        }, [reviewId]);
 
 
     const editTitle = (e) => {
