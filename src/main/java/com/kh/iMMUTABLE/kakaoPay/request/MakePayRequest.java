@@ -41,7 +41,6 @@ public class MakePayRequest {
         map.add("cid", "TC0ONETIME");
         map.add("partner_order_id", orderId);       // 가맹점 주문번호
         map.add("partner_user_id", "iMMUTABLE");    // 가맹점 회원 ID
-
         // 상품 이름
         map.add("item_name", productName);
         // 수량
