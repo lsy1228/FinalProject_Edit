@@ -1,5 +1,4 @@
 package com.kh.iMMUTABLE.kakaoPay.response;
-
 import lombok.Getter;
 
 @Getter

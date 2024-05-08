@@ -12,5 +12,4 @@ import java.util.List;
 public interface FaqRepository extends JpaRepository<Faq, Long> {
     List<Faq> findAll();
     Faq findByFaqId(Long faqId);
-
 }

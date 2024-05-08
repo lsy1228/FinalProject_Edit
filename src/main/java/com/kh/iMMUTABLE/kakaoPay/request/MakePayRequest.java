@@ -7,11 +7,8 @@ import com.kh.iMMUTABLE.kakaoPay.PayInfoDto;
 import com.kh.iMMUTABLE.repository.CartItemRepository;
 import com.kh.iMMUTABLE.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
-
 import java.util.ArrayList;
 import java.util.List;
 

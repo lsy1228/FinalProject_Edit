@@ -13,7 +13,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     Users findByUserEmail(String userEmail);
 
-
     Users findByUserId(long userId);
 
     boolean existsByUserEmail(String userEmail); // entity 이름과 같아야함, exists에 s 붙여주기

@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface ChatListRepository extends JpaRepository<ChatList, Long> {
     int deleteByRoomName(String roomName);
-
     ChatList findByRoomName(String roomName);
 }

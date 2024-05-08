@@ -37,7 +37,6 @@ public class KakaoPayController {
         log.warn(String.valueOf(id));
         PayApproveResDto approve = kakaoPayService.getApprove(id, pgToken);
         log.info("✅✅✅"+approve.toString());
-
         return ResponseEntity.status(HttpStatus.OK).body(approve);
     }
 
