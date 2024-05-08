@@ -2,6 +2,7 @@ package com.kh.iMMUTABLE.security;
 
 import java.security.MessageDigest;
 
+// 암호화
 public class EncryptionUtils {
     public static String encryptSHA256(String s) {
         return encrypt(s, "SHA-256");

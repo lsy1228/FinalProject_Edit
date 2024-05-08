@@ -31,6 +31,7 @@ public class Users {
     private String userPhone; // 폰 번호
     private LocalDateTime userDate; // 가입일
     private String userImg; // 회원 이미지
+    private String tid;
     @Enumerated(EnumType.STRING)
     private Authority authority;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -47,6 +48,11 @@ public class Users {
 //        this.userPwd = userPwd;
 //        this.authority = userAuth;
 //    }
+
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
 
     @Builder
     public Users(String userEmail, String userPwd, String userName, String userAddr, String userPhone, LocalDateTime userDate, Authority userAuth ) {

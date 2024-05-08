@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface CartRepository extends JpaRepository<Cart, Long> {
     Cart findByUserUserEmail(String userEmail);
     Cart findByUserUserId(long userId);
+    Cart findByCartId(long cartId);
 
 
 //    Cart deleteCartByCartId(Long cartId);

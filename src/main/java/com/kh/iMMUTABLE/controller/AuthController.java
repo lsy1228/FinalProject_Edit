@@ -163,6 +163,7 @@ public class AuthController {
 
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue (@RequestBody TokenRequestDto tokenRequestDto) {
+        log.warn(tokenRequestDto.getRefreshToken());
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 

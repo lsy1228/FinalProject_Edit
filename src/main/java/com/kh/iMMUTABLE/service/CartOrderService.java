@@ -1,15 +1,16 @@
 package com.kh.iMMUTABLE.service;
 
 import com.kh.iMMUTABLE.constant.OrderStatus;
-import com.kh.iMMUTABLE.dto.CartDto;
 import com.kh.iMMUTABLE.dto.CartItemDto;
 import com.kh.iMMUTABLE.dto.OrderDto;
 import com.kh.iMMUTABLE.dto.UserDto;
 import com.kh.iMMUTABLE.entity.*;
+import com.kh.iMMUTABLE.kakaoPay.PayInfoDto;
 import com.kh.iMMUTABLE.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -48,10 +49,72 @@ public class CartOrderService {
     }
 
     // order에 저장
-    public boolean cartOrder(long cartId, String userName, String userEmail, String userPhone, String userAddr) {
-        System.out.println(cartId);
+//    public boolean cartOrder(long cartId, String userName, String userEmail, String userPhone, String userAddr) {
+//        System.out.println(cartId);
+//
+//        Optional<Cart> cart = cartRepository.findById(cartId); // 카트아이디로 해당되는 카트 찾음
+//
+//        if (cart.isPresent()) {  // 카트가 존재하면
+//            for (CartItem cartItem : cart.get().getCartItemList()) { // 해당 카트에 있는 카트 아이템 가져옴
+//                Order order = new Order();  // Order 엔티티에 정보 저장하기 위해 생성
+//                order.setUser(cartItem.getCart().getUser());    // 주문 user
+//                order.setOrderDate(LocalDate.from(LocalDateTime.now()));    // 주문 날짜
+//                order.setCart(cart.get());  // 주문 장바구니
+//                order.setProductName(cartItem.getProduct().getProductName());   // 주문 제품 이름
+//                order.setProductColor(cartItem.getProduct().getProductColor()); // 주문 제품 컬러
+//                order.setProductPrice(cartItem.getCartPrice()); // 각 제품별 가격
+//                order.setTotalPrice(cart.get().getTotalPrice()); // 장바구니 총 가격
+//                order.setProduct(cartItem.getProduct());        // 주문 제품
+//                order.setOrderStatus(OrderStatus.CHECK);        // 주문 상태
+//                order.setSizeStatus(cartItem.getProduct().getSizeStatus()); // 주문 사이즈
+//                order.setCount(cartItem.getCount());
+//
+//                order.setOrderAddress(userAddr);    // 주문하는 사람 주소
+//                order.setOrderName(userName);       // 주문하는 사람 이름
+//                order.setOrderPhone(userPhone);     // 주문하는 사람 전화번호
+//                order.setOrderEmail(userEmail);     // 주문하는 사람 이메일
+//                orderRepository.save(order);
+//            }
+//            cart.get().getCartItemList().clear();
+//            cartRepository.save(cart.get());
+//        }
+//        return true;
+//    }
 
-        Optional<Cart> cart = cartRepository.findById(cartId); // 카트아이디로 해당되는 카트 찾음
+//    public boolean cartOrder(PayInfoDto payInfoDto) {
+//
+//        Optional<Cart> cart = cartRepository.findById(payInfoDto.getCartId()); // 카트아이디로 해당되는 카트 찾음
+//
+//        if (cart.isPresent()) {  // 카트가 존재하면
+//            for (CartItem cartItem : cart.get().getCartItemList()) { // 해당 카트에 있는 카트 아이템 가져옴
+//                Order order = new Order();  // Order 엔티티에 정보 저장하기 위해 생성
+//                order.setUser(cartItem.getCart().getUser());    // 주문 user
+//                order.setOrderDate(LocalDate.from(LocalDateTime.now()));    // 주문 날짜
+//                order.setCart(cart.get());  // 주문 장바구니
+////                order.setProductName(cartItem.getProduct().getProductName());   // 주문 제품 이름
+////                order.setProductColor(cartItem.getProduct().getProductColor()); // 주문 제품 컬러
+////                order.setProductPrice(cartItem.getCartPrice()); // 각 제품별 가격
+//                order.setTotalPrice(cart.get().getTotalPrice()); // 장바구니 총 가격
+//                order.setProduct(cartItem.getProduct());        // 주문 제품
+//                order.setOrderStatus(OrderStatus.CHECK);        // 주문 상태
+////                order.setSizeStatus(cartItem.getProduct().getSizeStatus()); // 주문 사이즈
+//                order.setCount(cartItem.getCount());
+//
+//                order.setOrderAddress(payInfoDto.getUserAddr());    // 주문하는 사람 주소
+//                order.setOrderName(payInfoDto.getUserName());       // 주문하는 사람 이름
+//                order.setOrderPhone(payInfoDto.getUserPhone());     // 주문하는 사람 전화번호
+//                order.setOrderEmail(payInfoDto.getUserEmail());     // 주문하는 사람 이메일
+//                orderRepository.save(order);
+//            }
+//            cart.get().getCartItemList().clear();
+//            cartRepository.save(cart.get());
+//        }
+//        return true;
+//    }
+
+    public boolean cartOrder(PayInfoDto payInfoDto) {
+
+        Optional<Cart> cart = cartRepository.findById(payInfoDto.getCartId()); // 카트아이디로 해당되는 카트 찾음
 
         if (cart.isPresent()) {  // 카트가 존재하면
             for (CartItem cartItem : cart.get().getCartItemList()) { // 해당 카트에 있는 카트 아이템 가져옴
@@ -59,19 +122,15 @@ public class CartOrderService {
                 order.setUser(cartItem.getCart().getUser());    // 주문 user
                 order.setOrderDate(LocalDate.from(LocalDateTime.now()));    // 주문 날짜
                 order.setCart(cart.get());  // 주문 장바구니
-                order.setProductName(cartItem.getProduct().getProductName());   // 주문 제품 이름
-                order.setProductColor(cartItem.getProduct().getProductColor()); // 주문 제품 컬러
-                order.setProductPrice(cartItem.getCartPrice()); // 각 제품별 가격
                 order.setTotalPrice(cart.get().getTotalPrice()); // 장바구니 총 가격
                 order.setProduct(cartItem.getProduct());        // 주문 제품
                 order.setOrderStatus(OrderStatus.CHECK);        // 주문 상태
-                order.setSizeStatus(cartItem.getProduct().getSizeStatus()); // 주문 사이즈
                 order.setCount(cartItem.getCount());
 
-                order.setOrderAddress(userAddr);    // 주문하는 사람 주소
-                order.setOrderName(userName);       // 주문하는 사람 이름
-                order.setOrderPhone(userPhone);     // 주문하는 사람 전화번호
-                order.setOrderEmail(userEmail);     // 주문하는 사람 이메일
+                order.setOrderAddress(payInfoDto.getUserAddr());    // 주문하는 사람 주소
+                order.setOrderName(payInfoDto.getUserName());       // 주문하는 사람 이름
+                order.setOrderPhone(payInfoDto.getUserPhone());     // 주문하는 사람 전화번호
+                order.setOrderEmail(payInfoDto.getUserEmail());     // 주문하는 사람 이메일
                 orderRepository.save(order);
             }
             cart.get().getCartItemList().clear();
@@ -91,8 +150,8 @@ public class CartOrderService {
             orderDto.setOrderAddress(order.getOrderAddress());
             orderDto.setOrderDate(order.getOrderDate());
             orderDto.setOrderStatus(order.getOrderStatus());
-            orderDto.setProductSize(order.getSizeStatus().toString());
-            orderDto.setProductName(order.getProductName());
+//            orderDto.setProductSize(order.getSizeStatus().toString());
+//            orderDto.setProductName(order.getProductName());
             orderDto.setProductImgFst(order.getProduct().getProductImgFst());
             orderDto.setProductPrice(order.getTotalPrice());
             orderDto.setTotalPrice(order.getCart().getTotalPrice());
@@ -130,19 +189,20 @@ public class CartOrderService {
     }
 
     // 주문내역
-    public List<OrderDto> orderHistory(String userEmail) {
-        Users users = userRepository.findByUserEmail(userEmail);
-        List<Order> orderList = orderRepository.findByUserUserId(users.getUserId());
+    public List<OrderDto> orderHistory() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+        List<Order> orderList = orderRepository.findByUserUserId(Long.parseLong(userId));
         List<OrderDto> orderDtos = new ArrayList<>();
 
         for(Order order : orderList) {
             OrderDto orderDto = new OrderDto();
-            orderDto.setProductName(order.getProductName());                    // 주문 제품 이름
-            orderDto.setProductImgFst(order.getProduct().getProductImgFst());   // 주문 제품 이미지
-            orderDto.setProductSize(order.getSizeStatus().toString());          // 주문 제품 사이즈
+            orderDto.setProductName(order.getProduct().getProductName());           // 주문 제품 이름
+            orderDto.setProductImgFst(order.getProduct().getProductImgFst());       // 주문 제품 이미지
+            orderDto.setProductSize(order.getProduct().getSizeStatus().toString()); // 주문 제품 사이즈
             orderDto.setOrderId(order.getOrderId());                            // 주문 번호
             orderDto.setProductId(order.getProduct().getProductId());           // 주문 제품 번호
-            orderDto.setProductPrice(order.getProductPrice());                  // 주문 제품 가격
+            orderDto.setProductPrice(order.getProduct().getProductPrice());     // 주문 제품 가격
             orderDto.setOrderDate(order.getOrderDate());                        // 주문 날짜
             orderDto.setReviewed(order.isReviewed());                           // 리뷰 작성 여부
             orderDto.setOrderStatus(order.getOrderStatus());                    // 주문 상태

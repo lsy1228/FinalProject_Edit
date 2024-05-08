@@ -26,16 +26,16 @@ public class CartOrderController {
     private final CartOrderService cartOrderService;
 
     // order에 저장
-    @PostMapping  ("/cartOrder")
-    public ResponseEntity<Boolean> orderCart (@RequestBody Map<String, String> saveOrder) {
-        long cartId = Long.parseLong(saveOrder.get("cartId"));
-        String userName = saveOrder.get("inputName");
-        String userEmail = saveOrder.get("inputEmail");
-        String userPhone = saveOrder.get("inputPhone");
-        String userAddr = saveOrder.get("addr");
-        boolean result = cartOrderService.cartOrder(cartId, userName, userEmail, userPhone, userAddr);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @PostMapping  ("/cartOrder")
+//    public ResponseEntity<Boolean> orderCart (@RequestBody Map<String, String> saveOrder) {
+//        long cartId = Long.parseLong(saveOrder.get("cartId"));
+//        String userName = saveOrder.get("inputName");
+//        String userEmail = saveOrder.get("inputEmail");
+//        String userPhone = saveOrder.get("inputPhone");
+//        String userAddr = saveOrder.get("addr");
+//        boolean result = cartOrderService.cartOrder(cartId, userName, userEmail, userPhone, userAddr);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 
     // order 페이지에 장바구니에서 가져온 목록 띄우기
     @GetMapping("/cartOrderList")
@@ -67,8 +67,8 @@ public class CartOrderController {
 
     // 주문내역 가져오기
     @GetMapping("/orderHistory")
-    public ResponseEntity<List<OrderDto>> orderHistory (@RequestParam String userEmail) {
-        List<OrderDto> result = cartOrderService.orderHistory(userEmail);
+    public ResponseEntity<List<OrderDto>> orderHistory () {
+        List<OrderDto> result = cartOrderService.orderHistory();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

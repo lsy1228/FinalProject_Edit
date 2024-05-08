@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+    // 인가에 실패(권한이 없는 경우) 호출하여 예외처리
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.sendError(HttpServletResponse.SC_FORBIDDEN);

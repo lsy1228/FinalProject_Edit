@@ -10,6 +10,7 @@ import com.kh.iMMUTABLE.jwt.TokenProvider;
 import com.kh.iMMUTABLE.repository.RefreshTokenRepository;
 import com.kh.iMMUTABLE.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -64,6 +66,7 @@ public class AuthService {
     public TokenDto userLogin(UserRequestDto requestDto) {
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+        log.info("로그인 : "+authentication.toString());
 
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
 
@@ -80,16 +83,15 @@ public class AuthService {
 
     // 토큰 재발급
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
-        // refresh 토큰 검증, 만료 여부를 먼저 검사
-        if(!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new RuntimeException("Refresh Token이 유효하지 않습니다");
-        }
         // 토큰을 기반으로 정보 가져옴
         Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getRefreshToken());
         // userId를 기반으로 refresh 토큰 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자 입니다"));
 
+        log.warn("사용자 정보 : " + authentication.getName());
+        log.warn("리프레시 토큰 : " + refreshToken.getValue());
+        log.warn("보낸 리프레시 토큰 : " + tokenRequestDto.getRefreshToken());
         // DB에 있는 토큰과 클라이언트가 전달한 토큰이 같은지 확인
         if(!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
             throw new RuntimeException("유저 정보가 일치하지 않습니다");
