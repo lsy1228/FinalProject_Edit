@@ -35,7 +35,6 @@ public class MakePayRequest {
             String proName = product.getProductName();
             productNameList.add(proName);
         }
-
         String productName = productNameList.size()>1 ? productNameList.get(0) + " 외 " + (productNameList.size()-1) + "개" : productNameList.get(0);
 
         String orderId = "point" + id;
