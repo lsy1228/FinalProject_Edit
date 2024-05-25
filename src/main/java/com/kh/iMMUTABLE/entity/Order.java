@@ -34,10 +34,10 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;                              // 카트
-//    private String productName;                     // 상품   이름
-//    private String productColor;                    // 상품   색상
-//    @Enumerated(EnumType.STRING)
-//    private SizeStatus sizeStatus;                  // 상품 사이즈
+    private String productName;                     // 상품   이름
+    private String productColor;                    // 상품   색상
+    @Enumerated(EnumType.STRING)
+    private SizeStatus sizeStatus;                  // 상품 사이즈
     @Column(nullable = false)
     private int totalPrice;                         // 총 가격
     @Enumerated(EnumType.STRING)
@@ -45,7 +45,7 @@ public class Order {
     private String shipCompany;                     // 배송회사
     private long shipCode;                          // 배송코드
     private int count;                              // 수량
-//    private int productPrice;                       // 상품가격
+    private int productPrice;                       // 상품가격
     private String orderName;                       // 주문자 이름
     private String orderPhone;                      // 주문자 번호
     private String orderEmail;                      // 주문자 이메일

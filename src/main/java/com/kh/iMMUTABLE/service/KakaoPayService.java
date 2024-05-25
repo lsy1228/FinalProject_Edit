@@ -78,7 +78,7 @@ public class KakaoPayService {
 
         RestTemplate rt = new RestTemplate();
         PayApproveResDto payApproveResDto = rt.postForObject(payRequest.getUrl(),requestEntity, PayApproveResDto.class);
-        log.warn("🙏🙏🙏"+payApproveResDto.getAmount());
+        log.warn("🙏🙏🙏"+payApproveResDto.getAmount().getTotal());
         return payApproveResDto;
     }
 

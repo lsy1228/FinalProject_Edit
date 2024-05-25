@@ -23,6 +23,7 @@ public class OrderDto {
     private String productImgFst;
     private String productSize;
     private int productPrice;
+    private int count;
     private int totalPrice;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
