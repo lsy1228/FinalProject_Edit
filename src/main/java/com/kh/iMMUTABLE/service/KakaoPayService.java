@@ -15,11 +15,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -48,10 +50,11 @@ public class KakaoPayService {
         headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
         headers.set("Authorization", auth);
 
+
         PayRequest payRequest = makePayRequest.getReadyRequest(id, payInfoDto);
 
         // Header와 Body를 합쳐서 RestTemplate로 보내기 위한 작업
-        HttpEntity<MultiValueMap<String, String>> urlRequest = new HttpEntity<>(payRequest.getMap(), headers);
+        HttpEntity<LinkedMultiValueMap<String, String>> urlRequest = new HttpEntity<>(payRequest.getMap(), headers);
 
         // RestTemplate로 Response 받아와서 dto로 변환 후 반환
         // 응답받은 json 객체를 java 객체로 변환 (postForObject)
@@ -71,10 +74,11 @@ public class KakaoPayService {
         // 헤더
         headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
         headers.set("Authorization", auth);
+
         // 바디
         PayRequest payRequest = makePayRequest.getApproveRequest(tid, id ,pgToken);
 
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(payRequest.getMap(), headers);
+        HttpEntity<LinkedMultiValueMap<String, String>> requestEntity = new HttpEntity<>(payRequest.getMap(), headers);
 
         RestTemplate rt = new RestTemplate();
         PayApproveResDto payApproveResDto = rt.postForObject(payRequest.getUrl(),requestEntity, PayApproveResDto.class);

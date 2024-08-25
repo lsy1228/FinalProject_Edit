@@ -34,8 +34,11 @@ public class KakaoPayController {
         log.warn(String.valueOf(id));
         PayApproveResDto approve = kakaoPayService.getApprove(id, pgToken);
         log.info("✅✅✅"+approve.toString());
+
         if (cartOrderService.cartOrder(approve, id)) {
             response.sendRedirect("http://localhost:3000/Order");
+            //response.sendRedirect("http://127.0.0.1:8111/OrderComplete");
+            //response.sendRedirect("/Order");
         } else {
 
         }

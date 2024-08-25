@@ -26,4 +26,23 @@ public class ProductDto {
     private String productImgDetail; //상세 이미지
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;
+
+
+    public ProductDto() {
+    }
+
+    public ProductDto(long productId, String productName, int productPrice, String productColor, String productSize, String productCategory, long productStock, String productImgFst, String productImgSnd, String productContent, String productImgDetail, ProductSellStatus productSellStatus) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productColor = productColor;
+        this.productSize = productSize;
+        this.productCategory = productCategory;
+        this.productStock = productStock;
+        this.productImgFst = productImgFst;
+        this.productImgSnd = productImgSnd;
+        this.productContent = productContent;
+        this.productImgDetail = productImgDetail;
+        this.productSellStatus = productSellStatus;
+    }
 }

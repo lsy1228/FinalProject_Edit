@@ -34,6 +34,8 @@ public class ProductService {
         List<ProductDto> productDtos = new ArrayList<>();
         for(Product product : products) {
             ProductDto productDto = new ProductDto();
+            /*ProductDto productDto = new ProductDto(product.getProductId(), product.getProductName(), product.getProductPrice(), product.getProductColor(),
+                    product.getSizeStatus().toString(), product.getProductCategory(), product.getProductStock(), product.getProductImgFst(), product.getProductImgSnd(), product.getProductImgDetail(), product.getProductSellStatus());*/
             productDto.setProductId(product.getProductId());
             productDto.setProductName(product.getProductName());
             productDto.setProductImgFst(product.getProductImgFst());
@@ -70,8 +72,10 @@ public class ProductService {
         List<Product> sellproducts = productRepository.findByProductSellStatus(ProductSellStatus.SELL);
         List<ProductDto> sellProductDtos = new ArrayList<>();
         for (Product product : sellproducts) {
-            ProductDto productDto = new ProductDto();
-            productDto.setProductId(product.getProductId());
+            ProductDto productDto = new ProductDto(product.getProductId(), product.getProductName(), product.getProductPrice(), product.getProductColor(), product.getSizeStatus().toString(),
+                    product.getProductCategory(), product.getProductStock(), product.getProductImgFst(), product.getProductImgSnd(), product.getProductDetail(), product.getProductImgDetail(), product.getProductSellStatus());
+            //ProductDto productDto = new ProductDto();
+           /* productDto.setProductId(product.getProductId());
             productDto.setProductName(product.getProductName());
             productDto.setProductImgFst(product.getProductImgFst());
             productDto.setProductImgSnd(product.getProductImgSnd());
@@ -82,7 +86,7 @@ public class ProductService {
             productDto.setProductColor(product.getProductColor());
             productDto.setProductStock(product.getProductStock());
             productDto.setProductSellStatus(product.getProductSellStatus());
-            productDto.setProductSize(product.getSizeStatus().toString());
+            productDto.setProductSize(product.getSizeStatus().toString());*/
             sellProductDtos.add(productDto);
         }
         return sellProductDtos;
