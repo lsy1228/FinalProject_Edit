@@ -12,6 +12,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class RefreshToken {
+
+    // key에는 userId, value에는 Refresh Token 값이 들어감
     @Id
     @Column(name = "rt_key")
     private String key;

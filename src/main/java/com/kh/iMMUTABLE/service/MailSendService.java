@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 public class MailSendService {
     // 의존성 주입을 통해 필요한 객체를 가져옴
     private final JavaMailSender javaMailSender; // 이메일을 보내기 위해 사용되는 인터페이스, 의존성 주인을 통해 이 인터페이스를 사용
-    private static final String senderEmail = "aelmusic1234@naver.com"; // 이메일을 발송할 때 사용될 발송자 이메일 주소
+    private static final String senderEmail = "258735@naver.com"; // 이메일을 발송할 때 사용될 발송자 이메일 주소
     private static int number; // 생성한 랜덤 숫자를 저장할 정적 필드
 
     public static void createNumber() { // 6자기의 램덤 숫자를 생성해 number필드에 저장

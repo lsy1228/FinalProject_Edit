@@ -64,13 +64,18 @@ public class AuthService {
 
     // 사용자 로그인 토큰
     public TokenDto userLogin(UserRequestDto requestDto) {
+        // 1. ID, PW를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
+
+        // 2. 실제로 검증
+        //    authenticate() 메소드가 실행될 때, CustonUserDetailsService에서 만들었던 loadUserByUsername 메소드가 실행됨
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
         log.info("로그인 : "+authentication.toString());
 
+        // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
 
-        // Refresh Token 저장
+        // 4. Refresh Token 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())
                 .value(tokenDto.getRefreshToken())
@@ -78,6 +83,7 @@ public class AuthService {
 
         refreshTokenRepository.save(refreshToken);
 
+        // 5. 토큰 발급
         return tokenDto;
     }
 

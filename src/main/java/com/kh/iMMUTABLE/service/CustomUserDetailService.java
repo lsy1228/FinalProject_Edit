@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
-public class AdminUserDetailService implements UserDetailsService {
+public class CustomUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
@@ -26,6 +26,7 @@ public class AdminUserDetailService implements UserDetailsService {
         }
     }
 
+    // DB에 user 값이 존재하면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(Users users) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(users.getAuthority().toString());
 
